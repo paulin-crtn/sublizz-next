@@ -15,4 +15,6 @@
 
 .container ul li {
   margin-left: 40px;
+  font-weight: 200;
+  cursor: pointer;
 }

@@ -1,0 +1,9 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headLines {
+  margin: 60px 0;
+  width: 70%;
+}

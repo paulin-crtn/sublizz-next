@@ -26,13 +26,11 @@ export const Navbar: React.FC = () => {
       <nav className={styles.container}>
         <Link href="/">Shortloc.com</Link>
         <ul>
-          <li onClick={() => setOpenSignin(true)}>Connexion</li>
-          <li onClick={() => setOpenSignup(true)}>Inscription</li>
+          <li onClick={() => setOpenSignin(true)}>Se connecter</li>
+          <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
           <li>
             <Link href="/user/leases/edit">
-              <Button size="sm" startDecorator={<Add />}>
-                Publier une annonce
-              </Button>
+              <Button startDecorator={<Add />}>Publier une annonce</Button>
             </Link>
           </li>
         </ul>
