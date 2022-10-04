@@ -7,7 +7,7 @@ import styles from "./Signin.module.css";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import FormHelperText from "@mui/joy/FormHelperText";
+import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -18,7 +18,9 @@ export const Signin: React.FC = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
-      <h4>Connexion</h4>
+      <Typography level="h4" textAlign="center">
+        Connexion
+      </Typography>
 
       <FormControl>
         <FormLabel>Email</FormLabel>

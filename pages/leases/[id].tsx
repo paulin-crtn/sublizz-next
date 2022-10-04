@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import Typography from "@mui/joy/Typography";
 import { NextPage } from "next";
 
 /* -------------------------------------------------------------------------- */
@@ -9,8 +10,8 @@ import { NextPage } from "next";
 const Lease: NextPage = () => {
   return (
     <div>
-      <h3>Lyon</h3>
-      <h4>Du 01 mai 2022 au 11 juillet 2022</h4>
+      <Typography level="h3">Lyon</Typography>
+      <Typography level="h4">Du 01 mai 2022 au 11 juillet 2022</Typography>
     </div>
   );
 };

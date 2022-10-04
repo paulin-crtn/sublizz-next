@@ -4,6 +4,7 @@
 import { useState } from "react";
 import Button from "@mui/joy/Button";
 import styles from "./Signup.module.css";
+import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -14,7 +15,9 @@ export const Signup: React.FC = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
-      <h4>Inscription</h4>
+      <Typography level="h4" textAlign="center">
+        Inscription
+      </Typography>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Avatar from "@mui/joy/Avatar";
 import styles from "./AccountLayout.module.css";
 import Button from "@mui/joy/Button";
 import Link from "next/link";
+import { Typography } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -34,7 +35,7 @@ export const AccountLayout: React.FC<Props> = ({ children, title }) => {
         </nav>
       </div>
       <div className={styles.content}>
-        <h4>{title}</h4>
+        <Typography level="h3">{title}</Typography>
         <div>{children}</div>
       </div>
     </div>

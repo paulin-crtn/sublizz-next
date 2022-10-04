@@ -6,7 +6,7 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Input from "@mui/joy/Input";
-import { Button } from "@mui/joy";
+import Typography from "@mui/joy/Typography";
 // import styles from '../styles/Home.module.css'
 
 /* -------------------------------------------------------------------------- */
@@ -16,11 +16,13 @@ const Home: NextPage = () => {
   return (
     <div>
       <header>
-        <h1>Locations et sous-locations temporaires entre particuliers</h1>
-        <h2>
+        <Typography level="h1">
+          Locations et sous-locations temporaires entre particuliers
+        </Typography>
+        <Typography level="h2">
           Concrétisez vos projets en découvrant nos offres de locations de
           courtes durées sans frais d’agence.
-        </h2>
+        </Typography>
         <FormControl>
           <FormLabel>Dans quelle ville cherches-tu ?</FormLabel>
           <Input placeholder="Lyon" />

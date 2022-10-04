@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { Typography } from "@mui/joy";
 import styles from "./Footer.module.css";
 
 /* -------------------------------------------------------------------------- */
@@ -9,7 +10,7 @@ import styles from "./Footer.module.css";
 export const Footer: React.FC = () => {
   return (
     <footer className={styles.container}>
-      <h6>Shortloc</h6>
+      <Typography level="h6">Shortloc</Typography>
       <p>
         Sublizz est un service de mise en relation pour les particuliers qui
         souhaitent sous-louer ou mettre à disposition un logement pour une

@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import Typography from "@mui/joy/Typography";
 import { NextPage } from "next";
 
 /* -------------------------------------------------------------------------- */
@@ -9,8 +10,8 @@ import { NextPage } from "next";
 const Leases: NextPage = () => {
   return (
     <div>
-      <h3>Dans quelles villes cherches-tu ?</h3>
-      <h4>34 annonces</h4>
+      <Typography level="h3">Dans quelles villes cherches-tu ?</Typography>
+      <Typography level="h4">34 annonces</Typography>
     </div>
   );
 };
