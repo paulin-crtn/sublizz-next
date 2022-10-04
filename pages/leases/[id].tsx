@@ -1,22 +1,17 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import type { NextPage } from "next";
-// import styles from '../styles/Home.module.css'
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Home: NextPage = () => {
+const Lease = () => {
   return (
     <div>
-      <h1>Locations et sous-locations temporaires entre particuliers</h1>
-      <h2>
-        Concrétisez vos projets en découvrant nos offres de locations de courtes
-        durées sans frais d’agence.
-      </h2>
+      <h3>Lyon</h3>
+      <h4>Du 01 mai 2022 au 11 juillet 2022</h4>
     </div>
   );
 };
 
-export default Home;
+export default Lease;

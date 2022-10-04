@@ -1,22 +1,16 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import type { NextPage } from "next";
-// import styles from '../styles/Home.module.css'
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Home: NextPage = () => {
+const EditLease = () => {
   return (
     <div>
-      <h1>Locations et sous-locations temporaires entre particuliers</h1>
-      <h2>
-        Concrétisez vos projets en découvrant nos offres de locations de courtes
-        durées sans frais d’agence.
-      </h2>
+      <h3>Publier une annonce</h3>
     </div>
   );
 };
 
-export default Home;
+export default EditLease;
