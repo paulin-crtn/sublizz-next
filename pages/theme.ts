@@ -37,5 +37,12 @@ export const theme: Theme = extendTheme({
         },
       },
     },
+    JoyFormControl: {
+      styleOverrides: {
+        root: {
+          marginBottom: "20px",
+        },
+      },
+    },
   },
 });

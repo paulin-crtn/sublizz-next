@@ -18,7 +18,7 @@ export const Signin: React.FC = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
-      <Typography level="h4" textAlign="center">
+      <Typography level="h4" textAlign="center" marginBottom={3}>
         Connexion
       </Typography>
 
