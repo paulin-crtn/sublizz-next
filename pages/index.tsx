@@ -7,6 +7,7 @@ import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
+import { LeaseCard } from "../components";
 // import styles from '../styles/Home.module.css'
 
 /* -------------------------------------------------------------------------- */
@@ -29,6 +30,9 @@ const Home: NextPage = () => {
           <FormHelperText>Voir toutes les annonces</FormHelperText>
         </FormControl>
       </header>
+      <main>
+        <LeaseCard></LeaseCard>
+      </main>
     </div>
   );
 };
