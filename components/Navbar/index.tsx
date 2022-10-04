@@ -24,24 +24,8 @@ export const Navbar: React.FC = () => {
       <nav className={styles.container}>
         <p>Shortloc.com</p>
         <ul>
-          <li>
-            <Button
-              size="sm"
-              variant="plain"
-              onClick={() => setOpenSignin(true)}
-            >
-              Connexion
-            </Button>
-          </li>
-          <li>
-            <Button
-              size="sm"
-              variant="plain"
-              onClick={() => setOpenSignup(true)}
-            >
-              Inscription
-            </Button>
-          </li>
+          <li onClick={() => setOpenSignin(true)}>Connexion</li>
+          <li onClick={() => setOpenSignup(true)}>Inscription</li>
           <li>
             <Button size="sm">Publier une annonce</Button>
           </li>
@@ -50,7 +34,7 @@ export const Navbar: React.FC = () => {
 
       {/** Signin */}
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
-        <ModalDialog aria-labelledby="close-modal-signin">
+        <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
           <Signin />
         </ModalDialog>
@@ -58,7 +42,7 @@ export const Navbar: React.FC = () => {
 
       {/** Signup */}
       <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
-        <ModalDialog aria-labelledby="close-modal-signup">
+        <ModalDialog size="lg" aria-labelledby="close-modal-signup">
           <ModalClose />
           <Signup />
         </ModalDialog>

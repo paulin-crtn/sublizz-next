@@ -19,5 +19,13 @@ export const theme: Theme = extendTheme({
         },
       },
     },
+    JoyModalDialog: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          maxWidth: "500px",
+        },
+      },
+    },
   },
 });

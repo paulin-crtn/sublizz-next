@@ -13,8 +13,8 @@ export const Signup: React.FC = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <>
+    <div className={styles.container}>
       <h4>Inscription</h4>
-    </>
+    </div>
   );
 };
