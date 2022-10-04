@@ -1,6 +1,11 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
 
 export const theme: Theme = extendTheme({
+  fontFamily: {
+    body: "Poppins",
+    display: "Poppins",
+    fallback: "sans-serif",
+  },
   colorSchemes: {
     light: {
       palette: {

@@ -17,10 +17,10 @@ const Home: NextPage = () => {
   return (
     <div>
       <header>
-        <Typography level="h1">
+        <Typography component="h1" level="h2">
           Locations et sous-locations temporaires entre particuliers
         </Typography>
-        <Typography level="h2">
+        <Typography component="h2" level="h4">
           Concrétisez vos projets en découvrant nos offres de locations de
           courtes durées sans frais d’agence.
         </Typography>
