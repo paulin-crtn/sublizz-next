@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.container .menu {
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: 300px;
+}
+
+.container .menu nav {
+  margin-top: 40px;
+}
+
+.container .menu nav ul li {
+  cursor: pointer;
+}

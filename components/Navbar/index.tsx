@@ -9,6 +9,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import styles from "./Navbar.module.css";
 import { Signin } from "../Signin";
 import { Signup } from "../Signup";
+import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -27,7 +28,9 @@ export const Navbar: React.FC = () => {
           <li onClick={() => setOpenSignin(true)}>Connexion</li>
           <li onClick={() => setOpenSignup(true)}>Inscription</li>
           <li>
-            <Button size="sm">Publier une annonce</Button>
+            <Link href="/user/leases/edit">
+              <Button size="sm">Publier une annonce</Button>
+            </Link>
           </li>
         </ul>
       </nav>
