@@ -7,10 +7,15 @@
 .container {
   justify-content: space-between;
   margin-top: 20px;
-  padding: 20px 30px;
+  padding: 15px 30px;
   color: #ffffff;
   background-color: #242424;
   border-radius: 9999px;
+}
+
+.container .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .container ul li {

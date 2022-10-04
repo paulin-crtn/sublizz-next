@@ -24,7 +24,9 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <nav className={styles.container}>
-        <Link href="/">Shortloc.com</Link>
+        <Link href="/">
+          <div className={styles.logo}>ShortLoc</div>
+        </Link>
         <ul>
           <li onClick={() => setOpenSignin(true)}>Se connecter</li>
           <li onClick={() => setOpenSignup(true)}>Créer un compte</li>

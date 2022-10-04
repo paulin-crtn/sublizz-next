@@ -12,8 +12,11 @@ import { LeaseCard } from "../components";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
-import Image from "next/image";
+import Image from "next/future/image";
 import styles from "../styles/Home.module.css";
+import homePic from "../public/img/home.jpg";
+import { Button } from "@mui/joy";
+import SearchIcon from "@mui/icons-material/Search";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,27 +26,42 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <header>
         <div className={styles.headLines}>
-          <Typography component="h1" level="h2">
-            Locations et sous-locations temporaires entre particuliers
+          <Typography component="h1" level="h1" fontFamily="Yeseva One">
+            <span className={styles.textGradient1}>Locations</span> et{" "}
+            <span className={styles.textGradient2}>sous-locations</span>{" "}
+            temporaires entre particuliers
           </Typography>
           <Typography component="h2" level="h4" marginTop={2} fontWeight={300}>
-            Concrétisez vos projets en découvrant nos offres de locations de
-            courtes durées sans frais d’agence.
+            Réalisez vos projets en découvrant nos offres de locations de
+            courtes durées sans frais d’agence 🙌
           </Typography>
         </div>
 
         <Card sx={{ height: "300px" }}>
           <CardCover>
             <Image
-              src="https://images.unsplash.com/photo-1502657877623-f66bf489d236?auto=format&fit=crop&w=800"
-              layout="fill"
+              src={homePic}
+              alt="Picture of the author"
+              // width={500} automatically provided
+              height="300px"
+              // blurDataURL="data:..." automatically provided
+              // placeholder="blur" // Optional blur-up while loading
             />
           </CardCover>
           <CardContent>
-            <FormControl>
-              <FormLabel>Dans quelle ville cherches-tu ?</FormLabel>
-              <Input placeholder="Lyon" />
-              <FormHelperText>Voir toutes les annonces</FormHelperText>
+            <FormControl sx={{ my: "auto", ml: "30px" }}>
+              <Typography level="h4">
+                Dans quelle ville cherchez-vous ?
+              </Typography>
+              <div className={styles.search}>
+                <Input size="lg" placeholder="Lyon" sx={{ width: "300px" }} />
+                <Button size="lg" sx={{ ml: "5px", borderRadius: "8px" }}>
+                  <SearchIcon />
+                </Button>
+              </div>
+              <FormHelperText sx={{ cursor: "pointer" }}>
+                Voir toutes les annonces
+              </FormHelperText>
             </FormControl>
           </CardContent>
         </Card>
