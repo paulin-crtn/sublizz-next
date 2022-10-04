@@ -41,11 +41,8 @@ const Home: NextPage = () => {
           <CardCover>
             <Image
               src={homePic}
-              alt="Picture of the author"
-              // width={500} automatically provided
-              height="300px"
-              // blurDataURL="data:..." automatically provided
-              // placeholder="blur" // Optional blur-up while loading
+              alt="Picture of a parisian appartment"
+              placeholder="blur"
             />
           </CardCover>
           <CardContent>
@@ -67,6 +64,14 @@ const Home: NextPage = () => {
         </Card>
       </header>
       <main>
+        <Typography
+          level="h3"
+          marginTop="60px"
+          marginBottom="30px"
+          fontFamily="Yeseva One"
+        >
+          Dernières annonces publiées
+        </Typography>
         <LeaseCard></LeaseCard>
       </main>
     </div>
