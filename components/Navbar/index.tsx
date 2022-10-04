@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import Button from "@mui/joy/Button";
 import styles from "./Navbar.module.css";
 
 /* -------------------------------------------------------------------------- */
@@ -13,7 +14,9 @@ export const Navbar: React.FC = () => {
       <ul>
         <li>Connexion</li>
         <li>Inscription</li>
-        <li>Publier une annonce</li>
+        <li>
+          <Button size="sm">Publier une annonce</Button>
+        </li>
       </ul>
     </nav>
   );

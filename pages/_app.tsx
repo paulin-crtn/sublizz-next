@@ -1,17 +1,21 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import { CssVarsProvider } from "@mui/joy/styles";
 import { Layout } from "../components/index";
+import { theme } from "./theme";
+import "../styles/globals.css";
 
 /* -------------------------------------------------------------------------- */
 /*                                 CUSTOM APP                                 */
 /* -------------------------------------------------------------------------- */
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <CssVarsProvider theme={theme}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </CssVarsProvider>
   );
 }
