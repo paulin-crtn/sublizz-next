@@ -1,17 +1,18 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
+import { PropsWithChildren } from "react";
+import { Navbar, Footer } from "./index";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserAccount: NextPage = () => {
+export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div>
-      <h3>Compte</h3>
-    </div>
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
   );
 };
-
-export default UserAccount;

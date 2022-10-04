@@ -1,17 +1,19 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserAccount: NextPage = () => {
+export const Navbar: React.FC = () => {
   return (
-    <div>
-      <h3>Compte</h3>
-    </div>
+    <nav>
+      <p>Shortloc.com</p>
+      <ul>
+        <li>Connexion</li>
+        <li>Inscription</li>
+        <li>Publier une annonce</li>
+      </ul>
+    </nav>
   );
 };
-
-export default UserAccount;
