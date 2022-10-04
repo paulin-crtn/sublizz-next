@@ -6,6 +6,7 @@ import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import Add from "@mui/icons-material/Add";
 import styles from "./Navbar.module.css";
 import { Signin } from "../Signin";
 import { Signup } from "../Signup";
@@ -29,7 +30,9 @@ export const Navbar: React.FC = () => {
           <li onClick={() => setOpenSignup(true)}>Inscription</li>
           <li>
             <Link href="/user/leases/edit">
-              <Button size="sm">Publier une annonce</Button>
+              <Button size="sm" startDecorator={<Add />}>
+                Publier une annonce
+              </Button>
             </Link>
           </li>
         </ul>
@@ -39,7 +42,7 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
-          <Signin />
+          <Signin setOpenSignin={setOpenSignin} setOpenSignup={setOpenSignup} />
         </ModalDialog>
       </Modal>
 

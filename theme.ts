@@ -21,8 +21,15 @@ export const theme: Theme = extendTheme({
     JoyButton: {
       styleOverrides: {
         root: {
-          // borderRadius: "9999px",
+          borderRadius: "9999px",
           fontWeight: "400",
+        },
+      },
+    },
+    JoyChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: "5px",
         },
       },
     },

@@ -6,6 +6,11 @@
 
 .container {
   justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px 30px;
+  color: #ffffff;
+  background-color: #242424;
+  border-radius: 9999px;
 }
 
 .container ul li {
