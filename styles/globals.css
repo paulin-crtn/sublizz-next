@@ -3,7 +3,11 @@
 }
 
 html,
-body {
+body,
+ul,
+ol,
+figure,
+p {
   padding: 0;
   margin: 0;
 }
@@ -11,4 +15,8 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+li {
+  list-style-type: none;
 }

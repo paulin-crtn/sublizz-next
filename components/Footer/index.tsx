@@ -1,13 +1,14 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import styles from "./Footer.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export const Footer: React.FC = () => {
   return (
-    <footer>
+    <footer className={styles.container}>
       <h6>Shortloc</h6>
       <p>
         Sublizz est un service de mise en relation pour les particuliers qui

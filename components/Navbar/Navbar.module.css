@@ -1,0 +1,12 @@
+.container,
+.container ul {
+  display: flex;
+}
+
+.container {
+  justify-content: space-between;
+}
+
+.container ul li {
+  margin-left: 40px;
+}
