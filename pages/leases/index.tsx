@@ -45,7 +45,7 @@ export default Leases;
 /* -------------------------------------------------------------------------- */
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch("http://localhost:4000/leases");
-  const leases = await response.json();
+  const leases: ILease[] = await response.json();
   return {
     props: { leases },
   };
