@@ -19,14 +19,16 @@ const Leases: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <div>
+    <div className={styles.container}>
       <Typography level="h3">Dans quelles villes cherches-tu ?</Typography>
       <Typography level="h4">
         {leases.length} {leases.length > 1 ? "annonces" : "annonce"}
       </Typography>
       <div className={styles.leases}>
         {leases.map((lease: ILease) => (
-          <LeaseCard lease={lease} />
+          <div className={styles.lease}>
+            <LeaseCard lease={lease} />
+          </div>
         ))}
       </div>
     </div>

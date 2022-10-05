@@ -1,6 +1,17 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .leases {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 30px;
+}
+
+.lease {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 585px;
 }

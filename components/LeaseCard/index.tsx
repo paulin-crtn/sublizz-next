@@ -16,13 +16,11 @@ import { ILease } from "../../interfaces/lease";
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
-  console.log(lease);
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Card row sx={{ width: 560 }}>
+    <Card row>
       <CardOverflow>
-        <AspectRatio ratio="16/11.2" sx={{ width: 260 }}>
+        <AspectRatio ratio="16/12.5" sx={{ width: 260 }}>
           <Image src={lease.leaseImages[0].url} layout="fill" />
         </AspectRatio>
       </CardOverflow>
@@ -45,7 +43,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
 
         <Sheet sx={{ mt: 2, mb: 3 }}>
           <Typography level="body2">
-            {lease.startDate.toString()}
+            Disponible du {lease.startDate.toString()} au{" "}
             {lease.endDate.toString()}
           </Typography>
           {lease.isDateFlexible && (
