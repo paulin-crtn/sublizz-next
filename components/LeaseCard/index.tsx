@@ -36,7 +36,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
           <Typography level="h5" fontWeight="600">
             {lease.city}
           </Typography>
-          <Typography level="h5" fontWeight="300">
+          <Typography level="h6" fontWeight="300">
             {lease.pricePerMonth}€ CC
           </Typography>
         </Sheet>

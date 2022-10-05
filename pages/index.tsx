@@ -17,6 +17,7 @@ import styles from "../styles/Home.module.css";
 import homePic from "../public/img/home.jpg";
 import { Button } from "@mui/joy";
 import SearchIcon from "@mui/icons-material/Search";
+import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -56,8 +57,8 @@ const Home: NextPage = () => {
                   <SearchIcon />
                 </Button>
               </div>
-              <FormHelperText sx={{ cursor: "pointer" }}>
-                Voir toutes les annonces
+              <FormHelperText>
+                <Link href="/leases">Voir toutes les annonces</Link>
               </FormHelperText>
             </FormControl>
           </CardContent>

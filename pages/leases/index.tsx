@@ -7,6 +7,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Link from "next/link";
 import { LeaseCard } from "../../components";
 import { ILease } from "../../interfaces/lease";
 import styles from "../../styles/Leases.module.css";
@@ -26,9 +27,11 @@ const Leases: NextPage = ({
       </Typography>
       <div className={styles.leases}>
         {leases.map((lease: ILease) => (
-          <div className={styles.lease}>
-            <LeaseCard lease={lease} />
-          </div>
+          <Link href={`/leases/${lease.id}`}>
+            <div className={styles.lease}>
+              <LeaseCard lease={lease} />
+            </div>
+          </Link>
         ))}
       </div>
     </div>
