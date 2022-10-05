@@ -72,7 +72,6 @@ const Home: NextPage = () => {
         >
           Dernières annonces publiées
         </Typography>
-        <LeaseCard></LeaseCard>
       </main>
     </div>
   );
