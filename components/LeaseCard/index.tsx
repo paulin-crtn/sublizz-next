@@ -20,7 +20,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   return (
     <Card row>
       <CardOverflow>
-        <AspectRatio ratio="16/12.5" sx={{ width: 260 }}>
+        <AspectRatio ratio="16/12.1" sx={{ width: 260 }}>
           <Image src={lease.leaseImages[0].url} layout="fill" />
         </AspectRatio>
       </CardOverflow>
@@ -33,7 +33,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             alignItems: "center",
           }}
         >
-          <Typography level="h4" fontWeight="600">
+          <Typography level="h5" fontWeight="600">
             {lease.city}
           </Typography>
           <Typography level="h5" fontWeight="300">
