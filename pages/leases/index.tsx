@@ -27,7 +27,7 @@ const Leases: NextPage = ({
       </Typography>
       <div className={styles.leases}>
         {leases.map((lease: ILease) => (
-          <Link href={`/leases/${lease.id}`}>
+          <Link href={`/leases/${lease.id}`} key={lease.id}>
             <div className={styles.lease}>
               <LeaseCard lease={lease} />
             </div>
