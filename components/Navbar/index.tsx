@@ -2,15 +2,15 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useState } from "react";
+import Link from "next/link";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Add from "@mui/icons-material/Add";
-import styles from "./Navbar.module.css";
 import { Signin } from "../Signin";
 import { Signup } from "../Signup";
-import Link from "next/link";
+import styles from "./Navbar.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -24,6 +24,10 @@ export const Navbar: React.FC = () => {
   function switchSignModal() {
     setOpenSignup((openSignup) => !openSignup);
     setOpenSignin((openSignin) => !openSignin);
+  }
+
+  function switchToPasswordReset() {
+    setOpenSignin(false);
   }
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -46,7 +50,10 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
-          <Signin switchSignModal={switchSignModal} />
+          <Signin
+            switchSignModal={switchSignModal}
+            switchToPasswordReset={switchToPasswordReset}
+          />
         </ModalDialog>
       </Modal>
 

@@ -1,29 +1,34 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import Typography from "@mui/joy/Typography";
+import { useState } from "react";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
 import Image from "next/image";
-import Card from "@mui/joy/Card";
+/* -------------------------------- COMPONENT ------------------------------- */
+import { LeaseChips } from "../../components/LeaseChips";
+import { ContactAuthor } from "../../components/ContactAuthor";
+/* -------------------------------- INTERFACE ------------------------------- */
+import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
+/* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
-import { LeaseChips } from "../../components/LeaseChips";
-import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
-import styles from "../../styles/Lease.module.css";
+/* --------------------------------- MUI JOY -------------------------------- */
+import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
-import { useState } from "react";
 import Modal from "@mui/joy/Modal";
-import Box from "@mui/joy/Box";
-import CardCover from "@mui/joy/CardCover";
-import Button from "@mui/joy/Button";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import { ContactAuthor } from "../../components/ContactAuthor";
+import Box from "@mui/joy/Box";
+import Card from "@mui/joy/Card";
+import CardCover from "@mui/joy/CardCover";
+import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
+/* --------------------------------- STYLES --------------------------------- */
+import styles from "../../styles/Lease.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

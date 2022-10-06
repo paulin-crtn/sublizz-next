@@ -8,14 +8,17 @@ import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
+import FormHelperText from "@mui/joy/FormHelperText";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export const Signin = ({
   switchSignModal,
+  switchToPasswordReset,
 }: {
   switchSignModal: () => void;
+  switchToPasswordReset: () => void;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
@@ -36,19 +39,26 @@ export const Signin = ({
       <FormControl>
         <FormLabel>Mot de passe</FormLabel>
         <Input variant="soft" />
+        <FormHelperText
+          onClick={switchToPasswordReset}
+          sx={{ cursor: "pointer" }}
+        >
+          Mot de passe oublié
+        </FormHelperText>
       </FormControl>
 
-      <Button fullWidth>Se connecter</Button>
+      <Button fullWidth sx={{ mt: 2 }}>
+        Se connecter
+      </Button>
 
-      <Typography level="body2" marginTop={4}>
-        Pas encore de compte ?{" "}
-        <Typography
-          sx={{ cursor: "pointer" }}
-          borderBottom={1}
-          onClick={switchSignModal}
-        >
-          Créer un compte
-        </Typography>
+      <Typography
+        level="body2"
+        marginTop={2}
+        textAlign="center"
+        sx={{ cursor: "pointer" }}
+        onClick={switchSignModal}
+      >
+        Pas encore de compte ? Créer un compte
       </Typography>
     </>
   );

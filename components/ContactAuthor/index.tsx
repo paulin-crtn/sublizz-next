@@ -8,9 +8,9 @@ import FormLabel from "@mui/joy/FormLabel";
 import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
-import Input from "@mui/joy/Input";
+import Box from "@mui/joy/Box";
+import Chip from "@mui/joy/Chip";
 import { IAuthor } from "../../interfaces/author";
-import { Chip } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -29,28 +29,32 @@ export const ContactAuthor = ({ author }: { author: IAuthor }) => {
 
       <FormControl>
         <FormLabel>Informations envoyées avec le message</FormLabel>
-        <Chip
-          color="neutral"
-          variant="soft"
-          sx={{ fontWeight: 300, width: "min-content", mb: 1 }}
-        >
-          Bertrand
-        </Chip>
-        <Chip
-          color="neutral"
-          variant="soft"
-          sx={{ fontWeight: 300, width: "min-content" }}
-        >
-          bertrand@gmail.com
-        </Chip>
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <Chip
+            color="neutral"
+            variant="soft"
+            sx={{ fontWeight: 300, width: "min-content" }}
+          >
+            Bertrand
+          </Chip>
+          <Chip
+            color="neutral"
+            variant="soft"
+            sx={{ fontWeight: 300, width: "min-content" }}
+          >
+            bertrand@gmail.com
+          </Chip>
+        </Box>
       </FormControl>
 
       <FormControl>
         <FormLabel>Message à envoyer</FormLabel>
-        <Textarea variant="soft" minRows={4} />
+        <Textarea variant="soft" minRows={5} />
       </FormControl>
 
-      <Button fullWidth>Envoyer le message</Button>
+      <Button fullWidth sx={{ mt: 2 }}>
+        Envoyer le message
+      </Button>
     </>
   );
 };
