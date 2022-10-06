@@ -21,7 +21,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
     <Card row>
       <CardOverflow>
         <AspectRatio ratio="16/12.1" sx={{ width: 260 }}>
-          <Image src={lease.leaseImages[0].url} layout="fill" />
+          <Image src={lease.leaseImages[0].url} layout="fill" priority={true} />
         </AspectRatio>
       </CardOverflow>
 
