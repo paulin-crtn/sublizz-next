@@ -32,7 +32,7 @@ export const Signin = ({
   return (
     <div className={styles.container}>
       <Typography level="h4" textAlign="center">
-        Connexion
+        Se connecter
       </Typography>
 
       <Divider sx={{ my: 3 }} />

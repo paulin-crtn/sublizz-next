@@ -10,9 +10,9 @@ export const theme: Theme = extendTheme({
     light: {
       palette: {
         primary: {
-          solidBg: "#D2883D",
-          outlinedBorder: "#D2883D",
-          outlinedColor: "#D2883D",
+          solidBg: "crimson",
+          outlinedBorder: "crimson",
+          outlinedColor: "crimson",
         },
       },
     },

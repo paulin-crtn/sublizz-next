@@ -16,7 +16,7 @@ export const Signup: React.FC = () => {
   return (
     <div className={styles.container}>
       <Typography level="h4" textAlign="center">
-        Inscription
+        Créer un compte
       </Typography>
     </div>
   );

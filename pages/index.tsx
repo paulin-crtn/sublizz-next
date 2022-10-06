@@ -27,12 +27,18 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <header>
         <div className={styles.headLines}>
-          <Typography component="h1" level="h1" fontFamily="Yeseva One">
+          <Typography
+            component="h1"
+            level="h1"
+            fontSize={48}
+            fontWeight={700}
+            lineHeight={1.2}
+          >
             <span className={styles.textGradient1}>Locations</span> et{" "}
             <span className={styles.textGradient2}>sous-locations</span>{" "}
             temporaires entre particuliers
           </Typography>
-          <Typography component="h2" level="h4" marginTop={2} fontWeight={300}>
+          <Typography component="h2" level="h5" marginTop={2} fontWeight={300}>
             Réalisez vos projets en découvrant nos offres de locations de
             courtes durées sans frais d’agence 🙌
           </Typography>

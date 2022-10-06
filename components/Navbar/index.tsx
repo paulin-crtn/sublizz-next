@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
         <ul>
           <li onClick={() => setOpenSignin(true)}>Se connecter</li>
           <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
-          <li>
+          <li className={styles.cta}>
             <Link href="/user/leases/edit">
               <Button startDecorator={<Add />}>Publier une annonce</Button>
             </Link>

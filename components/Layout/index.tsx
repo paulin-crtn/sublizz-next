@@ -10,10 +10,12 @@ import styles from "./Layout.module.css";
 /* -------------------------------------------------------------------------- */
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className={styles.container}>
+    <>
       <Navbar />
-      {children}
-      <Footer />
-    </div>
+      <div className={styles.container}>
+        {children}
+        <Footer />
+      </div>
+    </>
   );
 };
