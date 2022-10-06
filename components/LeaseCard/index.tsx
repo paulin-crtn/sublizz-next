@@ -10,6 +10,7 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Chip from "@mui/joy/Chip";
 import Sheet from "@mui/joy/Sheet";
+import { LeaseChips } from "../LeaseChips";
 import { ILease } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
@@ -53,43 +54,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
           )}
         </Sheet>
 
-        <Sheet
-          sx={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
-          <Chip
-            size="sm"
-            sx={{ mr: 0.75, color: "#ffffff", backgroundColor: "#000000" }}
-          >
-            {lease.type}
-          </Chip>
-          <Chip
-            variant="outlined"
-            size="sm"
-            sx={{
-              mr: 0.75,
-              color: "#000000",
-              backgroundColor: "#ffffff",
-              borderColor: "#000000",
-            }}
-          >
-            {lease.room} pièces
-          </Chip>
-          <Chip
-            variant="outlined"
-            size="sm"
-            sx={{
-              color: "#000000",
-              backgroundColor: "#ffffff",
-              borderColor: "#000000",
-            }}
-          >
-            {lease.surface}m2
-          </Chip>
-        </Sheet>
+        <LeaseChips lease={lease} />
       </CardContent>
     </Card>
   );
