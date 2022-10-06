@@ -1,6 +1,6 @@
 .container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 45px auto;
 }
 
 .header,
@@ -10,12 +10,28 @@
   align-items: flex-start;
 }
 
-.pictures figure {
-  width: 400px;
+.author,
+.dates {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.dates {
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.dates > * {
+  margin-right: 15px;
 }
 
 .wrapper {
-  gap: 20px;
+  gap: 32px;
+}
+
+.author {
+  margin-top: 48px;
 }
 
 .cta {
@@ -25,9 +41,4 @@
 .cta button {
   width: 100%;
   margin-bottom: 10px;
-}
-
-.author {
-  display: flex;
-  align-items: center;
 }

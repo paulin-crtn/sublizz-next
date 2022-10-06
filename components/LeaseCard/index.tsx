@@ -54,7 +54,7 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
           )}
         </Sheet>
 
-        <LeaseChips lease={lease} />
+        <LeaseChips lease={lease} size="sm" />
       </CardContent>
     </Card>
   );

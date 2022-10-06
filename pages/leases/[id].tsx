@@ -28,25 +28,36 @@ const Lease: NextPage = ({
     <div className={styles.container}>
       <header className={styles.header}>
         <div>
-          <Typography level="h3">{lease.city}</Typography>
-          <Typography level="h4">
-            Du {lease.startDate} au {lease.endDate}
+          <Typography component="h1" level="h3">
+            {lease.city}
           </Typography>
-          {lease.isDateFlexible && (
-            <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>
-              Dates flexibles
-            </Chip>
-          )}
+
+          <div className={styles.dates}>
+            <Typography level="h5" fontWeight={300}>
+              Du {lease.startDate} au {lease.endDate}
+            </Typography>
+            {!!lease.isDateFlexible && (
+              <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>
+                Dates flexibles
+              </Chip>
+            )}
+          </div>
+
           <LeaseChips lease={lease} />
         </div>
 
         <div>
-          <Typography level="h5">{lease.pricePerMonth}€ CC</Typography>
+          <Typography level="h4" fontWeight={400}>
+            {lease.pricePerMonth}€ CC
+          </Typography>
         </div>
       </header>
 
       <main>
-        <Box component="ul" sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+        <Box
+          component="ul"
+          sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 3, mb: 6 }}
+        >
           {lease.leaseImages.map((image: ILeaseImage) => (
             <Card
               key={image.id}
@@ -62,7 +73,9 @@ const Lease: NextPage = ({
 
         <div className={styles.wrapper}>
           <div>
-            <Typography level="body1">{lease.description}</Typography>
+            <Typography level="h6" fontWeight={300}>
+              {lease.description}
+            </Typography>
             <div className={styles.author}>
               <Avatar
                 alt="Photo de profil de l'auteur de l'annonce"
@@ -74,7 +87,7 @@ const Lease: NextPage = ({
                 }}
               />
               <div>
-                <Typography level="body1" fontWeight={300}>
+                <Typography fontWeight={300}>
                   Annonce publiée le {lease.createdAt}
                   <br />
                   par{" "}

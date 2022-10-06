@@ -9,9 +9,13 @@ import { ILease, ILeaseDetail } from "../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */
 /* -------------------------------------------------------------------------- */
-export const LeaseChips: FunctionComponent<{
+export const LeaseChips = ({
+  lease,
+  size = "md",
+}: {
   lease: ILease | ILeaseDetail;
-}> = ({ lease }) => {
+  size?: "sm" | "md" | "lg";
+}) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Sheet
@@ -22,14 +26,14 @@ export const LeaseChips: FunctionComponent<{
       }}
     >
       <Chip
-        size="sm"
+        size={size}
         sx={{ mr: 0.75, color: "#ffffff", backgroundColor: "#000000" }}
       >
         {lease.type}
       </Chip>
       <Chip
         variant="outlined"
-        size="sm"
+        size={size}
         sx={{
           mr: 0.75,
           color: "#000000",
@@ -41,7 +45,7 @@ export const LeaseChips: FunctionComponent<{
       </Chip>
       <Chip
         variant="outlined"
-        size="sm"
+        size={size}
         sx={{
           color: "#000000",
           backgroundColor: "#ffffff",
