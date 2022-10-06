@@ -43,7 +43,7 @@ export const Signup = ({
         <Input variant="soft" />
       </FormControl>
 
-      <Button>Créer un compte</Button>
+      <Button fullWidth>Créer un compte</Button>
 
       <Typography level="body2" marginTop={4}>
         Déjà un compte ?{" "}

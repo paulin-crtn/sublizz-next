@@ -28,21 +28,19 @@ export const Navbar: React.FC = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <>
-      <nav className={styles.container}>
-        <Link href="/">
-          <div className={styles.logo}>ShortLoc</div>
-        </Link>
-        <ul>
-          <li onClick={() => setOpenSignin(true)}>Se connecter</li>
-          <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
-          <li className={styles.cta}>
-            <Link href="/user/leases/edit">
-              <Button startDecorator={<Add />}>Publier une annonce</Button>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+    <nav className={styles.container}>
+      <Link href="/">
+        <div className={styles.logo}>ShortLoc</div>
+      </Link>
+      <ul>
+        <li onClick={() => setOpenSignin(true)}>Se connecter</li>
+        <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
+        <li className={styles.cta}>
+          <Link href="/user/leases/edit">
+            <Button startDecorator={<Add />}>Publier une annonce</Button>
+          </Link>
+        </li>
+      </ul>
 
       {/** Signin */}
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
@@ -59,6 +57,6 @@ export const Navbar: React.FC = () => {
           <Signup switchSignModal={switchSignModal} />
         </ModalDialog>
       </Modal>
-    </>
+    </nav>
   );
 };

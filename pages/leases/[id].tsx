@@ -1,7 +1,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Box, Button, CardCover, Chip } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {
   GetServerSideProps,
@@ -16,6 +15,15 @@ import { LeaseChips } from "../../components/LeaseChips";
 import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
 import styles from "../../styles/Lease.module.css";
 import Avatar from "@mui/joy/Avatar";
+import { useState } from "react";
+import Modal from "@mui/joy/Modal";
+import Box from "@mui/joy/Box";
+import CardCover from "@mui/joy/CardCover";
+import Button from "@mui/joy/Button";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+import { ContactAuthor } from "../../components/ContactAuthor";
+import Chip from "@mui/joy/Chip";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,6 +31,10 @@ import Avatar from "@mui/joy/Avatar";
 const Lease: NextPage = ({
   lease,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [openContact, setOpenContact] = useState<boolean>(false);
+  const [openReport, setOpenReport] = useState<boolean>(false);
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
@@ -99,15 +111,37 @@ const Lease: NextPage = ({
             </div>
           </div>
           <div className={styles.cta}>
-            <Button startDecorator={<EmailIcon />}>
+            <Button
+              startDecorator={<EmailIcon />}
+              onClick={() => setOpenContact(true)}
+            >
               Contacter {lease.user.firstName}
             </Button>
-            <Button startDecorator={<FlagIcon />} variant="outlined">
+            <Button
+              startDecorator={<FlagIcon />}
+              onClick={() => setOpenReport(true)}
+              variant="outlined"
+            >
               Signaler l'annonce
             </Button>
           </div>
         </div>
       </main>
+
+      {/** Contact author */}
+      <Modal open={openContact} onClose={() => setOpenContact(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-contact">
+          <ModalClose />
+          <ContactAuthor author={lease.user} />
+        </ModalDialog>
+      </Modal>
+
+      {/** Report lease */}
+      <Modal open={openReport} onClose={() => setOpenReport(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-report">
+          <ModalClose />
+        </ModalDialog>
+      </Modal>
     </div>
   );
 };

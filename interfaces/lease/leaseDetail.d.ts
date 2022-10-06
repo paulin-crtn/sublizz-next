@@ -1,3 +1,4 @@
+import { IAuthor } from "../author";
 import { ILease } from "./";
 
 export interface ILeaseDetail extends ILease {
@@ -5,5 +6,5 @@ export interface ILeaseDetail extends ILease {
   houseNumber?: string;
   description?: string;
   isPublished: number;
-  user: { id: number; firstName: string; lastName: string };
+  user: IAuthor;
 }

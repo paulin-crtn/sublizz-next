@@ -5,51 +5,52 @@ import { useState } from "react";
 import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
-import Input from "@mui/joy/Input";
+import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
+import Input from "@mui/joy/Input";
+import { IAuthor } from "../../interfaces/author";
+import { Chip } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Signin = ({
-  switchSignModal,
-}: {
-  switchSignModal: () => void;
-}) => {
+export const ContactAuthor = ({ author }: { author: IAuthor }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
       <Typography level="h4" textAlign="center">
-        Se connecter
+        Contacter {author.firstName}
       </Typography>
 
       <Divider sx={{ my: 3 }} />
 
       <FormControl>
-        <FormLabel>Email</FormLabel>
-        <Input variant="soft" />
+        <FormLabel>Informations envoyées avec le message</FormLabel>
+        <Chip
+          color="neutral"
+          variant="soft"
+          sx={{ fontWeight: 300, width: "min-content", mb: 1 }}
+        >
+          Bertrand
+        </Chip>
+        <Chip
+          color="neutral"
+          variant="soft"
+          sx={{ fontWeight: 300, width: "min-content" }}
+        >
+          bertrand@gmail.com
+        </Chip>
       </FormControl>
 
       <FormControl>
-        <FormLabel>Mot de passe</FormLabel>
-        <Input variant="soft" />
+        <FormLabel>Message à envoyer</FormLabel>
+        <Textarea variant="soft" minRows={4} />
       </FormControl>
 
-      <Button fullWidth>Se connecter</Button>
-
-      <Typography level="body2" marginTop={4}>
-        Pas encore de compte ?{" "}
-        <Typography
-          sx={{ cursor: "pointer" }}
-          borderBottom={1}
-          onClick={switchSignModal}
-        >
-          Créer un compte
-        </Typography>
-      </Typography>
+      <Button fullWidth>Envoyer le message</Button>
     </>
   );
 };

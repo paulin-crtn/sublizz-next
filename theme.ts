@@ -56,5 +56,10 @@ export const theme: Theme = extendTheme({
         },
       },
     },
+    JoyFormLabel: {
+      styleOverrides: {
+        root: { fontSize: "0.95rem", marginBottom: "10px" },
+      },
+    },
   },
 });
