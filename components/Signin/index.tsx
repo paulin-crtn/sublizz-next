@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 import { useState } from "react";
 import Button from "@mui/joy/Button";
-import styles from "./Signin.module.css";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -14,23 +13,15 @@ import Divider from "@mui/joy/Divider";
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export const Signin = ({
-  setOpenSignin,
-  setOpenSignup,
+  switchSignModal,
 }: {
-  setOpenSignin: (arg: boolean) => void;
-  setOpenSignup: (arg: boolean) => void;
+  switchSignModal: () => void;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
-  /* -------------------------------- FUNCTIONS ------------------------------- */
-  function switchSignModal() {
-    setOpenSignup(true);
-    setOpenSignin(false);
-  }
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <div className={styles.container}>
+    <>
       <Typography level="h4" textAlign="center">
         Se connecter
       </Typography>
@@ -56,9 +47,9 @@ export const Signin = ({
           borderBottom={1}
           onClick={switchSignModal}
         >
-          S'inscrire
+          Créer un compte
         </Typography>
       </Typography>
-    </div>
+    </>
   );
 };

@@ -20,6 +20,12 @@ export const Navbar: React.FC = () => {
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
 
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  function switchSignModal() {
+    setOpenSignup((openSignup) => !openSignup);
+    setOpenSignin((openSignin) => !openSignin);
+  }
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
@@ -42,7 +48,7 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
-          <Signin setOpenSignin={setOpenSignin} setOpenSignup={setOpenSignup} />
+          <Signin switchSignModal={switchSignModal} />
         </ModalDialog>
       </Modal>
 
@@ -50,7 +56,7 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signup">
           <ModalClose />
-          <Signup />
+          <Signup switchSignModal={switchSignModal} />
         </ModalDialog>
       </Modal>
     </>
