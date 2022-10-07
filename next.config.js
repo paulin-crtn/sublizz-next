@@ -10,6 +10,9 @@ const nextConfig = {
       "cloudflare-ipfs.com",
     ],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
 };
 
 module.exports = nextConfig;
