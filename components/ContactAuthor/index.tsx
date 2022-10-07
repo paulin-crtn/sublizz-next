@@ -18,7 +18,7 @@ export const ContactAuthor = () => {
   return (
     <>
       <FormControl>
-        <FormLabel>Informations envoyées avec le message</FormLabel>
+        <FormLabel>Expéditeur</FormLabel>
         <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
           <Chip
             color="neutral"
