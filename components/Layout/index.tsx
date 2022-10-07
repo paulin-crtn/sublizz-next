@@ -2,13 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { PropsWithChildren } from "react";
-import { Navbar, Footer } from "../index";
-import styles from "./Layout.module.css";
+import Footer from "../footer";
+import Navbar from "../navbar";
+import styles from "./layout.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Navbar />
@@ -17,3 +18,5 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     </>
   );
 };
+
+export default Layout;

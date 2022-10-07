@@ -3,9 +3,9 @@
 /* -------------------------------------------------------------------------- */
 import type { AppProps } from "next/app";
 import { CssVarsProvider } from "@mui/joy/styles";
-import { Layout } from "../components/index";
-import { theme } from "../theme";
 import "../styles/globals.css";
+import { theme } from "../theme";
+import Layout from "../components/layout";
 
 /* -------------------------------------------------------------------------- */
 /*                                 CUSTOM APP                                 */

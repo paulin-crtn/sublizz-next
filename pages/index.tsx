@@ -3,19 +3,16 @@
 /* -------------------------------------------------------------------------- */
 import type { NextPage } from "next";
 import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
-import Sheet from "@mui/joy/Sheet";
-import { LeaseCard } from "../components";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Image from "next/future/image";
 import styles from "../styles/Home.module.css";
 import homePic from "../public/img/home.jpg";
-import { Button } from "@mui/joy";
+import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
 
@@ -24,7 +21,7 @@ import Link from "next/link";
 /* -------------------------------------------------------------------------- */
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <>
       <header>
         <div className={styles.headLines}>
           <Typography
@@ -82,7 +79,7 @@ const Home: NextPage = () => {
           Dernières annonces publiées
         </Typography>
       </main>
-    </div>
+    </>
   );
 };
 

@@ -8,16 +8,16 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Add from "@mui/icons-material/Add";
-import { Signin } from "../Signin";
-import { Signup } from "../Signup";
-import styles from "./Navbar.module.css";
-import { ModalLayout } from "../ModalLayout";
 import Typography from "@mui/joy/Typography";
+import Signin from "../signin";
+import Signup from "../signup";
+import ModalLayout from "../modal-layout";
+import styles from "./navbar.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Navbar: React.FC = () => {
+const Navbar: React.FC = () => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
@@ -88,3 +88,5 @@ export const Navbar: React.FC = () => {
     </nav>
   );
 };
+
+export default Navbar;

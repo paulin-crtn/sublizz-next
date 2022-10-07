@@ -10,7 +10,7 @@ import FormHelperText from "@mui/joy/FormHelperText";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Signin = ({
+const Signin = ({
   switchToPasswordReset,
 }: {
   switchToPasswordReset: () => void;
@@ -38,3 +38,5 @@ export const Signin = ({
     </>
   );
 };
+
+export default Signin;

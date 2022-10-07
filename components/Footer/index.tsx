@@ -3,12 +3,12 @@
 /* -------------------------------------------------------------------------- */
 import { Box, List, ListItem, Typography } from "@mui/joy";
 import Link from "next/link";
-import styles from "./Footer.module.css";
+import styles from "./footer.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <footer className={styles.container}>
       <div className={styles.content}>
@@ -57,11 +57,19 @@ export const Footer: React.FC = () => {
               Location et sous-location
             </Typography>
             <List size="sm" aria-labelledby="decorated-list-demo">
-              <ListItem sx={{ color: "#ffffff", fontWeight: 200 }}>
-                <Link href="/leases">Rechercher une annonce</Link>
+              <ListItem>
+                <Link href="/leases">
+                  <span className={styles.listItem}>
+                    Rechercher une annonce
+                  </span>
+                </Link>
               </ListItem>
-              <ListItem sx={{ color: "#ffffff", fontWeight: 200 }}>
-                <Link href="/leases">Consulter toutes les annonces</Link>
+              <ListItem>
+                <Link href="/leases">
+                  <span className={styles.listItem}>
+                    Consulter toutes les annonces
+                  </span>
+                </Link>
               </ListItem>
             </List>
           </Box>
@@ -91,3 +99,5 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+
+export default Footer;

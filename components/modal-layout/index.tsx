@@ -16,7 +16,7 @@ type Props = PropsWithChildren<{
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const ModalLayout: FunctionComponent<Props> = ({ title, children }) => {
+const ModalLayout: FunctionComponent<Props> = ({ title, children }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -36,3 +36,5 @@ export const ModalLayout: FunctionComponent<Props> = ({ title, children }) => {
     </>
   );
 };
+
+export default ModalLayout;

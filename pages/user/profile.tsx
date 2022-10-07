@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
-import { AccountLayout } from "../../components";
+import AccountLayout from "../../components/account-layout";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

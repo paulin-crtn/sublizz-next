@@ -2,18 +2,20 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { PropsWithChildren } from "react";
-import Avatar from "@mui/joy/Avatar";
-import styles from "./AccountLayout.module.css";
-import Button from "@mui/joy/Button";
 import Link from "next/link";
+import Avatar from "@mui/joy/Avatar";
 import { Typography } from "@mui/joy";
+import styles from "./account-layout.module.css";
+
+/* -------------------------------------------------------------------------- */
+/*                                    PROPS                                   */
+/* -------------------------------------------------------------------------- */
+type Props = PropsWithChildren<{ title: string }>;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-type Props = PropsWithChildren<{ title: string }>;
-
-export const AccountLayout: React.FC<Props> = ({ children, title }) => {
+const AccountLayout: React.FC<Props> = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
@@ -41,3 +43,5 @@ export const AccountLayout: React.FC<Props> = ({ children, title }) => {
     </div>
   );
 };
+
+export default AccountLayout;

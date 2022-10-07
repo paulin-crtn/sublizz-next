@@ -9,7 +9,7 @@ import { ILease, ILeaseDetail } from "../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */
 /* -------------------------------------------------------------------------- */
-export const LeaseChips = ({
+const LeaseChips = ({
   lease,
   size = "md",
 }: {
@@ -57,3 +57,5 @@ export const LeaseChips = ({
     </Sheet>
   );
 };
+
+export default LeaseChips;

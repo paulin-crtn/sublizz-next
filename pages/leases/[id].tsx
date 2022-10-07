@@ -9,10 +9,14 @@ import {
 } from "next";
 import Image from "next/image";
 import { fr } from "date-fns/locale";
+import { format } from "date-fns";
 
 /* -------------------------------- COMPONENT ------------------------------- */
-import { LeaseChips } from "../../components/LeaseChips";
-import { ContactAuthor } from "../../components/ContactAuthor";
+import LeaseChips from "../../components/lease-chips";
+import ModalLayout from "../../components/modal-layout";
+import ContactAuthor from "../../components/contact-author";
+import ReportLease from "../../components/report-lease";
+
 /* -------------------------------- INTERFACE ------------------------------- */
 import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
 /* -------------------------------- MUI ICONS ------------------------------- */
@@ -31,9 +35,6 @@ import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
-import { ReportLease } from "../../components/ReportLease";
-import { ModalLayout } from "../../components/ModalLayout";
-import { format } from "date-fns";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -47,7 +48,7 @@ const Lease: NextPage = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <div className={styles.container}>
+    <>
       <header className={styles.header}>
         <div>
           <Typography component="h1" level="h3">
@@ -158,7 +159,7 @@ const Lease: NextPage = ({
           </ModalLayout>
         </ModalDialog>
       </Modal>
-    </div>
+    </>
   );
 };
 

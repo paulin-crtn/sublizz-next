@@ -10,13 +10,13 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Chip from "@mui/joy/Chip";
 import Sheet from "@mui/joy/Sheet";
-import { LeaseChips } from "../LeaseChips";
+import LeaseChips from "../lease-chips";
 import { ILease } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
+const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Card row>
@@ -59,3 +59,5 @@ export const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
     </Card>
   );
 };
+
+export default LeaseCard;
