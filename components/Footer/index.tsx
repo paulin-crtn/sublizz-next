@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { Box, List, ListItem, Typography } from "@mui/joy";
+import Link from "next/link";
 import styles from "./Footer.module.css";
 
 /* -------------------------------------------------------------------------- */
@@ -57,10 +58,10 @@ export const Footer: React.FC = () => {
             </Typography>
             <List size="sm" aria-labelledby="decorated-list-demo">
               <ListItem sx={{ color: "#ffffff", fontWeight: 200 }}>
-                Rechercher une annonce
+                <Link href="/leases">Rechercher une annonce</Link>
               </ListItem>
               <ListItem sx={{ color: "#ffffff", fontWeight: 200 }}>
-                Consulter toutes les annonces
+                <Link href="/leases">Consulter toutes les annonces</Link>
               </ListItem>
             </List>
           </Box>
