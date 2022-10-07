@@ -8,6 +8,8 @@ import {
   NextPage,
 } from "next";
 import Image from "next/image";
+import { fr } from "date-fns/locale";
+
 /* -------------------------------- COMPONENT ------------------------------- */
 import { LeaseChips } from "../../components/LeaseChips";
 import { ContactAuthor } from "../../components/ContactAuthor";
@@ -31,6 +33,7 @@ import Chip from "@mui/joy/Chip";
 import styles from "../../styles/Lease.module.css";
 import { ReportLease } from "../../components/ReportLease";
 import { ModalLayout } from "../../components/ModalLayout";
+import { format } from "date-fns";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -53,7 +56,8 @@ const Lease: NextPage = ({
 
           <div className={styles.dates}>
             <Typography level="h5" fontWeight={300}>
-              Du {lease.startDate} au {lease.endDate}
+              Du {lease.startDate /*format(lease.startDate, "dd LLLL uuuu")*/}{" "}
+              au {lease.endDate}
             </Typography>
             {!!lease.isDateFlexible && (
               <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>

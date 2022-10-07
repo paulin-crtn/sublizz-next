@@ -30,8 +30,9 @@ const Home: NextPage = () => {
           <Typography
             component="h1"
             level="h1"
+            fontFamily="Bitter"
             fontSize={48}
-            fontWeight={700}
+            fontWeight={800}
             lineHeight={1.2}
           >
             <span className={styles.textGradient1}>Locations</span> et{" "}
@@ -75,7 +76,8 @@ const Home: NextPage = () => {
           level="h3"
           marginTop="60px"
           marginBottom="30px"
-          fontFamily="Yeseva One"
+          fontFamily="Bitter"
+          fontWeight={600}
         >
           Dernières annonces publiées
         </Typography>
