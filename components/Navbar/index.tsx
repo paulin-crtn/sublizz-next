@@ -11,6 +11,8 @@ import Add from "@mui/icons-material/Add";
 import { Signin } from "../Signin";
 import { Signup } from "../Signup";
 import styles from "./Navbar.module.css";
+import { ModalLayout } from "../ModalLayout";
+import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -50,10 +52,18 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
-          <Signin
-            switchSignModal={switchSignModal}
-            switchToPasswordReset={switchToPasswordReset}
-          />
+          <ModalLayout title="Se connecter">
+            <Signin switchToPasswordReset={switchToPasswordReset} />
+          </ModalLayout>
+          <Typography
+            level="body2"
+            marginTop={2}
+            textAlign="center"
+            sx={{ cursor: "pointer" }}
+            onClick={switchSignModal}
+          >
+            Pas encore de compte ? Créer un compte
+          </Typography>
         </ModalDialog>
       </Modal>
 
@@ -61,7 +71,18 @@ export const Navbar: React.FC = () => {
       <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-signup">
           <ModalClose />
-          <Signup switchSignModal={switchSignModal} />
+          <ModalLayout title="Créer un compte">
+            <Signup />
+          </ModalLayout>
+          <Typography
+            level="body2"
+            marginTop={2}
+            textAlign="center"
+            sx={{ cursor: "pointer" }}
+            onClick={switchSignModal}
+          >
+            Déjà un compte ? Se connecter
+          </Typography>
         </ModalDialog>
       </Modal>
     </nav>

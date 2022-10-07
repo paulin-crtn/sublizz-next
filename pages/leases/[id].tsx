@@ -29,6 +29,8 @@ import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
+import { ReportLease } from "../../components/ReportLease";
+import { ModalLayout } from "../../components/ModalLayout";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -137,7 +139,9 @@ const Lease: NextPage = ({
       <Modal open={openContact} onClose={() => setOpenContact(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-contact">
           <ModalClose />
-          <ContactAuthor author={lease.user} />
+          <ModalLayout title={`Contacter ${lease.user.firstName}`}>
+            <ContactAuthor />
+          </ModalLayout>
         </ModalDialog>
       </Modal>
 
@@ -145,6 +149,9 @@ const Lease: NextPage = ({
       <Modal open={openReport} onClose={() => setOpenReport(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-report">
           <ModalClose />
+          <ModalLayout title="Signaler l'annonce">
+            <ReportLease leaseId={lease.id} />
+          </ModalLayout>
         </ModalDialog>
       </Modal>
     </div>

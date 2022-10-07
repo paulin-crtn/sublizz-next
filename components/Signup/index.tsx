@@ -2,33 +2,21 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useState } from "react";
-import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
-import Divider from "@mui/joy/Divider";
 import Switch from "@mui/joy/Switch";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export const Signup = ({
-  switchSignModal,
-}: {
-  switchSignModal: () => void;
-}) => {
+export const Signup = () => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <Typography level="h4" textAlign="center">
-        Créer un compte
-      </Typography>
-
-      <Divider sx={{ my: 3 }} />
-
       <FormControl>
         <FormLabel>Prénom</FormLabel>
         <Input variant="soft" />
@@ -69,20 +57,6 @@ export const Signup = ({
           </div>
         </Typography>
       </FormControl>
-
-      <Button fullWidth sx={{ mt: 2 }}>
-        Créer un compte
-      </Button>
-
-      <Typography
-        level="body2"
-        marginTop={2}
-        textAlign="center"
-        sx={{ cursor: "pointer" }}
-        onClick={switchSignModal}
-      >
-        Déjà un compte ? Se connecter
-      </Typography>
     </>
   );
 };
