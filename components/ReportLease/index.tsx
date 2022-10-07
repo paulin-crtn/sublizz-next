@@ -15,7 +15,7 @@ export const ReportLease = ({ leaseId }: { leaseId: number }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <FormControl>
-      <FormLabel>Motif du signalement</FormLabel>
+      <FormLabel>Motif</FormLabel>
       <Textarea variant="soft" minRows={3} />
     </FormControl>
   );
