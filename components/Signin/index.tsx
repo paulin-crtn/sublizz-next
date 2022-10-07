@@ -35,8 +35,22 @@ const Signin = ({
   const { errors, isSubmitting } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+    console.log("payload: ", payload);
+    try {
+      const response = await fetch("http://localhost:4000/auth/signin", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      console.log("data: ", data);
+    } catch (error) {
+      throw new Error("Error while fetching data " + error);
+    }
   };
 
   console.log(errors);
