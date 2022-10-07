@@ -7,11 +7,12 @@ import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Switch from "@mui/joy/Switch";
+import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Signup = () => {
+const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -57,6 +58,18 @@ const Signup = () => {
           </div>
         </Typography>
       </FormControl>
+
+      <Button fullWidth>Créer un compte</Button>
+
+      <Typography
+        level="body2"
+        marginTop={2}
+        textAlign="center"
+        sx={{ cursor: "pointer" }}
+        onClick={switchSignModal}
+      >
+        Déjà un compte ? Se connecter
+      </Typography>
     </>
   );
 };

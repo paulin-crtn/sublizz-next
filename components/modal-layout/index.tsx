@@ -4,7 +4,6 @@
 import { FunctionComponent, PropsWithChildren } from "react";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
-import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -29,10 +28,6 @@ const ModalLayout: FunctionComponent<Props> = ({ title, children }) => {
       <Divider sx={{ my: 3 }} />
 
       {children}
-
-      <Button fullWidth sx={{ mt: 2 }}>
-        {title}
-      </Button>
     </>
   );
 };

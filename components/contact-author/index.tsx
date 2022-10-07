@@ -7,11 +7,13 @@ import FormLabel from "@mui/joy/FormLabel";
 import Textarea from "@mui/joy/Textarea";
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
+import Button from "@mui/joy/Button";
+import { IAuthor } from "../../interfaces/author";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const ContactAuthor = () => {
+const ContactAuthor = ({ author }: { author: IAuthor }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -41,6 +43,8 @@ const ContactAuthor = () => {
         <FormLabel>Message à envoyer</FormLabel>
         <Textarea variant="soft" minRows={5} />
       </FormControl>
+
+      <Button fullWidth>Contacter {author.firstName}</Button>
     </>
   );
 };

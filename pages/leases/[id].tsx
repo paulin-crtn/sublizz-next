@@ -145,7 +145,7 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-contact">
           <ModalClose />
           <ModalLayout title={`Contacter ${lease.user.firstName}`}>
-            <ContactAuthor />
+            <ContactAuthor author={lease.user} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

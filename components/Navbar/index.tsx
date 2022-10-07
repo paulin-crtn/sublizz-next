@@ -53,17 +53,11 @@ const Navbar: React.FC = () => {
         <ModalDialog size="lg" aria-labelledby="close-modal-signin">
           <ModalClose />
           <ModalLayout title="Se connecter">
-            <Signin switchToPasswordReset={switchToPasswordReset} />
+            <Signin
+              switchSignModal={switchSignModal}
+              switchToPasswordReset={switchToPasswordReset}
+            />
           </ModalLayout>
-          <Typography
-            level="body2"
-            marginTop={2}
-            textAlign="center"
-            sx={{ cursor: "pointer" }}
-            onClick={switchSignModal}
-          >
-            Pas encore de compte ? Créer un compte
-          </Typography>
         </ModalDialog>
       </Modal>
 
@@ -72,17 +66,8 @@ const Navbar: React.FC = () => {
         <ModalDialog size="lg" aria-labelledby="close-modal-signup">
           <ModalClose />
           <ModalLayout title="Créer un compte">
-            <Signup />
+            <Signup switchSignModal={switchSignModal} />
           </ModalLayout>
-          <Typography
-            level="body2"
-            marginTop={2}
-            textAlign="center"
-            sx={{ cursor: "pointer" }}
-            onClick={switchSignModal}
-          >
-            Déjà un compte ? Se connecter
-          </Typography>
         </ModalDialog>
       </Modal>
     </nav>
