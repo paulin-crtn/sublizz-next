@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import Chip from "@mui/joy/Chip";
 import Sheet from "@mui/joy/Sheet";
-import { FunctionComponent } from "react";
+import { convertLeaseType } from "../../utils/convertLeaseType";
 import { ILease, ILeaseDetail } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
@@ -29,7 +29,7 @@ export const LeaseChips = ({
         size={size}
         sx={{ mr: 0.75, color: "#ffffff", backgroundColor: "#000000" }}
       >
-        {lease.type}
+        {convertLeaseType(lease.type)}
       </Chip>
       <Chip
         variant="outlined"
