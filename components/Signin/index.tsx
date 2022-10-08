@@ -42,6 +42,7 @@ const Signin = ({
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+    setServerErrors([]);
     try {
       const response = await fetch("http://localhost:4000/auth/signin", {
         method: "POST",

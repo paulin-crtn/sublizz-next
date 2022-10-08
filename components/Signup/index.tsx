@@ -12,6 +12,7 @@ import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
+import FormHelperText from "@mui/joy/FormHelperText";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -44,6 +45,7 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+    setServerErrors([]);
     try {
       const response = await fetch("http://localhost:4000/auth/signup", {
         method: "POST",
@@ -93,22 +95,69 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
           </Alert>
         ))}
 
-      <FormControl>
+      <FormControl error={!!errors.firstName}>
         <FormLabel>Prénom</FormLabel>
-        <Input type="text" variant="soft" {...register("firstName")} />
+        <Input
+          type="text"
+          variant="soft"
+          {...register("firstName", {
+            required: "Ce champs est requis",
+            minLength: {
+              value: 3,
+              message: "3 caractères minimum",
+            },
+            maxLength: {
+              value: 30,
+              message: "30 caractères maximum",
+            },
+          })}
+        />
+        {errors.firstName && (
+          <FormHelperText>{errors.firstName.message}</FormHelperText>
+        )}
       </FormControl>
 
-      <FormControl>
+      <FormControl error={!!errors.email}>
         <FormLabel>Email</FormLabel>
-        <Input type="email" variant="soft" {...register("email")} />
+        <Input
+          type="email"
+          variant="soft"
+          {...register("email", {
+            required: "Ce champs est requis",
+            pattern: {
+              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+              message: "Vous devez renseigner une adresse email valide",
+            },
+          })}
+        />
+        {errors.email && (
+          <FormHelperText>{errors.email.message}</FormHelperText>
+        )}
       </FormControl>
 
-      <FormControl>
+      <FormControl error={!!errors.password}>
         <FormLabel>Mot de passe</FormLabel>
-        <Input type="password" variant="soft" {...register("password")} />
+        <Input
+          type="password"
+          variant="soft"
+          {...register("password", {
+            required: "Ce champs est requis",
+            minLength: {
+              value: 8,
+              message: "8 caractères minimum",
+            },
+            maxLength: {
+              value: 20,
+              message: "20 caractères maximum",
+            },
+          })}
+        />
+        {errors.password && (
+          <FormHelperText>{errors.password.message}</FormHelperText>
+        )}
       </FormControl>
 
-      <FormControl>
+      <FormControl error={!!errors.consent}>
         <Typography
           component="div"
           fontSize="0.9rem"
