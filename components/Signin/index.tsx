@@ -40,16 +40,8 @@ const Signin = ({
   });
   const { errors, isSubmitting } = formState;
 
-  const wait = function (duration = 1000) {
-    return new Promise((resolve) => {
-      window.setTimeout(resolve, duration);
-    });
-  };
-
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
-    await wait(15000);
-    console.log("payload: ", payload);
     try {
       const response = await fetch("http://localhost:4000/auth/signin", {
         method: "POST",
