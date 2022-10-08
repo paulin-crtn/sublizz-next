@@ -27,7 +27,12 @@ const LeaseChips = ({
     >
       <Chip
         size={size}
-        sx={{ mr: 0.75, color: "#ffffff", backgroundColor: "#000000" }}
+        sx={{
+          mr: 0.75,
+          color: "#ffffff",
+          backgroundColor: "#000000",
+          borderColor: "#000000",
+        }}
       >
         {convertLeaseType(lease.type)}
       </Chip>
