@@ -39,7 +39,7 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
           fontSize="0.9rem"
           fontWeight={300}
           lineHeight={1.8}
-          startDecorator={<Switch variant="soft" sx={{ mr: 2 }} />}
+          startDecorator={<Switch variant="solid" sx={{ mr: 2 }} />}
           sx={{ alignItems: "flex-start" }}
         >
           <div>

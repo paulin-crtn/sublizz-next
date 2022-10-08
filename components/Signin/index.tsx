@@ -2,13 +2,16 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
+import CircularProgress from "@mui/joy/CircularProgress";
+import Alert from "@mui/joy/Alert";
+import ErrorIcon from "@mui/icons-material/Error";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -28,14 +31,24 @@ const Signin = ({
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
 }) => {
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [serverError, setServerError] = useState<string>("");
+
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState } = useForm<IFormInputs>({
     mode: "onTouched",
   });
   const { errors, isSubmitting } = formState;
 
+  const wait = function (duration = 1000) {
+    return new Promise((resolve) => {
+      window.setTimeout(resolve, duration);
+    });
+  };
+
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+    await wait(15000);
     console.log("payload: ", payload);
     try {
       const response = await fetch("http://localhost:4000/auth/signin", {
@@ -48,8 +61,14 @@ const Signin = ({
       });
       const data = await response.json();
       console.log("data: ", data);
+
+      if (data.statusCode != 200) {
+        setServerError(data.message);
+      }
     } catch (error) {
-      throw new Error("Error while fetching data " + error);
+      setServerError(
+        "Une erreur serveur est survenue : " + JSON.stringify(error)
+      );
     }
   };
 
@@ -58,6 +77,17 @@ const Signin = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {serverError && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          {serverError}
+        </Alert>
+      )}
+
       <FormControl error={!!errors.email}>
         <FormLabel>Email</FormLabel>
         <Input
@@ -106,9 +136,18 @@ const Signin = ({
         </Typography>
       </FormControl>
 
-      <Button fullWidth type="submit" disabled={isSubmitting}>
-        Se connecter
-      </Button>
+      {!isSubmitting && (
+        <Button fullWidth type="submit">
+          Se connecter
+        </Button>
+      )}
+      {isSubmitting && (
+        <Button
+          fullWidth
+          disabled
+          startDecorator={<CircularProgress color="danger" thickness={3} />}
+        />
+      )}
 
       <Typography
         level="body2"

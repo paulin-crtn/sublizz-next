@@ -10,9 +10,21 @@ export const theme: Theme = extendTheme({
     light: {
       palette: {
         primary: {
+          solidBorder: "crimson",
+          solidActiveBorder: "crimson",
+          solidActiveColor: "crimson",
+          solidActiveBg: "#E8153F",
           solidBg: "crimson",
+          solidHoverBg: "#E8153F",
+          solidDisabledBg: "#B61B32",
+          solidDisabledBorder: "#B61B32",
+          solidDisabledColor: "#B61B32",
+
           outlinedBorder: "crimson",
           outlinedColor: "crimson",
+
+          // softColor: "#B61B32",
+          // softBg: "#FFE9E8",
         },
       },
     },
@@ -21,16 +33,13 @@ export const theme: Theme = extendTheme({
     JoyButton: {
       styleOverrides: {
         root: {
-          borderRadius: "9999px",
           fontWeight: "400",
         },
       },
     },
     JoyChip: {
       styleOverrides: {
-        root: {
-          borderRadius: "5px",
-        },
+        root: {},
       },
     },
     JoyModalDialog: {
