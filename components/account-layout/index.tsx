@@ -24,7 +24,8 @@ const AccountLayout: React.FC<Props> = ({ children, title }) => {
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
     const router = useRouter();
-    if (router.asPath === "/user/" + key) {
+    const current = router.asPath.split("/")[2];
+    if (current === key) {
       return styles.active;
     }
   };
@@ -33,8 +34,10 @@ const AccountLayout: React.FC<Props> = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
-        <Avatar variant="solid" />
-        <p>Bernard</p>
+        <Avatar variant="solid" sx={{ width: 90, height: 90, mx: "auto" }} />
+        <Typography level="h5" textAlign="center" mt={2}>
+          Bernard
+        </Typography>
         <nav>
           <ul>
             <li className={[styles.navButton, isActive("leases")].join(" ")}>
