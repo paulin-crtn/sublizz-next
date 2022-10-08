@@ -2,9 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { PropsWithChildren } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Avatar from "@mui/joy/Avatar";
-import { Typography } from "@mui/joy";
+import Typography from "@mui/joy/Typography";
+import NotesIcon from "@mui/icons-material/Notes";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import styles from "./account-layout.module.css";
 
 /* -------------------------------------------------------------------------- */
@@ -16,6 +21,15 @@ type Props = PropsWithChildren<{ title: string }>;
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const AccountLayout: React.FC<Props> = ({ children, title }) => {
+  /* -------------------------------- FUNCTION -------------------------------- */
+  const isActive = (key: string) => {
+    const router = useRouter();
+    if (router.asPath === "/user/" + key) {
+      return styles.active;
+    }
+  };
+
+  /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
@@ -23,16 +37,40 @@ const AccountLayout: React.FC<Props> = ({ children, title }) => {
         <p>Bernard</p>
         <nav>
           <ul>
-            <li>
-              <Link href="/user/leases">Annonces</Link>
+            <li className={[styles.navButton, isActive("leases")].join(" ")}>
+              <Link href="/user/leases">
+                <Typography
+                  startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
+                >
+                  Annonces
+                </Typography>
+              </Link>
             </li>
-            <li>
-              <Link href="/user/profile">Profil</Link>
+            <li className={[styles.navButton, isActive("profile")].join(" ")}>
+              <Link href="/user/profile">
+                <Typography
+                  startDecorator={<PersonIcon sx={{ marginRight: 1 }} />}
+                >
+                  Profil
+                </Typography>
+              </Link>
             </li>
-            <li>
-              <Link href="/user/account">Compte</Link>
+            <li className={[styles.navButton, isActive("account")].join(" ")}>
+              <Link href="/user/account">
+                <Typography
+                  startDecorator={<SettingsIcon sx={{ marginRight: 1 }} />}
+                >
+                  Compte
+                </Typography>
+              </Link>
             </li>
-            <li>Déconnexion</li>
+            <li className={styles.navButton}>
+              <Typography
+                startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
+              >
+                Déconnexion
+              </Typography>
+            </li>
           </ul>
         </nav>
       </div>

@@ -1,19 +1,49 @@
 .container {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
+  gap: 40px;
 }
 
-.container .menu {
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 300px;
+.menu,
+.content {
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.container .menu nav {
+.menu {
+  flex: 0 0 300px;
+}
+
+.menu nav {
   margin-top: 40px;
 }
 
-.container .menu nav ul li {
+.navButton {
+  margin: 10px 0;
+  background-color: rgb(230, 230, 230);
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.navButton:last-child {
+  margin-top: 50px;
+}
+
+.navButton > * {
+  padding: 10px 15px;
+}
+
+.navButton.active {
+  background-color: #000000;
+}
+
+.navButton.active > * {
+  color: #ffffff;
+}
+
+.content {
+  flex: 1 1;
 }
