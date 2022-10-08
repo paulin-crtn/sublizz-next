@@ -22,14 +22,21 @@ export const theme: Theme = extendTheme({
 
           outlinedBorder: "crimson",
           outlinedColor: "crimson",
-
-          // softColor: "#B61B32",
-          // softBg: "#FFE9E8",
+        },
+        danger: {
+          plainColor: "crimson",
         },
       },
     },
   },
   components: {
+    JoyTypography: {
+      styleOverrides: {
+        root: {
+          padding: "0",
+        },
+      },
+    },
     JoyButton: {
       styleOverrides: {
         root: {
@@ -47,7 +54,7 @@ export const theme: Theme = extendTheme({
         root: {
           width: "100%",
           maxWidth: "500px",
-          maxHeight: "90vh",
+          maxHeight: "95vh",
           overflowY: "auto",
         },
       },

@@ -13,6 +13,7 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
+import Box from "@mui/joy/Box";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -157,7 +158,7 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
         )}
       </FormControl>
 
-      <FormControl error={!!errors.consent}>
+      <FormControl>
         <Typography
           component="div"
           fontSize="0.9rem"
@@ -166,27 +167,36 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
           startDecorator={
             <Switch
               checked={isConsent}
+              {...register("consent", {
+                required: "Vous devez accepter pour continuer",
+              })}
               onChange={(event) => setIsConsent(event.target.checked)}
               variant="solid"
-              sx={{ mr: 2 }}
             />
           }
           sx={{ alignItems: "flex-start" }}
         >
-          <div>
-            J'accepte les{" "}
-            <a target="_blank" href="#">
-              Conditions Générales d'Utilisation
-            </a>
-            , la{" "}
-            <a target="_blank" href="#">
-              Politique de Confidentialité
-            </a>{" "}
-            et les{" "}
-            <a target="_blank" href="#">
-              Mentions Légales
-            </a>
-          </div>
+          <Box sx={{ ml: 2 }}>
+            {errors.consent && (
+              <Typography display="block" color="danger">
+                {errors.consent.message}
+              </Typography>
+            )}
+            <Typography>
+              J'accepte les{" "}
+              <a target="_blank" href="#">
+                Conditions Générales d'Utilisation
+              </a>
+              , la{" "}
+              <a target="_blank" href="#">
+                Politique de Confidentialité
+              </a>{" "}
+              et les{" "}
+              <a target="_blank" href="#">
+                Mentions Légales
+              </a>
+            </Typography>
+          </Box>
         </Typography>
       </FormControl>
 
