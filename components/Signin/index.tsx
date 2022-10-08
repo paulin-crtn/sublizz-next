@@ -32,7 +32,7 @@ const Signin = ({
   switchToPasswordReset: () => void;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [serverError, setServerError] = useState<string>("");
+  const [serverErrors, setServerErrors] = useState<string[]>([]);
 
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState } = useForm<IFormInputs>({
@@ -51,34 +51,45 @@ const Signin = ({
         },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
-      console.log("data: ", data);
 
-      if (data.statusCode != 200) {
-        setServerError(data.message);
+      const data = await response.json();
+
+      if (data.statusCode && data.statusCode != 200) {
+        handleServerError(data.message);
       }
     } catch (error) {
-      setServerError(
-        "Une erreur serveur est survenue : " + JSON.stringify(error)
-      );
+      console.log(error);
+      handleServerError(error);
     }
   };
 
-  console.log(errors);
+  const handleServerError = (error: unknown) => {
+    if (error instanceof Error) {
+      setServerErrors([error.message]);
+    } else if (error instanceof Array) {
+      setServerErrors(error);
+    } else if (typeof error === "string") {
+      setServerErrors([error]);
+    } else {
+      setServerErrors(["Server error"]);
+    }
+  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {serverError && (
-        <Alert
-          startDecorator={<ErrorIcon />}
-          variant="soft"
-          color="danger"
-          sx={{ mb: 2 }}
-        >
-          {serverError}
-        </Alert>
-      )}
+      {!!serverErrors.length &&
+        serverErrors.map((error: string, index: number) => (
+          <Alert
+            key={index}
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {error}
+          </Alert>
+        ))}
 
       <FormControl error={!!errors.email}>
         <FormLabel>Email</FormLabel>

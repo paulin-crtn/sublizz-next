@@ -47,6 +47,8 @@ export const theme: Theme = extendTheme({
         root: {
           width: "100%",
           maxWidth: "500px",
+          maxHeight: "90vh",
+          overflowY: "auto",
         },
       },
     },
