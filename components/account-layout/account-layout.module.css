@@ -23,13 +23,17 @@
 
 .navButton {
   margin: 10px 0;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(235, 235, 235);
   border-radius: 5px;
   cursor: pointer;
 }
 
 .navButton:last-child {
   margin-top: 50px;
+}
+
+.navButton:hover {
+  background-color: rgb(225, 225, 225);
 }
 
 .navButton > * {
