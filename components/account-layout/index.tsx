@@ -10,6 +10,8 @@ import NotesIcon from "@mui/icons-material/Notes";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useAuth } from "../../context/auth.context";
+import { IUser } from "../../interfaces/user";
 import styles from "./account-layout.module.css";
 
 /* -------------------------------------------------------------------------- */
@@ -21,6 +23,12 @@ type Props = PropsWithChildren<{ title: string }>;
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { setJwt, user } = useAuth();
+
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
     const router = useRouter();
@@ -34,9 +42,13 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
-        <Avatar variant="solid" sx={{ width: 90, height: 90, mx: "auto" }} />
+        <Avatar
+          src={user?.profilePictureUrl}
+          variant="solid"
+          sx={{ width: 90, height: 90, mx: "auto" }}
+        />
         <Typography level="h5" textAlign="center" mt={2}>
-          Bernard
+          {user?.firstName}
         </Typography>
         <nav>
           <ul>
@@ -70,7 +82,8 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
             <li
               className={styles.navButton}
               onClick={() => {
-                console.log("logout");
+                setJwt(null);
+                router.push("/");
               }}
             >
               <Typography

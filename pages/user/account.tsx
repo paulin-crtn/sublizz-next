@@ -4,6 +4,7 @@
 import { NextPage } from "next";
 import { useAuth } from "../../context/auth.context";
 import AccountLayout from "../../components/account-layout";
+import AccessDenied from "../../components/access-denied";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -14,7 +15,7 @@ const UserAccount: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (!user) {
-    return <div>Access denied</div>;
+    return <AccessDenied />;
   }
   return <AccountLayout title="Compte">Email</AccountLayout>;
 };

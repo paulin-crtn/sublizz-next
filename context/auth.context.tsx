@@ -1,7 +1,13 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { IUser } from "../interfaces/user";
 
 /* -------------------------------------------------------------------------- */
@@ -15,7 +21,7 @@ interface IAuthContext {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                   CONTEXT                                  */
+/*                                AUTH CONTEXT                                */
 /* -------------------------------------------------------------------------- */
 const AuthContext = createContext<IAuthContext>({
   jwt: null,
@@ -25,12 +31,21 @@ const AuthContext = createContext<IAuthContext>({
 });
 
 /* -------------------------------------------------------------------------- */
-/*                                  PROVIDER                                  */
+/*                                AUTH PROVIDER                               */
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  /* ------------------------------- REACT STATE ------------------------------ */
   const [jwt, setJwt] = useState<string | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
 
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  useEffect(() => {
+    if (!jwt) {
+      setUser(null);
+    }
+  }, [jwt]);
+
+  /* -------------------------------- PROVIDER -------------------------------- */
   return (
     <AuthContext.Provider value={{ jwt, setJwt, user, setUser }}>
       {children}
@@ -38,4 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/*                                CONTEXT HOOK                                */
+/* -------------------------------------------------------------------------- */
 export const useAuth = () => useContext(AuthContext);

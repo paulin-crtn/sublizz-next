@@ -1,23 +1,25 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
-import AccessDenied from "../../../components/access-denied";
-import AccountLayout from "../../../components/account-layout";
-import { useAuth } from "../../../context/auth.context";
+import { Box, Typography } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditLease: NextPage = () => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { user } = useAuth();
-
+const AccessDenied = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
-  return <AccountLayout title="Publier une annonce">Type</AccountLayout>;
+  return (
+    <Box display="flex" alignItems="stretch" minHeight="calc(100vh - 300px)">
+      <Box margin="auto">
+        <Typography component="h1" level="h1" marginBottom={1}>
+          Accès refusé
+        </Typography>
+        <Typography component="h2" level="h4" fontWeight={300}>
+          Vous devez vous connecter pour accéder à cette page
+        </Typography>
+      </Box>
+    </Box>
+  );
 };
 
-export default EditLease;
+export default AccessDenied;
