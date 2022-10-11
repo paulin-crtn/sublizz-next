@@ -1,23 +1,26 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 import Link from "next/link";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Add from "@mui/icons-material/Add";
-import Typography from "@mui/joy/Typography";
 import Signin from "../signin";
 import Signup from "../signup";
 import ModalLayout from "../modal-layout";
 import styles from "./navbar.module.css";
+import { useAuth } from "../../context/auth.context";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Navbar: React.FC = () => {
+const Navbar: FunctionComponent = () => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
@@ -39,8 +42,12 @@ const Navbar: React.FC = () => {
         <div className={styles.logo}>ShortLoc</div>
       </Link>
       <ul>
-        <li onClick={() => setOpenSignin(true)}>Se connecter</li>
-        <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
+        {!user && (
+          <>
+            <li onClick={() => setOpenSignin(true)}>Se connecter</li>
+            <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
+          </>
+        )}
         <li className={styles.cta}>
           <Link href="/user/leases/edit">
             <Button startDecorator={<Add />}>Publier une annonce</Button>
@@ -54,6 +61,7 @@ const Navbar: React.FC = () => {
           <ModalClose />
           <ModalLayout title="Se connecter">
             <Signin
+              setOpenSignin={setOpenSignin}
               switchSignModal={switchSignModal}
               switchToPasswordReset={switchToPasswordReset}
             />

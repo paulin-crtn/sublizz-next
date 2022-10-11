@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { PropsWithChildren } from "react";
+import { FunctionComponent, PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Avatar from "@mui/joy/Avatar";
@@ -20,7 +20,7 @@ type Props = PropsWithChildren<{ title: string }>;
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const AccountLayout: React.FC<Props> = ({ children, title }) => {
+const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
     const router = useRouter();
@@ -67,7 +67,12 @@ const AccountLayout: React.FC<Props> = ({ children, title }) => {
                 </Typography>
               </Link>
             </li>
-            <li className={styles.navButton}>
+            <li
+              className={styles.navButton}
+              onClick={() => {
+                console.log("logout");
+              }}
+            >
               <Typography
                 startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
               >

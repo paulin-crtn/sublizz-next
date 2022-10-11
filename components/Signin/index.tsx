@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -12,6 +12,7 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
+import { useAuth } from "../../context/auth.context";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -25,12 +26,17 @@ interface IFormInputs {
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const Signin = ({
+  setOpenSignin,
   switchSignModal,
   switchToPasswordReset,
 }: {
+  setOpenSignin: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
 }) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { setUser } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [serverErrors, setServerErrors] = useState<string[]>([]);
 
@@ -57,6 +63,9 @@ const Signin = ({
 
       if (data.statusCode && data.statusCode != 200) {
         handleServerError(data.message);
+      } else {
+        setUser({ jwt: data.access_token, ...data.user });
+        setOpenSignin(false);
       }
     } catch (error) {
       console.log(error);
