@@ -8,6 +8,8 @@ import { IUser } from "../interfaces/user";
 /*                                  INTERFACE                                 */
 /* -------------------------------------------------------------------------- */
 interface IAuthContext {
+  jwt: string | null;
+  setJwt: (arg: string | null) => void;
   user: IUser | null;
   setUser: (arg: IUser | null) => void;
 }
@@ -16,6 +18,8 @@ interface IAuthContext {
 /*                                   CONTEXT                                  */
 /* -------------------------------------------------------------------------- */
 const AuthContext = createContext<IAuthContext>({
+  jwt: null,
+  setJwt: () => {},
   user: null,
   setUser: () => {},
 });
@@ -24,9 +28,11 @@ const AuthContext = createContext<IAuthContext>({
 /*                                  PROVIDER                                  */
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [jwt, setJwt] = useState<string | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ jwt, setJwt, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -35,7 +35,7 @@ const Signin = ({
   switchToPasswordReset: () => void;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setUser } = useAuth();
+  const { setJwt, setUser } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [serverErrors, setServerErrors] = useState<string[]>([]);
@@ -64,7 +64,8 @@ const Signin = ({
       if (data.statusCode && data.statusCode != 200) {
         handleServerError(data.message);
       } else {
-        setUser({ jwt: data.access_token, ...data.user });
+        setJwt(data.access_token);
+        setUser(data.user);
         setOpenSignin(false);
       }
     } catch (error) {

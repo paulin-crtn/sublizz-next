@@ -9,20 +9,10 @@ import Layout from "../components/layout";
 import "../styles/globals.css";
 
 /* -------------------------------------------------------------------------- */
-/*                                  INTERFACE                                 */
-/* -------------------------------------------------------------------------- */
-interface ICustomPageProps {
-  isProtected: boolean;
-}
-
-/* -------------------------------------------------------------------------- */
 /*                                 CUSTOM APP                                 */
 /* -------------------------------------------------------------------------- */
 
-export default function MyApp({
-  Component,
-  pageProps,
-}: AppProps<ICustomPageProps>) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CssVarsProvider theme={theme}>
       <AuthProvider>
