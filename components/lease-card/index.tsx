@@ -47,7 +47,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             Disponible du {lease.startDate.toString()} au{" "}
             {lease.endDate.toString()}
           </Typography>
-          {lease.isDateFlexible && (
+          {!!lease.isDateFlexible && (
             <Chip variant="soft" color="neutral" size="sm" sx={{ mt: 0.5 }}>
               Dates flexibles
             </Chip>
