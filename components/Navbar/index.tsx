@@ -100,20 +100,20 @@ const Navbar: FunctionComponent = () => {
                     </Typography>
                   </MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>
-                  <Link href="/user/profile">
+                <Link href="/user/profile">
+                  <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<PersonIcon />}>
                       Profil
                     </Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Link href="/user/account">
+                  </MenuItem>
+                </Link>
+                <Link href="/user/account">
+                  <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<SettingsIcon />}>
                       Compte
                     </Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
               </Menu>
             </li>
             <li className={styles.cta}>
