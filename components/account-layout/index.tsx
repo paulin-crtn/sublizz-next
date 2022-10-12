@@ -23,7 +23,7 @@ type Props = PropsWithChildren<{ title: string }>;
 /* -------------------------------------------------------------------------- */
 const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setJwt, user } = useAuth();
+  const { user, setUser } = useAuth();
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
@@ -81,7 +81,8 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
             <li
               className={styles.navButton}
               onClick={() => {
-                setJwt(null);
+                localStorage.removeItem("sublizz");
+                setUser(null);
                 router.push("/");
               }}
             >

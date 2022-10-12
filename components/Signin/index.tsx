@@ -13,6 +13,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
+import { customFetch } from "../../utils/customFetch";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -35,7 +36,7 @@ const Signin = ({
   switchToPasswordReset: () => void;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setJwt, setUser } = useAuth();
+  const { setUser } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [serverErrors, setServerErrors] = useState<string[]>([]);
@@ -57,6 +58,7 @@ const Signin = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+        credentials: "include",
       });
 
       const data = await response.json();
@@ -64,12 +66,13 @@ const Signin = ({
       if (data.statusCode && data.statusCode != 200) {
         handleServerError(data.message);
       } else {
-        setJwt(data.access_token);
-        setUser(data.user);
-        setOpenSignin(false);
+        localStorage.setItem("sublizz", data.access_token);
+        customFetch("users/me", "GET")
+          .then((user) => setUser(user))
+          .catch((error) => console.error(error))
+          .finally(() => setOpenSignin(false));
       }
     } catch (error) {
-      console.log(error);
       handleServerError(error);
     }
   };

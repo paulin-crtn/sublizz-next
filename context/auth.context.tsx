@@ -8,26 +8,25 @@ import {
   useEffect,
   useState,
 } from "react";
+import { customFetch } from "../utils/customFetch";
 import { IUser } from "../interfaces/user";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
 /* -------------------------------------------------------------------------- */
 interface IAuthContext {
-  jwt: string | null;
-  setJwt: (arg: string | null) => void;
   user: IUser | null;
   setUser: (arg: IUser | null) => void;
+  // fetchUser: () => Promise<any>;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                AUTH CONTEXT                                */
 /* -------------------------------------------------------------------------- */
 const AuthContext = createContext<IAuthContext>({
-  jwt: null,
-  setJwt: () => {},
   user: null,
   setUser: () => {},
+  // fetchUser: () => Promise.resolve(),
 });
 
 /* -------------------------------------------------------------------------- */
@@ -35,19 +34,21 @@ const AuthContext = createContext<IAuthContext>({
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [jwt, setJwt] = useState<string | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    if (!jwt) {
-      setUser(null);
+    const jwt = localStorage.getItem("sublizz");
+    if (jwt) {
+      customFetch("users/me", "GET")
+        .then((user) => setUser(user))
+        .catch((error) => console.error(error));
     }
-  }, [jwt]);
+  }, []);
 
   /* -------------------------------- PROVIDER -------------------------------- */
   return (
-    <AuthContext.Provider value={{ jwt, setJwt, user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
