@@ -18,6 +18,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useAuth } from "../../context/auth.context";
 import Signin from "../signin";
 import Signup from "../signup";
+import SignAlert from "../sign-alert";
 import ModalLayout from "../modal-layout";
 import styles from "./navbar.module.css";
 
@@ -31,6 +32,7 @@ const Navbar: FunctionComponent = () => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
+  const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -64,7 +66,7 @@ const Navbar: FunctionComponent = () => {
           <>
             <li onClick={() => setOpenSignin(true)}>Se connecter</li>
             <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
-            <li className={styles.cta} onClick={() => setOpenSignup(true)}>
+            <li className={styles.cta} onClick={() => setOpenSignAlert(true)}>
               <Button startDecorator={<Add />}>Publier une annonce</Button>
             </li>
           </>
@@ -146,6 +148,18 @@ const Navbar: FunctionComponent = () => {
           <ModalLayout title="Créer un compte">
             <Signup switchSignModal={switchSignModal} />
           </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Sign Alert */}
+      <Modal open={openSignAlert} onClose={() => setOpenSignAlert(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-sign-alert">
+          <ModalClose />
+          <SignAlert
+            setOpenSignAlert={setOpenSignAlert}
+            setOpenSignin={setOpenSignin}
+            setOpenSignup={setOpenSignup}
+          />
         </ModalDialog>
       </Modal>
     </nav>
