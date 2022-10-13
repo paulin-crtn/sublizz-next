@@ -2,9 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { Dispatch, SetStateAction } from "react";
-import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import Box from "@mui/joy/Box";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
