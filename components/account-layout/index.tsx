@@ -23,14 +23,13 @@ type Props = PropsWithChildren<{ title: string }>;
 /* -------------------------------------------------------------------------- */
 const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { user, setUser } = useAuth();
+  const { user, logout } = useAuth();
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
-    const router = useRouter();
     const current = router.asPath.split("/")[2];
     if (current === key) {
       return styles.active;
@@ -81,9 +80,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
             <li
               className={styles.navButton}
               onClick={() => {
-                localStorage.removeItem("sublizz");
-                setUser(null);
-                router.push("/");
+                logout(() => router.push("/"));
               }}
             >
               <Typography

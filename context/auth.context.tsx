@@ -17,6 +17,7 @@ import { IUser } from "../interfaces/user";
 interface IAuthContext {
   user: IUser | null;
   setUser: (arg: IUser | null) => void;
+  logout: (arg?: () => void) => void;
   // fetchUser: () => Promise<any>;
 }
 
@@ -26,6 +27,7 @@ interface IAuthContext {
 const AuthContext = createContext<IAuthContext>({
   user: null,
   setUser: () => {},
+  logout: () => {},
   // fetchUser: () => Promise.resolve(),
 });
 
@@ -46,9 +48,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  /* -------------------------------- FUNCTION -------------------------------- */
+  const logout = (callback?: () => void) => {
+    localStorage.removeItem("sublizz");
+    setUser(null);
+    callback?.();
+  };
+
   /* -------------------------------- PROVIDER -------------------------------- */
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { FunctionComponent, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
@@ -9,12 +10,14 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
+import ListDivider from "@mui/joy/ListDivider";
 import Typography from "@mui/joy/Typography";
 import Add from "@mui/icons-material/Add";
 import AppsIcon from "@mui/icons-material/Apps";
 import NotesIcon from "@mui/icons-material/Notes";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/auth.context";
 import Signin from "../signin";
 import Signup from "../signup";
@@ -27,7 +30,10 @@ import styles from "./navbar.module.css";
 /* -------------------------------------------------------------------------- */
 const Navbar: FunctionComponent = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
@@ -116,6 +122,19 @@ const Navbar: FunctionComponent = () => {
                     </Typography>
                   </MenuItem>
                 </Link>
+                <ListDivider />
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    router.asPath.split("/")[1] === "user"
+                      ? logout(() => router.push("/"))
+                      : logout();
+                  }}
+                >
+                  <Typography color="danger" startDecorator={<LogoutIcon />}>
+                    Déconnextion
+                  </Typography>
+                </MenuItem>
               </Menu>
             </li>
             <li className={styles.cta}>
