@@ -13,17 +13,11 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
-import { customFetch } from "../../utils/customFetch";
 import { useAlert } from "../../context/alert.context";
+import { customFetch } from "../../utils/customFetch";
+import { signin } from "../../utils/fetchAuth";
 import handleServerError from "../../utils/setServerError";
-
-/* -------------------------------------------------------------------------- */
-/*                                 INTERFACES                                 */
-/* -------------------------------------------------------------------------- */
-interface IFormInputs {
-  email: string;
-  password: string;
-}
+import ISignin from "../../interfaces/signin";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -49,40 +43,26 @@ const Signin = ({
   const [serverErrors, setServerErrors] = useState<string[]>([]);
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState } = useForm<IFormInputs>({
+  const { register, handleSubmit, formState } = useForm<ISignin>({
     mode: "onTouched",
   });
   const { errors, isSubmitting } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+  const onSubmit: SubmitHandler<ISignin> = async (payload) => {
     setServerErrors([]);
     try {
-      const response = await fetch("http://localhost:4000/auth/signin", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-        credentials: "include",
-      });
-
-      const data = await response.json();
-
+      const data = await signin(payload);
       if (data.statusCode && data.statusCode != 200) {
         handleServerError(data.message, setServerErrors);
       } else {
         localStorage.setItem("sublizz", data.access_token);
-        customFetch("users/me", "GET")
-          .then((user) => {
-            setUser(user);
-            success("Bienvenue " + user.firstName);
-            signCallback?.();
-            setSignCallback(undefined);
-          })
-          .catch((error) => console.error(error))
-          .finally(() => setOpenSignin(false));
+        const user = await customFetch("users/me", "GET");
+        setUser(user);
+        success("Bienvenue " + user.firstName);
+        signCallback?.();
+        setSignCallback(undefined);
+        setOpenSignin(false);
       }
     } catch (error) {
       handleServerError(error, setServerErrors);

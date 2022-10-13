@@ -49,7 +49,8 @@ export default Leases;
 /*                              SERVER SIDE PROPS                             */
 /* -------------------------------------------------------------------------- */
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await fetch("http://localhost:4000/leases");
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${API_URL}/leases`);
   const leases: ILease[] = await response.json();
   return {
     props: { leases },

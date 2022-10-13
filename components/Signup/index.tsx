@@ -16,16 +16,8 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import SuccessAnimation from "../success-animation";
 import handleServerError from "../../utils/setServerError";
-
-/* -------------------------------------------------------------------------- */
-/*                                 INTERFACES                                 */
-/* -------------------------------------------------------------------------- */
-interface IFormInputs {
-  firstName: string;
-  email: string;
-  password: string;
-  consent: boolean;
-}
+import ISignup from "../../interfaces/signup";
+import { signup } from "../../utils/fetchAuth";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -43,7 +35,7 @@ const Signup = ({
   const [isSignupSuccess, setIsSignupSuccess] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, setValue } = useForm<IFormInputs>({
+  const { register, handleSubmit, formState, setValue } = useForm<ISignup>({
     mode: "onTouched",
   });
   const { errors, isSubmitting } = formState;
@@ -54,25 +46,14 @@ const Signup = ({
   }, [isConsent, setValue]);
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<IFormInputs> = async (payload) => {
+  const onSubmit: SubmitHandler<ISignup> = async (payload) => {
     setServerErrors([]);
     try {
-      const response = await fetch("http://localhost:4000/auth/signup", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
+      const data = await signup(payload);
       data.statusCode && data.statusCode != 201
         ? handleServerError(data.message, setServerErrors)
         : setIsSignupSuccess(true);
     } catch (error) {
-      console.log(error);
       handleServerError(error, setServerErrors);
     }
   };

@@ -5,6 +5,11 @@ import isAfter from "date-fns/isAfter";
 import jwtDecode from "jwt-decode";
 
 /* -------------------------------------------------------------------------- */
+/*                                  CONSTANT                                  */
+/* -------------------------------------------------------------------------- */
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+/* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
 export const customFetch = async (
@@ -42,7 +47,7 @@ const _originalRequest = async (
 ) => {
   const jwt = localStorage.getItem("sublizz");
   try {
-    const response = await fetch("http://localhost:4000/" + endPoint, {
+    const response = await fetch(`${API_URL}/${endPoint}`, {
       method,
       headers: {
         Authorization: "Bearer " + jwt,
@@ -62,7 +67,7 @@ const _originalRequest = async (
 
 export const _refreshToken = async () => {
   try {
-    const response = await fetch("http://localhost:4000/auth/refresh", {
+    const response = await fetch(`${API_URL}/auth/refresh`, {
       method: "POST",
       headers: {
         Accept: "application/json",
