@@ -17,14 +17,14 @@ import "../styles/globals.css";
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <CssVarsProvider theme={theme}>
-      <AuthProvider>
-        <AlertProvider>
+      <AlertProvider>
+        <AuthProvider>
           <Layout>
             <CustomAlert />
             <Component {...pageProps} />
           </Layout>
-        </AlertProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </AlertProvider>
     </CssVarsProvider>
   );
 }

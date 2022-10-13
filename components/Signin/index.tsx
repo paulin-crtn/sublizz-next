@@ -76,7 +76,7 @@ const Signin = ({
         customFetch("users/me", "GET")
           .then((user) => {
             setUser(user);
-            success("Connexion réussie");
+            success("Bienvenue " + user.firstName);
             signCallback?.();
             setSignCallback(undefined);
           })

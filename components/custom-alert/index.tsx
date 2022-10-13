@@ -34,7 +34,6 @@ const CustomAlert = () => {
     return (
       <Alert
         variant="soft"
-        size="lg"
         color={alertStatus}
         sx={{
           position: "fixed",

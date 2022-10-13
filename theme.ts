@@ -20,6 +20,11 @@ export const theme: Theme = extendTheme({
           solidDisabledBorder: "#B61B32",
           solidDisabledColor: "#B61B32",
 
+          softColor: "crimson",
+          softBg: "#ffedee",
+          softHoverBg: "#ffdedf",
+          softActiveBg: "#ffdedf",
+
           outlinedBorder: "crimson",
           outlinedColor: "crimson",
 

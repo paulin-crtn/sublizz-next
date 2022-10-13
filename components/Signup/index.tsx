@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -14,6 +14,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
+import SuccessAnimation from "../success-animation";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -28,10 +29,17 @@ interface IFormInputs {
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
+const Signup = ({
+  setOpenSignup,
+  switchSignModal,
+}: {
+  setOpenSignup: Dispatch<SetStateAction<boolean>>;
+  switchSignModal: () => void;
+}) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isConsent, setIsConsent] = useState<boolean>(false);
   const [serverErrors, setServerErrors] = useState<string[]>([]);
+  const [isSignupSuccess, setIsSignupSuccess] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState, setValue } = useForm<IFormInputs>({
@@ -59,9 +67,9 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
 
       const data = await response.json();
 
-      if (data.statusCode && data.statusCode != 201) {
-        handleServerError(data.message);
-      }
+      data.statusCode && data.statusCode != 201
+        ? handleServerError(data.message)
+        : setIsSignupSuccess(true);
     } catch (error) {
       console.log(error);
       handleServerError(error);
@@ -81,6 +89,25 @@ const Signup = ({ switchSignModal }: { switchSignModal: () => void }) => {
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
+  if (isSignupSuccess) {
+    return (
+      <>
+        <SuccessAnimation />
+        <Box textAlign="center" marginBottom={4}>
+          <Typography level="h5" marginBottom={1}>
+            Confirmez votre adresse email
+          </Typography>
+          <Typography>
+            Nous vous avons envoyé un email afin de confirmer votre adresse et
+            activer votre compte.
+          </Typography>
+        </Box>
+        <Button variant="solid" fullWidth onClick={() => setOpenSignup(false)}>
+          C'est compris
+        </Button>
+      </>
+    );
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {!!serverErrors.length &&
