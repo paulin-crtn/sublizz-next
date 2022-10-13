@@ -12,16 +12,22 @@ import { fr } from "date-fns/locale";
 import { format } from "date-fns";
 
 /* -------------------------------- COMPONENT ------------------------------- */
+import { useAuth } from "../../context/auth.context";
 import LeaseChips from "../../components/lease-chips";
 import ModalLayout from "../../components/modal-layout";
 import ContactAuthor from "../../components/contact-author";
 import ReportLease from "../../components/report-lease";
+import Signin from "../../components/signin";
+import SignAlert from "../../components/sign-alert";
+import Signup from "../../components/signup";
 
 /* -------------------------------- INTERFACE ------------------------------- */
 import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
+
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
+
 /* --------------------------------- MUI JOY -------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
@@ -33,6 +39,7 @@ import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
+
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
 
@@ -42,9 +49,25 @@ import styles from "../../styles/Lease.module.css";
 const Lease: NextPage = ({
   lease,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openContact, setOpenContact] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
+  const [openSignin, setOpenSignin] = useState<boolean>(false);
+  const [openSignup, setOpenSignup] = useState<boolean>(false);
+  const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
+
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const switchSignModal = () => {
+    setOpenSignup((openSignup) => !openSignup);
+    setOpenSignin((openSignin) => !openSignin);
+  };
+
+  const switchToPasswordReset = () => {
+    setOpenSignin(false);
+  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -125,13 +148,17 @@ const Lease: NextPage = ({
           <div className={styles.cta}>
             <Button
               startDecorator={<EmailIcon />}
-              onClick={() => setOpenContact(true)}
+              onClick={() =>
+                user ? setOpenContact(true) : setOpenSignAlert(true)
+              }
             >
               Contacter {lease.user.firstName}
             </Button>
             <Button
               startDecorator={<FlagIcon />}
-              onClick={() => setOpenReport(true)}
+              onClick={() =>
+                user ? setOpenReport(true) : setOpenSignAlert(true)
+              }
               variant="outlined"
             >
               Signaler l'annonce
@@ -157,6 +184,42 @@ const Lease: NextPage = ({
           <ModalLayout title="Signaler l'annonce">
             <ReportLease leaseId={lease.id} />
           </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Signin */}
+      <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-signin">
+          <ModalClose />
+          <ModalLayout title="Se connecter">
+            <Signin
+              setOpenSignin={setOpenSignin}
+              switchSignModal={switchSignModal}
+              switchToPasswordReset={switchToPasswordReset}
+            />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Signup */}
+      <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-signup">
+          <ModalClose />
+          <ModalLayout title="Créer un compte">
+            <Signup switchSignModal={switchSignModal} />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Sign Alert */}
+      <Modal open={openSignAlert} onClose={() => setOpenSignAlert(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-sign-alert">
+          <ModalClose />
+          <SignAlert
+            setOpenSignAlert={setOpenSignAlert}
+            setOpenSignin={setOpenSignin}
+            setOpenSignup={setOpenSignup}
+          />
         </ModalDialog>
       </Modal>
     </>
