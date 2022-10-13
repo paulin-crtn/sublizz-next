@@ -15,6 +15,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import SuccessAnimation from "../success-animation";
+import handleServerError from "../../utils/setServerError";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -68,23 +69,11 @@ const Signup = ({
       const data = await response.json();
 
       data.statusCode && data.statusCode != 201
-        ? handleServerError(data.message)
+        ? handleServerError(data.message, setServerErrors)
         : setIsSignupSuccess(true);
     } catch (error) {
       console.log(error);
-      handleServerError(error);
-    }
-  };
-
-  const handleServerError = (error: unknown) => {
-    if (error instanceof Error) {
-      setServerErrors([error.message]);
-    } else if (error instanceof Array) {
-      setServerErrors(error);
-    } else if (typeof error === "string") {
-      setServerErrors([error]);
-    } else {
-      setServerErrors(["Server error"]);
+      handleServerError(error, setServerErrors);
     }
   };
 

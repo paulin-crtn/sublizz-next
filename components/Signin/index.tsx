@@ -15,6 +15,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
 import { customFetch } from "../../utils/customFetch";
 import { useAlert } from "../../context/alert.context";
+import handleServerError from "../../utils/setServerError";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -70,7 +71,7 @@ const Signin = ({
       const data = await response.json();
 
       if (data.statusCode && data.statusCode != 200) {
-        handleServerError(data.message);
+        handleServerError(data.message, setServerErrors);
       } else {
         localStorage.setItem("sublizz", data.access_token);
         customFetch("users/me", "GET")
@@ -84,19 +85,7 @@ const Signin = ({
           .finally(() => setOpenSignin(false));
       }
     } catch (error) {
-      handleServerError(error);
-    }
-  };
-
-  const handleServerError = (error: unknown) => {
-    if (error instanceof Error) {
-      setServerErrors([error.message]);
-    } else if (error instanceof Array) {
-      setServerErrors(error);
-    } else if (typeof error === "string") {
-      setServerErrors([error]);
-    } else {
-      setServerErrors(["Server error"]);
+      handleServerError(error, setServerErrors);
     }
   };
 

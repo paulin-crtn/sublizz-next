@@ -7,7 +7,11 @@ import jwtDecode from "jwt-decode";
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const customFetch = async (endPoint: string, method: string) => {
+export const customFetch = async (
+  endPoint: string,
+  method: string,
+  payload?: any
+) => {
   let jwt = localStorage.getItem("sublizz");
 
   if (!jwt) {
@@ -22,7 +26,7 @@ export const customFetch = async (endPoint: string, method: string) => {
   }
 
   if (jwt) {
-    return await _originalRequest(endPoint, method, jwt);
+    return await _originalRequest(endPoint, method, payload);
   }
 
   return Promise.reject("An error happened while using customFetch");
@@ -34,8 +38,9 @@ export const customFetch = async (endPoint: string, method: string) => {
 const _originalRequest = async (
   endPoint: string,
   method: string,
-  jwt: string
+  payload?: any
 ) => {
+  const jwt = localStorage.getItem("sublizz");
   try {
     const response = await fetch("http://localhost:4000/" + endPoint, {
       method,
@@ -44,6 +49,7 @@ const _originalRequest = async (
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      ...(payload && { body: JSON.stringify(payload) }),
     });
     if (response.ok) {
       return await response.json();

@@ -194,7 +194,7 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-report">
           <ModalClose />
           <ModalLayout title="Signaler l'annonce">
-            <ReportLease leaseId={lease.id} />
+            <ReportLease leaseId={lease.id} setOpenReport={setOpenReport} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
@@ -220,7 +220,10 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-signup">
           <ModalClose />
           <ModalLayout title="Créer un compte">
-            <Signup switchSignModal={switchSignModal} />
+            <Signup
+              setOpenSignup={setOpenSignup}
+              switchSignModal={switchSignModal}
+            />
           </ModalLayout>
         </ModalDialog>
       </Modal>
