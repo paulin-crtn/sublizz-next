@@ -58,6 +58,7 @@ const Lease: NextPage = ({
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
+  const [signCallback, setSignCallback] = useState<() => any>();
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const switchSignModal = () => {
@@ -67,6 +68,24 @@ const Lease: NextPage = ({
 
   const switchToPasswordReset = () => {
     setOpenSignin(false);
+  };
+
+  const handleContact = () => {
+    if (user) {
+      setOpenContact(true);
+    } else {
+      setSignCallback(() => () => setOpenContact(true));
+      setOpenSignAlert(true);
+    }
+  };
+
+  const handleReport = () => {
+    if (user) {
+      setOpenReport(true);
+    } else {
+      setSignCallback(() => () => setOpenReport(true));
+      setOpenSignAlert(true);
+    }
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -146,19 +165,12 @@ const Lease: NextPage = ({
             </div>
           </div>
           <div className={styles.cta}>
-            <Button
-              startDecorator={<EmailIcon />}
-              onClick={() =>
-                user ? setOpenContact(true) : setOpenSignAlert(true)
-              }
-            >
+            <Button startDecorator={<EmailIcon />} onClick={handleContact}>
               Contacter {lease.user.firstName}
             </Button>
             <Button
               startDecorator={<FlagIcon />}
-              onClick={() =>
-                user ? setOpenReport(true) : setOpenSignAlert(true)
-              }
+              onClick={handleReport}
               variant="outlined"
             >
               Signaler l'annonce
@@ -196,6 +208,8 @@ const Lease: NextPage = ({
               setOpenSignin={setOpenSignin}
               switchSignModal={switchSignModal}
               switchToPasswordReset={switchToPasswordReset}
+              signCallback={signCallback}
+              setSignCallback={setSignCallback}
             />
           </ModalLayout>
         </ModalDialog>

@@ -31,10 +31,14 @@ const Signin = ({
   setOpenSignin,
   switchSignModal,
   switchToPasswordReset,
+  signCallback,
+  setSignCallback,
 }: {
   setOpenSignin: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
+  signCallback: (() => any) | undefined;
+  setSignCallback: Dispatch<SetStateAction<(() => any) | undefined>>;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
@@ -73,6 +77,8 @@ const Signin = ({
           .then((user) => {
             setUser(user);
             success("Connexion réussie");
+            signCallback?.();
+            setSignCallback(undefined);
           })
           .catch((error) => console.error(error))
           .finally(() => setOpenSignin(false));

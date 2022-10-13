@@ -39,6 +39,7 @@ const Navbar: FunctionComponent = () => {
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
+  const [signCallback, setSignCallback] = useState<() => any>();
   const [anchorEl, setAnchorEl] = useState(null);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -72,7 +73,15 @@ const Navbar: FunctionComponent = () => {
           <>
             <li onClick={() => setOpenSignin(true)}>Se connecter</li>
             <li onClick={() => setOpenSignup(true)}>Créer un compte</li>
-            <li className={styles.cta} onClick={() => setOpenSignAlert(true)}>
+            <li
+              className={styles.cta}
+              onClick={() => {
+                setSignCallback(
+                  () => () => router.replace("/user/leases/edit")
+                );
+                setOpenSignAlert(true);
+              }}
+            >
               <Button startDecorator={<Add />}>Publier une annonce</Button>
             </li>
           </>
@@ -132,7 +141,7 @@ const Navbar: FunctionComponent = () => {
                   }}
                 >
                   <Typography color="danger" startDecorator={<LogoutIcon />}>
-                    Déconnextion
+                    Déconnexion
                   </Typography>
                 </MenuItem>
               </Menu>
@@ -155,6 +164,8 @@ const Navbar: FunctionComponent = () => {
               setOpenSignin={setOpenSignin}
               switchSignModal={switchSignModal}
               switchToPasswordReset={switchToPasswordReset}
+              signCallback={signCallback}
+              setSignCallback={setSignCallback}
             />
           </ModalLayout>
         </ModalDialog>
