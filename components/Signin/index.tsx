@@ -14,6 +14,7 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
 import { customFetch } from "../../utils/customFetch";
+import { useAlert } from "../../context/alert.context";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */
@@ -37,6 +38,7 @@ const Signin = ({
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
+  const { success } = useAlert();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [serverErrors, setServerErrors] = useState<string[]>([]);
@@ -68,7 +70,10 @@ const Signin = ({
       } else {
         localStorage.setItem("sublizz", data.access_token);
         customFetch("users/me", "GET")
-          .then((user) => setUser(user))
+          .then((user) => {
+            setUser(user);
+            success("Connexion réussie");
+          })
           .catch((error) => console.error(error))
           .finally(() => setOpenSignin(false));
       }
