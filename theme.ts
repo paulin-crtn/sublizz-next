@@ -22,6 +22,8 @@ export const theme: Theme = extendTheme({
 
           outlinedBorder: "crimson",
           outlinedColor: "crimson",
+
+          plainColor: "crimson",
         },
         danger: {
           plainColor: "crimson",
