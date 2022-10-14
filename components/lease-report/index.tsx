@@ -11,14 +11,14 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
-import { reportLease } from "../../utils/fetchLease";
+import { leaseReport } from "../../utils/fetchLease";
 import handleServerError from "../../utils/setServerError";
 import SuccessAnimation from "../success-animation";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const ReportLease = ({
+const LeaseReport = ({
   leaseId,
   setOpenReport,
 }: {
@@ -36,7 +36,7 @@ const ReportLease = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      const data = await reportLease({
+      const data = await leaseReport({
         leaseId,
         reason,
       });
@@ -84,7 +84,8 @@ const ReportLease = ({
         <FormLabel>Motif</FormLabel>
         <Textarea
           variant="soft"
-          minRows={3}
+          minRows={4}
+          maxRows={4}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
@@ -105,4 +106,4 @@ const ReportLease = ({
   );
 };
 
-export default ReportLease;
+export default LeaseReport;

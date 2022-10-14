@@ -6,7 +6,7 @@ import { customFetch } from "./customFetch";
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const reportLease = async (payload: {
+export const leaseReport = async (payload: {
   leaseId: number;
   reason: string;
 }) => {

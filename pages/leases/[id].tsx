@@ -15,8 +15,8 @@ import { format } from "date-fns";
 import { useAuth } from "../../context/auth.context";
 import LeaseChips from "../../components/lease-chips";
 import ModalLayout from "../../components/modal-layout";
-import ContactAuthor from "../../components/contact-author";
-import ReportLease from "../../components/report-lease";
+import LeaseMessage from "../../components/lease-message";
+import LeaseReport from "../../components/lease-report";
 import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
@@ -184,7 +184,7 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-contact">
           <ModalClose />
           <ModalLayout title={`Contacter ${lease.user.firstName}`}>
-            <ContactAuthor author={lease.user} />
+            <LeaseMessage toFirstName={lease.user.firstName} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
@@ -194,7 +194,7 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-report">
           <ModalClose />
           <ModalLayout title="Signaler l'annonce">
-            <ReportLease leaseId={lease.id} setOpenReport={setOpenReport} />
+            <LeaseReport leaseId={lease.id} setOpenReport={setOpenReport} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

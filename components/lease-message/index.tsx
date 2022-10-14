@@ -8,12 +8,15 @@ import Textarea from "@mui/joy/Textarea";
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
 import Button from "@mui/joy/Button";
-import { IAuthor } from "../../interfaces/author";
+import { useAuth } from "../../context/auth.context";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const ContactAuthor = ({ author }: { author: IAuthor }) => {
+const LeaseMessage = ({ toFirstName }: { toFirstName: string }) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -27,26 +30,26 @@ const ContactAuthor = ({ author }: { author: IAuthor }) => {
             variant="soft"
             sx={{ fontWeight: 300, width: "min-content" }}
           >
-            Bertrand
+            {user?.firstName}
           </Chip>
           <Chip
             color="neutral"
             variant="soft"
             sx={{ fontWeight: 300, width: "min-content" }}
           >
-            bertrand@gmail.com
+            {user?.email}
           </Chip>
         </Box>
       </FormControl>
 
       <FormControl>
         <FormLabel>Message à envoyer</FormLabel>
-        <Textarea variant="soft" minRows={5} />
+        <Textarea variant="soft" minRows={5} maxRows={5} />
       </FormControl>
 
-      <Button fullWidth>Contacter {author.firstName}</Button>
+      <Button fullWidth>Contacter {toFirstName}</Button>
     </>
   );
 };
 
-export default ContactAuthor;
+export default LeaseMessage;
