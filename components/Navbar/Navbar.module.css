@@ -1,0 +1,36 @@
+.container,
+.container ul {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  padding: 25px 50px;
+  color: #000000;
+  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.container .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.container ul li {
+  margin-left: 30px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.container ul .cta {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 9999px;
+}

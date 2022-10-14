@@ -2,6 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  images: {
+    domains: [
+      "picsum.photos",
+      "images.unsplash.com",
+      "loremflickr.com",
+      "cloudflare-ipfs.com",
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
