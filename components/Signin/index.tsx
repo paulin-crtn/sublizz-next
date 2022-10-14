@@ -1,7 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -16,7 +17,6 @@ import { useAuth } from "../../context/auth.context";
 import { useAlert } from "../../context/alert.context";
 import { customFetch } from "../../utils/customFetch";
 import { signin } from "../../utils/fetchAuth";
-import handleServerError from "../../utils/setServerError";
 import ISignin from "../../interfaces/ISignin";
 
 /* -------------------------------------------------------------------------- */
@@ -39,23 +39,11 @@ const Signin = ({
   const { setUser } = useAuth();
   const { success } = useAlert();
 
-  /* ------------------------------- REACT STATE ------------------------------ */
-  const [serverErrors, setServerErrors] = useState<string[]>([]);
-
-  /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState } = useForm<ISignin>({
-    mode: "onTouched",
-  });
-  const { errors, isSubmitting } = formState;
-
-  /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<ISignin> = async (payload) => {
-    setServerErrors([]);
-    try {
-      const data = await signin(payload);
-      if (data.statusCode && data.statusCode != 200) {
-        handleServerError(data.message, setServerErrors);
-      } else {
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const { mutate, isLoading, isError, error } = useMutation(
+    (payload: ISignin) => signin(payload),
+    {
+      onSuccess: async (data) => {
         localStorage.setItem("sublizz", data.access_token);
         const user = await customFetch("users/me", "GET");
         setUser(user);
@@ -63,27 +51,34 @@ const Signin = ({
         signCallback?.();
         setSignCallback(undefined);
         setOpenSignin(false);
-      }
-    } catch (error) {
-      handleServerError(error, setServerErrors);
+      },
     }
+  );
+
+  /* -------------------------------- USE FORM -------------------------------- */
+  const { register, handleSubmit, formState } = useForm<ISignin>({
+    mode: "onTouched",
+  });
+  const { errors } = formState;
+
+  /* -------------------------------- FUNCTION -------------------------------- */
+  const onSubmit: SubmitHandler<ISignin> = async (payload) => {
+    mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {!!serverErrors.length &&
-        serverErrors.map((error: string, index: number) => (
-          <Alert
-            key={index}
-            startDecorator={<ErrorIcon />}
-            variant="soft"
-            color="danger"
-            sx={{ mb: 2 }}
-          >
-            {error}
-          </Alert>
-        ))}
+      {isError && error instanceof Error && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          {error.message}
+        </Alert>
+      )}
 
       <FormControl error={!!errors.email}>
         <FormLabel>Email</FormLabel>
@@ -133,12 +128,12 @@ const Signin = ({
         </Typography>
       </FormControl>
 
-      {!isSubmitting && (
+      {!isLoading && (
         <Button fullWidth type="submit">
           Se connecter
         </Button>
       )}
-      {isSubmitting && (
+      {isLoading && (
         <Button
           fullWidth
           disabled

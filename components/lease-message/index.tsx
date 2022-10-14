@@ -12,11 +12,11 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
+import Chip from "@mui/joy/Chip";
 import { leaseMessage } from "../../utils/fetchLease";
 import SuccessAnimation from "../success-animation";
-import { ILease, ILeaseMessage, ILeaseReport } from "../../interfaces/lease";
-import Chip from "@mui/joy/Chip";
 import { useAuth } from "../../context/auth.context";
+import { ILease, ILeaseMessage } from "../../interfaces/lease";
 import { IAuthor } from "../../interfaces/IAuthor";
 
 /* -------------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ const LeaseMessage = ({
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ leaseId: lease.id, message });
   };
@@ -66,7 +66,7 @@ const LeaseMessage = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       {isError && error instanceof Error && (
         <Alert
           startDecorator={<ErrorIcon />}

@@ -35,7 +35,7 @@ const LeaseReport = ({
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ leaseId, reason });
   };
@@ -59,7 +59,7 @@ const LeaseReport = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       {isError && error instanceof Error && (
         <Alert
           startDecorator={<ErrorIcon />}
