@@ -1,8 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import ISignin from "../interfaces/signin";
-import ISignup from "../interfaces/signup";
+import ISignin from "../interfaces/ISignin";
+import ISignup from "../interfaces/ISignup";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */

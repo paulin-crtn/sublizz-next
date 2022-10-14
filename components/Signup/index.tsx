@@ -16,7 +16,7 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import SuccessAnimation from "../success-animation";
 import handleServerError from "../../utils/setServerError";
-import ISignup from "../../interfaces/signup";
+import ISignup from "../../interfaces/ISignup";
 import { signup } from "../../utils/fetchAuth";
 
 /* -------------------------------------------------------------------------- */

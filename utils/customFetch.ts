@@ -34,7 +34,7 @@ export const customFetch = async (
     return await _originalRequest(endPoint, method, payload);
   }
 
-  return Promise.reject("An error happened while using customFetch");
+  throw new Error("An error happened while using customFetch");
 };
 
 /* -------------------------------------------------------------------------- */
@@ -46,42 +46,35 @@ const _originalRequest = async (
   payload?: any
 ) => {
   const jwt = localStorage.getItem("sublizz");
-  try {
-    const response = await fetch(`${API_URL}/${endPoint}`, {
-      method,
-      headers: {
-        Authorization: "Bearer " + jwt,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      ...(payload && { body: JSON.stringify(payload) }),
-    });
-    if (response.ok) {
-      return await response.json();
-    }
-    return Promise.reject(response);
-  } catch (error) {
-    return Promise.reject(error);
+  const response = await fetch(`${API_URL}/${endPoint}`, {
+    method,
+    headers: {
+      Authorization: "Bearer " + jwt,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    ...(payload && { body: JSON.stringify(payload) }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    return data;
   }
+  throw new Error(data.message);
 };
 
 export const _refreshToken = async () => {
-  try {
-    const response = await fetch(`${API_URL}/auth/refresh`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("sublizz", data.access_token);
-      return data.access_token;
-    }
-    return Promise.reject(response);
-  } catch (error) {
-    return Promise.reject(error);
+  const response = await fetch(`${API_URL}/auth/refresh`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  const data = await response.json();
+  if (response.ok) {
+    localStorage.setItem("sublizz", data.access_token);
+    return data.access_token;
   }
+  throw new Error(data.message);
 };

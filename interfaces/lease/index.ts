@@ -1,3 +1,4 @@
-export * from "./lease";
-export * from "./leaseDetail";
-export * from "./leaseImage";
+export * from "./ILease";
+export * from "./ILeaseDetail";
+export * from "./ILeaseImage";
+export * from "./ILeaseReport";

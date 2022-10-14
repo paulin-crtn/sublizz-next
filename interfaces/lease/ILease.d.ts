@@ -1,4 +1,4 @@
-import { ILeaseImage } from "./";
+import { ILeaseImage } from ".";
 
 export interface ILease {
   id: number;

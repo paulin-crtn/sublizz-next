@@ -17,7 +17,7 @@ import { useAlert } from "../../context/alert.context";
 import { customFetch } from "../../utils/customFetch";
 import { signin } from "../../utils/fetchAuth";
 import handleServerError from "../../utils/setServerError";
-import ISignin from "../../interfaces/signin";
+import ISignin from "../../interfaces/ISignin";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

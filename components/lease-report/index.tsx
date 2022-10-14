@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useState, FormEvent, Dispatch, SetStateAction } from "react";
+import { useMutation } from "@tanstack/react-query";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Textarea from "@mui/joy/Textarea";
@@ -12,8 +13,8 @@ import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import { leaseReport } from "../../utils/fetchLease";
-import handleServerError from "../../utils/setServerError";
 import SuccessAnimation from "../success-animation";
+import { ILeaseReport } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -27,25 +28,16 @@ const LeaseReport = ({
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [reason, setReason] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [serverErrors, setServerErrors] = useState<string[]>([]);
+
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+    (payload: ILeaseReport) => leaseReport(payload)
+  );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const data = await leaseReport({
-        leaseId,
-        reason,
-      });
-      data.statusCode && data.statusCode != 200
-        ? handleServerError(data.message, setServerErrors)
-        : setIsSuccess(true);
-    } catch (error) {
-      handleServerError(error, setServerErrors);
-    }
+    mutate({ leaseId, reason });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -65,20 +57,19 @@ const LeaseReport = ({
       </>
     );
   }
+
   return (
     <form onSubmit={handleSubmit}>
-      {!!serverErrors.length &&
-        serverErrors.map((error: string, index: number) => (
-          <Alert
-            key={index}
-            startDecorator={<ErrorIcon />}
-            variant="soft"
-            color="danger"
-            sx={{ mb: 2 }}
-          >
-            {error}
-          </Alert>
-        ))}
+      {isError && error instanceof Error && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          {error.message}
+        </Alert>
+      )}
 
       <FormControl>
         <FormLabel>Motif</FormLabel>

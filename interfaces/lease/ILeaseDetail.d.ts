@@ -1,5 +1,5 @@
-import { IAuthor } from "../author";
-import { ILease } from "./";
+import { IAuthor } from "../IAuthor";
+import { ILease } from ".";
 
 export interface ILeaseDetail extends ILease {
   street: string;

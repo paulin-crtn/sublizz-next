@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { customFetch } from "../utils/customFetch";
-import { IUser } from "../interfaces/user";
+import { IUser } from "../interfaces/IUser";
 import { useAlert } from "./alert.context";
 
 /* -------------------------------------------------------------------------- */
