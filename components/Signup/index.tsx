@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -15,9 +16,8 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import SuccessAnimation from "../success-animation";
-import handleServerError from "../../utils/setServerError";
-import ISignup from "../../interfaces/ISignup";
 import { signup } from "../../utils/fetchAuth";
+import ISignup from "../../interfaces/ISignup";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -31,14 +31,17 @@ const Signup = ({
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isConsent, setIsConsent] = useState<boolean>(false);
-  const [serverErrors, setServerErrors] = useState<string[]>([]);
-  const [isSignupSuccess, setIsSignupSuccess] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState, setValue } = useForm<ISignup>({
     mode: "onTouched",
   });
-  const { errors, isSubmitting } = formState;
+  const { errors } = formState;
+
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+    (payload: ISignup) => signup(payload)
+  );
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
@@ -47,19 +50,11 @@ const Signup = ({
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<ISignup> = async (payload) => {
-    setServerErrors([]);
-    try {
-      const data = await signup(payload);
-      data.statusCode && data.statusCode != 201
-        ? handleServerError(data.message, setServerErrors)
-        : setIsSignupSuccess(true);
-    } catch (error) {
-      handleServerError(error, setServerErrors);
-    }
+    mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  if (isSignupSuccess) {
+  if (isSuccess) {
     return (
       <>
         <SuccessAnimation />
@@ -80,18 +75,16 @@ const Signup = ({
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {!!serverErrors.length &&
-        serverErrors.map((error: string, index: number) => (
-          <Alert
-            key={index}
-            startDecorator={<ErrorIcon />}
-            variant="soft"
-            color="danger"
-            sx={{ mb: 2 }}
-          >
-            {error}
-          </Alert>
-        ))}
+      {isError && error instanceof Error && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          {error.message}
+        </Alert>
+      )}
 
       <FormControl error={!!errors.firstName}>
         <FormLabel>Prénom</FormLabel>
@@ -197,12 +190,12 @@ const Signup = ({
         </Typography>
       </FormControl>
 
-      {!isSubmitting && (
+      {!isLoading && (
         <Button fullWidth type="submit">
           Créer un compte
         </Button>
       )}
-      {isSubmitting && (
+      {isLoading && (
         <Button
           fullWidth
           disabled
