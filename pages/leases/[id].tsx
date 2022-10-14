@@ -53,7 +53,7 @@ const Lease: NextPage = ({
   const { user } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [openContact, setOpenContact] = useState<boolean>(false);
+  const [openMessage, setOpenMessage] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
@@ -72,9 +72,9 @@ const Lease: NextPage = ({
 
   const handleContact = () => {
     if (user) {
-      setOpenContact(true);
+      setOpenMessage(true);
     } else {
-      setSignCallback(() => () => setOpenContact(true));
+      setSignCallback(() => () => setOpenMessage(true));
       setOpenSignAlert(true);
     }
   };
@@ -180,11 +180,11 @@ const Lease: NextPage = ({
       </main>
 
       {/** Contact author */}
-      <Modal open={openContact} onClose={() => setOpenContact(false)}>
+      <Modal open={openMessage} onClose={() => setOpenMessage(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-contact">
           <ModalClose />
           <ModalLayout title={`Contacter ${lease.user.firstName}`}>
-            <LeaseMessage toFirstName={lease.user.firstName} />
+            <LeaseMessage lease={lease} setOpenMessage={setOpenMessage} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
