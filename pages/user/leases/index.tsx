@@ -18,6 +18,7 @@ import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import LeaseCard from "../../../components/lease-card";
 import { ILease } from "../../../interfaces/lease";
+import { Button } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -49,38 +50,38 @@ const UserLeases: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <AccountLayout title="Annonces">
-      <div>
-        <Tabs aria-label="Basic tabs" defaultValue={0}>
-          <TabList>
-            <Tab>Annonces contactées</Tab>
-            <Tab>Annonces publiées</Tab>
-          </TabList>
-          <TabPanel value={0}>
-            {userLeasesMessages && !userLeasesMessages.length && (
-              <Typography>Vous n'avez répondu à aucune annonce.</Typography>
-            )}
-            {userLeasesMessages &&
-              !!userLeasesMessages.length &&
-              userLeasesMessages.map((lease: ILease) => (
-                <Box key={lease.id} marginY={2}>
-                  <LeaseCard lease={lease} />
-                </Box>
-              ))}
-          </TabPanel>
-          <TabPanel value={1}>
-            {userLeases && !userLeases.length && (
-              <Typography>Vous n'avez publié aucune annonce.</Typography>
-            )}
-            {userLeases &&
-              !!userLeases.length &&
-              userLeases.map((lease: ILease) => (
-                <Box key={lease.id} marginY={2}>
-                  <LeaseCard lease={lease} />
-                </Box>
-              ))}
-          </TabPanel>
-        </Tabs>
-      </div>
+      <Tabs aria-label="Basic tabs" defaultValue={0}>
+        <TabList>
+          <Tab>Annonces contactées</Tab>
+          <Tab>Annonces publiées</Tab>
+        </TabList>
+        <TabPanel value={0}>
+          {!userLeasesMessages && (
+            <Typography level="h6" textAlign="center" marginY={6}>
+              Vous n'avez répondu à aucune annonce.
+            </Typography>
+          )}
+          {userLeasesMessages &&
+            userLeasesMessages.map((lease: ILease) => (
+              <Box key={lease.id} marginY={2}>
+                <LeaseCard lease={lease} />
+              </Box>
+            ))}
+        </TabPanel>
+        <TabPanel value={1}>
+          {userLeases && (
+            <Typography level="h6" textAlign="center" marginY={6}>
+              Vous n'avez publié aucune annonce.
+            </Typography>
+          )}
+          {userLeases &&
+            userLeases.map((lease: ILease) => (
+              <Box key={lease.id} marginY={2}>
+                <LeaseCard lease={lease} />
+              </Box>
+            ))}
+        </TabPanel>
+      </Tabs>
     </AccountLayout>
   );
 };
