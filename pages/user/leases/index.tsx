@@ -5,12 +5,15 @@ import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import Add from "@mui/icons-material/Add";
 import { useAuth } from "../../../context/auth.context";
 import { getUserLeases } from "../../../utils/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import LeaseCard from "../../../components/lease-card";
 import { ILease } from "../../../interfaces/lease";
+import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -35,9 +38,16 @@ const UserLeases: NextPage = () => {
     <AccountLayout title="Mes Annonces">
       {data && !data.length && (
         <Box sx={{ height: "100%", display: "flex" }}>
-          <Typography margin="auto">
-            Vous n'avez publié aucune annonce.
-          </Typography>
+          <Box sx={{ margin: "auto", textAlign: "center" }}>
+            <Typography level="h6" marginBottom={3}>
+              Vous n'avez publié aucune annonce.
+            </Typography>
+            <Link href="/user/leases/edit">
+              <Button variant="soft" startDecorator={<Add />}>
+                Publier une annonce
+              </Button>
+            </Link>
+          </Box>
         </Box>
       )}
       {data &&
