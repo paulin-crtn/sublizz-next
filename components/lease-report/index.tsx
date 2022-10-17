@@ -12,7 +12,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
-import { leaseReport } from "../../utils/fetchLease";
+import { storeLeaseReport } from "../../utils/fetchLease";
 import SuccessAnimation from "../success-animation";
 import { ILeaseReport } from "../../interfaces/lease";
 
@@ -31,7 +31,7 @@ const LeaseReport = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseReport) => leaseReport(payload)
+    (payload: ILeaseReport) => storeLeaseReport(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */

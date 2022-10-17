@@ -8,10 +8,18 @@ import { ILeaseMessage } from "../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const leaseMessage = async (payload: ILeaseMessage) => {
-  return await customFetch("leases/message", "POST", payload);
+export const getUserLeases = async () => {
+  return await customFetch("leases/user", "GET");
 };
 
-export const leaseReport = async (payload: ILeaseReport) => {
-  return await customFetch("leases/report", "POST", payload);
+export const getUserLeasesMessages = async () => {
+  return await customFetch("lease-messages/user", "GET");
+};
+
+export const storeLeaseMessage = async (payload: ILeaseMessage) => {
+  return await customFetch("lease-messages", "POST", payload);
+};
+
+export const storeLeaseReport = async (payload: ILeaseReport) => {
+  return await customFetch("lease-reports", "POST", payload);
 };

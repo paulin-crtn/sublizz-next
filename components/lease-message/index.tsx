@@ -13,7 +13,7 @@ import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import Chip from "@mui/joy/Chip";
-import { leaseMessage } from "../../utils/fetchLease";
+import { storeLeaseMessage } from "../../utils/fetchLease";
 import SuccessAnimation from "../success-animation";
 import { useAuth } from "../../context/auth.context";
 import { ILease, ILeaseMessage } from "../../interfaces/lease";
@@ -36,7 +36,7 @@ const LeaseMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseMessage) => leaseMessage(payload)
+    (payload: ILeaseMessage) => storeLeaseMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
