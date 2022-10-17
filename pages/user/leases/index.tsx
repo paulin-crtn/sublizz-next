@@ -28,17 +28,17 @@ const UserLeases: NextPage = () => {
 
   /* -------------------------------- USE QUERY ------------------------------- */
   const {
-    isLoading: isMyLeasesLoading,
-    isError: isMyLeasesError,
-    data: myLeases,
-    error: myLeasesError,
+    isLoading: isUserLeasesLoading,
+    isError: isUserLeasesError,
+    data: userLeases,
+    error: userLeasesError,
   } = useQuery(["userLeases"], getUserLeases);
 
   const {
-    isLoading: isLeaseMessagesLoading,
-    isError: isLeaseMessagesError,
-    data: contactedLeases,
-    error: contactedLeasesError,
+    isLoading: isUserLeasesMessagesLoading,
+    isError: isUserLeasesMessagesError,
+    data: userLeasesMessages,
+    error: userLeasesMessagesError,
   } = useQuery(["userLeasesMessages"], getUserLeasesMessages);
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
@@ -56,24 +56,24 @@ const UserLeases: NextPage = () => {
             <Tab>Annonces publiées</Tab>
           </TabList>
           <TabPanel value={0}>
-            {contactedLeases && !contactedLeases.length && (
+            {userLeasesMessages && !userLeasesMessages.length && (
               <Typography>Vous n'avez répondu à aucune annonce.</Typography>
             )}
-            {contactedLeases &&
-              !!contactedLeases.length &&
-              contactedLeases.map((lease: ILease) => (
+            {userLeasesMessages &&
+              !!userLeasesMessages.length &&
+              userLeasesMessages.map((lease: ILease) => (
                 <Box key={lease.id} marginY={2}>
                   <LeaseCard lease={lease} />
                 </Box>
               ))}
           </TabPanel>
           <TabPanel value={1}>
-            {myLeases && !myLeases.length && (
+            {userLeases && !userLeases.length && (
               <Typography>Vous n'avez publié aucune annonce.</Typography>
             )}
-            {myLeases &&
-              !!myLeases.length &&
-              myLeases.map((lease: ILease) => (
+            {userLeases &&
+              !!userLeases.length &&
+              userLeases.map((lease: ILease) => (
                 <Box key={lease.id} marginY={2}>
                   <LeaseCard lease={lease} />
                 </Box>
