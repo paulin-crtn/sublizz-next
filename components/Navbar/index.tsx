@@ -15,6 +15,7 @@ import Typography from "@mui/joy/Typography";
 import Add from "@mui/icons-material/Add";
 import AppsIcon from "@mui/icons-material/Apps";
 import NotesIcon from "@mui/icons-material/Notes";
+import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -113,7 +114,14 @@ const Navbar: FunctionComponent = () => {
                 <Link href="/user/leases">
                   <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<NotesIcon />}>
-                      Annonces
+                      Mes Annonces
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link href="/user/messages">
+                  <MenuItem onClick={handleClose}>
+                    <Typography startDecorator={<EmailIcon />}>
+                      Messages
                     </Typography>
                   </MenuItem>
                 </Link>

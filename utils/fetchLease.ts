@@ -12,7 +12,7 @@ export const getUserLeases = async () => {
   return await customFetch("leases/user", "GET");
 };
 
-export const getUserLeasesMessages = async () => {
+export const getUserMessages = async () => {
   return await customFetch("lease-messages/user", "GET");
 };
 

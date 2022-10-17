@@ -10,8 +10,10 @@ import NotesIcon from "@mui/icons-material/Notes";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
+import { Box } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -55,7 +57,16 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
                 <Typography
                   startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
                 >
-                  Annonces
+                  Mes Annonces
+                </Typography>
+              </Link>
+            </li>
+            <li className={[styles.navButton, isActive("messages")].join(" ")}>
+              <Link href="/user/messages">
+                <Typography
+                  startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}
+                >
+                  Messages
                 </Typography>
               </Link>
             </li>
@@ -94,7 +105,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
       </div>
       <div className={styles.content}>
         <Typography level="h3">{title}</Typography>
-        <div>{children}</div>
+        {children}
       </div>
     </div>
   );

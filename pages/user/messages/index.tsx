@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import { useAuth } from "../../../context/auth.context";
-import { getUserLeases } from "../../../utils/fetchLease";
+import { getUserMessages } from "../../../utils/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import LeaseCard from "../../../components/lease-card";
@@ -15,14 +15,14 @@ import { ILease } from "../../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserLeases: NextPage = () => {
+const UserMessages: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
-    ["userLeases"],
-    getUserLeases
+    ["userMessages"],
+    getUserMessages
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
@@ -32,11 +32,11 @@ const UserLeases: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <AccountLayout title="Mes Annonces">
+    <AccountLayout title="Messages">
       {data && !data.length && (
         <Box sx={{ height: "100%", display: "flex" }}>
           <Typography margin="auto">
-            Vous n'avez publié aucune annonce.
+            Vous n'avez répondu à aucune annonce.
           </Typography>
         </Box>
       )}
@@ -51,4 +51,4 @@ const UserLeases: NextPage = () => {
   );
 };
 
-export default UserLeases;
+export default UserMessages;
