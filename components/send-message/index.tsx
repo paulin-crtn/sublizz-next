@@ -16,13 +16,13 @@ import Chip from "@mui/joy/Chip";
 import { storeLeaseMessage } from "../../utils/fetchLease";
 import SuccessAnimation from "../success-animation";
 import { useAuth } from "../../context/auth.context";
-import { ILease, ILeaseMessage } from "../../interfaces/lease";
+import { ILease, ISendMessage } from "../../interfaces/lease";
 import { IAuthor } from "../../interfaces/IAuthor";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const LeaseMessage = ({
+const SendMessage = ({
   lease,
   setOpenMessage,
 }: {
@@ -36,7 +36,7 @@ const LeaseMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseMessage) => storeLeaseMessage(payload)
+    (payload: ISendMessage) => storeLeaseMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -125,4 +125,4 @@ const LeaseMessage = ({
   );
 };
 
-export default LeaseMessage;
+export default SendMessage;

@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { FunctionComponent } from "react";
 import { Box, List, ListItem, Typography } from "@mui/joy";
 import Link from "next/link";
 import styles from "./footer.module.css";
@@ -8,7 +9,7 @@ import styles from "./footer.module.css";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Footer: React.FC = () => {
+const Footer: FunctionComponent = () => {
   return (
     <footer className={styles.container}>
       <div className={styles.content}>

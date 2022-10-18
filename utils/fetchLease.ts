@@ -2,8 +2,8 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { ILeaseReport } from "../interfaces/lease";
-import { ILeaseMessage } from "../interfaces/lease";
+import { ISendReport } from "../interfaces/lease";
+import { ISendMessage } from "../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
@@ -16,10 +16,10 @@ export const getUserMessages = async () => {
   return await customFetch("lease-messages/user", "GET");
 };
 
-export const storeLeaseMessage = async (payload: ILeaseMessage) => {
+export const storeLeaseMessage = async (payload: ISendMessage) => {
   return await customFetch("lease-messages", "POST", payload);
 };
 
-export const storeLeaseReport = async (payload: ILeaseReport) => {
+export const storeLeaseReport = async (payload: ISendReport) => {
   return await customFetch("lease-reports", "POST", payload);
 };

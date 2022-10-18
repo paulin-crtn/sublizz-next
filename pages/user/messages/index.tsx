@@ -11,9 +11,10 @@ import { useAuth } from "../../../context/auth.context";
 import { getUserMessages } from "../../../utils/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
-import LeaseCard from "../../../components/lease-card";
 import { ILease } from "../../../interfaces/lease";
 import Link from "next/link";
+import AccountMessage from "../../../components/account-message";
+import { IAccountMessage } from "../../../interfaces/lease/IAccountMessage";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -52,9 +53,9 @@ const UserMessages: NextPage = () => {
       )}
       {data &&
         !!data.length &&
-        data.map((lease: ILease) => (
-          <Box key={lease.id} marginY={2}>
-            <LeaseCard lease={lease} />
+        data.map((lease: ILease & { leaseMessages: IAccountMessage[] }) => (
+          <Box key={lease.id}>
+            <AccountMessage key={lease.id} lease={lease} />
           </Box>
         ))}
     </AccountLayout>

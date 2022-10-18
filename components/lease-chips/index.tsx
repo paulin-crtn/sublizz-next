@@ -46,7 +46,7 @@ const LeaseChips = ({
           borderColor: "#000000",
         }}
       >
-        {lease.room} pièces
+        {lease.room} {lease.room > 1 ? "pièces" : "pièce"}
       </Chip>
       <Chip
         variant="outlined"

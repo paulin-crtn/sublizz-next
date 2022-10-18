@@ -14,12 +14,12 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import { storeLeaseReport } from "../../utils/fetchLease";
 import SuccessAnimation from "../success-animation";
-import { ILeaseReport } from "../../interfaces/lease";
+import { ISendReport } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const LeaseReport = ({
+const SendReport = ({
   leaseId,
   setOpenReport,
 }: {
@@ -31,7 +31,7 @@ const LeaseReport = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseReport) => storeLeaseReport(payload)
+    (payload: ISendReport) => storeLeaseReport(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -97,4 +97,4 @@ const LeaseReport = ({
   );
 };
 
-export default LeaseReport;
+export default SendReport;

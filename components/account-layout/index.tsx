@@ -104,7 +104,9 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
         </nav>
       </div>
       <div className={styles.content}>
-        <Typography level="h3">{title}</Typography>
+        <Typography level="h3" marginBottom={4}>
+          {title}
+        </Typography>
         {children}
       </div>
     </div>
