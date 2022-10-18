@@ -20,7 +20,7 @@ const UserAccount: NextPage = () => {
     return <AccessDenied />;
   }
   return (
-    <AccountLayout title="Profil">
+    <AccountLayout title="Compte">
       <Box sx={{ width: "65%" }}>
         <AccountSettings user={user} />
       </Box>

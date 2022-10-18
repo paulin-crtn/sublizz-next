@@ -94,6 +94,8 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
               }}
             >
               <Typography
+                color="danger"
+                margin={0}
                 startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
               >
                 Déconnexion
