@@ -21,7 +21,7 @@ const UserProfile: NextPage = () => {
   }
   return (
     <AccountLayout title="Profil">
-      <Box sx={{ width: "60%" }}>
+      <Box sx={{ width: "65%" }}>
         <Profile user={user} />
       </Box>
     </AccountLayout>

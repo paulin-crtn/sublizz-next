@@ -103,19 +103,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
         </nav>
       </section>
       <section className={styles.content}>
-        <Typography
-          level="h4"
-          sx={{
-            paddingX: 3,
-            paddingY: 2,
-            backgroundColor: "#000000",
-            color: "#ffffff",
-            borderTopLeftRadius: "10px",
-            borderTopRightRadius: "10px",
-          }}
-        >
-          {title}
-        </Typography>
+        <p className={styles.title}>{title}</p>
         <div className={styles.children}>{children}</div>
       </section>
     </div>

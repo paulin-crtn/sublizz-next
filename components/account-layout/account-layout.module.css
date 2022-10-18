@@ -55,3 +55,18 @@
 .content {
   flex: 1 1;
 }
+
+.title {
+  min-height: 70px;
+  line-height: 70px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0 30px;
+  border-radius: 10px 10px 0 0;
+}
+
+.children {
+  height: calc(100% - 70px);
+}

@@ -79,7 +79,7 @@ const SendMessage = ({
       )}
 
       <FormControl>
-        <FormLabel>Expéditeur</FormLabel>
+        <FormLabel>Informations envoyées</FormLabel>
         <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
           <Chip
             color="neutral"
@@ -99,7 +99,7 @@ const SendMessage = ({
       </FormControl>
 
       <FormControl>
-        <FormLabel>Message à envoyer</FormLabel>
+        <FormLabel>Message</FormLabel>
         <Textarea
           variant="soft"
           minRows={6}

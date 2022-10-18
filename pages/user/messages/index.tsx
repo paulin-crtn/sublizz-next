@@ -44,7 +44,7 @@ const UserMessages: NextPage = () => {
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <Typography level="h6" fontWeight={400} marginBottom={3}>
-              Vous n'avez répondu à aucune annonce.
+              Vous n'avez envoyé aucun message.
             </Typography>
             <Link href="/leases">
               <Button variant="soft" startDecorator={<SearchIcon />}>
@@ -56,6 +56,15 @@ const UserMessages: NextPage = () => {
       )}
       {data && !!data.length && (
         <Box>
+          <Alert
+            variant="soft"
+            color="info"
+            startDecorator={<InfoIcon />}
+            sx={{ marginBottom: "30px" }}
+          >
+            Lorsqu'une annonce est supprimée, les messages associés le sont
+            également.
+          </Alert>
           {data.map(
             (
               lease: ILease & { leaseMessages: IAccountMessage[] },
@@ -68,15 +77,6 @@ const UserMessages: NextPage = () => {
               </div>
             )
           )}
-          <Alert
-            variant="soft"
-            color="info"
-            startDecorator={<InfoIcon />}
-            sx={{ marginTop: "30px" }}
-          >
-            Lorsqu'une annonce est supprimée, les messages associés le sont
-            également.
-          </Alert>
         </Box>
       )}
     </AccountLayout>
