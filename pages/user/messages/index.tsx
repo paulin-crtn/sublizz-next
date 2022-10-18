@@ -15,6 +15,9 @@ import { ILease } from "../../../interfaces/lease";
 import Link from "next/link";
 import AccountMessage from "../../../components/account-message";
 import { IAccountMessage } from "../../../interfaces/lease/IAccountMessage";
+import Divider from "@mui/joy/Divider";
+import Alert from "@mui/joy/Alert";
+import InfoIcon from "@mui/icons-material/Info";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -40,7 +43,7 @@ const UserMessages: NextPage = () => {
       {data && !data.length && (
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <Typography level="h6" marginBottom={3}>
+            <Typography level="h6" fontWeight={400} marginBottom={3}>
               Vous n'avez répondu à aucune annonce.
             </Typography>
             <Link href="/leases">
@@ -51,13 +54,31 @@ const UserMessages: NextPage = () => {
           </Box>
         </Box>
       )}
-      {data &&
-        !!data.length &&
-        data.map((lease: ILease & { leaseMessages: IAccountMessage[] }) => (
-          <Box key={lease.id}>
-            <AccountMessage key={lease.id} lease={lease} />
-          </Box>
-        ))}
+      {data && !!data.length && (
+        <Box>
+          {data.map(
+            (
+              lease: ILease & { leaseMessages: IAccountMessage[] },
+              index: number
+            ) => (
+              <div key={lease.id}>
+                {index === 0 && <Divider />}
+                <AccountMessage lease={lease} />
+                <Divider />
+              </div>
+            )
+          )}
+          <Alert
+            variant="soft"
+            color="info"
+            startDecorator={<InfoIcon />}
+            sx={{ marginTop: "30px" }}
+          >
+            Lorsqu'une annonce est supprimée, les messages associés le sont
+            également.
+          </Alert>
+        </Box>
+      )}
     </AccountLayout>
   );
 };

@@ -33,6 +33,11 @@ export const theme: Theme = extendTheme({
         danger: {
           plainColor: "crimson",
         },
+        info: {
+          plainColor: "#054da7",
+          softBg: "#e1f2ff",
+          softColor: "#054da7",
+        },
       },
     },
   },
@@ -84,6 +89,11 @@ export const theme: Theme = extendTheme({
     JoyFormLabel: {
       styleOverrides: {
         root: { fontSize: "0.95rem", marginBottom: "10px" },
+      },
+    },
+    JoyAlert: {
+      styleOverrides: {
+        root: { fontWeight: "400" },
       },
     },
   },

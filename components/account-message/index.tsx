@@ -43,29 +43,32 @@ const AccountMessage = ({
               {lease.surface}m2
             </Chip>
           </Box>
-          <Typography color="info" marginLeft="auto" fontSize="0.9rem">
+          <Typography marginLeft="auto" fontSize="0.9rem">
             Voir le message
           </Typography>
         </Box>
       </summary>
-      {lease.leaseMessages.map((message) => (
-        <div key={message.id} className={styles.content}>
-          <Typography>{message.content}</Typography>
-          <Typography level="body2" marginTop={1}>
-            Envoyé le {message.createdAt}
-          </Typography>
-        </div>
-      ))}
-      <Link href={`/leases/${lease.id}`} target="_blank">
-        <Button
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          startDecorator={<LaunchIcon fontSize="inherit" />}
-        >
-          Voir l'annonce
-        </Button>
-      </Link>
+      <Box marginTop={2} marginBottom={1}>
+        {lease.leaseMessages.map((message) => (
+          <div key={message.id} className={styles.content}>
+            <Typography>{message.content}</Typography>
+            <Typography level="body2" marginTop={1}>
+              Envoyé le {message.createdAt}
+            </Typography>
+          </div>
+        ))}
+        <Link href={`/leases/${lease.id}`} target="_blank">
+          <Button
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            startDecorator={<LaunchIcon fontSize="inherit" />}
+            sx={{ marginTop: 1 }}
+          >
+            Voir l'annonce
+          </Button>
+        </Link>
+      </Box>
     </details>
   );
 };

@@ -37,9 +37,9 @@ const UserLeases: NextPage = () => {
   return (
     <AccountLayout title="Mes Annonces">
       {data && !data.length && (
-        <Box sx={{ height: "100%", display: "flex" }}>
+        <Box sx={{ height: "100%", display: "flex", alignItems: "stretch" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <Typography level="h6" marginBottom={3}>
+            <Typography level="h6" fontWeight={400} marginBottom={3}>
               Vous n'avez publié aucune annonce.
             </Typography>
             <Link href="/user/leases/edit">

@@ -13,7 +13,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
-import { Box } from "@mui/joy";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -41,7 +40,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <div className={styles.container}>
-      <div className={styles.menu}>
+      <section className={styles.menu}>
         <Avatar
           src={user?.profilePictureUrl}
           variant="solid"
@@ -102,13 +101,23 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
             </li>
           </ul>
         </nav>
-      </div>
-      <div className={styles.content}>
-        <Typography level="h3" marginBottom={4}>
+      </section>
+      <section className={styles.content}>
+        <Typography
+          level="h4"
+          sx={{
+            paddingX: 3,
+            paddingY: 2,
+            backgroundColor: "#000000",
+            color: "#ffffff",
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
+          }}
+        >
           {title}
         </Typography>
-        {children}
-      </div>
+        <div className={styles.children}>{children}</div>
+      </section>
     </div>
   );
 };
