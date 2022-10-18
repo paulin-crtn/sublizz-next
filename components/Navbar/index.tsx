@@ -25,6 +25,7 @@ import Signup from "../signup";
 import SignAlert from "../sign-alert";
 import ModalLayout from "../modal-layout";
 import styles from "./navbar.module.css";
+import PasswordReset from "../password-reset";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -40,6 +41,7 @@ const Navbar: FunctionComponent = () => {
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
+  const [openPasswordReset, setOpenPasswordReset] = useState<boolean>(false);
   const [signCallback, setSignCallback] = useState<() => any>();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -51,6 +53,7 @@ const Navbar: FunctionComponent = () => {
 
   const switchToPasswordReset = () => {
     setOpenSignin(false);
+    setOpenPasswordReset(true);
   };
 
   const open = Boolean(anchorEl);
@@ -202,6 +205,19 @@ const Navbar: FunctionComponent = () => {
               setOpenSignin={setOpenSignin}
               setOpenSignup={setOpenSignup}
             />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Password Reset */}
+      <Modal
+        open={openPasswordReset}
+        onClose={() => setOpenPasswordReset(false)}
+      >
+        <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
+          <ModalClose />
+          <ModalLayout title="Réinitialiser le mot de passe">
+            <PasswordReset setOpenPasswordReset={setOpenPasswordReset} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

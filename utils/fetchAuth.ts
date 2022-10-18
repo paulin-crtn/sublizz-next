@@ -44,3 +44,21 @@ export const signup = async (payload: ISignup) => {
   }
   throw new Error(data.message);
 };
+
+export const resetPassword = async (payload: { email: string }) => {
+  const response = await fetch(
+    `${API_URL}/auth/reset-password?email=${payload.email}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  }
+  throw new Error(data.message);
+};
