@@ -3,17 +3,20 @@
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Add from "@mui/icons-material/Add";
+import Alert from "@mui/joy/Alert";
+import CircularProgress from "@mui/joy/CircularProgress";
+import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../../context/auth.context";
 import { getUserLeases } from "../../../utils/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import LeaseCard from "../../../components/lease-card";
 import { ILease } from "../../../interfaces/lease";
-import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -34,9 +37,39 @@ const UserLeases: NextPage = () => {
   }
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  return (
-    <AccountLayout title="Mes Annonces">
-      {data && !data.length && (
+  if (isLoading) {
+    return (
+      <AccountLayout title="Mes Annonces">
+        <Box sx={{ height: "100%", display: "flex" }}>
+          <Box sx={{ margin: "auto", textAlign: "center" }}>
+            <CircularProgress size="lg" color="neutral" />
+          </Box>
+        </Box>
+      </AccountLayout>
+    );
+  }
+
+  if (isError && error instanceof Error) {
+    return (
+      <AccountLayout title="Mes Annonces">
+        {error.message.split(",").map((msg) => (
+          <Alert
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {msg}
+          </Alert>
+        ))}
+        ;
+      </AccountLayout>
+    );
+  }
+
+  if (data && !data.length) {
+    return (
+      <AccountLayout title="Mes Annonces">
         <Box sx={{ height: "100%", display: "flex", alignItems: "stretch" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <Typography level="h6" fontWeight={400} marginBottom={3}>
@@ -49,14 +82,17 @@ const UserLeases: NextPage = () => {
             </Link>
           </Box>
         </Box>
-      )}
-      {data &&
-        !!data.length &&
-        data.map((lease: ILease) => (
-          <Box key={lease.id} marginY={2}>
-            <LeaseCard lease={lease} />
-          </Box>
-        ))}
+      </AccountLayout>
+    );
+  }
+
+  return (
+    <AccountLayout title="Mes Annonces">
+      {data.map((lease: ILease) => (
+        <Box key={lease.id} marginY={2}>
+          <LeaseCard lease={lease} />
+        </Box>
+      ))}
     </AccountLayout>
   );
 };

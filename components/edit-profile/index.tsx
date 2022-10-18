@@ -17,11 +17,12 @@ import { useAuth } from "../../context/auth.context";
 import { useAlert } from "../../context/alert.context";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
+import Chip from "@mui/joy/Chip";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Profile = ({ user }: { user: IUser }) => {
+const EditProfile = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
   const { success } = useAlert();
@@ -88,7 +89,17 @@ const Profile = ({ user }: { user: IUser }) => {
       </FormControl>
 
       <FormControl error={!!errors.lastName}>
-        <FormLabel>Nom</FormLabel>
+        <FormLabel>
+          Nom
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
         <Input
           type="text"
           variant="soft"
@@ -110,7 +121,21 @@ const Profile = ({ user }: { user: IUser }) => {
       </FormControl>
 
       <FormControl>
-        <FormLabel>Message type</FormLabel>
+        <FormLabel>
+          Message type
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
+        <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
+          Répondez aux annonces plus rapidement en utilisant un modèle
+          prédéfini.
+        </FormHelperText>
         <Textarea
           variant="soft"
           defaultValue={user.standardMessage}
@@ -130,4 +155,4 @@ const Profile = ({ user }: { user: IUser }) => {
   );
 };
 
-export default Profile;
+export default EditProfile;

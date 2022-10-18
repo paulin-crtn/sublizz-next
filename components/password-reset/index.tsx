@@ -48,7 +48,7 @@ const PasswordReset = ({
       <>
         <SuccessAnimation />
         <Box textAlign="center" marginBottom={4}>
-          <Typography level="h5" marginBottom={1}>
+          <Typography level="h5" marginBottom={2}>
             Confirmez votre adresse email
           </Typography>
           <Typography>

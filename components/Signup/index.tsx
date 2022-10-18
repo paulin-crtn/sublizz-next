@@ -33,9 +33,10 @@ const Signup = ({
   const [isConsent, setIsConsent] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, setValue } = useForm<ISignup>({
-    mode: "onTouched",
-  });
+  const { register, handleSubmit, formState, setValue, getValues } =
+    useForm<ISignup>({
+      mode: "onTouched",
+    });
   const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
@@ -59,12 +60,13 @@ const Signup = ({
       <>
         <SuccessAnimation />
         <Box textAlign="center" marginBottom={4}>
-          <Typography level="h5" marginBottom={1}>
+          <Typography level="h5" marginBottom={2}>
             Confirmez votre adresse email
           </Typography>
           <Typography>
-            Nous vous avons envoyé un email afin de confirmer votre adresse et
-            activer votre compte.
+            Nous avons envoyé un email à <strong>{getValues("email")}</strong>{" "}
+            afin de confirmer l'adresse et activer votre compte. <br />
+            Pensez à vérifier dans vos indésirables.
           </Typography>
         </Box>
         <Button variant="solid" fullWidth onClick={() => setOpenSignup(false)}>

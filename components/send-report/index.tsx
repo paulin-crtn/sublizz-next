@@ -46,7 +46,7 @@ const SendReport = ({
       <>
         <SuccessAnimation />
         <Box textAlign="center" marginBottom={4}>
-          <Typography level="h5" marginBottom={1}>
+          <Typography level="h5" marginBottom={2}>
             Merci pour votre signalement
           </Typography>
           <Typography>Notre équipe va rapidement étudier l'annonce.</Typography>

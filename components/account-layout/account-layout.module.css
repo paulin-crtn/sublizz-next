@@ -12,9 +12,8 @@
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.menu,
-.children {
-  padding: 30px;
+.menu {
+  padding: 20px;
 }
 
 .menu {
@@ -26,8 +25,7 @@
 }
 
 .navButton {
-  margin: 10px 0;
-  background-color: rgb(235, 235, 235);
+  margin: 5px 0;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -37,7 +35,7 @@
 }
 
 .navButton:hover {
-  background-color: rgb(225, 225, 225);
+  background-color: rgb(245, 245, 245);
 }
 
 .navButton > * {
@@ -45,7 +43,7 @@
 }
 
 .navButton.active {
-  background-color: #000000;
+  background: linear-gradient(to right, rgb(69, 27, 208), rgb(53, 1, 209));
 }
 
 .navButton.active > * {
@@ -61,7 +59,7 @@
   line-height: 70px;
   font-size: 1.4rem;
   font-weight: 500;
-  background-color: #000000;
+  background: linear-gradient(to right, rgb(69, 27, 208), rgb(53, 1, 209));
   color: #ffffff;
   padding: 0 30px;
   border-radius: 10px 10px 0 0;
@@ -69,4 +67,5 @@
 
 .children {
   height: calc(100% - 70px);
+  padding: 20px;
 }

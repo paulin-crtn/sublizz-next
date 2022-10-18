@@ -51,7 +51,7 @@ const SendMessage = ({
       <>
         <SuccessAnimation />
         <Box textAlign="center" marginBottom={4}>
-          <Typography level="h5" marginBottom={1}>
+          <Typography level="h5" marginBottom={2}>
             Message envoyé
           </Typography>
           <Typography>

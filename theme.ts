@@ -34,6 +34,10 @@ export const theme: Theme = extendTheme({
           plainColor: "crimson",
         },
         info: {
+          outlinedColor: "#054da7",
+          outlinedBorder: "#054da7",
+          outlinedHoverBorder: "#054da7",
+          outlinedHoverBg: "#e1f2ff",
           plainColor: "#054da7",
           softBg: "#e1f2ff",
           softColor: "#054da7",
@@ -88,7 +92,7 @@ export const theme: Theme = extendTheme({
     },
     JoyFormLabel: {
       styleOverrides: {
-        root: { fontSize: "0.95rem", marginBottom: "10px" },
+        root: { fontSize: "1rem", marginBottom: "10px" },
       },
     },
     JoyAlert: {

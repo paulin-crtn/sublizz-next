@@ -6,7 +6,7 @@ import Box from "@mui/joy/Box";
 import { useAuth } from "../../context/auth.context";
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";
-import Profile from "../../components/profile";
+import EditProfile from "../../components/edit-profile";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -22,7 +22,7 @@ const UserProfile: NextPage = () => {
   return (
     <AccountLayout title="Profil">
       <Box sx={{ width: "65%" }}>
-        <Profile user={user} />
+        <EditProfile user={user} />
       </Box>
     </AccountLayout>
   );
