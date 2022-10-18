@@ -32,7 +32,7 @@ const SendMessage = ({
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>(user?.standardMessage || "");
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
