@@ -24,7 +24,7 @@ import { IAccountMessage } from "../../../interfaces/lease/IAccountMessage";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserMessages: NextPage = () => {
+const UserMessagesPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -118,4 +118,4 @@ const UserMessages: NextPage = () => {
   );
 };
 
-export default UserMessages;
+export default UserMessagesPage;

@@ -11,7 +11,7 @@ import AccountSettings from "../../components/account-settings";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserAccount: NextPage = () => {
+const UserAccountPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -28,4 +28,4 @@ const UserAccount: NextPage = () => {
   );
 };
 
-export default UserAccount;
+export default UserAccountPage;

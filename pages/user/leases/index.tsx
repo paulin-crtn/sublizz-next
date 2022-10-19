@@ -21,7 +21,7 @@ import { ILease } from "../../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserLeases: NextPage = () => {
+const UserLeasesPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -98,4 +98,4 @@ const UserLeases: NextPage = () => {
   );
 };
 
-export default UserLeases;
+export default UserLeasesPage;

@@ -11,7 +11,7 @@ import EditProfile from "../../components/edit-profile";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserProfile: NextPage = () => {
+const UserProfilePage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -28,4 +28,4 @@ const UserProfile: NextPage = () => {
   );
 };
 
-export default UserProfile;
+export default UserProfilePage;

@@ -46,7 +46,7 @@ import styles from "../../styles/Lease.module.css";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Lease: NextPage = ({
+const LeasePage: NextPage = ({
   lease,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* --------------------------------- CONTEXT -------------------------------- */
@@ -245,7 +245,7 @@ const Lease: NextPage = ({
   );
 };
 
-export default Lease;
+export default LeasePage;
 
 /* -------------------------------------------------------------------------- */
 /*                              SERVER SIDE PROPS                             */
