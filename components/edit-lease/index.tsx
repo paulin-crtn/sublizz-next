@@ -21,6 +21,7 @@ import { storeLease } from "../../utils/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import { TextField } from "@mui/material";
 import styles from "./edit-lease.module.css";
+import Chip from "@mui/joy/Chip";
 
 export interface IEditLease {
   type: string | null;
@@ -82,6 +83,7 @@ const EditLease = () => {
           render={({ field: { onChange, ...field } }) => (
             <Select
               variant="soft"
+              placeholder="Sous-location"
               onChange={(event) => {
                 setValue(
                   "type",
@@ -115,7 +117,11 @@ const EditLease = () => {
                 onChange(event);
               }}
               renderInput={(params) => (
-                <TextField {...params} error={!!errors.startDate} />
+                <TextField
+                  {...params}
+                  error={!!errors.startDate}
+                  placeholder="jj/mm/aaaa"
+                />
               )}
               {...field}
               closeOnSelect
@@ -130,12 +136,30 @@ const EditLease = () => {
       </FormControl>
 
       <FormControl error={!!errors.houseNumber}>
-        <FormLabel>Numéro de rue</FormLabel>
+        <FormLabel>
+          Numéro de rue
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
         <Input
           type="text"
           variant="soft"
+          placeholder="23 bis"
           {...register("houseNumber", {
-            required: "Ce champs est requis",
+            minLength: {
+              value: 1,
+              message: "1 caractère minimum",
+            },
+            maxLength: {
+              value: 7,
+              message: "7 caractères maximum",
+            },
           })}
         />
         {errors.houseNumber && (

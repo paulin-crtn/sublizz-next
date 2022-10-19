@@ -22,7 +22,7 @@ const EditLeasePage: NextPage = () => {
     return <AccessDenied />;
   }
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
       <AccountLayout title="Publier une annonce">
         <EditLease />
       </AccountLayout>
