@@ -1,33 +1,32 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import DatePicker from "react-datepicker";
+import { MobileDatePicker } from "@mui/x-date-pickers";
+import "react-datepicker/dist/react-datepicker.css";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
-import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
 import { useAlert } from "../../context/alert.context";
-import { customFetch } from "../../utils/customFetch";
-import { signin } from "../../utils/fetchAuth";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 import { storeLease } from "../../utils/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
+import { TextField } from "@mui/material";
+import styles from "./edit-lease.module.css";
 
 export interface IEditLease {
   type: string;
-  startDate: any;
-  endDate: any;
+  startDate: string;
+  endDate: string;
   houseNumber: string;
 }
 
@@ -48,7 +47,7 @@ const EditLease = () => {
   );
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, control, setValue } =
+  const { register, handleSubmit, formState, control, setValue, trigger } =
     useForm<IEditLease>({
       mode: "onTouched",
     });
@@ -79,7 +78,7 @@ const EditLease = () => {
         <Controller
           name="type"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: "Ce champs est requis" }}
           defaultValue="" // Avoid error "A component is changing the uncontrolled value state to be controlled."
           render={({ field: { onChange, ...field } }) => (
             <Select
@@ -89,22 +88,46 @@ const EditLease = () => {
                   "type",
                   (event?.target as HTMLInputElement).ariaLabel as string
                 );
+                trigger("type"); // Revalidate input
               }}
               {...field}
             >
               {Object.values(LeaseTypeEnum).map((type) => (
-                <Option
-                  key={type}
-                  value={type}
-                  color="neutral"
-                  aria-label={type}
-                >
+                <Option key={type} value={type} aria-label={type}>
                   {convertLeaseType(type)}
                 </Option>
               ))}
             </Select>
           )}
         />
+        {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
+      </FormControl>
+
+      <FormControl error={!!errors.startDate}>
+        <FormLabel>Date de début</FormLabel>
+        <Controller
+          name="startDate"
+          control={control}
+          rules={{ required: "Ce champs est requis" }}
+          defaultValue=""
+          render={({ field: { onChange, ...field } }) => (
+            <MobileDatePicker
+              onChange={(event) => {
+                onChange(event);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} error={!!errors.startDate} />
+              )}
+              {...field}
+              closeOnSelect
+              disablePast
+              inputFormat="dd/MM/yyyy"
+            />
+          )}
+        />
+        {errors.startDate && (
+          <FormHelperText>{errors.startDate.message}</FormHelperText>
+        )}
       </FormControl>
 
       <FormControl error={!!errors.houseNumber}>

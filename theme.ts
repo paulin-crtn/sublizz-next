@@ -1,6 +1,8 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
+import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
+import { deepmerge } from "@mui/utils";
 
-export const theme: Theme = extendTheme({
+export const joyTheme: Theme = extendTheme({
   fontFamily: {
     body: "Poppins",
     display: "Poppins",
@@ -100,5 +102,39 @@ export const theme: Theme = extendTheme({
         root: { fontWeight: "400" },
       },
     },
+    JoySelect: {
+      styleOverrides: {
+        button: { fontFamily: "Poppins" },
+        listbox: { backgroundColor: "#ffffff" },
+      },
+    },
   },
 });
+
+const muiTheme = extendMuiTheme({
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          height: "40px",
+          backgroundColor: "#EEEFF0",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          "&.Mui-error": {
+            backgroundColor: "#FFE9E8",
+          },
+        },
+        notchedOutline: {
+          border: 0,
+        },
+      },
+    },
+  },
+});
+
+export const theme = deepmerge(muiTheme, joyTheme);

@@ -2,6 +2,8 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import EditLease from "../../../components/edit-lease";
@@ -19,9 +21,11 @@ const EditLeasePage: NextPage = () => {
     return <AccessDenied />;
   }
   return (
-    <AccountLayout title="Publier une annonce">
-      <EditLease />
-    </AccountLayout>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <AccountLayout title="Publier une annonce">
+        <EditLease />
+      </AccountLayout>
+    </LocalizationProvider>
   );
 };
 
