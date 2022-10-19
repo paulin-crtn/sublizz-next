@@ -1,9 +1,10 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -17,7 +18,18 @@ import { useAuth } from "../../context/auth.context";
 import { useAlert } from "../../context/alert.context";
 import { customFetch } from "../../utils/customFetch";
 import { signin } from "../../utils/fetchAuth";
-import ISignin from "../../interfaces/ISignin";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
+import { storeLease } from "../../utils/fetchLease";
+import { convertLeaseType } from "../../utils/convertLeaseType";
+
+export interface IEditLease {
+  type: string;
+  startDate: any;
+  endDate: any;
+  houseNumber: string;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -29,26 +41,23 @@ const EditLease = () => {
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
-    (payload: ISignin) => signin(payload),
+    (payload: IEditLease) => storeLease(payload),
     {
-      onSuccess: async (data) => {
-        localStorage.setItem("sublizz", data.access_token);
-        const user = await customFetch("users/me", "GET");
-        setUser(user);
-        success("Bienvenue " + user.firstName);
-      },
+      onSuccess: async (data) => {},
     }
   );
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState } = useForm<ISignin>({
-    mode: "onTouched",
-  });
+  const { register, handleSubmit, formState, control, setValue } =
+    useForm<IEditLease>({
+      mode: "onTouched",
+    });
   const { errors } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<ISignin> = async (payload) => {
-    mutate(payload);
+  const onSubmit: SubmitHandler<IEditLease> = async (payload) => {
+    console.log(payload);
+    // mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -65,43 +74,50 @@ const EditLease = () => {
         </Alert>
       )}
 
-      <FormControl error={!!errors.email}>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          variant="soft"
-          {...register("email", {
-            required: "Ce champs est requis",
-            pattern: {
-              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-              message: "Vous devez renseigner une adresse email valide",
-            },
-          })}
+      <FormControl error={!!errors.type}>
+        <FormLabel>Type</FormLabel>
+        <Controller
+          name="type"
+          control={control}
+          rules={{ required: true }}
+          defaultValue="" // Avoid error "A component is changing the uncontrolled value state to be controlled."
+          render={({ field: { onChange, ...field } }) => (
+            <Select
+              variant="soft"
+              onChange={(event) => {
+                setValue(
+                  "type",
+                  (event?.target as HTMLInputElement).ariaLabel as string
+                );
+              }}
+              {...field}
+            >
+              {Object.values(LeaseTypeEnum).map((type) => (
+                <Option
+                  key={type}
+                  value={type}
+                  color="neutral"
+                  aria-label={type}
+                >
+                  {convertLeaseType(type)}
+                </Option>
+              ))}
+            </Select>
+          )}
         />
-        {errors.email && (
-          <FormHelperText>{errors.email.message}</FormHelperText>
-        )}
       </FormControl>
 
-      <FormControl error={!!errors.password}>
-        <FormLabel>Mot de passe</FormLabel>
+      <FormControl error={!!errors.houseNumber}>
+        <FormLabel>Numéro de rue</FormLabel>
         <Input
-          type="password"
+          type="text"
           variant="soft"
-          {...register("password", {
+          {...register("houseNumber", {
             required: "Ce champs est requis",
-            minLength: {
-              value: 8,
-              message: "8 caractères minimum",
-            },
-            maxLength: {
-              value: 20,
-              message: "20 caractères maximum",
-            },
           })}
         />
-        {errors.password && (
-          <FormHelperText>{errors.password.message}</FormHelperText>
+        {errors.houseNumber && (
+          <FormHelperText>{errors.houseNumber.message}</FormHelperText>
         )}
       </FormControl>
 
