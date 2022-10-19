@@ -4,7 +4,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { MobileDatePicker } from "@mui/x-date-pickers";
-import "react-datepicker/dist/react-datepicker.css";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -24,9 +23,9 @@ import { TextField } from "@mui/material";
 import styles from "./edit-lease.module.css";
 
 export interface IEditLease {
-  type: string;
-  startDate: string;
-  endDate: string;
+  type: string | null;
+  startDate: Date | null;
+  endDate: Date | null;
   houseNumber: string;
 }
 
@@ -79,7 +78,7 @@ const EditLease = () => {
           name="type"
           control={control}
           rules={{ required: "Ce champs est requis" }}
-          defaultValue="" // Avoid error "A component is changing the uncontrolled value state to be controlled."
+          defaultValue={null} // Avoid error "A component is changing the uncontrolled value state to be controlled."
           render={({ field: { onChange, ...field } }) => (
             <Select
               variant="soft"
@@ -109,7 +108,7 @@ const EditLease = () => {
           name="startDate"
           control={control}
           rules={{ required: "Ce champs est requis" }}
-          defaultValue=""
+          defaultValue={null} // Avoid having the current date by default
           render={({ field: { onChange, ...field } }) => (
             <MobileDatePicker
               onChange={(event) => {
@@ -144,17 +143,11 @@ const EditLease = () => {
         )}
       </FormControl>
 
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Se connecter
-        </Button>
-      )}
+      {!isLoading && <Button type="submit">Enregistrer</Button>}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress color="danger" thickness={3} />}
-        />
+        <Button disabled>
+          <CircularProgress color="danger" thickness={3} />
+        </Button>
       )}
     </form>
   );

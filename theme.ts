@@ -117,6 +117,7 @@ const muiTheme = extendMuiTheme({
       styleOverrides: {
         root: {
           height: "40px",
+          fontSize: "0.95rem",
           backgroundColor: "#EEEFF0",
         },
       },
