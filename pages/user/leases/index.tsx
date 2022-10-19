@@ -52,8 +52,9 @@ const UserLeases: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <AccountLayout title="Mes Annonces">
-        {error.message.split(",").map((msg) => (
+        {error.message.split(",").map((msg, index) => (
           <Alert
+            key={index}
             startDecorator={<ErrorIcon />}
             variant="soft"
             color="danger"
