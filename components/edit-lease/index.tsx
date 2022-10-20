@@ -281,11 +281,11 @@ const EditLease = () => {
           {...register("room", {
             valueAsNumber: true,
             required: "Ce champs est requis",
-            minLength: {
+            min: {
               value: 1,
               message: "1 pièce minimum",
             },
-            maxLength: {
+            max: {
               value: 10,
               message: "10 pièces maximum",
             },
