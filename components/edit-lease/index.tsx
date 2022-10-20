@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import isAfter from "date-fns/isAfter";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -23,7 +24,6 @@ import ModalClose from "@mui/joy/ModalClose";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 import { storeLease } from "../../utils/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
-import { useAuth } from "../../context/auth.context";
 import { TextField } from "@mui/material";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
@@ -44,23 +44,20 @@ export interface IEditLease {
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const EditLease = () => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { setUser } = useAuth();
-
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openAddress, setOpenAddress] = useState<boolean>(false);
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    console.log(dataGouvAddress);
-
+    setError("street", { type: "required", message: "Ce champs est requis" });
     if (dataGouvAddress) {
       setValue("street", dataGouvAddress.properties.name);
       setValue("postCode", dataGouvAddress.properties.postcode);
       setValue("city", dataGouvAddress.properties.city);
       setValue("gpsLongitude", dataGouvAddress.geometry.coordinates[0]);
       setValue("gpsLatitude", dataGouvAddress.geometry.coordinates[1]);
+      clearErrors("street");
       setOpenAddress(false);
     }
   }, [dataGouvAddress]);
@@ -74,10 +71,18 @@ const EditLease = () => {
   );
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { handleSubmit, formState, control, setValue, getValues, trigger } =
-    useForm<IEditLease>({
-      mode: "onTouched",
-    });
+  const {
+    handleSubmit,
+    formState,
+    control,
+    setValue,
+    getValues,
+    trigger,
+    setError,
+    clearErrors,
+  } = useForm<IEditLease>({
+    mode: "onTouched",
+  });
   const { errors } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
@@ -142,6 +147,12 @@ const EditLease = () => {
             <MobileDatePicker
               onChange={(event) => {
                 onChange(event);
+                const endDate = getValues("endDate");
+                if (event && endDate) {
+                  if (isAfter(event, endDate)) {
+                    setValue("endDate", event);
+                  }
+                }
               }}
               renderInput={(params) => (
                 <TextField
@@ -153,6 +164,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
+              maxDate={getValues("endDate")}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -173,6 +185,12 @@ const EditLease = () => {
             <MobileDatePicker
               onChange={(event) => {
                 onChange(event);
+                const startDate = getValues("startDate");
+                if (event && startDate) {
+                  if (isAfter(startDate, event)) {
+                    setValue("startDate", event);
+                  }
+                }
               }}
               renderInput={(params) => (
                 <TextField
@@ -184,6 +202,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
+              minDate={getValues("startDate")}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -215,7 +234,7 @@ const EditLease = () => {
         />
       </FormControl>
 
-      <FormControl>
+      <FormControl error={!!errors.street}>
         <FormLabel>Adresse</FormLabel>
         {getValues("street") && (
           <Typography marginBottom={1}>
@@ -226,11 +245,14 @@ const EditLease = () => {
         )}
         <Button
           variant="soft"
-          color="neutral"
+          color={errors.street ? "danger" : "neutral"}
           onClick={() => setOpenAddress(true)}
         >
           {getValues("street") ? "Modifier l'adresse" : "Renseigner l'adresse"}
         </Button>
+        {errors.street && (
+          <FormHelperText>{errors.street.message}</FormHelperText>
+        )}
       </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
