@@ -13,15 +13,14 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
-import { useAlert } from "../../context/alert.context";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 import { storeLease } from "../../utils/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import { TextField } from "@mui/material";
-import styles from "./edit-lease.module.css";
 import Chip from "@mui/joy/Chip";
+import styles from "./edit-lease.module.css";
 
 export interface IEditLease {
   type: string | null;
@@ -36,7 +35,6 @@ export interface IEditLease {
 const EditLease = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
-  const { success } = useAlert();
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(

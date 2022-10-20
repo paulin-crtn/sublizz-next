@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -13,9 +14,9 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { updateUser } from "../../utils/featchUser";
 import { useAuth } from "../../context/auth.context";
-import { useAlert } from "../../context/alert.context";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
+import { TOAST_STYLE } from "../../const/toast";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,14 +24,11 @@ import { IUpdateUser } from "../../interfaces/IUpdateUser";
 const AccountSettings = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
-  const { success } = useAlert();
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, getValues } = useForm<IUpdateUser>(
-    {
-      mode: "onTouched",
-    }
-  );
+  const { register, handleSubmit, formState } = useForm<IUpdateUser>({
+    mode: "onTouched",
+  });
   const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
@@ -39,7 +37,7 @@ const AccountSettings = ({ user }: { user: IUser }) => {
     {
       onSuccess: async (data) => {
         setUser(data);
-        success("Informations mises à jour");
+        toast.success("Informations mises à jour", { style: TOAST_STYLE });
       },
     }
   );

@@ -8,9 +8,10 @@ import {
   useEffect,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import { customFetch } from "../utils/customFetch";
 import { IUser } from "../interfaces/IUser";
-import { useAlert } from "./alert.context";
+import { TOAST_STYLE } from "../const/toast";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -36,9 +37,6 @@ const AuthContext = createContext<IAuthContext>({
 /*                                AUTH PROVIDER                               */
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { success } = useAlert();
-
   /* ------------------------------- REACT STATE ------------------------------ */
   const [user, setUser] = useState<IUser | null>(null);
 
@@ -55,7 +53,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   /* -------------------------------- FUNCTION -------------------------------- */
   const logout = (callback?: () => void) => {
     localStorage.removeItem("sublizz");
-    success("À bientôt " + user?.firstName);
+    toast.success(`À bientôt ${user?.firstName}`, {
+      style: TOAST_STYLE,
+    });
     setUser(null);
     callback?.();
   };

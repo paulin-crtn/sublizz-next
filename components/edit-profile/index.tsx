@@ -14,10 +14,11 @@ import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
 import { updateUser } from "../../utils/featchUser";
 import { useAuth } from "../../context/auth.context";
-import { useAlert } from "../../context/alert.context";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import Chip from "@mui/joy/Chip";
+import { TOAST_STYLE } from "../../const/toast";
+import toast from "react-hot-toast";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -25,7 +26,6 @@ import Chip from "@mui/joy/Chip";
 const EditProfile = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
-  const { success } = useAlert();
 
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState } = useForm<IUpdateUser>({
@@ -39,7 +39,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     {
       onSuccess: async (data) => {
         setUser(data);
-        success("Profil mis à jour");
+        toast.success("Profil mis à jour", { style: TOAST_STYLE });
       },
     }
   );
