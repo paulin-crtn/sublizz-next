@@ -93,9 +93,9 @@ const AddressForm = ({
             }}
             onClick={() => setDataGouvAddress(address)}
           >
-            <Typography fontWeight={300}>
-              {address.properties.name}
-              <br /> {address.properties.postcode} {address.properties.city}
+            <Typography>
+              {address.properties.name}, {address.properties.postcode}{" "}
+              {address.properties.city}
             </Typography>
           </Alert>
         ))}

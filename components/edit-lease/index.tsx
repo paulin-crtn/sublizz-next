@@ -3,8 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import isAfter from "date-fns/isAfter";
+import { SubmitHandler, useForm, Controller, useWatch } from "react-hook-form";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -85,6 +84,9 @@ const EditLease = () => {
   });
   const { errors } = formState;
 
+  const startDate = useWatch({ name: "startDate", control });
+  const endDate = useWatch({ name: "endDate", control });
+
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IEditLease> = async (payload) => {
     console.log(payload);
@@ -147,12 +149,6 @@ const EditLease = () => {
             <MobileDatePicker
               onChange={(event) => {
                 onChange(event);
-                const endDate = getValues("endDate");
-                if (event && endDate) {
-                  if (isAfter(event, endDate)) {
-                    setValue("endDate", event);
-                  }
-                }
               }}
               renderInput={(params) => (
                 <TextField
@@ -164,7 +160,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
-              maxDate={getValues("endDate")}
+              maxDate={endDate}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -185,12 +181,6 @@ const EditLease = () => {
             <MobileDatePicker
               onChange={(event) => {
                 onChange(event);
-                const startDate = getValues("startDate");
-                if (event && startDate) {
-                  if (isAfter(startDate, event)) {
-                    setValue("startDate", event);
-                  }
-                }
               }}
               renderInput={(params) => (
                 <TextField
@@ -202,7 +192,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
-              minDate={getValues("startDate")}
+              minDate={startDate}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -236,20 +226,34 @@ const EditLease = () => {
 
       <FormControl error={!!errors.street}>
         <FormLabel>Adresse</FormLabel>
-        {getValues("street") && (
-          <Typography marginBottom={1}>
-            {getValues("street")}
-            <br />
-            {getValues("postCode")} {getValues("city")}
-          </Typography>
+        {getValues("street") ? (
+          <Alert
+            variant="soft"
+            color="neutral"
+            sx={{ marginBottom: 1, paddingY: 0.5 }}
+          >
+            <Typography>
+              {getValues("street")}, {getValues("postCode")} {getValues("city")}
+            </Typography>
+            <Button
+              size="sm"
+              variant="plain"
+              color="neutral"
+              sx={{ marginLeft: "auto" }}
+              onClick={() => setOpenAddress(true)}
+            >
+              Modifier
+            </Button>
+          </Alert>
+        ) : (
+          <Button
+            variant="soft"
+            color={errors.street ? "danger" : "neutral"}
+            onClick={() => setOpenAddress(true)}
+          >
+            Remplir l'adresse
+          </Button>
         )}
-        <Button
-          variant="soft"
-          color={errors.street ? "danger" : "neutral"}
-          onClick={() => setOpenAddress(true)}
-        >
-          {getValues("street") ? "Modifier l'adresse" : "Renseigner l'adresse"}
-        </Button>
         {errors.street && (
           <FormHelperText>{errors.street.message}</FormHelperText>
         )}
