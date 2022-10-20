@@ -1,33 +1,30 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
-import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../context/auth.context";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
-import { storeLease } from "../../utils/fetchLease";
-import { convertLeaseType } from "../../utils/convertLeaseType";
-import { TextField } from "@mui/material";
-import Chip from "@mui/joy/Chip";
-import styles from "./edit-lease.module.css";
 import Box from "@mui/joy/Box";
 import Switch from "@mui/joy/Switch";
 import Typography from "@mui/joy/Typography";
-import { useEffect, useMemo, useState } from "react";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
+import { storeLease } from "../../utils/fetchLease";
+import { convertLeaseType } from "../../utils/convertLeaseType";
+import { useAuth } from "../../context/auth.context";
+import { TextField } from "@mui/material";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
 
@@ -221,12 +218,10 @@ const EditLease = () => {
       <FormControl>
         <FormLabel>Adresse</FormLabel>
         {getValues("street") && (
-          <Typography>
+          <Typography marginBottom={1}>
             {getValues("street")}
             <br />
-            {getValues("postCode")}
-            <br />
-            {getValues("city")}
+            {getValues("postCode")} {getValues("city")}
           </Typography>
         )}
         <Button

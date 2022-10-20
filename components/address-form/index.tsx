@@ -1,10 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -14,14 +13,12 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../context/auth.context";
-import { customFetch } from "../../utils/customFetch";
-import { signin } from "../../utils/fetchAuth";
-import ISignin from "../../interfaces/ISignin";
-import { TOAST_STYLE } from "../../const/toast";
 import { getDataGouvAddress } from "../../utils/fetchAddress";
 
-export interface IAddressForm {
+/* -------------------------------------------------------------------------- */
+/*                                 INTERFACES                                 */
+/* -------------------------------------------------------------------------- */
+interface IAddressForm {
   postCode: string;
   street: string;
 }
@@ -40,6 +37,7 @@ const AddressForm = ({
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [dataGouvAddresses, setDataGouvAddresses] = useState<any[]>([]);
+  const [isAddressFound, setIsAddressFound] = useState<boolean>(true);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
@@ -47,7 +45,9 @@ const AddressForm = ({
       getDataGouvAddress(payload.postCode, payload.street),
     {
       onSuccess: async (data) => {
-        if (data.features.length === 1) {
+        if (data.features.length === 0) {
+          setIsAddressFound(false);
+        } else if (data.features.length === 1) {
           setDataGouvAddress(data.features[0]);
         } else {
           setDataGouvAddresses(data.features);
@@ -72,10 +72,46 @@ const AddressForm = ({
   };
 
   const onSubmit: SubmitHandler<IAddressForm> = async (payload) => {
+    setIsAddressFound(true);
     mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
+  if (dataGouvAddresses && !!dataGouvAddresses.length) {
+    return (
+      <>
+        <FormLabel sx={{ marginBottom: 2 }}>Sélectionnez une adresse</FormLabel>
+        {dataGouvAddresses.map((address) => (
+          <Alert
+            key={address.properties.id}
+            color="info"
+            variant="soft"
+            sx={{
+              marginTop: 1,
+              cursor: "pointer",
+              ":hover": { backgroundColor: "#D5E6F2" },
+            }}
+            onClick={() => setDataGouvAddress(address)}
+          >
+            <Typography fontWeight={300}>
+              {address.properties.name}
+              <br /> {address.properties.postcode} {address.properties.city}
+            </Typography>
+          </Alert>
+        ))}
+        <Button
+          variant="soft"
+          color="neutral"
+          fullWidth
+          type="button"
+          onClick={() => setDataGouvAddresses([])}
+          sx={{ marginTop: 2 }}
+        >
+          Modifier l'adresse
+        </Button>
+      </>
+    );
+  }
   return (
     <form onSubmit={stopPropagate(handleSubmit(onSubmit))}>
       {isError && error instanceof Error && (
@@ -86,6 +122,17 @@ const AddressForm = ({
           sx={{ mb: 2 }}
         >
           {error.message}
+        </Alert>
+      )}
+
+      {!isAddressFound && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          Adresse non trouvée
         </Alert>
       )}
 
