@@ -1,9 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -29,11 +29,8 @@ const Signup = ({
   setOpenSignup: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
 }) => {
-  /* ------------------------------- REACT STATE ------------------------------ */
-  const [isConsent, setIsConsent] = useState<boolean>(false);
-
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, setValue, getValues } =
+  const { register, handleSubmit, formState, setValue, getValues, control } =
     useForm<ISignup>({
       mode: "onTouched",
     });
@@ -43,11 +40,6 @@ const Signup = ({
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
     (payload: ISignup) => signup(payload)
   );
-
-  /* ------------------------------ REACT EFFECT ------------------------------ */
-  useEffect(() => {
-    setValue("consent", isConsent);
-  }, [isConsent, setValue]);
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<ISignup> = async (payload) => {
@@ -150,46 +142,50 @@ const Signup = ({
         )}
       </FormControl>
 
-      <FormControl>
-        <Typography
-          component="div"
-          fontSize="0.9rem"
-          fontWeight={300}
-          lineHeight={1.8}
-          startDecorator={
+      <FormControl orientation="horizontal">
+        <Controller
+          name="consent"
+          control={control}
+          rules={{ required: "Ce champs est requis" }}
+          defaultValue={false}
+          render={({ field: { onChange, ...field } }) => (
             <Switch
-              checked={isConsent}
-              {...register("consent", {
-                required: "Vous devez accepter pour continuer",
-              })}
-              onChange={(event) => setIsConsent(event.target.checked)}
-              variant="solid"
-            />
-          }
-          sx={{ alignItems: "flex-start" }}
-        >
-          <Box sx={{ ml: 2 }}>
-            {errors.consent && (
-              <Typography display="block" color="danger">
-                {errors.consent.message}
-              </Typography>
-            )}
-            <Typography>
-              J'accepte les{" "}
-              <a target="_blank" href="#">
-                Conditions Générales d'Utilisation
-              </a>
-              , la{" "}
-              <a target="_blank" href="#">
-                Politique de Confidentialité
-              </a>{" "}
-              et les{" "}
-              <a target="_blank" href="#">
-                Mentions Légales
-              </a>
+              variant="soft"
+              color="neutral"
+              onChange={(event) => {
+                onChange(event);
+              }}
+              {...field}
+              sx={{ marginBottom: "auto", mr: 2 }}
+            ></Switch>
+          )}
+        />
+        <Box>
+          {errors.consent && (
+            <Typography
+              display="block"
+              color="danger"
+              margin={0}
+              fontSize="0.9rem"
+            >
+              {errors.consent.message}
             </Typography>
-          </Box>
-        </Typography>
+          )}
+          <Typography fontSize="0.9rem">
+            J'accepte les{" "}
+            <a target="_blank" href="#">
+              Conditions Générales d'Utilisation
+            </a>
+            , la{" "}
+            <a target="_blank" href="#">
+              Politique de Confidentialité
+            </a>{" "}
+            et les{" "}
+            <a target="_blank" href="#">
+              Mentions Légales
+            </a>
+          </Typography>
+        </Box>
       </FormControl>
 
       {!isLoading && (
@@ -198,11 +194,9 @@ const Signup = ({
         </Button>
       )}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress color="danger" thickness={3} />}
-        />
+        <Button fullWidth disabled>
+          <CircularProgress color="danger" thickness={3} />
+        </Button>
       )}
 
       <Typography

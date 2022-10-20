@@ -134,11 +134,9 @@ const Signin = ({
         </Button>
       )}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress color="danger" thickness={3} />}
-        />
+        <Button fullWidth disabled>
+          <CircularProgress color="danger" thickness={3} />
+        </Button>
       )}
 
       <Typography
