@@ -21,12 +21,18 @@ import { convertLeaseType } from "../../utils/convertLeaseType";
 import { TextField } from "@mui/material";
 import Chip from "@mui/joy/Chip";
 import styles from "./edit-lease.module.css";
+import Box from "@mui/joy/Box";
+import Switch from "@mui/joy/Switch";
+import Typography from "@mui/joy/Typography";
 
 export interface IEditLease {
   type: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  houseNumber: string;
+  isDateFlexible: boolean;
+  street: string;
+  postCode: string;
+  city: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -103,7 +109,7 @@ const EditLease = () => {
       </FormControl>
 
       <FormControl error={!!errors.startDate}>
-        <FormLabel>Date de début</FormLabel>
+        <FormLabel>Disponible à partir du</FormLabel>
         <Controller
           name="startDate"
           control={control}
@@ -133,36 +139,117 @@ const EditLease = () => {
         )}
       </FormControl>
 
-      <FormControl error={!!errors.houseNumber}>
-        <FormLabel>
-          Numéro de rue
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
-        </FormLabel>
+      <FormControl error={!!errors.endDate}>
+        <FormLabel>Jusqu'au</FormLabel>
+        <Controller
+          name="endDate"
+          control={control}
+          rules={{ required: "Ce champs est requis" }}
+          defaultValue={null} // Avoid having the current date by default
+          render={({ field: { onChange, ...field } }) => (
+            <MobileDatePicker
+              onChange={(event) => {
+                onChange(event);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  error={!!errors.endDate}
+                  placeholder="jj/mm/aaaa"
+                />
+              )}
+              {...field}
+              closeOnSelect
+              disablePast
+              inputFormat="dd/MM/yyyy"
+            />
+          )}
+        />
+        {errors.endDate && (
+          <FormHelperText>{errors.endDate.message}</FormHelperText>
+        )}
+      </FormControl>
+
+      <FormControl orientation="horizontal">
+        <Box>
+          <Typography fontWeight={500}>Dates flexibles</Typography>
+        </Box>
+        <Controller
+          name="isDateFlexible"
+          control={control}
+          defaultValue={false}
+          render={({ field: { onChange, ...field } }) => (
+            <Switch
+              variant="soft"
+              color="neutral"
+              onChange={(event) => {
+                onChange(event);
+              }}
+              {...field}
+              sx={{ marginBottom: "auto", ml: 2 }}
+            ></Switch>
+          )}
+        />
+      </FormControl>
+
+      <FormControl error={!!errors.street}>
+        <FormLabel>Adresse</FormLabel>
         <Input
           type="text"
           variant="soft"
-          placeholder="23 bis"
-          {...register("houseNumber", {
-            minLength: {
-              value: 1,
-              message: "1 caractère minimum",
-            },
+          placeholder="10 rue Succursale"
+          {...register("street", {
+            required: "Ce champs est requis",
             maxLength: {
-              value: 7,
-              message: "7 caractères maximum",
+              value: 30,
+              message: "30 caractères maximum",
             },
           })}
         />
-        {errors.houseNumber && (
-          <FormHelperText>{errors.houseNumber.message}</FormHelperText>
+        {errors.street && (
+          <FormHelperText>{errors.street.message}</FormHelperText>
         )}
+      </FormControl>
+
+      <FormControl error={!!errors.postCode}>
+        <FormLabel>Code postale</FormLabel>
+        <Input
+          type="text"
+          variant="soft"
+          placeholder="33000"
+          {...register("postCode", {
+            valueAsNumber: true,
+            required: "Ce champs est requis",
+            minLength: {
+              value: 5,
+              message: "5 chiffres sont attendus",
+            },
+            maxLength: {
+              value: 5,
+              message: "5 chiffres sont attendus",
+            },
+          })}
+        />
+        {errors.postCode && (
+          <FormHelperText>{errors.postCode.message}</FormHelperText>
+        )}
+      </FormControl>
+
+      <FormControl error={!!errors.city}>
+        <FormLabel>Ville</FormLabel>
+        <Input
+          type="text"
+          variant="soft"
+          placeholder="Bordeaux"
+          {...register("city", {
+            required: "Ce champs est requis",
+            maxLength: {
+              value: 30,
+              message: "30 caractères maximum",
+            },
+          })}
+        />
+        {errors.city && <FormHelperText>{errors.city.message}</FormHelperText>}
       </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
