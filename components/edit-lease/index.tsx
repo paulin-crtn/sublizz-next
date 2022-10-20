@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm, Controller, useWatch } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -20,10 +20,11 @@ import Typography from "@mui/joy/Typography";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import Input from "@mui/joy/Input";
+import { TextField } from "@mui/material";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 import { storeLease } from "../../utils/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
-import { TextField } from "@mui/material";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
 
@@ -37,6 +38,7 @@ export interface IEditLease {
   city: string;
   gpsLatitude: string;
   gpsLongitude: string;
+  room: number;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -49,7 +51,6 @@ const EditLease = () => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    setError("street", { type: "required", message: "Ce champs est requis" });
     if (dataGouvAddress) {
       setValue("street", dataGouvAddress.properties.name);
       setValue("postCode", dataGouvAddress.properties.postcode);
@@ -71,21 +72,19 @@ const EditLease = () => {
 
   /* -------------------------------- USE FORM -------------------------------- */
   const {
+    register,
     handleSubmit,
     formState,
     control,
     setValue,
     getValues,
     trigger,
-    setError,
     clearErrors,
+    watch,
   } = useForm<IEditLease>({
     mode: "onTouched",
   });
   const { errors } = formState;
-
-  const startDate = useWatch({ name: "startDate", control });
-  const endDate = useWatch({ name: "endDate", control });
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IEditLease> = async (payload) => {
@@ -118,12 +117,12 @@ const EditLease = () => {
             <Select
               variant="soft"
               placeholder="Sous-location"
-              onChange={(event) => {
+              onChange={async (event) => {
                 setValue(
                   "type",
                   (event?.target as HTMLInputElement).ariaLabel as string
                 );
-                trigger("type"); // Revalidate input
+                await trigger("type"); // Revalidate input
               }}
               {...field}
             >
@@ -160,7 +159,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
-              maxDate={endDate}
+              maxDate={watch("endDate")}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -192,7 +191,7 @@ const EditLease = () => {
               {...field}
               closeOnSelect
               disablePast
-              minDate={startDate}
+              minDate={watch("startDate")}
               inputFormat="dd/MM/yyyy"
             />
           )}
@@ -224,6 +223,11 @@ const EditLease = () => {
         />
       </FormControl>
 
+      {/**
+       * Here the "street" key is only used for display, validation and error purpose.
+       * Address (street, postCode and city) are handled in AdressForm component
+       * and updated via react-hook-form's setValue method in a useEffect hook above.
+       */}
       <FormControl error={!!errors.street}>
         <FormLabel>Adresse</FormLabel>
         {getValues("street") ? (
@@ -246,17 +250,48 @@ const EditLease = () => {
             </Button>
           </Alert>
         ) : (
-          <Button
-            variant="soft"
-            color={errors.street ? "danger" : "neutral"}
-            onClick={() => setOpenAddress(true)}
-          >
-            Remplir l'adresse
-          </Button>
+          <>
+            <Controller
+              name="street"
+              control={control}
+              rules={{ required: "Ce champs est requis" }}
+              render={() => (
+                <Button
+                  variant="soft"
+                  color={errors.street ? "danger" : "neutral"}
+                  onClick={() => setOpenAddress(true)}
+                >
+                  Remplir l'adresse
+                </Button>
+              )}
+            />
+            {errors.street && (
+              <FormHelperText>{errors.street.message}</FormHelperText>
+            )}
+          </>
         )}
-        {errors.street && (
-          <FormHelperText>{errors.street.message}</FormHelperText>
-        )}
+      </FormControl>
+
+      <FormControl error={!!errors.room}>
+        <FormLabel>Nombre de pièces</FormLabel>
+        <Input
+          type="number"
+          variant="soft"
+          placeholder="2"
+          {...register("room", {
+            valueAsNumber: true,
+            required: "Ce champs est requis",
+            minLength: {
+              value: 1,
+              message: "1 pièce minimum",
+            },
+            maxLength: {
+              value: 10,
+              message: "10 pièces maximum",
+            },
+          })}
+        />
+        {errors.room && <FormHelperText>{errors.room.message}</FormHelperText>}
       </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
