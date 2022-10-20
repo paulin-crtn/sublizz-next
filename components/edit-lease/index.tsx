@@ -24,6 +24,12 @@ import styles from "./edit-lease.module.css";
 import Box from "@mui/joy/Box";
 import Switch from "@mui/joy/Switch";
 import Typography from "@mui/joy/Typography";
+import { useEffect, useMemo, useState } from "react";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+import ModalLayout from "../modal-layout";
+import AddressForm from "../address-form";
 
 export interface IEditLease {
   type: string | null;
@@ -33,6 +39,8 @@ export interface IEditLease {
   street: string;
   postCode: string;
   city: string;
+  gpsLatitude: string;
+  gpsLongitude: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -41,6 +49,24 @@ export interface IEditLease {
 const EditLease = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
+
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [openAddress, setOpenAddress] = useState<boolean>(false);
+  const [dataGouvAddress, setDataGouvAddress] = useState<any>();
+
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  useEffect(() => {
+    console.log(dataGouvAddress);
+
+    if (dataGouvAddress) {
+      setValue("street", dataGouvAddress.properties.name);
+      setValue("postCode", dataGouvAddress.properties.postcode);
+      setValue("city", dataGouvAddress.properties.city);
+      setValue("gpsLongitude", dataGouvAddress.geometry.coordinates[0]);
+      setValue("gpsLatitude", dataGouvAddress.geometry.coordinates[1]);
+      setOpenAddress(false);
+    }
+  }, [dataGouvAddress]);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
@@ -51,7 +77,7 @@ const EditLease = () => {
   );
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, control, setValue, trigger } =
+  const { handleSubmit, formState, control, setValue, getValues, trigger } =
     useForm<IEditLease>({
       mode: "onTouched",
     });
@@ -192,64 +218,24 @@ const EditLease = () => {
         />
       </FormControl>
 
-      <FormControl error={!!errors.street}>
+      <FormControl>
         <FormLabel>Adresse</FormLabel>
-        <Input
-          type="text"
-          variant="soft"
-          placeholder="10 rue Succursale"
-          {...register("street", {
-            required: "Ce champs est requis",
-            maxLength: {
-              value: 30,
-              message: "30 caractères maximum",
-            },
-          })}
-        />
-        {errors.street && (
-          <FormHelperText>{errors.street.message}</FormHelperText>
+        {getValues("street") && (
+          <Typography>
+            {getValues("street")}
+            <br />
+            {getValues("postCode")}
+            <br />
+            {getValues("city")}
+          </Typography>
         )}
-      </FormControl>
-
-      <FormControl error={!!errors.postCode}>
-        <FormLabel>Code postale</FormLabel>
-        <Input
-          type="text"
+        <Button
           variant="soft"
-          placeholder="33000"
-          {...register("postCode", {
-            valueAsNumber: true,
-            required: "Ce champs est requis",
-            minLength: {
-              value: 5,
-              message: "5 chiffres sont attendus",
-            },
-            maxLength: {
-              value: 5,
-              message: "5 chiffres sont attendus",
-            },
-          })}
-        />
-        {errors.postCode && (
-          <FormHelperText>{errors.postCode.message}</FormHelperText>
-        )}
-      </FormControl>
-
-      <FormControl error={!!errors.city}>
-        <FormLabel>Ville</FormLabel>
-        <Input
-          type="text"
-          variant="soft"
-          placeholder="Bordeaux"
-          {...register("city", {
-            required: "Ce champs est requis",
-            maxLength: {
-              value: 30,
-              message: "30 caractères maximum",
-            },
-          })}
-        />
-        {errors.city && <FormHelperText>{errors.city.message}</FormHelperText>}
+          color="neutral"
+          onClick={() => setOpenAddress(true)}
+        >
+          {getValues("street") ? "Modifier l'adresse" : "Renseigner l'adresse"}
+        </Button>
       </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
@@ -258,6 +244,20 @@ const EditLease = () => {
           <CircularProgress color="danger" thickness={3} />
         </Button>
       )}
+
+      {/** Address */}
+      <Modal open={openAddress} onClose={() => setOpenAddress(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-address">
+          <ModalClose />
+          <ModalLayout title="Adresse du logement">
+            <AddressForm
+              setDataGouvAddress={setDataGouvAddress}
+              postCode={getValues("postCode")}
+              street={getValues("street")}
+            />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
     </form>
   );
 };
