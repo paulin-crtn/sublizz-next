@@ -6,10 +6,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
+import Box from "@mui/joy/Box";
+import Divider from "@mui/joy/Divider";
+import Button from "@mui/joy/Button";
 import NotesIcon from "@mui/icons-material/Notes";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
@@ -41,14 +45,27 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <section className={styles.menu}>
-        <Avatar
-          src={user?.profilePictureUrl}
-          variant="solid"
-          sx={{ width: 110, height: 110, mx: "auto" }}
-        />
-        <Typography level="h5" textAlign="center" mt={2}>
-          {user?.firstName}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
+            src={user?.profilePictureUrl}
+            variant="solid"
+            sx={{ width: 110, height: 110, mr: 2 }}
+          />
+          <Box textAlign="center">
+            <Typography level="h5" marginBottom={0.5}>
+              {user?.firstName}
+            </Typography>
+            <Button size="sm" variant="outlined" color="neutral">
+              Mode Bailleur
+            </Button>
+          </Box>
+        </Box>
         <nav>
           <ul>
             <li className={[styles.navButton, isActive("leases")].join(" ")}>
@@ -87,6 +104,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
                 </Typography>
               </Link>
             </li>
+            <Divider sx={{ marginY: 2 }} />
             <li
               className={styles.navButton}
               onClick={() => {
@@ -99,6 +117,18 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
                 startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
               >
                 Déconnexion
+              </Typography>
+            </li>
+            <li
+              className={styles.navButton}
+              onClick={() => console.log("suggestions")}
+            >
+              <Typography
+                color="info"
+                margin={0}
+                startDecorator={<TipsAndUpdatesIcon sx={{ marginRight: 1 }} />}
+              >
+                Suggestions
               </Typography>
             </li>
           </ul>
