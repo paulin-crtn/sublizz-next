@@ -52,7 +52,6 @@ const EditProfile = ({ user }: { user: IUser }) => {
   };
 
   useEffect(() => {
-    console.log(file);
     if (!file) return;
     new Compressor(file, {
       mimeType: "image/jpeg", // The mime type of the output image.
@@ -61,12 +60,24 @@ const EditProfile = ({ user }: { user: IUser }) => {
       maxWidth: 1000,
       maxHeight: 1000,
       success(result) {
-        console.log("result", result);
+        const formData = new FormData();
+        formData.append("profilePicture", result);
+        formData.append("fileName", "user_" + user.id + ".jpeg");
 
-        // Send the compressed image file to server with XMLHttpRequest.
-        // axios.post('/path/to/upload', formData).then(() => {
-        //   console.log('Upload success');
-        // });
+        const uploadUserProfilePicture = async () => {
+          return await fetch("/api/supabase/upload-user-profile-picture", {
+            method: "POST",
+            body: formData,
+          });
+        };
+
+        uploadUserProfilePicture()
+          .then((data) => {
+            console.log("data", data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       },
       error(err) {
         console.log(err.message);
