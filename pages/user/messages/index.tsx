@@ -73,17 +73,15 @@ const UserMessagesPage: NextPage = () => {
   if (data && !data.length) {
     return (
       <AccountLayout title="Messages">
-        <Box sx={{ height: "100%", display: "flex" }}>
-          <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <Typography level="h6" fontWeight={400} marginBottom={3}>
-              Vous n'avez envoyé aucun message.
-            </Typography>
-            <Link href="/leases">
-              <Button variant="soft" startDecorator={<SearchIcon />}>
-                Parcourir les annonces
-              </Button>
-            </Link>
-          </Box>
+        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+          <Typography level="h6" fontWeight={400} marginBottom={3}>
+            Vous n'avez envoyé aucun message.
+          </Typography>
+          <Link href="/leases">
+            <Button variant="soft" startDecorator={<SearchIcon />}>
+              Parcourir les annonces
+            </Button>
+          </Link>
         </Box>
       </AccountLayout>
     );

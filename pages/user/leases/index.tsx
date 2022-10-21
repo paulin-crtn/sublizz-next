@@ -71,17 +71,15 @@ const UserLeasesPage: NextPage = () => {
   if (data && !data.length) {
     return (
       <AccountLayout title="Mes Annonces">
-        <Box sx={{ height: "100%", display: "flex", alignItems: "stretch" }}>
-          <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <Typography level="h6" fontWeight={400} marginBottom={3}>
-              Vous n'avez publié aucune annonce.
-            </Typography>
-            <Link href="/user/leases/edit">
-              <Button variant="soft" startDecorator={<Add />}>
-                Publier une annonce
-              </Button>
-            </Link>
-          </Box>
+        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+          <Typography level="h6" fontWeight={400} marginBottom={3}>
+            Vous n'avez publié aucune annonce.
+          </Typography>
+          <Link href="/user/leases/edit">
+            <Button variant="soft" startDecorator={<Add />}>
+              Publier une annonce
+            </Button>
+          </Link>
         </Box>
       </AccountLayout>
     );
