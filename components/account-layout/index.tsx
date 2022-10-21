@@ -55,7 +55,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
           <Avatar
             src={user?.profilePictureUrl}
             variant="solid"
-            sx={{ width: 110, height: 110, mr: 2 }}
+            sx={{ width: 100, height: 100, mr: 2 }}
           />
           <Box textAlign="center">
             <Typography level="h5" marginBottom={0.5}>

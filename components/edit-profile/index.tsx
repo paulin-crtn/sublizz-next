@@ -2,13 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
+import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
@@ -19,6 +20,12 @@ import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import Chip from "@mui/joy/Chip";
 import { TOAST_STYLE } from "../../const/toast";
 import toast from "react-hot-toast";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Typography from "@mui/joy/Typography";
+import Sheet from "@mui/joy/Sheet";
+import { useState } from "react";
+import Card from "@mui/joy/Card";
+import CardCover from "@mui/joy/CardCover";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -27,8 +34,9 @@ const EditProfile = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
+  const [file, setFile] = useState<File | undefined>();
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState } = useForm<IUpdateUser>({
+  const { register, handleSubmit, formState, control } = useForm<IUpdateUser>({
     mode: "onTouched",
   });
   const { errors } = formState;
@@ -46,6 +54,8 @@ const EditProfile = ({ user }: { user: IUser }) => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
+    console.log(payload);
+
     mutate({ ...user, ...payload });
   };
 
@@ -119,6 +129,52 @@ const EditProfile = ({ user }: { user: IUser }) => {
         {errors.lastName && (
           <FormHelperText>{errors.lastName.message}</FormHelperText>
         )}
+      </FormControl>
+
+      <FormControl>
+        <FormLabel>Photo de profil</FormLabel>
+        <label>
+          <Controller
+            name="profilePictureUrl"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="file"
+                sx={{ display: "none" }}
+                onChange={(e) => {
+                  field.onChange(e.target.files);
+                  if (e.target.files) {
+                    setFile(e.target.files[0]);
+                  }
+                }}
+              />
+            )}
+          />
+          <Sheet
+            sx={{
+              width: 150,
+              border: "2px dashed #cccccc",
+              borderRadius: "md",
+              overflow: "auto",
+              cursor: "pointer",
+            }}
+          >
+            {!file && (
+              <AspectRatio ratio={1}>
+                <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
+                  <AddIcon />
+                </Typography>
+              </AspectRatio>
+            )}
+            {file && (
+              <Card sx={{ width: 150, height: 150 }}>
+                <CardCover>
+                  <img src={URL.createObjectURL(file)} />
+                </CardCover>
+              </Card>
+            )}
+          </Sheet>
+        </label>
       </FormControl>
 
       <FormControl>
