@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Compressor from "compressorjs";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -23,7 +24,7 @@ import toast from "react-hot-toast";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 
@@ -35,6 +36,44 @@ const EditProfile = ({ user }: { user: IUser }) => {
   const { setUser } = useAuth();
 
   const [file, setFile] = useState<File | undefined>();
+  const [fileError, setFileError] = useState<string | undefined>();
+
+  const handleFile = (file: File) => {
+    if (!file) return;
+    if (file.size > 5000000) {
+      setFileError("Le fichier doit faire moins de 5MB");
+      return;
+    }
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      setFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
+      return;
+    }
+    setFile(file);
+  };
+
+  useEffect(() => {
+    console.log(file);
+    if (!file) return;
+    new Compressor(file, {
+      mimeType: "image/jpeg", // The mime type of the output image.
+      convertTypes: ["image/png"],
+      quality: 0.6,
+      maxWidth: 1000,
+      maxHeight: 1000,
+      success(result) {
+        console.log("result", result);
+
+        // Send the compressed image file to server with XMLHttpRequest.
+        // axios.post('/path/to/upload', formData).then(() => {
+        //   console.log('Upload success');
+        // });
+      },
+      error(err) {
+        console.log(err.message);
+      },
+    });
+  }, [file]);
+
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState, control } = useForm<IUpdateUser>({
     mode: "onTouched",
@@ -75,6 +114,8 @@ const EditProfile = ({ user }: { user: IUser }) => {
             {msg}
           </Alert>
         ))}
+
+      {fileError && <Typography>{fileError}</Typography>}
 
       <FormControl error={!!errors.firstName}>
         <FormLabel>Prénom</FormLabel>
@@ -134,21 +175,15 @@ const EditProfile = ({ user }: { user: IUser }) => {
       <FormControl>
         <FormLabel>Photo de profil</FormLabel>
         <label>
-          <Controller
-            name="profilePictureUrl"
-            control={control}
-            render={({ field }) => (
-              <Input
-                type="file"
-                sx={{ display: "none" }}
-                onChange={(e) => {
-                  field.onChange(e.target.files);
-                  if (e.target.files) {
-                    setFile(e.target.files[0]);
-                  }
-                }}
-              />
-            )}
+          <Input
+            type="file"
+            name="file"
+            sx={{ display: "none" }}
+            onChange={(e) => {
+              if (e.target.files) {
+                handleFile(e.target.files[0]);
+              }
+            }}
           />
           <Sheet
             sx={{
