@@ -1,5 +1,5 @@
 export interface IUpdateUser {
-  profilePictureUrl?: string;
+  profilePictureName?: string;
   firstName?: string;
   lastName?: string;
   standardMessage?: string;
