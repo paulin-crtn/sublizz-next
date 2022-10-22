@@ -17,8 +17,6 @@ export default async function (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<string> {
-  console.log(req.body);
-
   // Check that Supabase keys are provided
   if (!SUPABASE_ANON_API_KEY || !NEXT_PUBLIC_SUPABASE_URL) {
     throw new Error("You must provide SUPABASE keys in .env file");

@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import randomToken from "rand-token";
 import FormControl from "@mui/joy/FormControl";
@@ -29,6 +29,7 @@ import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
+import { store, destroy } from "../../utils/fetch/fetchProfilePicture";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -61,8 +62,9 @@ const EditProfile = ({ user }: { user: IUser }) => {
   );
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const handleFile = async (file: File) => {
-    if (!file) return;
+  const handleInputFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
     if (file.size > 5000000) {
       setFileError("Le fichier doit faire moins de 5MB");
       return;
@@ -91,24 +93,35 @@ const EditProfile = ({ user }: { user: IUser }) => {
     }
   };
 
-  const uploadProfilePicture = async (formData: FormData): Promise<string> => {
-    const response = await fetch("/api/supabase/upload-user-profile-picture", {
-      // NO NEED TO SET CONTENT_TYPE WHEN SENDING A FORM DATA
-      method: "POST",
-      body: formData,
-    });
-    return await response.json();
+  const uploadProfilePicture = async (formData: FormData) => {
+    try {
+      setIsFileUploading(true);
+      const fileName = await store(formData);
+      setValue("profilePictureName", fileName);
+    } catch (err) {
+      err instanceof Error
+        ? toast.error(err.message, { style: TOAST_STYLE })
+        : toast.error("An error occured while uploading the file", {
+            style: TOAST_STYLE,
+          });
+    } finally {
+      setIsFileUploading(false);
+    }
   };
 
-  const removeProfilePicture = async (fileName: string): Promise<void> => {
-    const response = await fetch("/api/supabase/remove-user-profile-picture", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify([fileName]),
-    });
-    return await response.json();
+  const removeProfilePicture = async () => {
+    try {
+      setIsFileUploading(true);
+      await destroy(user.profilePictureName);
+    } catch (err) {
+      err instanceof Error
+        ? toast.error(err.message, { style: TOAST_STYLE })
+        : toast.error("An error occured while removing the file", {
+            style: TOAST_STYLE,
+          });
+    } finally {
+      setIsFileUploading(false);
+    }
   };
 
   const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
@@ -120,34 +133,8 @@ const EditProfile = ({ user }: { user: IUser }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        setIsFileUploading(true);
-        // Remove previous file
-        if (user.profilePictureName) {
-          try {
-            await removeProfilePicture(user.profilePictureName);
-          } catch (err) {
-            err instanceof Error
-              ? toast.error(err.message, { style: TOAST_STYLE })
-              : toast.error("An error occured while removing the file", {
-                  style: TOAST_STYLE,
-                });
-          }
-        }
-        // Upload file
-        if (formData) {
-          try {
-            const fileName = await uploadProfilePicture(formData);
-            setValue("profilePictureName", fileName);
-          } catch (err) {
-            err instanceof Error
-              ? toast.error(err.message, { style: TOAST_STYLE })
-              : toast.error("An error occured while uploading the file", {
-                  style: TOAST_STYLE,
-                });
-          }
-        }
-        setIsFileUploading(false);
-        // Validate and submit form
+        if (file && user.profilePictureName) await removeProfilePicture();
+        if (formData) await uploadProfilePicture(formData);
         handleSubmit(onSubmit)();
       }}
     >
@@ -250,11 +237,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
             type="file"
             name="file"
             sx={{ display: "none" }}
-            onChange={(e) => {
-              if (e.target.files) {
-                handleFile(e.target.files[0]);
-              }
-            }}
+            onChange={handleInputFile}
           />
           <Sheet
             sx={{
