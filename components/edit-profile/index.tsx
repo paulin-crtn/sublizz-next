@@ -27,6 +27,7 @@ import CardCover from "@mui/joy/CardCover";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
+import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -97,7 +98,6 @@ const EditProfile = ({ user }: { user: IUser }) => {
   };
 
   const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
-    console.log({ ...user, ...payload });
     mutate({ ...user, ...payload });
   };
 
@@ -106,11 +106,11 @@ const EditProfile = ({ user }: { user: IUser }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
+        // Upload file
         try {
           if (formData) {
-            const filePath = await uploadProfilePicture(formData);
-            setValue("profilePictureName", filePath);
-            console.log(filePath);
+            const fileName = await uploadProfilePicture(formData);
+            setValue("profilePictureName", fileName);
           }
         } catch (err) {
           err instanceof Error
@@ -119,6 +119,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
                 style: TOAST_STYLE,
               });
         }
+        // Validate and submit form
         handleSubmit(onSubmit)();
       }}
     >
@@ -224,12 +225,25 @@ const EditProfile = ({ user }: { user: IUser }) => {
               cursor: "pointer",
             }}
           >
-            {!file && (
+            {!file && !user.profilePictureName && (
               <AspectRatio ratio={1}>
                 <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                   <AddIcon />
                 </Typography>
               </AspectRatio>
+            )}
+            {!file && user.profilePictureName && (
+              <Card sx={{ width: 150, height: 150 }}>
+                <CardCover>
+                  <img
+                    src={
+                      user?.profilePictureName
+                        ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
+                        : undefined
+                    }
+                  />
+                </CardCover>
+              </Card>
             )}
             {file && (
               <Card sx={{ width: 150, height: 150 }}>
