@@ -72,6 +72,14 @@ const EditProfile = ({ user }: { user: IUser }) => {
         };
 
         uploadUserProfilePicture()
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(
+              "An error occured in uploadUserProfilePicture function"
+            );
+          })
           .then((data) => {
             console.log("data", data);
           })
