@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -25,12 +25,12 @@ import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/joy/Box";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 import { store, destroy } from "../../utils/fetch/fetchProfilePicture";
-import Box from "@mui/joy/Box";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -64,7 +64,9 @@ const EditProfile = ({ user }: { user: IUser }) => {
   );
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const handleAddInputFile = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onAddInputFile = async (
+    e: ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file.size > 5000000) {
@@ -79,30 +81,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     await buildFormData(file);
   };
 
-  const handleDeleteProfilePicture = async () => {
-    setInputFile(undefined);
-    setFormData(undefined);
-    if (user.profilePictureName) {
-      try {
-        const fileName = user.profilePictureName.split("?")[0]; // Remove ?t=date
-        await destroy(fileName);
-        const updatedUser = await updateUser(user.id, {
-          ...user,
-          profilePictureName: null,
-        });
-        setUser(updatedUser);
-        toast.success("Photo de profil supprimée", { style: TOAST_STYLE });
-      } catch (err) {
-        err instanceof Error
-          ? toast.error(err.message, { style: TOAST_STYLE })
-          : toast.error("An error occured while removing the file", {
-              style: TOAST_STYLE,
-            });
-      }
-    }
-  };
-
-  const buildFormData = async (file: File) => {
+  const buildFormData = async (file: File): Promise<void> => {
     try {
       const compressedFile = await compressFile(file);
       const formData = new FormData();
@@ -118,36 +97,68 @@ const EditProfile = ({ user }: { user: IUser }) => {
     }
   };
 
-  const uploadProfilePicture = async (formData: FormData) => {
-    try {
-      const fileName = await store(formData);
-      setValue("profilePictureName", `${fileName}?t=${Date.now()}`); // ?t=date is used in order to bypass Supabase cache
-    } catch (err) {
-      err instanceof Error
-        ? toast.error(err.message, { style: TOAST_STYLE })
-        : toast.error("An error occured while uploading the file", {
-            style: TOAST_STYLE,
-          });
+  const onDeleteProfilePicture = async (): Promise<void> => {
+    setInputFile(undefined);
+    setFormData(undefined);
+    if (user.profilePictureName) {
+      try {
+        setIsDeletingFile(true);
+        const fileName = user.profilePictureName.split("?")[0]; // Remove ?t=date
+        await destroy(fileName);
+        const updatedUser = await updateUser(user.id, {
+          ...user,
+          profilePictureName: null,
+        });
+        setUser(updatedUser);
+        toast.success("Photo de profil supprimée", { style: TOAST_STYLE });
+      } catch (err) {
+        err instanceof Error
+          ? toast.error(err.message, { style: TOAST_STYLE })
+          : toast.error("An error occured while removing the file", {
+              style: TOAST_STYLE,
+            });
+      } finally {
+        setIsDeletingFile(false);
+      }
     }
   };
 
-  const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    // Prevent default
+    e.preventDefault();
+    // Upload file
+    if (formData) {
+      try {
+        setIsUploadingFile(true);
+        const fileName = await store(formData);
+        /**
+         * ?t=date is used in order to handle/bust Supabase cache
+         * https://github.com/supabase/supabase/discussions/5737
+         */
+        const fileNameTimestamped = fileName + "?=t" + Date.now();
+        setValue("profilePictureName", fileNameTimestamped);
+      } catch (err) {
+        err instanceof Error
+          ? toast.error(err.message, { style: TOAST_STYLE })
+          : toast.error("An error occured while uploading the file", {
+              style: TOAST_STYLE,
+            });
+      } finally {
+        setFormData(undefined); // Avoid uploading twice if user continue to edit/save its profile
+        setIsUploadingFile(false);
+      }
+    }
+    // Submit form
+    handleSubmit(mutateSubmit)();
+  };
+
+  const mutateSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
     mutate({ ...user, ...payload });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        if (formData) {
-          setIsUploadingFile(true);
-          await uploadProfilePicture(formData);
-          setIsUploadingFile(false);
-        }
-        handleSubmit(onSubmit)();
-      }}
-    >
+    <form onSubmit={onSubmit}>
       {isError &&
         error instanceof Error &&
         error.message.split(",").map((msg, index) => (
@@ -192,7 +203,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
             <Input
               type="file"
               sx={{ display: "none" }}
-              onChange={handleAddInputFile}
+              onChange={onAddInputFile}
             />
             <Sheet
               sx={{
@@ -233,21 +244,29 @@ const EditProfile = ({ user }: { user: IUser }) => {
               )}
             </Sheet>
           </FormLabel>
-          <Button
-            variant="outlined"
-            color="neutral"
-            size="sm"
-            disabled={isDeletingFile}
-            onClick={handleDeleteProfilePicture}
-            startDecorator={<DeleteIcon />}
-            sx={{ width: "fit-content", marginX: "auto" }}
-          >
-            {isDeletingFile ? (
-              <CircularProgress color="danger" thickness={3} />
-            ) : (
-              "Supprimer"
-            )}
-          </Button>
+          {!isDeletingFile && (
+            <Button
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              fullWidth
+              onClick={onDeleteProfilePicture}
+              startDecorator={<DeleteIcon />}
+            >
+              Supprimer
+            </Button>
+          )}
+          {isDeletingFile && (
+            <Button
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              fullWidth
+              disabled
+            >
+              <CircularProgress color="neutral" thickness={3} />
+            </Button>
+          )}
         </FormControl>
 
         <Box sx={{ flex: "1 1" }}>
