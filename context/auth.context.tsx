@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { customFetch } from "../utils/customFetch";
+import { customFetch } from "../utils/fetch/customFetch";
 import { IUser } from "../interfaces/IUser";
 import { TOAST_STYLE } from "../const/toast";
 

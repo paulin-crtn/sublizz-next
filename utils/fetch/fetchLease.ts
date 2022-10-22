@@ -2,9 +2,9 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { ISendReport } from "../interfaces/lease";
-import { ISendMessage } from "../interfaces/lease";
-import { IEditLease } from "../components/edit-lease";
+import { ISendReport } from "../../interfaces/lease";
+import { ISendMessage } from "../../interfaces/lease";
+import { IEditLease } from "../../components/edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */

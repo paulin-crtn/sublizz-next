@@ -12,7 +12,7 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { updateUser } from "../../utils/featchUser";
+import { updateUser } from "../../utils/fetch/featchUser";
 import { useAuth } from "../../context/auth.context";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";

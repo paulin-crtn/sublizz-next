@@ -15,8 +15,8 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
-import { customFetch } from "../../utils/customFetch";
-import { signin } from "../../utils/fetchAuth";
+import { customFetch } from "../../utils/fetch/customFetch";
+import { signin } from "../../utils/fetch/fetchAuth";
 import ISignin from "../../interfaces/ISignin";
 import { TOAST_STYLE } from "../../const/toast";
 

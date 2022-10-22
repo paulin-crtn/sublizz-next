@@ -16,7 +16,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import SuccessAnimation from "../success-animation";
-import { signup } from "../../utils/fetchAuth";
+import { signup } from "../../utils/fetch/fetchAuth";
 import ISignup from "../../interfaces/ISignup";
 
 /* -------------------------------------------------------------------------- */

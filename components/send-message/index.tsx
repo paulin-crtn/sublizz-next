@@ -13,7 +13,7 @@ import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import Chip from "@mui/joy/Chip";
-import { storeLeaseMessage } from "../../utils/fetchLease";
+import { storeLeaseMessage } from "../../utils/fetch/fetchLease";
 import SuccessAnimation from "../success-animation";
 import { useAuth } from "../../context/auth.context";
 import { ILease, ISendMessage } from "../../interfaces/lease";

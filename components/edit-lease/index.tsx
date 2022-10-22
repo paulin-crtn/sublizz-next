@@ -23,7 +23,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import Input from "@mui/joy/Input";
 import { TextField } from "@mui/material";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
-import { storeLease } from "../../utils/fetchLease";
+import { storeLease } from "../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";

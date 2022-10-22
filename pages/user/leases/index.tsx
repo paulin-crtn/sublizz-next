@@ -12,7 +12,7 @@ import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../../context/auth.context";
-import { getUserLeases } from "../../../utils/fetchLease";
+import { getUserLeases } from "../../../utils/fetch/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import LeaseCard from "../../../components/lease-card";

@@ -12,7 +12,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
-import { storeLeaseReport } from "../../utils/fetchLease";
+import { storeLeaseReport } from "../../utils/fetch/fetchLease";
 import SuccessAnimation from "../success-animation";
 import { ISendReport } from "../../interfaces/lease";
 

@@ -13,7 +13,7 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { resetPassword } from "../../utils/fetchAuth";
+import { resetPassword } from "../../utils/fetch/fetchAuth";
 import ISignin from "../../interfaces/ISignin";
 import SuccessAnimation from "../success-animation";
 import Box from "@mui/joy/Box";

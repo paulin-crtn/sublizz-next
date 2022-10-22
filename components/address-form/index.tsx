@@ -13,7 +13,7 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { getDataGouvAddress } from "../../utils/fetchAddress";
+import { getDataGouvAddress } from "../../utils/fetch/fetchAddress";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */

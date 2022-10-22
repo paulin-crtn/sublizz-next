@@ -14,7 +14,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../../context/auth.context";
-import { getUserMessages } from "../../../utils/fetchLease";
+import { getUserMessages } from "../../../utils/fetch/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import AccountMessage from "../../../components/account-message";

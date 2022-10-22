@@ -14,7 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { updateUser } from "../../utils/featchUser";
+import { updateUser } from "../../utils/fetch/featchUser";
 import { useAuth } from "../../context/auth.context";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
