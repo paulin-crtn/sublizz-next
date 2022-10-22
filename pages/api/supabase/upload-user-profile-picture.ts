@@ -3,8 +3,8 @@
 /* -------------------------------------------------------------------------- */
 import { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
-import formidable from "formidable";
 import fs from "fs";
+import parseFormData from "../../../utils/parseFormData";
 
 /* -------------------------------------------------------------------------- */
 /*                                   CONFIG                                   */
@@ -42,8 +42,8 @@ export default async function (
     NEXT_PUBLIC_SUPABASE_URL,
     SUPABASE_ANON_API_KEY
   );
-  // Parse request with Formidable package
-  const { fields, files } = await _formidableParse(req);
+  // Parse request
+  const { fields, files } = await parseFormData(req, false);
   // Rebuild file
   const persistentFile = (files.profilePicture as any[])[0];
   const file = fs.readFileSync(persistentFile.filepath);
@@ -60,26 +60,3 @@ export default async function (
   }
   return res.json(response.data) as unknown as { path: string };
 }
-
-/* -------------------------------------------------------------------------- */
-/*                              PRIVATE FUNCTIONS                             */
-/* -------------------------------------------------------------------------- */
-const _formidableParse = async (
-  req: NextApiRequest
-): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
-  return await new Promise(function (resolve) {
-    const form = formidable({ multiples: false });
-    form.parse(
-      req,
-      async (error, fields: formidable.Fields, files: formidable.Files) => {
-        if (error) {
-          throw new Error("An error occured while parsing the request");
-        }
-        resolve({
-          fields,
-          files,
-        });
-      }
-    );
-  });
-};
