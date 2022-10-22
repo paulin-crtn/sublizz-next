@@ -30,9 +30,7 @@ const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 export default async function (
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<{
-  path: string;
-}> {
+): Promise<string> {
   // Check that Supabase keys are provided
   if (!SUPABASE_ANON_API_KEY || !NEXT_PUBLIC_SUPABASE_URL) {
     throw new Error("You must provide SUPABASE keys in .env file");
@@ -58,5 +56,5 @@ export default async function (
   if (response.error) {
     throw new Error(response.error.message);
   }
-  return res.json(response.data) as unknown as { path: string };
+  return res.json(response.data.path) as unknown as string;
 }

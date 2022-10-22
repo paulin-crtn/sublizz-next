@@ -2,8 +2,8 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMutation } from "@tanstack/react-query";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import Compressor from "compressorjs";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -14,19 +14,19 @@ import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { updateUser } from "../../utils/fetch/featchUser";
+import { updateUser } from "../../utils/fetch/fetchUser";
 import { useAuth } from "../../context/auth.context";
-import { IUser } from "../../interfaces/IUser";
-import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import Chip from "@mui/joy/Chip";
 import { TOAST_STYLE } from "../../const/toast";
 import toast from "react-hot-toast";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import { useEffect, useState } from "react";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
+import compressFile from "../../utils/compressFile";
+import { IUser } from "../../interfaces/IUser";
+import { IUpdateUser } from "../../interfaces/IUpdateUser";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -35,66 +35,13 @@ const EditProfile = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
+  /* ------------------------------- REACT STATE ------------------------------ */
   const [file, setFile] = useState<File | undefined>();
   const [fileError, setFileError] = useState<string | undefined>();
-
-  const handleFile = (file: File) => {
-    if (!file) return;
-    if (file.size > 5000000) {
-      setFileError("Le fichier doit faire moins de 5MB");
-      return;
-    }
-    if (!["image/jpeg", "image/png"].includes(file.type)) {
-      setFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
-      return;
-    }
-    setFile(file);
-  };
-
-  useEffect(() => {
-    if (!file) return;
-    new Compressor(file, {
-      mimeType: "image/jpeg", // The mime type of the output image.
-      convertTypes: ["image/png"],
-      quality: 0.6,
-      maxWidth: 1000,
-      maxHeight: 1000,
-      success(result) {
-        const formData = new FormData();
-        formData.append("profilePicture", result);
-        formData.append("fileName", "user_" + user.id + ".jpeg");
-
-        const uploadUserProfilePicture = async () => {
-          return await fetch("/api/supabase/upload-user-profile-picture", {
-            method: "POST",
-            body: formData,
-          });
-        };
-
-        uploadUserProfilePicture()
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error(
-              "An error occured in uploadUserProfilePicture function"
-            );
-          })
-          .then((data) => {
-            console.log("data", data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-      error(err) {
-        console.log(err.message);
-      },
-    });
-  }, [file]);
+  const [formData, setFormData] = useState<FormData | undefined>();
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState, control } = useForm<IUpdateUser>({
+  const { register, handleSubmit, formState, setValue } = useForm<IUpdateUser>({
     mode: "onTouched",
   });
   const { errors } = formState;
@@ -111,15 +58,70 @@ const EditProfile = ({ user }: { user: IUser }) => {
   );
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
-    console.log(payload);
+  const handleFile = async (file: File) => {
+    if (!file) return;
+    if (file.size > 5000000) {
+      setFileError("Le fichier doit faire moins de 5MB");
+      return;
+    }
+    if (!["image/jpeg", "image/png"].includes(file.type)) {
+      setFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
+      return;
+    }
+    setFile(file);
+    await buildFormData(file);
+  };
 
+  const buildFormData = async (file: File) => {
+    try {
+      const compressedFile = await compressFile(file);
+      const formData = new FormData();
+      formData.append("profilePicture", compressedFile);
+      formData.append("fileName", `user_${user.id}.jpeg`);
+      setFormData(formData);
+    } catch (err) {
+      err instanceof Error
+        ? toast.error(err.message, { style: TOAST_STYLE })
+        : toast.error("An error occured while compressing the file", {
+            style: TOAST_STYLE,
+          });
+    }
+  };
+
+  const uploadProfilePicture = async (formData: FormData): Promise<string> => {
+    const response = await fetch("/api/supabase/upload-user-profile-picture", {
+      method: "POST",
+      body: formData,
+    });
+    return await response.json();
+  };
+
+  const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
+    console.log({ ...user, ...payload });
     mutate({ ...user, ...payload });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        try {
+          if (formData) {
+            const filePath = await uploadProfilePicture(formData);
+            setValue("profilePictureName", filePath);
+            console.log(filePath);
+          }
+        } catch (err) {
+          err instanceof Error
+            ? toast.error(err.message, { style: TOAST_STYLE })
+            : toast.error("An error occured while uploading the file", {
+                style: TOAST_STYLE,
+              });
+        }
+        handleSubmit(onSubmit)();
+      }}
+    >
       {isError &&
         error instanceof Error &&
         error.message.split(",").map((msg, index) => (
@@ -192,7 +194,17 @@ const EditProfile = ({ user }: { user: IUser }) => {
       </FormControl>
 
       <FormControl>
-        <FormLabel>Photo de profil</FormLabel>
+        <FormLabel>
+          Photo de profil
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
         <label>
           <Input
             type="file"
@@ -207,7 +219,6 @@ const EditProfile = ({ user }: { user: IUser }) => {
           <Sheet
             sx={{
               width: 150,
-              border: "2px dashed #cccccc",
               borderRadius: "md",
               overflow: "auto",
               cursor: "pointer",

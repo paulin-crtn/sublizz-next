@@ -17,6 +17,7 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
+import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -53,7 +54,11 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
           }}
         >
           <Avatar
-            src={user?.profilePictureUrl}
+            src={
+              user?.profilePictureName
+                ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
+                : undefined
+            }
             variant="solid"
             sx={{ width: 100, height: 100, mr: 2 }}
           />

@@ -42,6 +42,7 @@ import Chip from "@mui/joy/Chip";
 
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
+import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -145,7 +146,11 @@ const LeasePage: NextPage = ({
             <div className={styles.author}>
               <Avatar
                 alt="Photo de profil de l'auteur de l'annonce"
-                src={lease.user.profilePictureUrl}
+                src={
+                  lease.user.profilePictureName
+                    ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
+                    : undefined
+                }
                 sx={{
                   width: 80,
                   height: 80,
