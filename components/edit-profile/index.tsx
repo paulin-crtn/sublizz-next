@@ -4,6 +4,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import randomToken from "rand-token";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -40,6 +41,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
   const [file, setFile] = useState<File | undefined>();
   const [fileError, setFileError] = useState<string | undefined>();
   const [formData, setFormData] = useState<FormData | undefined>();
+  const [isFileUploading, setIsFileUploading] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState, setValue } = useForm<IUpdateUser>({
@@ -78,7 +80,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
       const compressedFile = await compressFile(file);
       const formData = new FormData();
       formData.append("profilePicture", compressedFile);
-      formData.append("fileName", `user_${user.id}.jpeg`);
+      formData.append("fileName", `${randomToken.generate(10)}.jpeg`);
       setFormData(formData);
     } catch (err) {
       err instanceof Error
@@ -91,8 +93,20 @@ const EditProfile = ({ user }: { user: IUser }) => {
 
   const uploadProfilePicture = async (formData: FormData): Promise<string> => {
     const response = await fetch("/api/supabase/upload-user-profile-picture", {
+      // NO NEED TO SET CONTENT_TYPE WHEN SENDING A FORM DATA
       method: "POST",
       body: formData,
+    });
+    return await response.json();
+  };
+
+  const removeProfilePicture = async (fileName: string): Promise<void> => {
+    const response = await fetch("/api/supabase/remove-user-profile-picture", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([fileName]),
     });
     return await response.json();
   };
@@ -106,19 +120,33 @@ const EditProfile = ({ user }: { user: IUser }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
+        setIsFileUploading(true);
+        // Remove previous file
+        if (user.profilePictureName) {
+          try {
+            await removeProfilePicture(user.profilePictureName);
+          } catch (err) {
+            err instanceof Error
+              ? toast.error(err.message, { style: TOAST_STYLE })
+              : toast.error("An error occured while removing the file", {
+                  style: TOAST_STYLE,
+                });
+          }
+        }
         // Upload file
-        try {
-          if (formData) {
+        if (formData) {
+          try {
             const fileName = await uploadProfilePicture(formData);
             setValue("profilePictureName", fileName);
+          } catch (err) {
+            err instanceof Error
+              ? toast.error(err.message, { style: TOAST_STYLE })
+              : toast.error("An error occured while uploading the file", {
+                  style: TOAST_STYLE,
+                });
           }
-        } catch (err) {
-          err instanceof Error
-            ? toast.error(err.message, { style: TOAST_STYLE })
-            : toast.error("An error occured while uploading the file", {
-                style: TOAST_STYLE,
-              });
         }
+        setIsFileUploading(false);
         // Validate and submit form
         handleSubmit(onSubmit)();
       }}
@@ -137,7 +165,18 @@ const EditProfile = ({ user }: { user: IUser }) => {
           </Alert>
         ))}
 
-      {fileError && <Typography>{fileError}</Typography>}
+      {fileError && (
+        <Typography>
+          <Alert
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {fileError}
+          </Alert>
+        </Typography>
+      )}
 
       <FormControl error={!!errors.firstName}>
         <FormLabel>Prénom</FormLabel>
@@ -281,8 +320,10 @@ const EditProfile = ({ user }: { user: IUser }) => {
         />
       </FormControl>
 
-      {!isLoading && <Button type="submit">Enregistrer</Button>}
-      {isLoading && (
+      {!isFileUploading && !isLoading && (
+        <Button type="submit">Enregistrer</Button>
+      )}
+      {(isFileUploading || isLoading) && (
         <Button disabled>
           <CircularProgress color="danger" thickness={3} />
         </Button>
