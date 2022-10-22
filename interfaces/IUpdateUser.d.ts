@@ -1,5 +1,5 @@
 export interface IUpdateUser {
-  profilePictureName?: string;
+  profilePictureName?: string | null;
   firstName?: string;
   lastName?: string;
   standardMessage?: string;

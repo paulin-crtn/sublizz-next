@@ -88,7 +88,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         await destroy(fileName);
         const updatedUser = await updateUser(user.id, {
           ...user,
-          profilePictureName: "",
+          profilePictureName: null,
         });
         setUser(updatedUser);
         toast.success("Photo de profil supprimée", { style: TOAST_STYLE });
