@@ -12,28 +12,26 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
+/**
+ * Check if JWT is still valid before making the request.
+ * Call _refreshToken before the orignal request if JWT is expired.
+ *
+ * @param endPoint
+ * @param method
+ * @param payload
+ * @returns
+ */
 export const customFetch = async (
   endPoint: string,
   method: string,
   payload?: any
 ) => {
   let jwt = localStorage.getItem("sublizz");
-
-  if (!jwt) {
-    return;
-  }
-
+  if (!jwt) return;
   const jwtDecoded: { sub: number; iat: number; exp: number } = jwtDecode(jwt);
   const isExpired = isAfter(Date.now(), jwtDecoded.exp * 1000);
-
-  if (isExpired) {
-    jwt = await _refreshToken();
-  }
-
-  if (jwt) {
-    return await _originalRequest(endPoint, method, payload);
-  }
-
+  if (isExpired) jwt = await _refreshToken();
+  if (jwt) return await _originalRequest(endPoint, method, payload);
   throw new Error("An error happened while using customFetch");
 };
 
