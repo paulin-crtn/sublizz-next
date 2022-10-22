@@ -24,11 +24,13 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
+import DeleteIcon from "@mui/icons-material/Delete";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUpdateUser";
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 import { store, destroy } from "../../utils/fetch/fetchProfilePicture";
+import Box from "@mui/joy/Box";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -173,75 +175,20 @@ const EditProfile = ({ user }: { user: IUser }) => {
         </Typography>
       )}
 
-      <FormControl error={!!errors.firstName}>
-        <FormLabel>Prénom</FormLabel>
-        <Input
-          type="text"
-          variant="soft"
-          defaultValue={user.firstName}
-          {...register("firstName", {
-            required: "Ce champs est requis",
-            minLength: {
-              value: 3,
-              message: "3 caractères minimum",
-            },
-            maxLength: {
-              value: 30,
-              message: "30 caractères maximum",
-            },
-          })}
-        />
-        {errors.firstName && (
-          <FormHelperText>{errors.firstName.message}</FormHelperText>
-        )}
-      </FormControl>
-
-      <FormControl error={!!errors.lastName}>
-        <FormLabel>
-          Nom
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
-        </FormLabel>
-        <Input
-          type="text"
-          variant="soft"
-          defaultValue={user.lastName}
-          {...register("lastName", {
-            minLength: {
-              value: 3,
-              message: "3 caractères minimum",
-            },
-            maxLength: {
-              value: 30,
-              message: "30 caractères maximum",
-            },
-          })}
-        />
-        {errors.lastName && (
-          <FormHelperText>{errors.lastName.message}</FormHelperText>
-        )}
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>
-          Photo de profil
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
-        </FormLabel>
-        <FormLabel>
-          <>
+      <Box sx={{ display: "flex", gap: 6, paddingX: 3, paddingY: 2 }}>
+        <FormControl sx={{ flex: "0 0" }}>
+          <FormLabel sx={{ marginX: "auto", marginBottom: 3 }}>
+            Photo
+            <Chip
+              size="sm"
+              color="info"
+              variant="soft"
+              sx={{ marginLeft: 1, fontWeight: 400 }}
+            >
+              Optionnel
+            </Chip>
+          </FormLabel>
+          <FormLabel>
             <Input
               type="file"
               sx={{ display: "none" }}
@@ -285,57 +232,115 @@ const EditProfile = ({ user }: { user: IUser }) => {
                 </Card>
               )}
             </Sheet>
-          </>
-        </FormLabel>
-        <Button
-          variant="soft"
-          color="neutral"
-          size="sm"
-          disabled={isDeletingFile}
-          sx={{ marginTop: 1 }}
-          onClick={handleDeleteProfilePicture}
-        >
-          {isDeletingFile ? (
-            <CircularProgress color="danger" thickness={3} />
-          ) : (
-            "Supprimer"
-          )}
-        </Button>
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>
-          Message type
-          <Chip
+          </FormLabel>
+          <Button
+            variant="outlined"
+            color="neutral"
             size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
+            disabled={isDeletingFile}
+            onClick={handleDeleteProfilePicture}
+            startDecorator={<DeleteIcon />}
+            sx={{ width: "fit-content", marginX: "auto" }}
           >
-            Optionnel
-          </Chip>
-        </FormLabel>
-        <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
-          Répondez aux annonces plus rapidement en rédigeant un modèle
-          prédéfini.
-        </FormHelperText>
-        <Textarea
-          variant="soft"
-          defaultValue={user.standardMessage}
-          {...register("standardMessage")}
-          minRows={5}
-          maxRows={5}
-        />
-      </FormControl>
+            {isDeletingFile ? (
+              <CircularProgress color="danger" thickness={3} />
+            ) : (
+              "Supprimer"
+            )}
+          </Button>
+        </FormControl>
 
-      {!isUploadingFile && !isLoading && (
-        <Button type="submit">Enregistrer</Button>
-      )}
-      {(isUploadingFile || isLoading) && (
-        <Button disabled>
-          <CircularProgress color="danger" thickness={3} />
-        </Button>
-      )}
+        <Box sx={{ flex: "1 1" }}>
+          <FormControl error={!!errors.firstName}>
+            <FormLabel>Prénom</FormLabel>
+            <Input
+              type="text"
+              variant="soft"
+              defaultValue={user.firstName}
+              {...register("firstName", {
+                required: "Ce champs est requis",
+                minLength: {
+                  value: 3,
+                  message: "3 caractères minimum",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "30 caractères maximum",
+                },
+              })}
+            />
+            {errors.firstName && (
+              <FormHelperText>{errors.firstName.message}</FormHelperText>
+            )}
+          </FormControl>
+
+          <FormControl error={!!errors.lastName}>
+            <FormLabel>
+              Nom
+              <Chip
+                size="sm"
+                color="info"
+                variant="soft"
+                sx={{ marginLeft: 1, fontWeight: 400 }}
+              >
+                Optionnel
+              </Chip>
+            </FormLabel>
+            <Input
+              type="text"
+              variant="soft"
+              defaultValue={user.lastName}
+              {...register("lastName", {
+                minLength: {
+                  value: 3,
+                  message: "3 caractères minimum",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "30 caractères maximum",
+                },
+              })}
+            />
+            {errors.lastName && (
+              <FormHelperText>{errors.lastName.message}</FormHelperText>
+            )}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>
+              Message type
+              <Chip
+                size="sm"
+                color="info"
+                variant="soft"
+                sx={{ marginLeft: 1, fontWeight: 400 }}
+              >
+                Optionnel
+              </Chip>
+            </FormLabel>
+            <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
+              Répondez aux annonces plus rapidement en rédigeant un modèle
+              prédéfini.
+            </FormHelperText>
+            <Textarea
+              variant="soft"
+              defaultValue={user.standardMessage}
+              {...register("standardMessage")}
+              minRows={5}
+              maxRows={5}
+            />
+          </FormControl>
+
+          {!isUploadingFile && !isLoading && (
+            <Button type="submit">Enregistrer</Button>
+          )}
+          {(isUploadingFile || isLoading) && (
+            <Button disabled>
+              <CircularProgress color="danger" thickness={3} />
+            </Button>
+          )}
+        </Box>
+      </Box>
     </form>
   );
 };

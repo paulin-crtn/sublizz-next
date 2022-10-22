@@ -95,7 +95,7 @@ export const joyTheme: Theme = extendTheme({
     },
     JoyFormLabel: {
       styleOverrides: {
-        root: { fontSize: "1rem", marginBottom: "10px" },
+        root: { fontSize: "1.05rem", marginBottom: "10px" },
       },
     },
     JoyAlert: {
