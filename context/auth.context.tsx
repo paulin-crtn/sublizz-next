@@ -11,7 +11,7 @@ import {
 import toast from "react-hot-toast";
 import { customFetch } from "../utils/fetch/customFetch";
 import { IUser } from "../interfaces/IUser";
-import { TOAST_STYLE } from "../const/toast";
+import { TOAST_STYLE } from "../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */

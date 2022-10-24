@@ -15,8 +15,8 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import { updateUser } from "../../utils/fetch/fetchUser";
 import { useAuth } from "../../context/auth.context";
 import { IUser } from "../../interfaces/IUser";
-import { IUpdateUser } from "../../interfaces/IUpdateUser";
-import { TOAST_STYLE } from "../../const/toast";
+import { IUpdateUser } from "../../interfaces/IUserUpdate";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

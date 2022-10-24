@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { IUpdateUser } from "../../interfaces/IUpdateUser";
+import { IUpdateUser } from "../../interfaces/IUserUpdate";
 
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */

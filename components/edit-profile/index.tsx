@@ -17,7 +17,7 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import { updateUser } from "../../utils/fetch/fetchUser";
 import { useAuth } from "../../context/auth.context";
 import Chip from "@mui/joy/Chip";
-import { TOAST_STYLE } from "../../const/toast";
+import { TOAST_STYLE } from "../../const/toastStyle";
 import toast from "react-hot-toast";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
@@ -28,7 +28,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/joy/Box";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
-import { IUpdateUser } from "../../interfaces/IUpdateUser";
+import { IUpdateUser } from "../../interfaces/IUserUpdate";
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 import { store, destroy } from "../../utils/fetch/fetchProfilePicture";
 

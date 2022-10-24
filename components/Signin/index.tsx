@@ -18,7 +18,7 @@ import { useAuth } from "../../context/auth.context";
 import { customFetch } from "../../utils/fetch/customFetch";
 import { signin } from "../../utils/fetch/fetchAuth";
 import ISignin from "../../interfaces/ISignin";
-import { TOAST_STYLE } from "../../const/toast";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
