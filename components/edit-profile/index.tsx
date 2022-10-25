@@ -188,7 +188,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
 
       <Box sx={{ display: "flex", gap: 6, paddingX: 3, paddingY: 2 }}>
         <FormControl sx={{ flex: "0 0" }}>
-          <FormLabel sx={{ marginX: "auto", marginBottom: 3 }}>
+          <FormLabel>
             Photo
             <Chip
               size="sm"
@@ -199,6 +199,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
               Optionnel
             </Chip>
           </FormLabel>
+          <FormHelperText sx={{marginBottom: '15px'}}>Format : JPG ou PNG. Poids max : 5Mo.</FormHelperText>
           <FormLabel>
             <Input
               type="file"
