@@ -82,7 +82,7 @@ const Navbar: FunctionComponent = () => {
               className={styles.cta}
               onClick={() => {
                 setSignCallback(
-                  () => () => router.replace("/user/leases/edit")
+                  () => () => router.replace("/dashboard/leases/new")
                 );
                 setOpenSignAlert(true);
               }}
@@ -115,28 +115,28 @@ const Navbar: FunctionComponent = () => {
                 size="lg"
                 aria-labelledby="basic-demo-button"
               >
-                <Link href="/user/leases">
+                <Link href="/dashboard/leases">
                   <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<NotesIcon />}>
                       Mes Annonces
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link href="/user/messages">
+                <Link href="/dashboard/messages">
                   <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<EmailIcon />}>
                       Messages
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link href="/user/profile">
+                <Link href="/dashboard/profile">
                   <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<PersonIcon />}>
                       Profil
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link href="/user/account">
+                <Link href="/dashboard/account">
                   <MenuItem onClick={handleClose}>
                     <Typography startDecorator={<SettingsIcon />}>
                       Compte
@@ -159,7 +159,7 @@ const Navbar: FunctionComponent = () => {
               </Menu>
             </li>
             <li className={styles.cta}>
-              <Link href="/user/leases/edit">
+              <Link href="/dashboard/leases/new">
                 <Button startDecorator={<Add />}>Publier une annonce</Button>
               </Link>
             </li>

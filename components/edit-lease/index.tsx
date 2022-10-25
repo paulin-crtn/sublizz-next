@@ -35,6 +35,7 @@ import { convertLeaseType } from "../../utils/convertLeaseType";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
 import { TOAST_STYLE } from "../../const/toastStyle";
+import { ILeaseDetail } from "../../interfaces/lease";
 
 export interface IEditLease {
   type: string | null;
@@ -57,7 +58,7 @@ export interface IEditLease {
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditLease = () => {
+const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -78,13 +79,17 @@ const EditLease = () => {
     }
   }, [dataGouvAddress]);
 
+  useEffect(() => {
+    console.log(lease);
+  }, [lease]);
+
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
     (payload: IEditLease) => storeLease(payload),
     {
       onSuccess: async (data) => {
         toast.success("Annonce enregistrée", { style: TOAST_STYLE });
-        router.push("/user/leases");
+        router.push("/dashboard/leases");
       },
     }
   );

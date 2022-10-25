@@ -75,7 +75,7 @@ const UserLeasesPage: NextPage = () => {
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez publié aucune annonce.
           </Typography>
-          <Link href="/user/leases/edit">
+          <Link href="/dashboard/leases/new">
             <Button variant="soft" startDecorator={<Add />}>
               Publier une annonce
             </Button>

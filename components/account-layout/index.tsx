@@ -74,7 +74,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
         <nav>
           <ul>
             <li className={[styles.navButton, isActive("leases")].join(" ")}>
-              <Link href="/user/leases">
+              <Link href="/dashboard/leases">
                 <Typography
                   startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
                 >
@@ -83,7 +83,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
               </Link>
             </li>
             <li className={[styles.navButton, isActive("messages")].join(" ")}>
-              <Link href="/user/messages">
+              <Link href="/dashboard/messages">
                 <Typography
                   startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}
                 >
@@ -92,7 +92,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
               </Link>
             </li>
             <li className={[styles.navButton, isActive("profile")].join(" ")}>
-              <Link href="/user/profile">
+              <Link href="/dashboard/profile">
                 <Typography
                   startDecorator={<PersonIcon sx={{ marginRight: 1 }} />}
                 >
@@ -101,7 +101,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
               </Link>
             </li>
             <li className={[styles.navButton, isActive("account")].join(" ")}>
-              <Link href="/user/account">
+              <Link href="/dashboard/account">
                 <Typography
                   startDecorator={<SettingsIcon sx={{ marginRight: 1 }} />}
                 >
