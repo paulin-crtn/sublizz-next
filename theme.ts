@@ -109,6 +109,19 @@ export const joyTheme: Theme = extendTheme({
         listbox: { backgroundColor: "#ffffff" },
       },
     },
+    JoyRadio: {
+      styleOverrides: {
+        root: {
+          paddingTop: "10px",
+          paddingRight: "15px",
+          paddingBottom: "10px",
+          paddingLeft: "15px",
+        },
+        action: {
+          borderRadius: "5px",
+        },
+      },
+    },
   },
 });
 

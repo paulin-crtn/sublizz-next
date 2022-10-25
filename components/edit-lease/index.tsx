@@ -3,7 +3,9 @@
 /* -------------------------------------------------------------------------- */
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import toast from "react-hot-toast";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -16,6 +18,11 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import Box from "@mui/joy/Box";
 import Switch from "@mui/joy/Switch";
+import Chip from "@mui/joy/Chip";
+import RadioGroup from "@mui/joy/RadioGroup";
+import Radio from "@mui/joy/Radio";
+import Sheet from "@mui/joy/Sheet";
+import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
@@ -27,24 +34,33 @@ import { storeLease } from "../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 export interface IEditLease {
   type: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  isDateFlexible: boolean;
+  isDateFlexible: number;
   street: string;
   postCode: string;
   city: string;
   gpsLatitude: string;
   gpsLongitude: string;
   room: number;
+  surface: number;
+  pricePerMonth: number;
+  description: string;
+  isPublished: string; // Input radio doesn't work with 0 and false values
+  leaseImageNames: string[];
 }
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const EditLease = () => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openAddress, setOpenAddress] = useState<boolean>(false);
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
@@ -66,7 +82,10 @@ const EditLease = () => {
   const { mutate, isLoading, isError, error } = useMutation(
     (payload: IEditLease) => storeLease(payload),
     {
-      onSuccess: async (data) => {},
+      onSuccess: async (data) => {
+        toast.success("Annonce enregistrée", { style: TOAST_STYLE });
+        router.push("/user/leases");
+      },
     }
   );
 
@@ -89,7 +108,7 @@ const EditLease = () => {
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<IEditLease> = async (payload) => {
     console.log(payload);
-    // mutate(payload);
+    mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -208,17 +227,13 @@ const EditLease = () => {
         <Controller
           name="isDateFlexible"
           control={control}
-          defaultValue={false}
-          render={({ field: { onChange, ...field } }) => (
+          defaultValue={0}
+          render={() => (
             <Switch
               variant="soft"
               color="neutral"
-              onChange={(event) => {
-                onChange(event);
-              }}
-              {...field}
               sx={{ marginBottom: "auto", ml: 2 }}
-            ></Switch>
+            />
           )}
         />
       </FormControl>
@@ -292,6 +307,95 @@ const EditLease = () => {
           })}
         />
         {errors.room && <FormHelperText>{errors.room.message}</FormHelperText>}
+      </FormControl>
+
+      <FormControl error={!!errors.surface}>
+        <FormLabel>Surface</FormLabel>
+        <Input
+          type="number"
+          variant="soft"
+          placeholder="45"
+          {...register("surface", {
+            valueAsNumber: true,
+            required: "Ce champs est requis",
+            min: {
+              value: 10,
+              message: "10 m2 minimum",
+            },
+            max: {
+              value: 200,
+              message: "200 m2 maximum",
+            },
+          })}
+        />
+        {errors.surface && (
+          <FormHelperText>{errors.surface.message}</FormHelperText>
+        )}
+      </FormControl>
+
+      <FormControl error={!!errors.pricePerMonth}>
+        <FormLabel>Prix par mois</FormLabel>
+        <Input
+          type="number"
+          variant="soft"
+          placeholder="1200"
+          {...register("pricePerMonth", {
+            valueAsNumber: true,
+            required: "Ce champs est requis",
+            min: {
+              value: 200,
+              message: "200€ minimum",
+            },
+            max: {
+              value: 2000,
+              message: "2000€ maximum",
+            },
+          })}
+        />
+        {errors.pricePerMonth && (
+          <FormHelperText>{errors.pricePerMonth.message}</FormHelperText>
+        )}
+      </FormControl>
+
+      <FormControl>
+        <FormLabel>
+          Description
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
+        <Textarea
+          variant="soft"
+          {...register("description")}
+          minRows={5}
+          maxRows={5}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel>Publier</FormLabel>
+        <RadioGroup aria-labelledby="is-published-label" defaultValue="1">
+          <Sheet>
+            <Radio
+              label="Maintenant"
+              value="1"
+              disableIcon
+              {...register("isPublished")}
+            />
+            <Radio
+              label="Plus tard"
+              value="0"
+              disableIcon
+              {...register("isPublished")}
+              sx={{ marginLeft: 1 }}
+            />
+          </Sheet>
+        </RadioGroup>
       </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
