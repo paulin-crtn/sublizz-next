@@ -187,89 +187,6 @@ const EditProfile = ({ user }: { user: IUser }) => {
       )}
 
       <Box sx={{ display: "flex", gap: 6, paddingX: 3, paddingY: 2 }}>
-        <FormControl sx={{ flex: "0 0" }}>
-          <FormLabel>
-            Photo
-            <Chip
-              size="sm"
-              color="info"
-              variant="soft"
-              sx={{ marginLeft: 1, fontWeight: 400 }}
-            >
-              Optionnel
-            </Chip>
-          </FormLabel>
-          <FormHelperText sx={{marginBottom: '15px'}}>Format : JPG ou PNG. Poids max : 5Mo.</FormHelperText>
-          <FormLabel>
-            <Input
-              type="file"
-              sx={{ display: "none" }}
-              onChange={onAddInputFile}
-            />
-            <Sheet
-              sx={{
-                width: 150,
-                borderRadius: "9999px",
-                overflow: "auto",
-                cursor: "pointer",
-              }}
-            >
-              {!inputFile && !user.profilePictureName && (
-                <AspectRatio ratio={1}>
-                  <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
-                    <AddIcon />
-                  </Typography>
-                </AspectRatio>
-              )}
-              {!inputFile && user.profilePictureName && (
-                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
-                  <CardCover>
-                    <img
-                      src={
-                        user?.profilePictureName
-                          ? PROFILE_PICTURE_PATH +
-                            "/" +
-                            user?.profilePictureName
-                          : undefined
-                      }
-                    />
-                  </CardCover>
-                </Card>
-              )}
-              {inputFile && (
-                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
-                  <CardCover>
-                    <img src={URL.createObjectURL(inputFile)} />
-                  </CardCover>
-                </Card>
-              )}
-            </Sheet>
-          </FormLabel>
-          {!isDeletingFile && (
-            <Button
-              variant="outlined"
-              color="neutral"
-              size="sm"
-              fullWidth
-              onClick={onDeleteProfilePicture}
-              startDecorator={<DeleteIcon />}
-            >
-              Supprimer
-            </Button>
-          )}
-          {isDeletingFile && (
-            <Button
-              variant="outlined"
-              color="neutral"
-              size="sm"
-              fullWidth
-              disabled
-            >
-              <CircularProgress color="neutral" thickness={3} />
-            </Button>
-          )}
-        </FormControl>
-
         <Box sx={{ flex: "1 1" }}>
           <FormControl error={!!errors.firstName}>
             <FormLabel>Prénom</FormLabel>
@@ -360,6 +277,89 @@ const EditProfile = ({ user }: { user: IUser }) => {
             </Button>
           )}
         </Box>
+
+        <FormControl sx={{ flex: "0 0" }}>
+          <FormLabel>
+            Photo
+            <Chip
+              size="sm"
+              color="info"
+              variant="soft"
+              sx={{ marginLeft: 1, fontWeight: 400 }}
+            >
+              Optionnel
+            </Chip>
+          </FormLabel>
+          <FormHelperText sx={{marginBottom: '15px'}}>Format : JPG ou PNG. Poids max : 5Mo.</FormHelperText>
+          <FormLabel>
+            <Input
+              type="file"
+              sx={{ display: "none" }}
+              onChange={onAddInputFile}
+            />
+            <Sheet
+              sx={{
+                width: 150,
+                borderRadius: "9999px",
+                overflow: "auto",
+                cursor: "pointer",
+              }}
+            >
+              {!inputFile && !user.profilePictureName && (
+                <AspectRatio ratio={1}>
+                  <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
+                    <AddIcon />
+                  </Typography>
+                </AspectRatio>
+              )}
+              {!inputFile && user.profilePictureName && (
+                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
+                  <CardCover>
+                    <img
+                      src={
+                        user?.profilePictureName
+                          ? PROFILE_PICTURE_PATH +
+                            "/" +
+                            user?.profilePictureName
+                          : undefined
+                      }
+                    />
+                  </CardCover>
+                </Card>
+              )}
+              {inputFile && (
+                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
+                  <CardCover>
+                    <img src={URL.createObjectURL(inputFile)} />
+                  </CardCover>
+                </Card>
+              )}
+            </Sheet>
+          </FormLabel>
+          {!isDeletingFile && (
+            <Button
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              fullWidth
+              onClick={onDeleteProfilePicture}
+              startDecorator={<DeleteIcon />}
+            >
+              Supprimer
+            </Button>
+          )}
+          {isDeletingFile && (
+            <Button
+              variant="outlined"
+              color="neutral"
+              size="sm"
+              fullWidth
+              disabled
+            >
+              <CircularProgress color="neutral" thickness={3} />
+            </Button>
+          )}
+        </FormControl>
       </Box>
     </form>
   );
