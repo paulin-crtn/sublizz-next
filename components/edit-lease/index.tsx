@@ -136,7 +136,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           name="type"
           control={control}
           rules={{ required: "Ce champs est requis" }}
-          defaultValue={null} // Avoid error "A component is changing the uncontrolled value state to be controlled."
+          defaultValue={lease ? lease.type : null} // Avoid error "A component is changing the uncontrolled value state to be controlled."
           render={({ field: { onChange, ...field } }) => (
             <Select
               variant="soft"
@@ -167,7 +167,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           name="startDate"
           control={control}
           rules={{ required: "Ce champs est requis" }}
-          defaultValue={null} // Avoid having the current date by default
+          defaultValue={lease ? lease.startDate : null} // Null value avoid to have the current date by default
           render={({ field: { onChange, ...field } }) => (
             <MobileDatePicker
               onChange={(event) => {
@@ -199,7 +199,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           name="endDate"
           control={control}
           rules={{ required: "Ce champs est requis" }}
-          defaultValue={null} // Avoid having the current date by default
+          defaultValue={lease ? lease.endDate : null} // Null value avoid to have the current date by default
           render={({ field: { onChange, ...field } }) => (
             <MobileDatePicker
               onChange={(event) => {
@@ -232,7 +232,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
         <Controller
           name="isDateFlexible"
           control={control}
-          defaultValue={0}
+          defaultValue={lease ? lease.isDateFlexible : 0}
           render={() => (
             <Switch
               variant="soft"
@@ -298,6 +298,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           type="number"
           variant="soft"
           placeholder="2"
+          defaultValue={lease ? lease.room : undefined}
           {...register("room", {
             valueAsNumber: true,
             required: "Ce champs est requis",
@@ -320,6 +321,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           type="number"
           variant="soft"
           placeholder="45"
+          defaultValue={lease ? lease.surface : undefined}
           {...register("surface", {
             valueAsNumber: true,
             required: "Ce champs est requis",
@@ -344,6 +346,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           type="number"
           variant="soft"
           placeholder="1200"
+          defaultValue={lease ? lease.pricePerMonth : undefined}
           {...register("pricePerMonth", {
             valueAsNumber: true,
             required: "Ce champs est requis",
@@ -376,6 +379,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
         </FormLabel>
         <Textarea
           variant="soft"
+          defaultValue={lease ? lease.description : ""}
           {...register("description")}
           minRows={5}
           maxRows={5}
@@ -384,7 +388,10 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
 
       <FormControl>
         <FormLabel>Publier</FormLabel>
-        <RadioGroup aria-labelledby="is-published-label" defaultValue="1">
+        <RadioGroup
+          aria-labelledby="is-published-label"
+          defaultValue={lease ? lease.isPublished : "1"}
+        >
           <Sheet>
             <Radio
               label="Maintenant"
@@ -417,8 +424,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
           <ModalLayout title="Adresse du logement">
             <AddressForm
               setDataGouvAddress={setDataGouvAddress}
-              postCode={getValues("postCode")}
-              street={getValues("street")}
+              postCode={getValues("postCode") ?? lease?.postCode}
+              street={getValues("street") ?? lease?.street}
             />
           </ModalLayout>
         </ModalDialog>

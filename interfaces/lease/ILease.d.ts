@@ -9,10 +9,10 @@ export interface ILease {
   gpsLongitude?: string;
   surface: number;
   room: number;
+  pricePerMonth: number;
   startDate: Date;
   endDate: Date;
   isDateFlexible: number;
-  pricePerMonth: number;
   createdAt: Date;
   updatedAt: Date;
   leaseImages: ILeaseImage[];
