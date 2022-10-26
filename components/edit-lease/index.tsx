@@ -173,7 +173,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
       </FormControl>
 
       <FormControl error={!!errors.startDate}>
-        <FormLabel>Disponible à partir du</FormLabel>
+        <FormLabel>À partir du</FormLabel>
         <Controller
           name="startDate"
           control={control}
@@ -205,7 +205,17 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
       </FormControl>
 
       <FormControl error={!!errors.endDate}>
-        <FormLabel>Jusqu'au</FormLabel>
+        <FormLabel>
+          Jusqu'au
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
         <Controller
           name="endDate"
           control={control}
@@ -236,22 +246,31 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
         )}
       </FormControl>
 
-      <FormControl orientation="horizontal">
-        <Box>
-          <Typography fontWeight={500}>Dates flexibles</Typography>
-        </Box>
-        <Controller
-          name="isDateFlexible"
-          control={control}
-          defaultValue={lease ? lease.isDateFlexible : 0}
-          render={() => (
-            <Switch
-              variant="soft"
-              color="neutral"
-              sx={{ marginBottom: "auto", ml: 2 }}
+      <FormControl>
+        <FormLabel>Dates flexibles</FormLabel>
+        <RadioGroup
+          aria-labelledby="is-date-flexible-label"
+          defaultValue={lease ? lease.isDateFlexible : "0"}
+        >
+          <Sheet>
+            <Radio
+              label="Oui"
+              value="1"
+              disableIcon
+              {...register("isDateFlexible")}
             />
-          )}
-        />
+            <Radio
+              label="Non"
+              value="0"
+              disableIcon
+              {...register("isDateFlexible")}
+              sx={{ marginLeft: 1 }}
+            />
+          </Sheet>
+        </RadioGroup>
+        {errors.isDateFlexible && (
+          <FormHelperText>{errors.isDateFlexible.message}</FormHelperText>
+        )}
       </FormControl>
 
       {/**
