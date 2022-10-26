@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import Link from "next/link";
+import format from "date-fns/format";
 import { Box, Button, Chip, Typography } from "@mui/joy";
 import { ILease } from "../../interfaces/lease";
 import { IAccountMessage } from "../../interfaces/lease/IAccountMessage";
@@ -53,7 +54,7 @@ const AccountMessage = ({
           <div key={message.id} className={styles.content}>
             <Typography>{message.content}</Typography>
             <Typography level="body2" marginTop={1}>
-              Envoyé le {message.createdAt}
+              Envoyé le {format(new Date(message.createdAt), "dd MMM uuuu")}
             </Typography>
           </div>
         ))}

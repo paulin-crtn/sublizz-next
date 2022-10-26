@@ -186,7 +186,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         </Typography>
       )}
 
-      <Box sx={{ display: "flex", gap: 6, paddingX: 3, paddingY: 2 }}>
+      <Box sx={{ display: "flex", gap: 6 }}>
         <Box sx={{ flex: "1 1" }}>
           <FormControl error={!!errors.firstName}>
             <FormLabel>Prénom</FormLabel>
@@ -290,7 +290,9 @@ const EditProfile = ({ user }: { user: IUser }) => {
               Optionnel
             </Chip>
           </FormLabel>
-          <FormHelperText sx={{marginBottom: '15px'}}>Format : JPG ou PNG. Poids max : 5Mo.</FormHelperText>
+          <FormHelperText sx={{ marginBottom: "15px" }}>
+            Format : JPG ou PNG. Poids max : 5Mo.
+          </FormHelperText>
           <FormLabel>
             <Input
               type="file"

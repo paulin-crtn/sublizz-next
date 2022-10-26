@@ -8,8 +8,7 @@ import {
   NextPage,
 } from "next";
 import Image from "next/image";
-import { fr } from "date-fns/locale";
-import { format } from "date-fns";
+import format from "date-fns/format";
 
 /* -------------------------------- COMPONENT ------------------------------- */
 import { useAuth } from "../../context/auth.context";
@@ -42,6 +41,8 @@ import Chip from "@mui/joy/Chip";
 
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
+
+/* -------------------------------- CONSTANT -------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
 
 /* -------------------------------------------------------------------------- */
@@ -99,10 +100,19 @@ const LeasePage: NextPage = ({
           </Typography>
 
           <div className={styles.dates}>
-            <Typography level="h5" fontWeight={300}>
-              Du {lease.startDate /*format(lease.startDate, "dd LLLL uuuu")*/}{" "}
-              au {lease.endDate}
-            </Typography>
+            {!lease.endDate && (
+              <Typography level="h5" fontWeight={300}>
+                À partir du {format(new Date(lease.startDate), "dd MMMM uuuu")}
+              </Typography>
+            )}
+
+            {lease.endDate && (
+              <Typography level="h5" fontWeight={300}>
+                Du {format(new Date(lease.startDate), "dd MMMM uuuu")} au{" "}
+                {format(new Date(lease.endDate), "dd MMMM uuuu")}
+              </Typography>
+            )}
+
             {!!lease.isDateFlexible && (
               <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>
                 Dates flexibles
@@ -159,7 +169,8 @@ const LeasePage: NextPage = ({
               />
               <div>
                 <Typography fontWeight={300}>
-                  Annonce publiée le {lease.createdAt}
+                  Annonce publiée le{" "}
+                  {format(new Date(lease.createdAt), "dd LLLL uuuu")}
                   <br />
                   par{" "}
                   <Typography fontWeight={500}>

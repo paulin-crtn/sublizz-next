@@ -11,7 +11,7 @@ export interface ILease {
   room: number;
   pricePerMonth: number;
   startDate: Date;
-  endDate: Date;
+  endDate?: Date;
   isDateFlexible: number;
   createdAt: Date;
   updatedAt: Date;

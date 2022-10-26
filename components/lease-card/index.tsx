@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { FunctionComponent } from "react";
 import Image from "next/image";
+import format from "date-fns/format";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
@@ -48,10 +49,18 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
         </Sheet>
 
         <Sheet sx={{ mt: 2, mb: 3 }}>
-          <Typography level="body2">
-            Disponible du {lease.startDate.toString()} au{" "}
-            {lease.endDate.toString()}
-          </Typography>
+          {!lease.endDate && (
+            <Typography level="body1" fontWeight={300}>
+              À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}
+            </Typography>
+          )}
+
+          {lease.endDate && (
+            <Typography level="body1" fontWeight={300}>
+              Du {format(new Date(lease.startDate), "dd MMM uuuu")} au{" "}
+              {format(new Date(lease.endDate), "dd MMM uuuu")}
+            </Typography>
+          )}
           {!!lease.isDateFlexible && (
             <Chip variant="soft" color="neutral" size="sm" sx={{ mt: 0.5 }}>
               Dates flexibles
