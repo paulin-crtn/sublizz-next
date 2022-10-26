@@ -30,7 +30,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import Input from "@mui/joy/Input";
 import { TextField } from "@mui/material";
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
-import { storeLease } from "../../utils/fetch/fetchLease";
+import { storeLease, updateLease } from "../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
@@ -68,6 +68,11 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
+    if (lease) {
+      setValue("street", lease.street);
+      setValue("postCode", lease.postCode);
+      setValue("city", lease.city);
+    }
     if (dataGouvAddress) {
       setValue("street", dataGouvAddress.properties.name);
       setValue("postCode", dataGouvAddress.properties.postcode);
@@ -77,7 +82,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
       clearErrors("street");
       setOpenAddress(false);
     }
-  }, [dataGouvAddress]);
+  }, [lease, dataGouvAddress]);
 
   useEffect(() => {
     console.log(lease);
@@ -85,10 +90,16 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
-    (payload: IEditLease) => storeLease(payload),
+    (payload: IEditLease) => {
+      return lease
+        ? updateLease(lease.id, { ...lease, ...payload })
+        : storeLease(payload);
+    },
     {
       onSuccess: async (data) => {
-        toast.success("Annonce enregistrée", { style: TOAST_STYLE });
+        toast.success(lease ? "Annonce modifiée" : "Annonce enregistrée", {
+          style: TOAST_STYLE,
+        });
         router.push("/dashboard/leases");
       },
     }
@@ -410,7 +421,11 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
         </RadioGroup>
       </FormControl>
 
-      {!isLoading && <Button type="submit">Enregistrer</Button>}
+      {!isLoading && (
+        <Button type="submit">
+          {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
+        </Button>
+      )}
       {isLoading && (
         <Button disabled>
           <CircularProgress color="danger" thickness={3} />
