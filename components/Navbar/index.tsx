@@ -145,7 +145,7 @@ const Navbar: FunctionComponent = () => {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    router.asPath.split("/")[1] === "user"
+                    router.asPath.split("/")[1] === "dashboard"
                       ? logout(() => router.push("/"))
                       : logout();
                   }}
