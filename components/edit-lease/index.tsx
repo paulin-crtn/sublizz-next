@@ -48,11 +48,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    if (lease) {
-      setValue("street", lease.street);
-      setValue("postCode", lease.postCode);
-      setValue("city", lease.city);
-    }
     if (dataGouvAddress) {
       setValue("street", dataGouvAddress.properties.name);
       setValue("postCode", dataGouvAddress.properties.postcode);
@@ -62,7 +57,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       clearErrors("street");
       setOpenAddress(false);
     }
-  }, [lease, dataGouvAddress]);
+  }, [dataGouvAddress]);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(

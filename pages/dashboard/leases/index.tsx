@@ -30,7 +30,8 @@ const UserLeasesPage: NextPage = () => {
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
     ["userLeases"],
-    getUserLeases
+    getUserLeases,
+    { enabled: !!user }
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
@@ -65,7 +66,6 @@ const UserLeasesPage: NextPage = () => {
             {msg}
           </Alert>
         ))}
-        ;
       </AccountLayout>
     );
   }

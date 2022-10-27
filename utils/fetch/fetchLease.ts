@@ -2,9 +2,8 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { ILeaseDetail, ISendReport } from "../../interfaces/lease";
+import { ILeaseDetail, ILeaseForm, ISendReport } from "../../interfaces/lease";
 import { ISendMessage } from "../../interfaces/lease";
-import { ILeaseForm } from "../../components/edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -39,6 +38,10 @@ export const storeLease = async (payload: ILeaseForm) => {
 
 export const updateLease = async (id: number, payload: ILeaseForm) => {
   return await customFetch(`leases/${id}`, "PUT", payload);
+};
+
+export const deleteLease = async (id: number) => {
+  return await customFetch(`leases/${id}`, "DELETE");
 };
 
 export const getUserMessages = async () => {

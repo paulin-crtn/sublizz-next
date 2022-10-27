@@ -26,7 +26,7 @@ import ListDivider from "@mui/joy/ListDivider";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { updateLease } from "../../utils/fetch/fetchLease";
+import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
 import toast from "react-hot-toast";
 import { TOAST_STYLE } from "../../const/toastStyle";
 
@@ -61,6 +61,31 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           data.isPublished ? "Annonce activée" : "Annonce désactivée",
           { style: TOAST_STYLE }
         );
+      },
+      onError: async (error) => {
+        error instanceof Error
+          ? toast.error(error.message, { style: TOAST_STYLE })
+          : toast.error("An error occured", {
+              style: TOAST_STYLE,
+            });
+      },
+    }
+  );
+
+  const { mutate: mutateDeleteLease } = useMutation(
+    () => deleteLease(lease.id),
+    {
+      onSuccess: async () => {
+        // Update React Query Cache
+        queryClient.setQueryData(
+          ["userLeases"],
+          (previousLeases: ILeaseDetail[] | undefined) =>
+            previousLeases?.filter(
+              (previousLease) => previousLease.id !== lease.id
+            )
+        );
+        // Toast
+        toast.success("Annonce supprimée", { style: TOAST_STYLE });
       },
       onError: async (error) => {
         error instanceof Error
@@ -163,7 +188,12 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                 </MenuItem>
               </Link>
               <ListDivider />
-              <MenuItem onClick={handleClose}>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  mutateDeleteLease();
+                }}
+              >
                 <Typography color="danger" startDecorator={<DeleteIcon />}>
                   Supprimer
                 </Typography>
