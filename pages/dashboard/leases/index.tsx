@@ -11,12 +11,14 @@ import Add from "@mui/icons-material/Add";
 import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
+import InfoIcon from "@mui/icons-material/Info";
 import { useAuth } from "../../../context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
-import LeaseCard from "../../../components/lease-card";
-import { ILease } from "../../../interfaces/lease";
+import MyLease from "../../../components/my-lease";
+import { ILease, ILeaseDetail } from "../../../interfaces/lease";
+import Divider from "@mui/joy/Divider";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -68,7 +70,7 @@ const UserLeasesPage: NextPage = () => {
     );
   }
 
-  if (data && !data.length) {
+  if (!data || !data.length) {
     return (
       <AccountLayout title="Mes Annonces">
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
@@ -87,9 +89,19 @@ const UserLeasesPage: NextPage = () => {
 
   return (
     <AccountLayout title="Mes Annonces">
-      {data.map((lease: ILease) => (
-        <Box key={lease.id} marginY={2}>
-          <LeaseCard lease={lease} />
+      <Alert
+        variant="soft"
+        color="info"
+        startDecorator={<InfoIcon />}
+        sx={{ marginBottom: "20px" }}
+      >
+        Vous pouvez ajouter jusqu'à 3 annonces.
+      </Alert>
+      {data.map((lease: ILeaseDetail, index: number) => (
+        <Box key={lease.id}>
+          {index === 0 && <Divider />}
+          <MyLease lease={lease} />
+          <Divider />
         </Box>
       ))}
     </AccountLayout>

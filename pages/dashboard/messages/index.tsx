@@ -104,11 +104,11 @@ const UserMessagesPage: NextPage = () => {
             lease: ILease & { leaseMessages: IAccountMessage[] },
             index: number
           ) => (
-            <div key={lease.id}>
+            <Box key={lease.id}>
               {index === 0 && <Divider />}
               <AccountMessage lease={lease} />
               <Divider />
-            </div>
+            </Box>
           )
         )}
       </Box>

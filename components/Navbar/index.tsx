@@ -58,11 +58,9 @@ const Navbar: FunctionComponent = () => {
 
   // MenuList
   const open = Boolean(anchorEl);
-
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };

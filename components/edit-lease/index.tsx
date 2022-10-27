@@ -41,7 +41,7 @@ export interface IEditLease {
   type: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  isDateFlexible: number;
+  isDateFlexible: string; // Input radio doesn't work with 0 and false values
   street: string;
   postCode: string;
   city: string;

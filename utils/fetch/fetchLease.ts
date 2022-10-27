@@ -2,14 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { ISendReport } from "../../interfaces/lease";
+import { ILease, ILeaseDetail, ISendReport } from "../../interfaces/lease";
 import { ISendMessage } from "../../interfaces/lease";
 import { IEditLease } from "../../components/edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const getUserLeases = async () => {
+export const getUserLeases = async (): Promise<ILeaseDetail[]> => {
   return await customFetch("leases/user", "GET");
 };
 
