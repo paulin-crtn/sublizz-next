@@ -33,25 +33,7 @@ import { convertLeaseType } from "../../utils/convertLeaseType";
 import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
 import { TOAST_STYLE } from "../../const/toastStyle";
-import { ILeaseDetail } from "../../interfaces/lease";
-
-export interface ILeaseForm {
-  type?: string | null;
-  startDate?: Date | null;
-  endDate?: Date | null;
-  isDateFlexible?: number | string; // Input radio doesn't work with 0 and false values
-  street?: string;
-  postCode?: string;
-  city?: string;
-  gpsLatitude?: string;
-  gpsLongitude?: string;
-  room?: number;
-  surface?: number;
-  pricePerMonth?: number;
-  description?: string;
-  isPublished?: number | string; // Input radio doesn't work with 0 and false values
-  leaseImageNames?: string[];
-}
+import { ILeaseDetail, ILeaseForm } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -90,7 +72,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         : storeLease(payload);
     },
     {
-      onSuccess: async (data) => {
+      onSuccess: async () => {
         toast.success(lease ? "Annonce modifiée" : "Annonce enregistrée", {
           style: TOAST_STYLE,
         });
@@ -117,6 +99,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
+    console.log({ ...lease, ...payload });
     mutate(payload);
   };
 
@@ -273,14 +256,16 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
        */}
       <FormControl error={!!errors.street}>
         <FormLabel>Adresse</FormLabel>
-        {getValues("street") ? (
+        {getValues("street") || lease?.street ? (
           <Alert
             variant="soft"
             color="neutral"
             sx={{ marginBottom: 1, paddingY: 0.5 }}
           >
             <Typography>
-              {getValues("street")}, {getValues("postCode")} {getValues("city")}
+              {getValues("street") ?? lease?.street},{" "}
+              {getValues("postCode") ?? lease?.postCode}{" "}
+              {getValues("city") ?? lease?.city}
             </Typography>
             <Button
               size="sm"
