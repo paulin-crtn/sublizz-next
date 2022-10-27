@@ -29,7 +29,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { updateLease } from "../../utils/fetch/fetchLease";
 import toast from "react-hot-toast";
 import { TOAST_STYLE } from "../../const/toastStyle";
-import { ILeaseForm } from "../edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -50,13 +49,13 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
     {
       onSuccess: async (data: ILeaseDetail) => {
         // Update React Query Cache
-        queryClient.setQueryData(["userLeases"], () => {
-          const previousLeases: ILeaseDetail[] | undefined =
-            queryClient.getQueryData(["userLeases"]);
-          return previousLeases?.map((previousLease) =>
-            previousLease.id === lease.id ? data : previousLease
-          );
-        });
+        queryClient.setQueryData(
+          ["userLeases"],
+          (previousLeases: ILeaseDetail[] | undefined) =>
+            previousLeases?.map((previousLease) =>
+              previousLease.id === lease.id ? data : previousLease
+            )
+        );
         // Toast
         toast.success(
           data.isPublished ? "Annonce activée" : "Annonce désactivée",

@@ -16,8 +16,6 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import Box from "@mui/joy/Box";
-import Switch from "@mui/joy/Switch";
 import Chip from "@mui/joy/Chip";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
@@ -58,7 +56,7 @@ export interface ILeaseForm {
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
+const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -83,10 +81,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
       setOpenAddress(false);
     }
   }, [lease, dataGouvAddress]);
-
-  useEffect(() => {
-    console.log(lease);
-  }, [lease]);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
@@ -123,7 +117,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const onSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
-    console.log(payload);
     mutate(payload);
   };
 

@@ -17,7 +17,7 @@ import { getUserLeases } from "../../../utils/fetch/fetchLease";
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import MyLease from "../../../components/my-lease";
-import { ILease, ILeaseDetail } from "../../../interfaces/lease";
+import { ILeaseDetail } from "../../../interfaces/lease";
 import Divider from "@mui/joy/Divider";
 
 /* -------------------------------------------------------------------------- */
