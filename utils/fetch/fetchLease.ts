@@ -4,7 +4,7 @@
 import { customFetch } from "./customFetch";
 import { ILease, ILeaseDetail, ISendReport } from "../../interfaces/lease";
 import { ISendMessage } from "../../interfaces/lease";
-import { IEditLease } from "../../components/edit-lease";
+import { ILeaseForm } from "../../components/edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
@@ -13,11 +13,11 @@ export const getUserLeases = async (): Promise<ILeaseDetail[]> => {
   return await customFetch("leases/user", "GET");
 };
 
-export const storeLease = async (payload: IEditLease) => {
+export const storeLease = async (payload: ILeaseForm) => {
   return await customFetch("leases", "POST", payload);
 };
 
-export const updateLease = async (id: number, payload: IEditLease) => {
+export const updateLease = async (id: number, payload: ILeaseForm) => {
   return await customFetch(`leases/${id}`, "PUT", payload);
 };
 

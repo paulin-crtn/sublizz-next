@@ -15,7 +15,6 @@ import noLeaseImg from "../../public/img/no-lease-img.png";
 import { ILeaseDetail } from "../../interfaces/lease";
 import Box from "@mui/joy/Box";
 import IconButton from "@mui/joy/IconButton";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import MoreVert from "@mui/icons-material/MoreVert";
@@ -24,6 +23,13 @@ import PauseIcon from "@mui/icons-material/Pause";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ListDivider from "@mui/joy/ListDivider";
+import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { updateLease } from "../../utils/fetch/fetchLease";
+import toast from "react-hot-toast";
+import { TOAST_STYLE } from "../../const/toastStyle";
+import { ILeaseForm } from "../edit-lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -31,6 +37,41 @@ import ListDivider from "@mui/joy/ListDivider";
 const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [anchorEl, setAnchorEl] = useState(null);
+
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const queryClient = useQueryClient();
+
+  const { mutate: mutatePublishedStatus } = useMutation(
+    () =>
+      updateLease(lease.id, {
+        ...lease,
+        isPublished: lease.isPublished === 0 ? "1" : "0",
+      }),
+    {
+      onSuccess: async (data: ILeaseDetail) => {
+        // Update React Query Cache
+        queryClient.setQueryData(["userLeases"], () => {
+          const previousLeases: ILeaseDetail[] | undefined =
+            queryClient.getQueryData(["userLeases"]);
+          return previousLeases?.map((previousLease) =>
+            previousLease.id === lease.id ? data : previousLease
+          );
+        });
+        // Toast
+        toast.success(
+          data.isPublished ? "Annonce activée" : "Annonce désactivée",
+          { style: TOAST_STYLE }
+        );
+      },
+      onError: async (error) => {
+        error instanceof Error
+          ? toast.error(error.message, { style: TOAST_STYLE })
+          : toast.error("An error occured", {
+              style: TOAST_STYLE,
+            });
+      },
+    }
+  );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   // MenuList
@@ -101,23 +142,27 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               aria-labelledby="positioned-demo-button"
               placement="bottom-end"
             >
-              {!lease.isPublished && (
-                <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<PlayArrowIcon />}>
-                    Activer
-                  </Typography>
-                </MenuItem>
-              )}
-              {!!lease.isPublished && (
-                <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<PauseIcon />}>
-                    Désactiver
-                  </Typography>
-                </MenuItem>
-              )}
-              <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<EditIcon />}>Modifier</Typography>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  mutatePublishedStatus();
+                }}
+              >
+                <Typography
+                  startDecorator={
+                    lease.isPublished ? <PauseIcon /> : <PlayArrowIcon />
+                  }
+                >
+                  {lease.isPublished ? "Désactiver" : "Activer"}
+                </Typography>
               </MenuItem>
+              <Link href={`/dashboard/leases/${lease.id}`}>
+                <MenuItem onClick={handleClose}>
+                  <Typography startDecorator={<EditIcon />}>
+                    Modifier
+                  </Typography>
+                </MenuItem>
+              </Link>
               <ListDivider />
               <MenuItem onClick={handleClose}>
                 <Typography color="danger" startDecorator={<DeleteIcon />}>

@@ -32,8 +32,8 @@ const AddressForm = ({
   street,
 }: {
   setDataGouvAddress: Dispatch<SetStateAction<any>>;
-  postCode: string;
-  street: string;
+  postCode: string | undefined;
+  street: string | undefined;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [dataGouvAddresses, setDataGouvAddresses] = useState<any[]>([]);

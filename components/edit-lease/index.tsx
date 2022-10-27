@@ -37,22 +37,22 @@ import AddressForm from "../address-form";
 import { TOAST_STYLE } from "../../const/toastStyle";
 import { ILeaseDetail } from "../../interfaces/lease";
 
-export interface IEditLease {
-  type: string | null;
-  startDate: Date | null;
-  endDate: Date | null;
-  isDateFlexible: string; // Input radio doesn't work with 0 and false values
-  street: string;
-  postCode: string;
-  city: string;
-  gpsLatitude: string;
-  gpsLongitude: string;
-  room: number;
-  surface: number;
-  pricePerMonth: number;
-  description: string;
-  isPublished: string; // Input radio doesn't work with 0 and false values
-  leaseImageNames: string[];
+export interface ILeaseForm {
+  type?: string | null;
+  startDate?: Date | null;
+  endDate?: Date | null;
+  isDateFlexible?: number | string; // Input radio doesn't work with 0 and false values
+  street?: string;
+  postCode?: string;
+  city?: string;
+  gpsLatitude?: string;
+  gpsLongitude?: string;
+  room?: number;
+  surface?: number;
+  pricePerMonth?: number;
+  description?: string;
+  isPublished?: number | string; // Input radio doesn't work with 0 and false values
+  leaseImageNames?: string[];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -90,7 +90,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
-    (payload: IEditLease) => {
+    (payload: ILeaseForm) => {
       return lease
         ? updateLease(lease.id, { ...lease, ...payload })
         : storeLease(payload);
@@ -116,13 +116,13 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | null }) => {
     trigger,
     clearErrors,
     watch,
-  } = useForm<IEditLease>({
+  } = useForm<ILeaseForm>({
     mode: "onTouched",
   });
   const { errors } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<IEditLease> = async (payload) => {
+  const onSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
     console.log(payload);
     mutate(payload);
   };
