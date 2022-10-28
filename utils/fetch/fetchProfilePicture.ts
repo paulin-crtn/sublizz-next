@@ -1,8 +1,10 @@
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const store = async (formData: FormData): Promise<string> => {
-  const response = await fetch("/api/supabase/store-profile-picture", {
+export const storeProfilePicture = async (
+  formData: FormData
+): Promise<string> => {
+  const response = await fetch("/api/supabase/profile-picture/store", {
     method: "POST",
     body: formData,
     // headers: 'Content-Type' should be omit when sending a FormData
@@ -10,8 +12,10 @@ export const store = async (formData: FormData): Promise<string> => {
   return await response.json();
 };
 
-export const destroy = async (fileName: string): Promise<void> => {
-  const response = await fetch("/api/supabase/destroy-profile-picture", {
+export const destroyProfilePicture = async (
+  fileName: string
+): Promise<void> => {
+  const response = await fetch("/api/supabase/profile-picture/destroy", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

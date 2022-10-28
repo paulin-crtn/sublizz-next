@@ -3,6 +3,20 @@
 /* -------------------------------------------------------------------------- */
 import { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
+import fs from "fs";
+import parseFormData from "../../../../utils/parseFormData";
+
+/* -------------------------------------------------------------------------- */
+/*                                   CONFIG                                   */
+/* -------------------------------------------------------------------------- */
+/**
+ * Disable NextJS bodyParser in order to parse formData with Formidable
+ */
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -26,12 +40,21 @@ export default async function (
     NEXT_PUBLIC_SUPABASE_URL,
     SUPABASE_ANON_API_KEY
   );
-  // Remove file from Supabase
+  // Parse request
+  const { fields, files } = await parseFormData(req, false);
+  // Rebuild file
+  const persistentFile = (files.profilePicture as any[])[0];
+  const file = fs.readFileSync(persistentFile.filepath);
+  const fileName = fields.fileName[0];
+  // Upload file to Supabase
   const { data, error } = await supabase.storage
-    .from("user-profile-picture")
-    .remove(req.body);
+    .from("lease-images")
+    .upload(fileName, file, {
+      upsert: true,
+      contentType: "image/jpeg",
+    });
   if (error) {
     throw new Error(error.message);
   }
-  return res.json(data) as unknown as string;
+  return res.json(data.path) as unknown as string;
 }

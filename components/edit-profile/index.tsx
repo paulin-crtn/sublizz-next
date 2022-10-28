@@ -30,7 +30,10 @@ import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
 import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
-import { store, destroy } from "../../utils/fetch/fetchProfilePicture";
+import {
+  storeProfilePicture,
+  destroyProfilePicture,
+} from "../../utils/fetch/fetchProfilePicture";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -63,7 +66,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     }
   );
 
-  /* -------------------------------- FUNCTION -------------------------------- */
+  /* -------------------------------- FUNCTIONS ------------------------------- */
   const onAddInputFile = async (
     e: ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
@@ -86,7 +89,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
       const compressedFile = await compressFile(file);
       const formData = new FormData();
       formData.append("profilePicture", compressedFile);
-      formData.append("fileName", `user_${user.id}.jpeg`);
+      formData.append("fileName", `user_${user.id}.jpg`);
       setFormData(formData);
     } catch (err) {
       err instanceof Error
@@ -104,7 +107,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
       try {
         setIsDeletingFile(true);
         const fileName = user.profilePictureName.split("?")[0]; // Remove ?t=date
-        await destroy(fileName);
+        await destroyProfilePicture(fileName);
         const updatedUser = await updateUser(user.id, {
           ...user,
           profilePictureName: null,
@@ -130,7 +133,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     if (formData) {
       try {
         setIsUploadingFile(true);
-        const fileName = await store(formData);
+        const fileName = await storeProfilePicture(formData);
         /**
          * ?t=date is used in order to handle/bust Supabase cache
          * https://github.com/supabase/supabase/discussions/5737
