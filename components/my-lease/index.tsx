@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Image from "next/image";
 import format from "date-fns/format";
 import CardOverflow from "@mui/joy/CardOverflow";
@@ -29,6 +29,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
 import toast from "react-hot-toast";
 import { TOAST_STYLE } from "../../const/toastStyle";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -41,11 +42,14 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   const queryClient = useQueryClient();
 
   const { mutate: mutatePublishedStatus } = useMutation(
-    () =>
-      updateLease(lease.id, {
-        ...lease,
-        isPublished: lease.isPublished === 0 ? "1" : "0",
-      }),
+    () => {
+      const { leaseImages, ...data } = lease;
+      const isPublished = lease.isPublished === 0 ? "1" : "0";
+      return updateLease(lease.id, {
+        ...data,
+        isPublished,
+      });
+    },
     {
       onSuccess: async (data: ILeaseDetail) => {
         // Update React Query Cache
@@ -97,6 +101,10 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
     }
   );
 
+  useEffect(() => {
+    console.log(lease.leaseImages);
+  }, [lease]);
+
   /* -------------------------------- FUNCTIONS ------------------------------- */
   // MenuList
   const open = Boolean(anchorEl);
@@ -113,7 +121,11 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
       <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
         <AspectRatio ratio="16/12.1" sx={{ width: 200 }}>
           <Image
-            src={lease.leaseImages[0]?.url ?? noLeaseImg}
+            src={
+              lease.leaseImages[0]
+                ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
+                : noLeaseImg
+            }
             layout="fill"
             priority={true}
           />

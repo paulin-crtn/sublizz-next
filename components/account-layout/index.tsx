@@ -17,7 +17,7 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
-import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
+import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */

@@ -15,5 +15,5 @@ export interface ILease {
   isDateFlexible: number;
   createdAt: Date;
   updatedAt: Date;
-  leaseImages: ILeaseImage[];
+  leaseImages: string[];
 }

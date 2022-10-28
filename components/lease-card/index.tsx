@@ -14,6 +14,7 @@ import Sheet from "@mui/joy/Sheet";
 import LeaseChips from "../lease-chips";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { ILease } from "../../interfaces/lease";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -25,7 +26,11 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
       <CardOverflow>
         <AspectRatio ratio="16/12.1" sx={{ width: 260 }}>
           <Image
-            src={lease.leaseImages[0]?.url ?? noLeaseImg}
+            src={
+              lease.leaseImages[0]
+                ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
+                : noLeaseImg
+            }
             layout="fill"
             priority={true}
           />

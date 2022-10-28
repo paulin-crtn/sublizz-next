@@ -29,7 +29,7 @@ import Box from "@mui/joy/Box";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
-import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
+import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import {
   storeProfilePicture,
   destroyProfilePicture,
@@ -138,7 +138,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
          * ?t=date is used in order to handle/bust Supabase cache
          * https://github.com/supabase/supabase/discussions/5737
          */
-        const fileNameTimestamped = fileName + "?=t" + Date.now();
+        const fileNameTimestamped = fileName + "?t=" + Date.now();
         setValue("profilePictureName", fileNameTimestamped);
       } catch (err) {
         err instanceof Error

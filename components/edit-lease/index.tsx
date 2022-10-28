@@ -1,11 +1,12 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import toast from "react-hot-toast";
+import randomToken from "rand-token";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -34,6 +35,9 @@ import ModalLayout from "../modal-layout";
 import AddressForm from "../address-form";
 import { TOAST_STYLE } from "../../const/toastStyle";
 import { ILeaseDetail, ILeaseForm } from "../../interfaces/lease";
+import LeaseInputFile from "../lease-input-file";
+import Box from "@mui/joy/Box";
+import { storeLeaseImages } from "../../utils/fetch/fetchLeaseImages";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -45,6 +49,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openAddress, setOpenAddress] = useState<boolean>(false);
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
+  const [formData, setFormData] = useState<FormData | undefined>();
+  const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
@@ -61,11 +67,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
-    (payload: ILeaseForm) => {
-      return lease
-        ? updateLease(lease.id, { ...lease, ...payload })
-        : storeLease(payload);
-    },
+    (payload: ILeaseForm) =>
+      lease ? updateLease(lease.id, payload) : storeLease(payload),
     {
       onSuccess: async () => {
         toast.success(lease ? "Annonce modifiée" : "Annonce enregistrée", {
@@ -93,14 +96,46 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   const { errors } = formState;
 
   /* -------------------------------- FUNCTION -------------------------------- */
-  const onSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    // Prevent default
+    e.preventDefault();
+    // Upload file
+    if (formData) {
+      try {
+        setIsUploadingFile(true);
+        const fileNames: string[] = await storeLeaseImages(formData);
+        /**
+         * ?t=date is used in order to handle/bust Supabase cache
+         * https://github.com/supabase/supabase/discussions/5737
+         */
+        const fileNameTimestamped: string[] = fileNames.map(
+          (fileName) => fileName + "?t=" + Date.now()
+        );
+        setValue("leaseImages", fileNameTimestamped);
+      } catch (err) {
+        err instanceof Error
+          ? toast.error(err.message, { style: TOAST_STYLE })
+          : toast.error("An error occured while uploading the file", {
+              style: TOAST_STYLE,
+            });
+      } finally {
+        // setFormData(undefined); // Avoid uploading twice if user continue to edit/save its profile
+        setIsUploadingFile(false);
+      }
+    }
+    // Submit form
+    handleSubmit(mutateSubmit)();
+  };
+
+  const mutateSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
+    console.log("YOU'VE RECAHED mutateSubmit");
     console.log({ ...lease, ...payload });
-    mutate(payload);
+    mutate({ ...lease, ...payload });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       {isError && error instanceof Error && (
         <Alert
           startDecorator={<ErrorIcon />}
@@ -412,6 +447,37 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           </Sheet>
         </RadioGroup>
       </FormControl>
+
+      <Box sx={{ flex: "0 0" }}>
+        <FormLabel>
+          Photo
+          <Chip
+            size="sm"
+            color="info"
+            variant="soft"
+            sx={{ marginLeft: 1, fontWeight: 400 }}
+          >
+            Optionnel
+          </Chip>
+        </FormLabel>
+        <FormHelperText sx={{ marginBottom: "15px" }}>
+          Format : JPG ou PNG. Poids max : 5Mo.
+        </FormHelperText>
+        <Box sx={{ display: "flex", gap: 3 }}>
+          {[...Array(3)].map((u, i) => (
+            <FormControl key={i}>
+              <LeaseInputFile
+                fileName={
+                  lease?.leaseImages[i] ?? randomToken.generate(10) + ".jpg"
+                }
+                storageFileName={undefined}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            </FormControl>
+          ))}
+        </Box>
+      </Box>
 
       {!isLoading && (
         <Button type="submit">

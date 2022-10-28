@@ -13,5 +13,5 @@ export interface ILeaseForm {
   pricePerMonth?: number;
   description?: string;
   isPublished?: number | string; // Input radio doesn't work with 0 and false values
-  leaseImageNames?: string[];
+  leaseImages?: string[];
 }

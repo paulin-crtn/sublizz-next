@@ -43,7 +43,10 @@ import Chip from "@mui/joy/Chip";
 import styles from "../../styles/Lease.module.css";
 
 /* -------------------------------- CONSTANT -------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../const/profilePicturePath";
+import {
+  LEASE_IMAGE_PATH,
+  PROFILE_PICTURE_PATH,
+} from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -135,14 +138,18 @@ const LeasePage: NextPage = ({
           component="ul"
           sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 3, mb: 6 }}
         >
-          {lease.leaseImages.map((image: ILeaseImage) => (
+          {lease.leaseImages.map((image: string, index: number) => (
             <Card
-              key={image.id}
+              key={index}
               component="li"
               sx={{ flexGrow: 1, height: 250, maxWidth: 400 }}
             >
               <CardCover>
-                <Image src={image.url} layout="fill" priority={true} />
+                <Image
+                  src={LEASE_IMAGE_PATH + "/" + image}
+                  layout="fill"
+                  priority={true}
+                />
               </CardCover>
             </Card>
           ))}
