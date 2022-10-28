@@ -43,10 +43,9 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
 
   const { mutate: mutatePublishedStatus } = useMutation(
     () => {
-      const { leaseImages, ...data } = lease;
       const isPublished = lease.isPublished === 0 ? "1" : "0";
       return updateLease(lease.id, {
-        ...data,
+        ...lease,
         isPublished,
       });
     },
