@@ -424,33 +424,9 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         />
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Publier</FormLabel>
-        <RadioGroup
-          aria-labelledby="is-published-label"
-          defaultValue={lease ? lease.isPublished : "1"}
-        >
-          <Sheet>
-            <Radio
-              label="Maintenant"
-              value="1"
-              disableIcon
-              {...register("isPublished")}
-            />
-            <Radio
-              label="Plus tard"
-              value="0"
-              disableIcon
-              {...register("isPublished")}
-              sx={{ marginLeft: 1 }}
-            />
-          </Sheet>
-        </RadioGroup>
-      </FormControl>
-
       <Box sx={{ flex: "0 0" }}>
         <FormLabel>
-          Photo
+          Photos
           <Chip
             size="sm"
             color="info"
@@ -476,6 +452,30 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           ))}
         </Box>
       </Box>
+
+      <FormControl>
+        <FormLabel>Publier</FormLabel>
+        <RadioGroup
+          aria-labelledby="is-published-label"
+          defaultValue={lease ? lease.isPublished : "1"}
+        >
+          <Sheet>
+            <Radio
+              label="Maintenant"
+              value="1"
+              disableIcon
+              {...register("isPublished")}
+            />
+            <Radio
+              label="Plus tard"
+              value="0"
+              disableIcon
+              {...register("isPublished")}
+              sx={{ marginLeft: 1 }}
+            />
+          </Sheet>
+        </RadioGroup>
+      </FormControl>
 
       {!isLoading && !isUploadingFile && (
         <Button type="submit">
