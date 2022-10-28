@@ -477,12 +477,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         </Box>
       </Box>
 
-      {!isLoading && (
+      {!isLoading && !isUploadingFile && (
         <Button type="submit">
           {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
         </Button>
       )}
-      {isLoading && (
+      {(isUploadingFile || isLoading) && (
         <Button disabled>
           <CircularProgress color="danger" thickness={3} />
         </Button>
