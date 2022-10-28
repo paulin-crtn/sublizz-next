@@ -48,7 +48,7 @@ export default async function (
   const fileName = fields.fileName[0];
   // Upload file to Supabase
   const { data, error } = await supabase.storage
-    .from("lease-images")
+    .from("user-profile-picture")
     .upload(fileName, file, {
       upsert: true,
       contentType: "image/jpeg",
