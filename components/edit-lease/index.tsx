@@ -6,7 +6,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import toast from "react-hot-toast";
-import randomToken from "rand-token";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -49,6 +48,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openAddress, setOpenAddress] = useState<boolean>(false);
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
+  const [inputFileError, setInputFileError] = useState<string | undefined>();
   const [formData, setFormData] = useState<FormData | undefined>();
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
 
@@ -467,10 +467,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           {[...Array(3)].map((u, i) => (
             <FormControl key={i}>
               <LeaseInputFile
-                fileName={
-                  lease?.leaseImages[i] ?? randomToken.generate(10) + ".jpg"
-                }
-                storageFileName={undefined}
+                fileName={lease?.leaseImages[i] ?? undefined}
+                setInputFileError={setInputFileError}
                 formData={formData}
                 setFormData={setFormData}
               />

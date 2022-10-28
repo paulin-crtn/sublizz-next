@@ -9,6 +9,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import randomToken from "rand-token";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -35,7 +36,10 @@ import Box from "@mui/joy/Box";
 import compressFile from "../../utils/compressFile";
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
-import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import {
+  LEASE_IMAGE_PATH,
+  PROFILE_PICTURE_PATH,
+} from "../../const/supabasePath";
 import {
   storeProfilePicture,
   destroyProfilePicture,
@@ -46,19 +50,17 @@ import {
 /* -------------------------------------------------------------------------- */
 const LeaseInputFile = ({
   fileName,
-  storageFileName,
+  setInputFileError,
   formData,
   setFormData,
 }: {
-  fileName: string;
-  storageFileName: string | undefined;
+  fileName: string | undefined;
+  setInputFileError: Dispatch<SetStateAction<string | undefined>>;
   formData: FormData | undefined;
   setFormData: Dispatch<SetStateAction<FormData | undefined>>;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [inputFile, setInputFile] = useState<File | undefined>();
-  const [inputFileError, setInputFileError] = useState<string | undefined>();
-  // const [formData, setFormData] = useState<FormData | undefined>();
   const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -84,7 +86,10 @@ const LeaseInputFile = ({
         formData = new FormData();
       }
       formData.append("leaseImages", compressedFile);
-      formData.append("fileNames", fileName);
+      formData.append(
+        "fileNames",
+        fileName ?? randomToken.generate(10) + ".jpg"
+      );
       setFormData(formData);
     } catch (err) {
       err instanceof Error
@@ -110,22 +115,18 @@ const LeaseInputFile = ({
             cursor: "pointer",
           }}
         >
-          {!inputFile && !storageFileName && (
+          {!inputFile && !fileName && (
             <AspectRatio ratio={1}>
               <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                 <AddIcon />
               </Typography>
             </AspectRatio>
           )}
-          {!inputFile && storageFileName && (
+          {!inputFile && fileName && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
                 <img
-                  src={
-                    storageFileName
-                      ? PROFILE_PICTURE_PATH + "/" + storageFileName
-                      : undefined
-                  }
+                  src={fileName ? LEASE_IMAGE_PATH + "/" + fileName : undefined}
                 />
               </CardCover>
             </Card>
