@@ -100,10 +100,6 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
     }
   );
 
-  useEffect(() => {
-    console.log(lease.leaseImages);
-  }, [lease]);
-
   /* -------------------------------- FUNCTIONS ------------------------------- */
   // MenuList
   const open = Boolean(anchorEl);

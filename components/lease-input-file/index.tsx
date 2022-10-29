@@ -64,7 +64,7 @@ const LeaseInputFile = ({
     // If inputFile replace a stored file, add the stored file to setLeaseImagesToRemove
     if (leaseImages[index]) {
       setLeaseImagesToRemove((leaseImagesToRemove) => [
-        ...new Set(...leaseImagesToRemove, leaseImages[index]),
+        ...new Set([...leaseImagesToRemove, leaseImages[index]]),
       ]);
     }
   };
