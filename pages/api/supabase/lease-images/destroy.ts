@@ -28,7 +28,7 @@ export default async function (
   );
   // Remove file from Supabase
   const { data, error } = await supabase.storage
-    .from("lease-images")
+    .from("lease-image")
     .remove(req.body);
   if (error) {
     throw new Error(error.message);

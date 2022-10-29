@@ -36,7 +36,11 @@ import { TOAST_STYLE } from "../../const/toastStyle";
 import { ILeaseDetail, ILeaseForm } from "../../interfaces/lease";
 import LeaseInputFile from "../lease-input-file";
 import Box from "@mui/joy/Box";
-import { storeLeaseImages } from "../../utils/fetch/fetchLeaseImages";
+import {
+  destroyLeaseImages,
+  storeLeaseImages,
+} from "../../utils/fetch/fetchLeaseImages";
+import randomToken from "rand-token";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -48,8 +52,9 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openAddress, setOpenAddress] = useState<boolean>(false);
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
+  const [leaseImagesToRemove, setLeaseImagesToRemove] = useState<string[]>([]);
+  const [inputFiles, setInputFiles] = useState<Blob[]>([]);
   const [inputFileError, setInputFileError] = useState<string | undefined>();
-  const [formData, setFormData] = useState<FormData | undefined>();
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
@@ -95,23 +100,48 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   });
   const { errors } = formState;
 
+  useEffect(() => {
+    console.log("inputFiles", inputFiles);
+  }, [inputFiles]);
+
+  useEffect(() => {
+    console.log("leaseImagesToRemove", leaseImagesToRemove);
+  }, [leaseImagesToRemove]);
+
   /* -------------------------------- FUNCTION -------------------------------- */
+  const buildFormData = (files: File[] | Blob[]): FormData => {
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append("leaseImages", file);
+      formData.append("fileNames", randomToken.generate(10) + ".jpg");
+    }
+    return formData;
+  };
+
+  const buildLeaseImages = (fileNames: string[]) => {
+    if (!lease || !lease.leaseImages.length) {
+      return fileNames;
+    }
+    const leaseImages = lease.leaseImages.filter(
+      (imageName: string) => !leaseImagesToRemove.includes(imageName)
+    );
+    return [...leaseImages, ...fileNames];
+  };
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     // Prevent default
     e.preventDefault();
     // Upload file
-    if (formData) {
+    if (inputFiles && !!inputFiles.length) {
       try {
         setIsUploadingFile(true);
+        const formData = buildFormData(inputFiles);
         const fileNames: string[] = await storeLeaseImages(formData);
-        /**
-         * ?t=date is used in order to handle/bust Supabase cache
-         * https://github.com/supabase/supabase/discussions/5737
-         */
-        const fileNameTimestamped: string[] = fileNames.map(
-          (fileName) => fileName + "?t=" + Date.now()
-        );
-        setValue("leaseImages", fileNameTimestamped);
+        const leaseImages = buildLeaseImages(fileNames);
+        setValue("leaseImages", leaseImages);
+        if (!!leaseImagesToRemove.length) {
+          await destroyLeaseImages(leaseImagesToRemove);
+        }
       } catch (err) {
         err instanceof Error
           ? toast.error(err.message, { style: TOAST_STYLE })
@@ -119,7 +149,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
               style: TOAST_STYLE,
             });
       } finally {
-        // setFormData(undefined); // Avoid uploading twice if user continue to edit/save its profile
         setIsUploadingFile(false);
       }
     }
@@ -443,10 +472,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           {[...Array(3)].map((u, i) => (
             <FormControl key={i}>
               <LeaseInputFile
-                fileName={lease?.leaseImages[i] ?? undefined}
+                leaseImages={lease?.leaseImages ?? []}
+                setLeaseImagesToRemove={setLeaseImagesToRemove}
                 setInputFileError={setInputFileError}
-                formData={formData}
-                setFormData={setFormData}
+                inputFiles={inputFiles}
+                setInputFiles={setInputFiles}
+                index={i}
               />
             </FormControl>
           ))}

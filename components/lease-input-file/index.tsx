@@ -7,9 +7,9 @@ import {
   Dispatch,
   FormEvent,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
-import randomToken from "rand-token";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -49,18 +49,21 @@ import {
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const LeaseInputFile = ({
-  fileName,
+  leaseImages,
+  setLeaseImagesToRemove,
   setInputFileError,
-  formData,
-  setFormData,
+  inputFiles,
+  setInputFiles,
+  index,
 }: {
-  fileName: string | undefined;
+  leaseImages: string[];
+  setLeaseImagesToRemove: Dispatch<SetStateAction<string[]>>;
   setInputFileError: Dispatch<SetStateAction<string | undefined>>;
-  formData: FormData | undefined;
-  setFormData: Dispatch<SetStateAction<FormData | undefined>>;
+  inputFiles: File[] | Blob[];
+  setInputFiles: Dispatch<SetStateAction<File[] | Blob[]>>;
+  index: number;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [inputFile, setInputFile] = useState<File | undefined>();
   const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -75,28 +78,17 @@ const LeaseInputFile = ({
       setInputFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
       return;
     }
-    setInputFile(file);
-    await buildFormData(file);
-  };
+    const compressedFile = await compressFile(file);
 
-  const buildFormData = async (file: File): Promise<void> => {
-    try {
-      const compressedFile = await compressFile(file);
-      if (!formData) {
-        formData = new FormData();
-      }
-      formData.append("leaseImages", compressedFile);
-      formData.append(
-        "fileNames",
-        fileName ?? randomToken.generate(10) + ".jpg"
-      );
-      setFormData(formData);
-    } catch (err) {
-      err instanceof Error
-        ? toast.error(err.message, { style: TOAST_STYLE })
-        : toast.error("An error occured while compressing the file", {
-            style: TOAST_STYLE,
-          });
+    const inF = [...inputFiles];
+    inF[index] = compressedFile;
+    setInputFiles([...inF]); // !!!
+
+    if (leaseImages[index]) {
+      setLeaseImagesToRemove((leaseImagesToRemove) => [
+        ...leaseImagesToRemove,
+        leaseImages[index],
+      ]);
     }
   };
 
@@ -115,26 +107,30 @@ const LeaseInputFile = ({
             cursor: "pointer",
           }}
         >
-          {!inputFile && !fileName && (
+          {!inputFiles[index] && !leaseImages[index] && (
             <AspectRatio ratio={1}>
               <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                 <AddIcon />
               </Typography>
             </AspectRatio>
           )}
-          {!inputFile && fileName && (
+          {!inputFiles[index] && leaseImages[index] && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
                 <img
-                  src={fileName ? LEASE_IMAGE_PATH + "/" + fileName : undefined}
+                  src={
+                    leaseImages[index]
+                      ? LEASE_IMAGE_PATH + "/" + leaseImages[index]
+                      : undefined
+                  }
                 />
               </CardCover>
             </Card>
           )}
-          {inputFile && (
+          {inputFiles[index] && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
-                <img src={URL.createObjectURL(inputFile)} />
+                <img src={URL.createObjectURL(inputFiles[index])} />
               </CardCover>
             </Card>
           )}
