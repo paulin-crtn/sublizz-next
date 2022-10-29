@@ -43,9 +43,8 @@ const EditProfile = ({ user }: { user: IUser }) => {
   const { setUser } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [inputFile, setInputFile] = useState<File | undefined>();
+  const [inputFile, setInputFile] = useState<File | Blob | undefined>();
   const [inputFileError, setInputFileError] = useState<string | undefined>();
-  const [formData, setFormData] = useState<FormData | undefined>();
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
   const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
 
@@ -61,6 +60,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     {
       onSuccess: async (data) => {
         setUser(data);
+        setInputFile(undefined); // Avoid uploading twice if user continue to edit/save its profile
         toast.success("Profil mis à jour", { style: TOAST_STYLE });
       },
     }
@@ -80,29 +80,19 @@ const EditProfile = ({ user }: { user: IUser }) => {
       setInputFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
       return;
     }
-    setInputFile(file);
-    await buildFormData(file);
+    const compressedFile = await compressFile(file);
+    setInputFile(compressedFile);
   };
 
-  const buildFormData = async (file: File): Promise<void> => {
-    try {
-      const compressedFile = await compressFile(file);
-      const formData = new FormData();
-      formData.append("profilePicture", compressedFile);
-      formData.append("fileName", `user_${user.id}.jpg`);
-      setFormData(formData);
-    } catch (err) {
-      err instanceof Error
-        ? toast.error(err.message, { style: TOAST_STYLE })
-        : toast.error("An error occured while compressing the file", {
-            style: TOAST_STYLE,
-          });
-    }
+  const buildFormData = (file: File | Blob): FormData => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+    formData.append("fileName", `user_${user.id}.jpg`);
+    return formData;
   };
 
   const onDeleteProfilePicture = async (): Promise<void> => {
     setInputFile(undefined);
-    setFormData(undefined);
     if (user.profilePictureName) {
       try {
         setIsDeletingFile(true);
@@ -130,9 +120,10 @@ const EditProfile = ({ user }: { user: IUser }) => {
     // Prevent default
     e.preventDefault();
     // Upload file
-    if (formData) {
+    if (inputFile) {
       try {
         setIsUploadingFile(true);
+        const formData = buildFormData(inputFile);
         const fileName = await storeProfilePicture(formData);
         /**
          * ?t=date is used in order to handle/bust Supabase cache
@@ -147,7 +138,6 @@ const EditProfile = ({ user }: { user: IUser }) => {
               style: TOAST_STYLE,
             });
       } finally {
-        setFormData(undefined); // Avoid uploading twice if user continue to edit/save its profile
         setIsUploadingFile(false);
       }
     }
@@ -322,11 +312,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
                   <CardCover>
                     <img
                       src={
-                        user?.profilePictureName
-                          ? PROFILE_PICTURE_PATH +
-                            "/" +
-                            user?.profilePictureName
-                          : undefined
+                        PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
                       }
                     />
                   </CardCover>
