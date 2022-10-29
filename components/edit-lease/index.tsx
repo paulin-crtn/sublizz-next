@@ -100,32 +100,34 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   });
   const { errors } = formState;
 
-  useEffect(() => {
-    console.log("inputFiles", inputFiles);
-  }, [inputFiles]);
-
-  useEffect(() => {
-    console.log("leaseImagesToRemove", leaseImagesToRemove);
-  }, [leaseImagesToRemove]);
-
   /* -------------------------------- FUNCTION -------------------------------- */
-  const buildFormData = (files: File[] | Blob[]): FormData => {
+  const buildFormData = (inputFiles: File[] | Blob[]): FormData => {
     const formData = new FormData();
-    for (const file of files) {
+    for (const file of inputFiles) {
       formData.append("leaseImages", file);
       formData.append("fileNames", randomToken.generate(10) + ".jpg");
     }
     return formData;
   };
 
-  const buildLeaseImages = (fileNames: string[]) => {
+  const buildFileNames = (
+    lease: ILeaseDetail | undefined,
+    storedFileNames: string[]
+  ) => {
     if (!lease || !lease.leaseImages.length) {
-      return fileNames;
+      return storedFileNames;
     }
-    const leaseImages = lease.leaseImages.filter(
-      (imageName: string) => !leaseImagesToRemove.includes(imageName)
-    );
-    return [...leaseImages, ...fileNames];
+    // Update (keep images in the correct order)
+    const updatedFileNames: string[] = lease.leaseImages
+      .map((imageName: string) =>
+        leaseImagesToRemove.includes(imageName)
+          ? storedFileNames.shift()
+          : imageName
+      )
+      // because shift() can return undefined
+      .filter((imageName): imageName is string => imageName !== undefined);
+    // Spread remaining storedFileNames (if any)
+    return [...updatedFileNames, ...storedFileNames];
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -136,9 +138,9 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       try {
         setIsUploadingFile(true);
         const formData = buildFormData(inputFiles);
-        const fileNames: string[] = await storeLeaseImages(formData);
-        const leaseImages = buildLeaseImages(fileNames);
-        setValue("leaseImages", leaseImages);
+        const storedFileNames: string[] = await storeLeaseImages(formData);
+        const fileNames = buildFileNames(lease, storedFileNames);
+        setValue("leaseImages", fileNames);
         if (!!leaseImagesToRemove.length) {
           await destroyLeaseImages(leaseImagesToRemove);
         }
