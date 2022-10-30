@@ -1,39 +1,46 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useMutation } from "@tanstack/react-query";
+/* ----------------------------------- NPM ---------------------------------- */
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+/* ---------------------------------- UTILS --------------------------------- */
+import compressFile from "../../utils/compressFile";
+import { updateUser } from "../../utils/fetch/fetchUser";
+import {
+  storeProfilePicture,
+  destroyProfilePicture,
+} from "../../utils/fetch/fetchProfilePicture";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../context/auth.context";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
-import ErrorIcon from "@mui/icons-material/Error";
-import AddIcon from "@mui/icons-material/Add";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { updateUser } from "../../utils/fetch/fetchUser";
-import { useAuth } from "../../context/auth.context";
 import Chip from "@mui/joy/Chip";
-import { TOAST_STYLE } from "../../const/toastStyle";
-import toast from "react-hot-toast";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/joy/Box";
-import compressFile from "../../utils/compressFile";
+/* ---------------------------------- ICONS --------------------------------- */
+import ErrorIcon from "@mui/icons-material/Error";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
+/* ---------------------------------- CONST --------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
-import {
-  storeProfilePicture,
-  destroyProfilePicture,
-} from "../../utils/fetch/fetchProfilePicture";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

@@ -1,19 +1,33 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { FormEvent, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import randomToken from "rand-token";
 import toast from "react-hot-toast";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LeaseInputFile from "../lease-input-file";
+import ModalLayout from "../modal-layout";
+import AddressForm from "../address-form";
+/* ---------------------------------- UTILS --------------------------------- */
+import { storeLease, updateLease } from "../../utils/fetch/fetchLease";
+import { convertLeaseType } from "../../utils/convertLeaseType";
+import {
+  storeLeaseImages,
+  destroyLeaseImages,
+} from "../../utils/fetch/fetchLeaseImages";
+/* ----------------------------------- MUI ---------------------------------- */
 import { MobileDatePicker } from "@mui/x-date-pickers";
+import TextField from "@mui/material/TextField";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
-import ErrorIcon from "@mui/icons-material/Error";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import Chip from "@mui/joy/Chip";
@@ -26,21 +40,15 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Input from "@mui/joy/Input";
-import { TextField } from "@mui/material";
-import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
-import { storeLease, updateLease } from "../../utils/fetch/fetchLease";
-import { convertLeaseType } from "../../utils/convertLeaseType";
-import ModalLayout from "../modal-layout";
-import AddressForm from "../address-form";
-import { TOAST_STYLE } from "../../const/toastStyle";
-import { ILeaseDetail, ILeaseForm } from "../../interfaces/lease";
-import LeaseInputFile from "../lease-input-file";
 import Box from "@mui/joy/Box";
-import {
-  destroyLeaseImages,
-  storeLeaseImages,
-} from "../../utils/fetch/fetchLeaseImages";
-import randomToken from "rand-token";
+/* ---------------------------------- ICONS --------------------------------- */
+import ErrorIcon from "@mui/icons-material/Error";
+/* ---------------------------------- ENUM ---------------------------------- */
+import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
+/* ---------------------------------- CONST --------------------------------- */
+import { TOAST_STYLE } from "../../const/toastStyle";
+/* ------------------------------- INTERFACES ------------------------------- */
+import { ILeaseDetail, ILeaseForm } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
