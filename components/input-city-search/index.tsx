@@ -38,6 +38,16 @@ const InputCitySearch = () => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
+   * Fill search input with query (if any) when page first render
+   */
+  useEffect(() => {
+    const { city } = router.query;
+    if (city && typeof city === "string") {
+      setQuery(city);
+    }
+  }, []);
+
+  /**
    * Fetch cities when query changes
    */
   useEffect(() => {
@@ -48,7 +58,6 @@ const InputCitySearch = () => {
         .sort((a: IResponse, b: IResponse) => b.population - a.population)
         .splice(0, 5);
       setCities(dataSorted);
-      setShowDropdown(true);
     };
     getCities(query).catch((error) => console.log(error));
   }, [query]);
@@ -72,20 +81,27 @@ const InputCitySearch = () => {
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const handleClick = (city: string) => {
     city ? router.push("/leases?city=" + city) : router.push("/leases");
+    setQuery(city);
+    setShowDropdown(false);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ display: "flex", position: "relative" }}>
-      <Box sx={{ width: 280, position: "absolute" }}>
+    <Box sx={{ position: "relative", display: "flex", zIndex: 10 }}>
+      <Box sx={{ position: "absolute", width: 280 }}>
         <Input
           size="lg"
           placeholder="Lyon"
           value={query}
+          onKeyDown={() => {
+            query.length > 2 && cities && !!cities.length
+              ? setShowDropdown(true)
+              : setShowDropdown(false);
+          }}
           onChange={(e) => setQuery(e.target.value)}
           fullWidth
         />
-        {showDropdown && query.length > 2 && cities && !!cities.length && (
+        {showDropdown && (
           <List
             aria-label="basic-list"
             color="neutral"

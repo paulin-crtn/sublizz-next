@@ -8,6 +8,7 @@ import {
   NextPage,
 } from "next";
 import Link from "next/link";
+import InputCitySearch from "../../components/input-city-search";
 import LeaseCard from "../../components/lease-card";
 import { ILease } from "../../interfaces/lease";
 import styles from "../../styles/Leases.module.css";
@@ -23,6 +24,7 @@ const LeasesPage: NextPage = ({
     <>
       <header>
         <Typography level="h3">Dans quelles villes cherches-tu ?</Typography>
+        <InputCitySearch />
       </header>
 
       <main>
