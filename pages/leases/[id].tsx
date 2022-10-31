@@ -9,6 +9,7 @@ import {
 } from "next";
 import Image from "next/image";
 import format from "date-fns/format";
+import dynamic from "next/dynamic";
 
 /* -------------------------------- COMPONENT ------------------------------- */
 import { useAuth } from "../../context/auth.context";
@@ -20,8 +21,13 @@ import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
 
+/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
+const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
+  ssr: false,
+});
+
 /* -------------------------------- INTERFACE ------------------------------- */
-import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
+import { ILeaseDetail } from "../../interfaces/lease";
 
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
@@ -200,6 +206,11 @@ const LeasePage: NextPage = ({
             </Button>
           </div>
         </div>
+
+        <LeaseMapWithNoSSR
+          latitude={lease.gpsLatitude}
+          longitude={lease.gpsLongitude}
+        />
       </main>
 
       {/** Contact author */}
