@@ -36,6 +36,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlagIcon from "@mui/icons-material/Flag";
 
 /* --------------------------------- MUI JOY -------------------------------- */
+import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Modal from "@mui/joy/Modal";
@@ -144,55 +145,108 @@ const LeasePage: NextPage = ({
       </header>
 
       <main>
-        <Box
-          component="ul"
-          sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 4, mb: 6 }}
-        >
-          {lease.leaseImages.map((image: string, index: number) => (
-            <Card
-              key={index}
-              component="li"
-              sx={{ flexGrow: 1, height: 250, boxShadow: "none" }}
-            >
-              <CardCover>
-                <Image
-                  src={LEASE_IMAGE_PATH + "/" + image}
-                  layout="fill"
-                  priority={true}
-                />
-              </CardCover>
-            </Card>
-          ))}
-        </Box>
+        {lease.leaseImages && !!lease.leaseImages.length && (
+          <Box
+            component="ul"
+            sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 4 }}
+          >
+            {lease.leaseImages.map((image: string, index: number) => (
+              <Card
+                key={index}
+                component="li"
+                sx={{ flexGrow: 1, height: 250, boxShadow: "none" }}
+              >
+                <CardCover>
+                  <Image
+                    src={LEASE_IMAGE_PATH + "/" + image}
+                    layout="fill"
+                    priority={true}
+                  />
+                </CardCover>
+              </Card>
+            ))}
+          </Box>
+        )}
 
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            gap: 3,
+            marginTop: 6,
             marginBottom: 4,
           }}
         >
-          <div>
+          <Box sx={{ flex: "1 1" }}>
             <Typography level="h4" marginBottom={3}>
               Description
             </Typography>
-            <Typography level="h6" fontWeight={300}>
+            <Typography level="h6" fontWeight={300} marginBottom={3}>
               {lease.description}
             </Typography>
-          </div>
+            <FormHelperText sx={{ marginBottom: 1 }}>
+              Annonce publiée le{" "}
+              {format(new Date(lease.createdAt), "dd LLLL uuuu")}
+            </FormHelperText>
+            <Button
+              startDecorator={<FlagIcon />}
+              onClick={handleReport}
+              variant="outlined"
+              color="neutral"
+              size="sm"
+            >
+              Signaler l'annonce
+            </Button>
+          </Box>
 
-          <div className={styles.cta}>
-            <Button startDecorator={<EmailIcon />} onClick={handleContact}>
-              Contacter {lease.user.firstName}
+          <Box
+            sx={{
+              flex: "0 0 350px",
+              height: "fit-content",
+              padding: 2,
+              borderRadius: "16px",
+              border: "1px solid #dddddd",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                alt="Photo de profil de l'auteur de l'annonce"
+                src={
+                  lease.user.profilePictureName
+                    ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
+                    : undefined
+                }
+                sx={{
+                  width: 60,
+                  height: 60,
+                  mr: 2,
+                }}
+              />
+              <Typography level="h6">{lease.user.firstName}</Typography>
+            </Box>
+            <Button
+              fullWidth
+              startDecorator={<EmailIcon />}
+              onClick={handleContact}
+              sx={{ mt: 2 }}
+            >
+              Envoyer un message
             </Button>
             <Button
+              fullWidth
+              variant="outlined"
               startDecorator={<FavoriteBorderIcon />}
               onClick={handleFavorite}
-              variant="outlined"
+              sx={{ mt: 1, backgroundColor: "#ffffff" }}
             >
-              Sauvegarder
+              Sauvegarder l'annonce
             </Button>
-          </div>
+          </Box>
         </Box>
 
         <Typography level="h4" marginBottom={3}>
@@ -202,50 +256,6 @@ const LeasePage: NextPage = ({
           latitude={lease.gpsLatitude}
           longitude={lease.gpsLongitude}
         />
-
-        <Box sx={{ display: "flex", alignItems: "center", marginTop: 6 }}>
-          <Avatar
-            alt="Photo de profil de l'auteur de l'annonce"
-            src={
-              lease.user.profilePictureName
-                ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
-                : undefined
-            }
-            sx={{
-              width: 110,
-              height: 110,
-              mr: 2,
-            }}
-          />
-          <div>
-            <Typography level="h5">
-              Annonce publiée par {lease.user.firstName}
-            </Typography>
-            <Typography fontWeight={300}>
-              le {format(new Date(lease.createdAt), "dd LLLL uuuu")}
-            </Typography>
-            <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
-              <Button startDecorator={<EmailIcon />} onClick={handleContact}>
-                Contacter {lease.user.firstName}
-              </Button>
-              <Button
-                startDecorator={<FavoriteBorderIcon />}
-                onClick={handleFavorite}
-                variant="outlined"
-              >
-                Sauvegarder
-              </Button>
-              <Button
-                startDecorator={<FlagIcon />}
-                onClick={handleReport}
-                variant="outlined"
-                color="neutral"
-              >
-                Signaler l'annonce
-              </Button>
-            </Box>
-          </div>
-        </Box>
       </main>
 
       {/** Contact author */}

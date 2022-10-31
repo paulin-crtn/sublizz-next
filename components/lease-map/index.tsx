@@ -32,7 +32,7 @@ export default function LeaseMap({
       center={[latitude, longitude]}
       zoom={13}
       scrollWheelZoom={false}
-      style={{ height: "300px", borderRadius: "16px" }}
+      style={{ height: "320px", borderRadius: "16px" }}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
