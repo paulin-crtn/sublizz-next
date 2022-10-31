@@ -23,7 +23,7 @@ const LeasesPage: NextPage = ({
   return (
     <>
       <header>
-        <Typography level="h3">Dans quelles villes cherches-tu ?</Typography>
+        <Typography level="h3">Dans quelle ville cherchez-vous ?</Typography>
         <InputCitySearch />
       </header>
 
@@ -50,9 +50,12 @@ export default LeasesPage;
 /* -------------------------------------------------------------------------- */
 /*                              SERVER SIDE PROPS                             */
 /* -------------------------------------------------------------------------- */
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const response = await fetch(`${API_URL}/leases`);
+  const city = context?.query.city;
+  const response = city
+    ? await fetch(`${API_URL}/leases?city=${city}`)
+    : await fetch(`${API_URL}/leases`);
   const leases: ILease[] = await response.json();
   return {
     props: { leases },

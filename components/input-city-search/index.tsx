@@ -93,7 +93,7 @@ const InputCitySearch = () => {
           size="lg"
           placeholder="Lyon"
           value={query}
-          onKeyDown={() => {
+          onKeyUp={() => {
             query.length > 2 && cities && !!cities.length
               ? setShowDropdown(true)
               : setShowDropdown(false);
