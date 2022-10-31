@@ -80,8 +80,11 @@ const InputCitySearch = () => {
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const handleClick = (city: string) => {
-    city ? router.push("/leases?city=" + city) : router.push("/leases");
-    setQuery(city);
+    const cityTrimmed = city.trim();
+    cityTrimmed
+      ? router.push("/leases?city=" + cityTrimmed)
+      : router.push("/leases");
+    setQuery(cityTrimmed);
     setShowDropdown(false);
   };
 
@@ -98,7 +101,7 @@ const InputCitySearch = () => {
               ? setShowDropdown(true)
               : setShowDropdown(false);
           }}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value.trim())}
           fullWidth
         />
         {showDropdown && (
