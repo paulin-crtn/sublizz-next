@@ -12,14 +12,14 @@ import CardContent from "@mui/joy/CardContent";
 import Image from "next/future/image";
 import styles from "../styles/Home.module.css";
 import homePic from "../public/img/home.jpg";
-import Button from "@mui/joy/Button";
-import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
+import InputCitySearch from "../components/input-city-search";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const Home: NextPage = () => {
+  /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
       <header>
@@ -56,10 +56,7 @@ const Home: NextPage = () => {
                 Dans quelle ville cherchez-vous ?
               </Typography>
               <div className={styles.search}>
-                <Input size="lg" placeholder="Lyon" sx={{ width: "300px" }} />
-                <Button size="lg" sx={{ ml: "5px", borderRadius: "8px" }}>
-                  <SearchIcon />
-                </Button>
+                <InputCitySearch />
               </div>
               <FormHelperText>
                 <Link href="/leases">Voir toutes les annonces</Link>
