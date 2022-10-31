@@ -10,6 +10,7 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -79,13 +80,18 @@ const InputCitySearch = () => {
   }, [showDropdown]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const handleClick = (city: string) => {
+  const handleSearch = (city: string) => {
     const cityTrimmed = city.trim();
     cityTrimmed
       ? router.push("/leases?city=" + cityTrimmed)
       : router.push("/leases");
     setQuery(cityTrimmed);
     setShowDropdown(false);
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    router.push("/leases");
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -96,13 +102,16 @@ const InputCitySearch = () => {
           size="lg"
           placeholder="Lyon"
           value={query}
+          fullWidth
           onKeyUp={() => {
             query.length > 2 && cities && !!cities.length
               ? setShowDropdown(true)
               : setShowDropdown(false);
           }}
           onChange={(e) => setQuery(e.target.value.trim())}
-          fullWidth
+          endDecorator={
+            <ClearIcon onClick={handleClear} sx={{ cursor: "pointer" }} />
+          }
         />
         {showDropdown && (
           <List
@@ -115,7 +124,7 @@ const InputCitySearch = () => {
             {cities.map((city: IResponse) => (
               <ListItem
                 key={city.nom}
-                onClick={() => handleClick(city.nom)}
+                onClick={() => handleSearch(city.nom)}
                 sx={{
                   cursor: "pointer",
                   "&:hover": { backgroundColor: "#f0f0f0" },
@@ -130,7 +139,7 @@ const InputCitySearch = () => {
       <Box>
         <Button
           size="lg"
-          onClick={() => handleClick(query)}
+          onClick={() => handleSearch(query)}
           sx={{ ml: "285px", borderRadius: "8px" }}
         >
           <SearchIcon />
