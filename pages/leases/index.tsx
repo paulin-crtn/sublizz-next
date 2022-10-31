@@ -23,8 +23,10 @@ const LeasesPage: NextPage = ({
   return (
     <>
       <header>
-        <Typography level="h3">Dans quelle ville cherchez-vous ?</Typography>
-        <InputCitySearch />
+        <Typography level="h3" mb={2}>
+          Dans quelle ville cherchez-vous ?
+        </Typography>
+        <InputCitySearch withClearSearch={true} />
       </header>
 
       <main>

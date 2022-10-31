@@ -51,13 +51,11 @@ const Home: NextPage = () => {
           </CardCover>
           <CardContent>
             <FormControl sx={{ my: "auto", ml: "30px" }}>
-              <Typography level="h4">
+              <Typography level="h4" mb={3}>
                 Dans quelle ville cherchez-vous ?
               </Typography>
-              <div className={styles.search}>
-                <InputCitySearch />
-              </div>
-              <FormHelperText>
+              <InputCitySearch />
+              <FormHelperText sx={{ mt: 2 }}>
                 <Link href="/leases">Voir toutes les annonces</Link>
               </FormHelperText>
             </FormControl>

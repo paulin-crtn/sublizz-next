@@ -16,10 +16,3 @@
   background-clip: text;
   -webkit-background-clip: text;
 }
-
-.search {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 20px 0 10px 0;
-}

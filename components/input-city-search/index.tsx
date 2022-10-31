@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useEffect, useRef, useState, MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { getDataGouvCity } from "../../utils/fetch/fetchCity";
 import Input from "@mui/joy/Input";
@@ -10,7 +10,7 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
+import FormHelperText from "@mui/joy/FormHelperText";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -25,7 +25,7 @@ interface IResponse {
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const InputCitySearch = () => {
+const InputCitySearch = ({ withClearSearch = false }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -45,8 +45,10 @@ const InputCitySearch = () => {
     const { city } = router.query;
     if (city && typeof city === "string") {
       setQuery(city);
+    } else {
+      setQuery("");
     }
-  }, []);
+  }, [router.query.city]);
 
   /**
    * Fetch cities when query changes
@@ -96,56 +98,60 @@ const InputCitySearch = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ position: "relative", display: "flex", zIndex: 10 }}>
-      <Box sx={{ position: "absolute", width: 280 }}>
-        <Input
-          size="lg"
-          placeholder="Lyon"
-          value={query}
-          fullWidth
-          onKeyUp={() => {
-            query.length > 2 && cities && !!cities.length
-              ? setShowDropdown(true)
-              : setShowDropdown(false);
-          }}
-          onChange={(e) => setQuery(e.target.value.trim())}
-          endDecorator={
-            <ClearIcon onClick={handleClear} sx={{ cursor: "pointer" }} />
-          }
-        />
-        {showDropdown && (
-          <List
-            aria-label="basic-list"
-            color="neutral"
-            variant="outlined"
-            ref={dropdown}
-            sx={{ marginTop: 1, backgroundColor: "#ffffff", borderRadius: 8 }}
+    <>
+      <Box sx={{ position: "relative", display: "flex", zIndex: 10 }}>
+        <Box sx={{ position: "absolute", width: 280 }}>
+          <Input
+            size="lg"
+            placeholder="Lyon"
+            value={query}
+            fullWidth
+            onKeyUp={() => {
+              query.length > 2 && cities && !!cities.length
+                ? setShowDropdown(true)
+                : setShowDropdown(false);
+            }}
+            onChange={(e) => setQuery(e.target.value.trim())}
+          />
+          {showDropdown && (
+            <List
+              aria-label="basic-list"
+              color="neutral"
+              variant="outlined"
+              ref={dropdown}
+              sx={{ marginTop: 1, backgroundColor: "#ffffff", borderRadius: 8 }}
+            >
+              {cities.map((city: IResponse) => (
+                <ListItem
+                  key={city.nom}
+                  onClick={() => handleSearch(city.nom)}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": { backgroundColor: "#f0f0f0" },
+                  }}
+                >
+                  {city.nom}
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </Box>
+        <Box>
+          <Button
+            size="lg"
+            onClick={() => handleSearch(query)}
+            sx={{ ml: "285px", borderRadius: "8px", border: 0 }}
           >
-            {cities.map((city: IResponse) => (
-              <ListItem
-                key={city.nom}
-                onClick={() => handleSearch(city.nom)}
-                sx={{
-                  cursor: "pointer",
-                  "&:hover": { backgroundColor: "#f0f0f0" },
-                }}
-              >
-                {city.nom}
-              </ListItem>
-            ))}
-          </List>
-        )}
+            <SearchIcon />
+          </Button>
+        </Box>
       </Box>
-      <Box>
-        <Button
-          size="lg"
-          onClick={() => handleSearch(query)}
-          sx={{ ml: "285px", borderRadius: "8px" }}
-        >
-          <SearchIcon />
-        </Button>
-      </Box>
-    </Box>
+      {withClearSearch && (
+        <FormHelperText onClick={handleClear} sx={{ mt: 2, cursor: "pointer" }}>
+          Effacer la recherche
+        </FormHelperText>
+      )}
+    </>
   );
 };
 
