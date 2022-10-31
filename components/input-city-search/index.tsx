@@ -1,7 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, MouseEvent } from "react";
+import { useRouter } from "next/router";
 import { getDataGouvCity } from "../../utils/fetch/fetchCity";
 import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
@@ -24,6 +25,9 @@ interface IResponse {
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const InputCitySearch = () => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [query, setQuery] = useState<string>("");
   const [cities, setCities] = useState<IResponse[]>([]);
@@ -65,6 +69,11 @@ const InputCitySearch = () => {
     return () => window.removeEventListener("click", handleClick);
   }, [showDropdown]);
 
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const handleClick = (city: string) => {
+    city ? router.push("/leases?city=" + city) : router.push("/leases");
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box sx={{ display: "flex", position: "relative" }}>
@@ -87,6 +96,7 @@ const InputCitySearch = () => {
             {cities.map((city: IResponse) => (
               <ListItem
                 key={city.nom}
+                onClick={() => handleClick(city.nom)}
                 sx={{
                   cursor: "pointer",
                   "&:hover": { backgroundColor: "#f0f0f0" },
@@ -99,7 +109,11 @@ const InputCitySearch = () => {
         )}
       </Box>
       <Box>
-        <Button size="lg" sx={{ ml: "285px", borderRadius: "8px" }}>
+        <Button
+          size="lg"
+          onClick={() => handleClick(query)}
+          sx={{ ml: "285px", borderRadius: "8px" }}
+        >
           <SearchIcon />
         </Button>
       </Box>

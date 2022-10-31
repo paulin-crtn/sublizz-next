@@ -4,7 +4,6 @@
 import type { NextPage } from "next";
 import FormControl from "@mui/joy/FormControl";
 import FormHelperText from "@mui/joy/FormHelperText";
-import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
