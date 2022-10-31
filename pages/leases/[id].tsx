@@ -31,6 +31,8 @@ import { ILeaseDetail } from "../../interfaces/lease";
 
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlagIcon from "@mui/icons-material/Flag";
 
 /* --------------------------------- MUI JOY -------------------------------- */
@@ -99,12 +101,14 @@ const LeasePage: NextPage = ({
     }
   };
 
+  const handleFavorite = () => {};
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
       <header className={styles.header}>
         <div>
-          <Typography component="h1" level="h3">
+          <Typography component="h1" level="h2">
             {lease.city}
           </Typography>
 
@@ -133,7 +137,7 @@ const LeasePage: NextPage = ({
         </div>
 
         <div>
-          <Typography level="h4" fontWeight={400}>
+          <Typography level="h4" fontWeight={500}>
             {lease.pricePerMonth}€ CC
           </Typography>
         </div>
@@ -142,13 +146,13 @@ const LeasePage: NextPage = ({
       <main>
         <Box
           component="ul"
-          sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 3, mb: 6 }}
+          sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 4, mb: 6 }}
         >
           {lease.leaseImages.map((image: string, index: number) => (
             <Card
               key={index}
               component="li"
-              sx={{ flexGrow: 1, height: 250, maxWidth: 400 }}
+              sx={{ flexGrow: 1, height: 250, boxShadow: "none" }}
             >
               <CardCover>
                 <Image
@@ -161,56 +165,87 @@ const LeasePage: NextPage = ({
           ))}
         </Box>
 
-        <div className={styles.wrapper}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 4,
+          }}
+        >
           <div>
+            <Typography level="h4" marginBottom={3}>
+              Description
+            </Typography>
             <Typography level="h6" fontWeight={300}>
               {lease.description}
             </Typography>
-            <div className={styles.author}>
-              <Avatar
-                alt="Photo de profil de l'auteur de l'annonce"
-                src={
-                  lease.user.profilePictureName
-                    ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
-                    : undefined
-                }
-                sx={{
-                  width: 80,
-                  height: 80,
-                  mr: 2,
-                }}
-              />
-              <div>
-                <Typography fontWeight={300}>
-                  Annonce publiée le{" "}
-                  {format(new Date(lease.createdAt), "dd LLLL uuuu")}
-                  <br />
-                  par{" "}
-                  <Typography fontWeight={500}>
-                    {lease.user.firstName}
-                  </Typography>
-                </Typography>
-              </div>
-            </div>
           </div>
+
           <div className={styles.cta}>
             <Button startDecorator={<EmailIcon />} onClick={handleContact}>
               Contacter {lease.user.firstName}
             </Button>
             <Button
-              startDecorator={<FlagIcon />}
-              onClick={handleReport}
+              startDecorator={<FavoriteBorderIcon />}
+              onClick={handleFavorite}
               variant="outlined"
             >
-              Signaler l'annonce
+              Sauvegarder
             </Button>
           </div>
-        </div>
+        </Box>
 
+        <Typography level="h4" marginBottom={3}>
+          Emplacement du logement
+        </Typography>
         <LeaseMapWithNoSSR
           latitude={lease.gpsLatitude}
           longitude={lease.gpsLongitude}
         />
+
+        <Box sx={{ display: "flex", alignItems: "center", marginTop: 6 }}>
+          <Avatar
+            alt="Photo de profil de l'auteur de l'annonce"
+            src={
+              lease.user.profilePictureName
+                ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
+                : undefined
+            }
+            sx={{
+              width: 110,
+              height: 110,
+              mr: 2,
+            }}
+          />
+          <div>
+            <Typography level="h5">
+              Annonce publiée par {lease.user.firstName}
+            </Typography>
+            <Typography fontWeight={300}>
+              le {format(new Date(lease.createdAt), "dd LLLL uuuu")}
+            </Typography>
+            <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
+              <Button startDecorator={<EmailIcon />} onClick={handleContact}>
+                Contacter {lease.user.firstName}
+              </Button>
+              <Button
+                startDecorator={<FavoriteBorderIcon />}
+                onClick={handleFavorite}
+                variant="outlined"
+              >
+                Sauvegarder
+              </Button>
+              <Button
+                startDecorator={<FlagIcon />}
+                onClick={handleReport}
+                variant="outlined"
+                color="neutral"
+              >
+                Signaler l'annonce
+              </Button>
+            </Box>
+          </div>
+        </Box>
       </main>
 
       {/** Contact author */}
