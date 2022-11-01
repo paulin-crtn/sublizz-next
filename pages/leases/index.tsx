@@ -29,8 +29,8 @@ const LeasesPage: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <main>
-      <Box sx={{ display: "flex", gap: 4 }}>
-        <Box flex="1 1 50%">
+      <Box sx={{ display: "flex", gap: 4, height: "calc(100vh - 160px)" }}>
+        <Box flex="1 1 50%" sx={{ overflowY: "scroll" }}>
           <Typography level="h3" mb={2}>
             Dans quelle ville cherchez-vous ?
           </Typography>
@@ -46,17 +46,7 @@ const LeasesPage: NextPage = ({
             </Link>
           ))}
         </Box>
-        <Box
-          flex="0 0 50%"
-          // sx={{
-          //   zIndex: 1,
-          //   position: "fixed",
-          //   top: "120px",
-          //   right: "30px",
-          //   height: "120px",
-          //   width: "50%",
-          // }}
-        >
+        <Box flex="0 0 50%">
           <LeaseMapWithNoSSR leases={leases} />
         </Box>
       </Box>
