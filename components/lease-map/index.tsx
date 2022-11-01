@@ -1,20 +1,23 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { useRouter } from "next/router";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L, { Icon } from "leaflet";
+import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import LeaseChips from "../lease-chips";
+import Box from "@mui/joy/Box";
+import Typography from "@mui/joy/Typography";
 import { ILeaseDetail } from "../../interfaces/lease";
-import { useEffect, useMemo } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
 const icon = new Icon({
   iconUrl: "/img/placeholder.png",
-  iconSize: [36, 36],
-  iconAnchor: [18, 36],
-  // popupAnchor: [0, 36],
+  iconSize: [28, 28],
+  iconAnchor: [14, 28],
+  popupAnchor: [0, -20],
 });
 
 /* -------------------------------------------------------------------------- */
@@ -27,6 +30,9 @@ export default function LeaseMap({
   leases: ILeaseDetail[];
   isMultiple: boolean;
 }) {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
@@ -50,9 +56,21 @@ export default function LeaseMap({
           position={[lease.gpsLatitude, lease.gpsLongitude]}
           icon={icon}
         >
-          {/* <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup> */}
+          {isMultiple && (
+            <Popup className="popup">
+              <Box
+                onClick={() => {
+                  router.push(`/leases/${lease.id}`);
+                }}
+                sx={{ cursor: "pointer" }}
+              >
+                <Typography level="h6" mb={1}>
+                  {lease.pricePerMonth}€
+                </Typography>
+                <LeaseChips lease={lease} size="sm" />
+              </Box>
+            </Popup>
+          )}
         </Marker>
       ))}
     </MapContainer>

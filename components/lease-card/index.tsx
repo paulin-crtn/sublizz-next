@@ -60,7 +60,6 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
               À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}
             </Typography>
           )}
-
           {lease.endDate && (
             <Typography level="body1" fontWeight={300}>
               Du {format(new Date(lease.startDate), "dd MMM uuuu")} au{" "}
