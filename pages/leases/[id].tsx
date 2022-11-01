@@ -252,10 +252,7 @@ const LeasePage: NextPage = ({
         <Typography level="h4" marginBottom={3}>
           Emplacement du logement
         </Typography>
-        <LeaseMapWithNoSSR
-          latitude={lease.gpsLatitude}
-          longitude={lease.gpsLongitude}
-        />
+        <LeaseMapWithNoSSR leases={[lease]} />
       </main>
 
       {/** Contact author */}

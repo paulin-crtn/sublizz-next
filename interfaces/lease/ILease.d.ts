@@ -5,8 +5,8 @@ export interface ILease {
   type: LeaseTypeEnum;
   postCode: string;
   city: string;
-  gpsLatitude?: string;
-  gpsLongitude?: string;
+  gpsLatitude: number;
+  gpsLongitude: number;
   surface: number;
   room: number;
   pricePerMonth: number;

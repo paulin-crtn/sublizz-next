@@ -43,6 +43,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            gap: 2,
           }}
         >
           <Typography level="h5" fontWeight="600">
