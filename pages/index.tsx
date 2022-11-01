@@ -31,9 +31,7 @@ const Home: NextPage = () => {
             fontWeight={800}
             lineHeight={1.2}
           >
-            <span className={styles.textGradient1}>Locations</span> et{" "}
-            <span className={styles.textGradient2}>sous-locations</span>{" "}
-            temporaires entre particuliers
+            Locations et sous-locations temporaires entre particuliers
           </Typography>
           <Typography component="h2" level="h5" marginTop={2} fontWeight={300}>
             Réalisez vos projets en découvrant nos offres de locations de

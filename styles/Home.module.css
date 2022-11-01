@@ -2,17 +2,3 @@
   margin: 0 0 60px 0;
   width: 65%;
 }
-
-.textGradient1 {
-  background: linear-gradient(to right, darkblue, darkorchid);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.textGradient2 {
-  background: linear-gradient(to right, darkorchid, darkblue);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-}

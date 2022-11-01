@@ -84,12 +84,14 @@ const LeasesPage: NextPage = ({
               </Box>
             </Link>
           ))}
-          <Pagination
-            count={pageCount}
-            sx={{ mt: 3, textAlign: "center" }}
-            onChange={onDataPageChange}
-            page={currentPage}
-          />
+          {data.totalCount > RESULTS_PER_PAGE && (
+            <Pagination
+              count={pageCount}
+              sx={{ mt: 3, textAlign: "center" }}
+              onChange={onDataPageChange}
+              page={currentPage}
+            />
+          )}
         </Box>
         <Box
           flex="0 0 48%"
@@ -99,7 +101,9 @@ const LeasesPage: NextPage = ({
             top: 135, // 90px height navbar + 45px container marginTop
           }}
         >
-          <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          {!!data.leases.length && (
+            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          )}
         </Box>
       </Box>
     </main>

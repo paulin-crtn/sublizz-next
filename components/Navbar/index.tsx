@@ -69,7 +69,10 @@ const Navbar: FunctionComponent = () => {
   return (
     <nav className={styles.container}>
       <Link href="/">
-        <div className={styles.logo}>ShortLoc</div>
+        <div className={styles.logo}>
+          la<span className={styles.textGradient1}>carte</span>des
+          <span className={styles.textGradient2}>logements</span>
+        </div>
       </Link>
       <ul>
         {!user && (

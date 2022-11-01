@@ -18,9 +18,23 @@
 }
 
 .container .logo {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.textGradient1 {
+  background: linear-gradient(to right, rgb(37, 103, 183), darkorchid);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.textGradient2 {
+  background: linear-gradient(to right, darkorchid, rgb(37, 103, 183));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .container ul li {
