@@ -252,7 +252,7 @@ const LeasePage: NextPage = ({
         <Typography level="h4" marginBottom={3}>
           Emplacement du logement
         </Typography>
-        <LeaseMapWithNoSSR leases={[lease]} />
+        <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
       </main>
 
       {/** Contact author */}

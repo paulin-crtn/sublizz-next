@@ -20,7 +20,13 @@ const icon = new Icon({
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export default function LeaseMap({ leases }: { leases: ILeaseDetail[] }) {
+export default function LeaseMap({
+  leases,
+  isMultiple,
+}: {
+  leases: ILeaseDetail[];
+  isMultiple: boolean;
+}) {
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
@@ -29,7 +35,7 @@ export default function LeaseMap({ leases }: { leases: ILeaseDetail[] }) {
       zoom={13}
       scrollWheelZoom={false}
       style={{
-        height: leases.length > 1 ? "calc(100vh - 160px)" : "340px",
+        height: isMultiple ? "calc(100vh - 160px)" : "340px",
         borderRadius: "16px",
       }}
     >
@@ -37,7 +43,7 @@ export default function LeaseMap({ leases }: { leases: ILeaseDetail[] }) {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {leases.length > 1 && <Bounds leases={leases} />}
+      {isMultiple && <Bounds leases={leases} />}
       {leases.map((lease: ILeaseDetail) => (
         <Marker
           key={lease.id}
