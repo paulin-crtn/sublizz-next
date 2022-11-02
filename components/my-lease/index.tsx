@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import Image from "next/image";
 import format from "date-fns/format";
 import CardOverflow from "@mui/joy/CardOverflow";
@@ -30,6 +30,7 @@ import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
 import toast from "react-hot-toast";
 import { TOAST_STYLE } from "../../const/toastStyle";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -173,6 +174,15 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               aria-labelledby="positioned-demo-button"
               placement="bottom-end"
             >
+              {!!lease.isPublished && (
+                <Link href={`/leases/${lease.id}`}>
+                  <MenuItem onClick={handleClose}>
+                    <Typography startDecorator={<VisibilityIcon />}>
+                      Voir
+                    </Typography>
+                  </MenuItem>
+                </Link>
+              )}
               <MenuItem
                 onClick={() => {
                   handleClose();
