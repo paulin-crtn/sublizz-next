@@ -14,6 +14,9 @@ export const convertLeaseType = (leaseType: LeaseTypeEnum) => {
     case LeaseTypeEnum.SUBLEASE:
       return "Sous-location";
 
+    case LeaseTypeEnum.SEASONAL:
+      return "Location saisonnière";
+
     default:
       return leaseType;
   }

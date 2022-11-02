@@ -52,6 +52,8 @@ const LeasesPage: NextPage = ({
     [router.query.page]
   );
 
+  const query = useMemo(() => router.query.city, [router.query.city]);
+
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
     router.push("leases?page=" + page);
@@ -68,15 +70,24 @@ const LeasesPage: NextPage = ({
         }}
       >
         <Box flex="1 1 52%">
-          <InputCitySearch withClearSearch={true} />
-          <Typography level="h4">
-            {data.totalCount} {data.totalCount > 1 ? "annonces" : "annonce"}
+          <Typography>
+            {query ? query + " : " : ""}
+            {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
             {/* Annonces {currentPage * RESULTS_PER_PAGE - 1}-
             {currentPage * RESULTS_PER_PAGE > data.totalCount
               ? data.totalCount
               : currentPage * RESULTS_PER_PAGE}{" "}
             sur {data.totalCount} */}
           </Typography>
+          {query && (
+            <Typography
+              level="body2"
+              sx={{ cursor: "pointer" }}
+              onClick={() => router.push("/leases")}
+            >
+              Effacer la recherche
+            </Typography>
+          )}
           {data.leases.map((lease: ILease) => (
             <Link href={`/leases/${lease.id}`} key={lease.id}>
               <Box mb={2} sx={{ cursor: "pointer" }}>

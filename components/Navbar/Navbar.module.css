@@ -37,14 +37,13 @@
   -webkit-background-clip: text;
 }
 
-.container ul li {
+.cta {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.container .unorderList li {
   margin-left: 30px;
   font-weight: 400;
   cursor: pointer;
-}
-
-.container ul .cta {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  border-radius: 9999px;
 }

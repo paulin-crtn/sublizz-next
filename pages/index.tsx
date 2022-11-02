@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               <Typography level="h4" mb={3}>
                 Dans quelle ville cherchez-vous ?
               </Typography>
-              <InputCitySearch />
+              <InputCitySearch isLarge={true} />
               <FormHelperText sx={{ mt: 2 }}>
                 <Link href="/leases">Voir toutes les annonces</Link>
               </FormHelperText>
