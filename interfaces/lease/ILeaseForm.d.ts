@@ -6,8 +6,8 @@ export interface ILeaseForm {
   street?: string;
   postCode?: string;
   city?: string;
-  gpsLatitude?: string;
-  gpsLongitude?: string;
+  gpsLatitude?: number;
+  gpsLongitude?: number;
   room?: number;
   surface?: number;
   pricePerMonth?: number;
