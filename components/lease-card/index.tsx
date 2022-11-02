@@ -4,7 +4,7 @@
 import { FunctionComponent } from "react";
 import Image from "next/image";
 import format from "date-fns/format";
-import Card from "@mui/joy/Card";
+import Box from "@mui/joy/Box";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -22,9 +22,9 @@ import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Card row>
-      <CardOverflow>
-        <AspectRatio ratio="16/12.1" sx={{ width: 260 }}>
+    <Box sx={{ display: "flex", paddingY: 2 }}>
+      <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
+        <AspectRatio ratio="16/10" sx={{ width: 240 }}>
           <Image
             src={
               lease.leaseImages[0]
@@ -37,7 +37,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
         </AspectRatio>
       </CardOverflow>
 
-      <CardContent sx={{ pl: 2 }}>
+      <CardContent sx={{ pl: 3 }}>
         <Sheet
           sx={{
             display: "flex",
@@ -75,7 +75,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
 
         <LeaseChips lease={lease} size="sm" />
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 

@@ -88,7 +88,7 @@ const Navbar: FunctionComponent = () => {
         <Button
           className={styles.cta}
           startDecorator={<Add />}
-          color="info"
+          color="primary"
           onClick={() => {
             setSignCallback(
               () => () => router.replace("/dashboard/leases/new")

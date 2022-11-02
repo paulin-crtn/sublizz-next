@@ -12,8 +12,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import InputCitySearch from "../../components/input-city-search";
 import LeaseCard from "../../components/lease-card";
+import Divider from "@mui/joy/Divider";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
@@ -70,7 +70,7 @@ const LeasesPage: NextPage = ({
         }}
       >
         <Box flex="1 1 52%">
-          <Typography>
+          <Typography fontWeight={500}>
             {query ? query + " : " : ""}
             {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
             {/* Annonces {currentPage * RESULTS_PER_PAGE - 1}-
@@ -82,19 +82,26 @@ const LeasesPage: NextPage = ({
           {query && (
             <Typography
               level="body2"
-              sx={{ cursor: "pointer" }}
+              mt={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
               onClick={() => router.push("/leases")}
             >
               Effacer la recherche
             </Typography>
           )}
-          {data.leases.map((lease: ILease) => (
-            <Link href={`/leases/${lease.id}`} key={lease.id}>
-              <Box mb={2} sx={{ cursor: "pointer" }}>
-                <LeaseCard lease={lease} />
-              </Box>
-            </Link>
-          ))}
+          <Box mt={2}>
+            {data.leases.map((lease: ILease, index: number) => (
+              <Link href={`/leases/${lease.id}`} key={lease.id}>
+                <Box sx={{ cursor: "pointer" }}>
+                  {index === 0 && <Divider />}
+                  <LeaseCard lease={lease} />
+                  <Divider />
+                </Box>
+              </Link>
+            ))}
+          </Box>
           {data.totalCount > RESULTS_PER_PAGE && (
             <Pagination
               count={pageCount}

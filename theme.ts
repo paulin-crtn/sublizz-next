@@ -11,6 +11,7 @@ export const joyTheme: Theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
+        // #6b24ff
         primary: {
           solidBorder: "crimson",
           solidActiveBorder: "crimson",
