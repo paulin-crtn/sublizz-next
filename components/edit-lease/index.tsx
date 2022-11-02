@@ -249,7 +249,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         )}
       </FormControl>
 
-      <FormControl error={!!errors.endDate}>
+      <FormControl>
         <FormLabel>
           Jusqu'au
           <Chip
@@ -264,7 +264,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         <Controller
           name="endDate"
           control={control}
-          rules={{ required: "Ce champs est requis" }}
           defaultValue={lease ? lease.endDate : null} // Null value avoid to have the current date by default
           render={({ field: { onChange, ...field } }) => (
             <MobileDatePicker
@@ -272,11 +271,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                 onChange(event);
               }}
               renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!errors.endDate}
-                  placeholder="jj/mm/aaaa"
-                />
+                <TextField {...params} placeholder="jj/mm/aaaa" />
               )}
               {...field}
               closeOnSelect
@@ -286,9 +281,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
             />
           )}
         />
-        {errors.endDate && (
-          <FormHelperText>{errors.endDate.message}</FormHelperText>
-        )}
+        <FormHelperText
+          onClick={() => setValue("endDate", null)}
+          sx={{ cursor: "pointer" }}
+        >
+          Effacer la date
+        </FormHelperText>
       </FormControl>
 
       <FormControl>
