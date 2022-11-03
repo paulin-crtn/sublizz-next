@@ -105,7 +105,7 @@ const LeasesPage: NextPage = ({
           {data.totalCount > RESULTS_PER_PAGE && (
             <Pagination
               count={pageCount}
-              sx={{ mt: 3, textAlign: "center" }}
+              sx={{ width: "fit-content", mt: 3, mx: "auto" }}
               onChange={onDataPageChange}
               page={currentPage}
             />
