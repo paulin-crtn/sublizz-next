@@ -24,14 +24,14 @@
 }
 
 .textGradient1 {
-  background: linear-gradient(to right, rgb(37, 103, 183), darkorchid);
+  background: linear-gradient(to right, #4700cc, #920be3);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
 }
 
 .textGradient2 {
-  background: linear-gradient(to right, darkorchid, rgb(37, 103, 183));
+  background: linear-gradient(to right, #920be3, #4700cc);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;

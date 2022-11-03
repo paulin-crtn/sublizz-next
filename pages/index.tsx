@@ -9,10 +9,11 @@ import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Image from "next/future/image";
-import styles from "../styles/Home.module.css";
 import homePic from "../public/img/home.jpg";
 import Link from "next/link";
 import InputCitySearch from "../components/input-city-search";
+import Box from "@mui/joy/Box";
+import styles from "../styles/Home.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -22,7 +23,7 @@ const Home: NextPage = () => {
   return (
     <>
       <header>
-        <div className={styles.headLines}>
+        <Box sx={{ margin: "0 0 60px 0", width: "65%" }}>
           <Typography
             component="h1"
             level="h1"
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
             Réalisez vos projets en découvrant nos offres de locations de
             courtes durées sans frais d’agence 🙌
           </Typography>
-        </div>
+        </Box>
 
         <Card sx={{ height: "300px" }}>
           <CardCover>

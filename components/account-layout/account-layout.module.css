@@ -36,7 +36,7 @@
 }
 
 .navButton.active {
-  background: linear-gradient(to right, rgb(69, 27, 208), rgb(53, 1, 209));
+  background: #4700cc;
 }
 
 .navButton.active > * {
@@ -52,7 +52,7 @@
   line-height: 70px;
   font-size: 1.4rem;
   font-weight: 500;
-  background: linear-gradient(to right, rgb(69, 27, 208), rgb(53, 1, 209));
+  background: #4700cc;
   color: #ffffff;
   padding: 0 30px;
   border-radius: 10px 10px 0 0;

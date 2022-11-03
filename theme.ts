@@ -2,6 +2,10 @@ import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
 
+const principal = "#4700CC";
+const lighter = "#5600F5";
+const darker = "#3E00B3";
+
 export const joyTheme: Theme = extendTheme({
   fontFamily: {
     body: "Poppins",
@@ -11,30 +15,29 @@ export const joyTheme: Theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
-        // #6b24ff
         primary: {
-          solidBorder: "crimson",
-          solidActiveBorder: "crimson",
-          solidActiveColor: "crimson",
-          solidActiveBg: "#E8153F",
-          solidBg: "crimson",
-          solidHoverBg: "#E8153F",
-          solidDisabledBg: "#B61B32",
-          solidDisabledBorder: "#B61B32",
-          solidDisabledColor: "#B61B32",
+          solidBorder: principal,
+          solidActiveBorder: principal,
+          solidActiveColor: principal,
+          solidActiveBg: lighter,
+          solidBg: principal,
+          solidHoverBg: lighter,
+          solidDisabledBg: darker,
+          solidDisabledBorder: darker,
+          solidDisabledColor: darker,
 
-          softColor: "crimson",
-          softBg: "#ffedee",
-          softHoverBg: "#ffdedf",
-          softActiveBg: "#ffdedf",
+          softColor: principal,
+          softBg: "#eeeeff",
+          softHoverBg: "#f5f5ff",
+          softActiveBg: "#f5f5ff",
 
-          outlinedBorder: "crimson",
-          outlinedColor: "crimson",
+          outlinedBorder: principal,
+          outlinedColor: principal,
 
-          plainColor: "crimson",
+          plainColor: principal,
         },
         danger: {
-          plainColor: "crimson",
+          plainColor: principal,
         },
         info: {
           outlinedColor: "#0c68dc",
@@ -46,6 +49,40 @@ export const joyTheme: Theme = extendTheme({
           softBg: "#e9f5ff",
           softHoverBg: "#e9f5ff",
         },
+        // primary: {
+        //   solidBorder: "crimson",
+        //   solidActiveBorder: "crimson",
+        //   solidActiveColor: "crimson",
+        //   solidActiveBg: "#E8153F",
+        //   solidBg: "crimson",
+        //   solidHoverBg: "#E8153F",
+        //   solidDisabledBg: "#B61B32",
+        //   solidDisabledBorder: "#B61B32",
+        //   solidDisabledColor: "#B61B32",
+
+        //   softColor: "crimson",
+        //   softBg: "#ffedee",
+        //   softHoverBg: "#ffdedf",
+        //   softActiveBg: "#ffdedf",
+
+        //   outlinedBorder: "crimson",
+        //   outlinedColor: "crimson",
+
+        //   plainColor: "crimson",
+        // },
+        // danger: {
+        //   plainColor: "crimson",
+        // },
+        // info: {
+        //   outlinedColor: "#0c68dc",
+        //   outlinedBorder: "#0c68dc",
+        //   outlinedHoverBorder: "#0c68dc",
+        //   outlinedHoverBg: "#e9f5ff",
+        //   plainColor: "#0c68dc",
+        //   softColor: "#0c68dc",
+        //   softBg: "#e9f5ff",
+        //   softHoverBg: "#e9f5ff",
+        // },
       },
     },
   },

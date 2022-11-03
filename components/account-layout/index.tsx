@@ -13,7 +13,7 @@ import NotesIcon from "@mui/icons-material/Notes";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import SupportIcon from "@mui/icons-material/Support";
 import EmailIcon from "@mui/icons-material/Email";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
@@ -117,7 +117,6 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
               }}
             >
               <Typography
-                color="danger"
                 margin={0}
                 startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
               >
@@ -126,14 +125,13 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
             </li>
             <li
               className={styles.navButton}
-              onClick={() => console.log("suggestions")}
+              onClick={() => console.log("aidez-nous")}
             >
               <Typography
-                color="info"
                 margin={0}
-                startDecorator={<TipsAndUpdatesIcon sx={{ marginRight: 1 }} />}
+                startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
               >
-                Suggestions
+                Aidez-nous
               </Typography>
             </li>
           </ul>

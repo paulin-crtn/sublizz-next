@@ -90,10 +90,12 @@ const Navbar: FunctionComponent = () => {
           startDecorator={<Add />}
           color="primary"
           onClick={() => {
-            setSignCallback(
-              () => () => router.replace("/dashboard/leases/new")
-            );
-            setOpenSignAlert(true);
+            if (user) {
+              router.push("/dashboard/leases/new");
+            } else {
+              setSignCallback(() => () => router.push("/dashboard/leases/new"));
+              setOpenSignAlert(true);
+            }
           }}
           sx={{ marginLeft: 3 }}
         >

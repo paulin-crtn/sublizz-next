@@ -89,14 +89,14 @@ const UserLeasesPage: NextPage = () => {
 
   return (
     <AccountLayout title="Mes Annonces">
-      <Alert
+      {/* <Alert
         variant="soft"
         color="info"
         startDecorator={<InfoIcon />}
         sx={{ marginBottom: "20px" }}
       >
         Vous pouvez ajouter jusqu'à 3 annonces.
-      </Alert>
+      </Alert> */}
       {data.map((lease: ILeaseDetail, index: number) => (
         <Box key={lease.id}>
           {index === 0 && <Divider />}

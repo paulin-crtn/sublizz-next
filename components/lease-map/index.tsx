@@ -14,10 +14,10 @@ import { ILeaseDetail } from "../../interfaces/lease";
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
 const icon = new Icon({
-  iconUrl: "/img/placeholder.png",
-  iconSize: [28, 28],
-  iconAnchor: [14, 28],
-  popupAnchor: [0, -20],
+  iconUrl: "/img/dot.svg",
+  iconSize: [16, 16],
+  iconAnchor: [8, 16],
+  popupAnchor: [0, -16],
 });
 
 /* -------------------------------------------------------------------------- */

@@ -97,7 +97,7 @@ const InputCitySearch = ({ isLarge = false }) => {
       <Box sx={{ position: "relative", width: "320px" }}>
         <Input
           size={isLarge ? "lg" : "md"}
-          placeholder="Rechercher une ville"
+          placeholder="Rechercher par ville"
           value={query}
           onKeyUp={() => {
             query.length > 2 && cities && !!cities.length
