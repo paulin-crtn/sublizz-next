@@ -30,13 +30,13 @@ const icon = new Icon({
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-export default function LeaseMap({
+const LeaseMap = ({
   leases,
   isMultiple,
 }: {
   leases: ILeaseDetail[];
   isMultiple: boolean;
-}) {
+}) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
@@ -65,7 +65,9 @@ export default function LeaseMap({
       ))}
     </MapContainer>
   );
-}
+};
+
+export default LeaseMap;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -73,7 +75,11 @@ export default function LeaseMap({
 const Bounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   const map = useMap();
   map.fitBounds(
-    leases.map((lease: ILeaseDetail) => [lease.gpsLatitude, lease.gpsLongitude])
+    leases.map((lease: ILeaseDetail) => [
+      lease.gpsLatitude,
+      lease.gpsLongitude,
+    ]),
+    { maxZoom: 11 }
   );
   return null;
 };
@@ -96,7 +102,7 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
         sx={{ maxWidth: 400, cursor: "pointer", boxShadow: "none" }}
       >
         <CardOverflow>
-          <AspectRatio ratio="1" sx={{ width: 120 }}>
+          <AspectRatio ratio="1" sx={{ width: 125 }}>
             <Image
               src={
                 lease.leaseImages[0]
@@ -110,7 +116,9 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
           </AspectRatio>
         </CardOverflow>
         <CardContent sx={{ px: 2 }}>
-          <Typography level="h6">{lease.pricePerMonth}€</Typography>
+          <Typography level="h6" fontSize="1rem" sx={{ marginBottom: 1 }}>
+            {lease.pricePerMonth}€ CC
+          </Typography>
           {!lease.endDate && (
             <Typography level="body2" fontWeight={300}>
               À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}

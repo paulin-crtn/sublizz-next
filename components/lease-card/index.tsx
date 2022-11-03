@@ -46,12 +46,10 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             gap: 2,
           }}
         >
-          <Typography level="h5" fontWeight="600">
+          <Typography level="h6" fontWeight="600">
             {lease.city}
           </Typography>
-          <Typography level="h6" fontWeight="300">
-            {lease.pricePerMonth}€ CC
-          </Typography>
+          <Typography fontWeight="400">{lease.pricePerMonth}€ CC</Typography>
         </Sheet>
 
         <Sheet sx={{ mt: 2, mb: 3 }}>

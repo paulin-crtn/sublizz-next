@@ -10,6 +10,7 @@ import {
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { useMemo } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/lease-card";
@@ -66,42 +67,41 @@ const LeasesPage: NextPage = ({
         sx={{
           position: "relative",
           display: "flex",
-          gap: 4,
+          gap: 6,
         }}
       >
         <Box flex="1 1 52%">
-          <Typography fontWeight={500}>
-            {query ? query + " : " : ""}
-            {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
-            {/* Annonces {currentPage * RESULTS_PER_PAGE - 1}-
-            {currentPage * RESULTS_PER_PAGE > data.totalCount
-              ? data.totalCount
-              : currentPage * RESULTS_PER_PAGE}{" "}
-            sur {data.totalCount} */}
-          </Typography>
-          {query && (
-            <Typography
-              level="body2"
-              mt={0.5}
-              sx={{
-                cursor: "pointer",
-              }}
-              onClick={() => router.push("/leases")}
-            >
-              Effacer la recherche
+          <Box>
+            <Typography fontWeight={500}>
+              {query ? query + " : " : ""}
+              {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
             </Typography>
-          )}
-          <Box mt={2}>
-            {data.leases.map((lease: ILease, index: number) => (
-              <Link href={`/leases/${lease.id}`} key={lease.id}>
-                <Box sx={{ cursor: "pointer" }}>
-                  {index === 0 && <Divider />}
-                  <LeaseCard lease={lease} />
-                  <Divider />
-                </Box>
-              </Link>
-            ))}
+            {query && (
+              <Typography
+                level="body2"
+                mt={0.5}
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => router.push("/leases")}
+              >
+                Effacer la recherche
+              </Typography>
+            )}
           </Box>
+          {!!data.totalCount && (
+            <Box mt={2}>
+              {data.leases.map((lease: ILease, index: number) => (
+                <Link href={`/leases/${lease.id}`} key={lease.id}>
+                  <Box sx={{ cursor: "pointer" }}>
+                    {index === 0 && <Divider />}
+                    <LeaseCard lease={lease} />
+                    <Divider />
+                  </Box>
+                </Link>
+              ))}
+            </Box>
+          )}
           {data.totalCount > RESULTS_PER_PAGE && (
             <Pagination
               count={pageCount}
@@ -110,19 +110,44 @@ const LeasesPage: NextPage = ({
               page={currentPage}
             />
           )}
-        </Box>
-        <Box
-          flex="0 0 48%"
-          sx={{
-            alignSelf: "flex-start",
-            position: "sticky",
-            top: 135, // 90px height navbar + 45px container marginTop
-          }}
-        >
-          {!!data.leases.length && (
-            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          {!data.totalCount && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "calc(100% - 50px)",
+              }}
+            >
+              <Image src="/img/no-result.svg" width="450" height="450" />
+            </Box>
           )}
         </Box>
+
+        {/** Map */}
+        {!!data.totalCount && (
+          <Box
+            flex="0 0 48%"
+            sx={{
+              alignSelf: "flex-start",
+              position: "sticky",
+              top: 135, // 90px height navbar + 45px container marginTop
+            }}
+          >
+            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          </Box>
+        )}
+        {!data.totalCount && (
+          <Box
+            flex="0 0 48%"
+            sx={{
+              height: "calc(100vh - 160px)",
+              backgroundColor: "#eeeeee",
+              borderRadius: "16px",
+              overflow: "hidden",
+            }}
+          ></Box>
+        )}
       </Box>
     </main>
   );
