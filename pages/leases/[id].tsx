@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
+import { ImagesListType } from "react-spring-lightbox";
 
 /* -------------------------------- COMPONENT ------------------------------- */
 import { useAuth } from "../../context/auth.context";
@@ -56,6 +57,7 @@ import {
   LEASE_IMAGE_PATH,
   PROFILE_PICTURE_PATH,
 } from "../../const/supabasePath";
+import LeaseLightbox from "../../components/lease-lightbox";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -67,12 +69,24 @@ const LeasePage: NextPage = ({
   const { user } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
+  const [openLightbox, setOpenLightbox] = useState<boolean>(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [openMessage, setOpenMessage] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
   const [signCallback, setSignCallback] = useState<() => any>();
+
+  /* ------------------------------- REACT MEMO ------------------------------- */
+  const lightboxImages: ImagesListType = useMemo(
+    () =>
+      lease.leaseImages.map((name: string) => ({
+        src: LEASE_IMAGE_PATH + "/" + name,
+        loading: "lazy",
+      })),
+    [lease]
+  );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const switchSignModal = () => {
@@ -154,7 +168,16 @@ const LeasePage: NextPage = ({
               <Card
                 key={index}
                 component="li"
-                sx={{ flexGrow: 1, height: 250, boxShadow: "none" }}
+                sx={{
+                  flexGrow: 1,
+                  height: 250,
+                  boxShadow: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setCurrentImageIndex(index);
+                  setOpenLightbox(true);
+                }}
               >
                 <CardCover>
                   <Image
@@ -254,6 +277,15 @@ const LeasePage: NextPage = ({
         </Typography>
         <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
       </main>
+
+      {/** Lightbox */}
+      <LeaseLightbox
+        images={lightboxImages}
+        open={openLightbox}
+        setOpen={setOpenLightbox}
+        currentImageIndex={currentImageIndex}
+        setCurrentImageIndex={setCurrentImageIndex}
+      />
 
       {/** Contact author */}
       <Modal open={openMessage} onClose={() => setOpenMessage(false)}>

@@ -28,3 +28,7 @@ a:hover {
 li {
   list-style-type: none;
 }
+
+.lightbox-image-pager {
+  height: calc(100% - 30px) !important; /* See LeaseLightbox component */
+}
