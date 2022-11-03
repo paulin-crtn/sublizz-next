@@ -7,6 +7,8 @@ import { useAuth } from "../../context/auth.context";
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";
 import EditProfile from "../../components/edit-profile";
+import Breadcrumbs from "@mui/joy/Breadcrumbs";
+import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -20,7 +22,7 @@ const UserProfilePage: NextPage = () => {
     return <AccessDenied />;
   }
   return (
-    <AccountLayout title="Profil">
+    <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
       <Box>
         <EditProfile user={user} />
       </Box>
@@ -29,3 +31,20 @@ const UserProfilePage: NextPage = () => {
 };
 
 export default UserProfilePage;
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const BasicBreadcrumbs = () => {
+  return (
+    <Breadcrumbs
+      separator="›"
+      aria-label="breadcrumbs"
+      sx={{ fontSize: "1.6rem" }}
+    >
+      <Typography fontSize="inherit" fontWeight={500}>
+        Profil
+      </Typography>
+    </Breadcrumbs>
+  );
+};

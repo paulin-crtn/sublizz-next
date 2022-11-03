@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -13,9 +14,12 @@ import AccountLayout from "../../../components/account-layout";
 import EditLease from "../../../components/edit-lease";
 import { useAuth } from "../../../context/auth.context";
 import { getLease } from "../../../utils/fetch/fetchLease";
+import { Link as JoyLink } from "@mui/joy";
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
+import Breadcrumbs from "@mui/joy/Breadcrumbs";
+import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -47,7 +51,7 @@ const EditLeasePage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout title="Modifier une annonce">
+      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
@@ -59,7 +63,7 @@ const EditLeasePage: NextPage = () => {
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout title="Modifier une annonce">
+      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
         {error.message.split(",").map((msg, index) => (
           <Alert
             key={index}
@@ -77,7 +81,7 @@ const EditLeasePage: NextPage = () => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
-      <AccountLayout title="Modifier une annonce">
+      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
         <EditLease lease={data} />
       </AccountLayout>
     </LocalizationProvider>
@@ -85,3 +89,29 @@ const EditLeasePage: NextPage = () => {
 };
 
 export default EditLeasePage;
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const BasicBreadcrumbs = () => {
+  return (
+    <Breadcrumbs
+      separator="›"
+      aria-label="breadcrumbs"
+      sx={{ fontSize: "1.6rem" }}
+    >
+      <JoyLink
+        key="Mes Annonces"
+        underline="none"
+        color="neutral"
+        fontSize="inherit"
+        fontWeight="300"
+      >
+        <Link href="/dashboard/leases">Mes Annonces</Link>
+      </JoyLink>
+      <Typography fontSize="inherit" fontWeight={500}>
+        Modifier
+      </Typography>
+    </Breadcrumbs>
+  );
+};

@@ -22,12 +22,12 @@ import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
 /* -------------------------------------------------------------------------- */
-type Props = PropsWithChildren<{ title: string }>;
+type Props = PropsWithChildren<{ breadcrumbs: JSX.Element }>;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
+const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
 
@@ -44,104 +44,150 @@ const AccountLayout: FunctionComponent<Props> = ({ children, title }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <div className={styles.container}>
-      <section className={styles.menu}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "flex-start",
+        backgroundColor: "#eeeeee",
+      }}
+    >
+      <Box
+        component="section"
+        sx={{
+          position: "sticky",
+          top: 0,
+          flex: "0 0 300px",
+          alignSelf: "flex-start",
+          height: "100vh",
+          backgroundColor: "#ffffff",
+        }}
+      >
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            position: "sticky",
+            top: 90.5,
+            padding: 3,
           }}
         >
-          <Avatar
-            src={
-              user?.profilePictureName
-                ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
-                : undefined
-            }
-            variant="solid"
-            sx={{ width: 100, height: 100, mr: 2 }}
-          />
-          <Box textAlign="center">
-            <Typography level="h5" marginBottom={0.5}>
-              {user?.firstName}
-            </Typography>
-            <Button size="sm" variant="outlined" color="neutral">
-              Mode Bailleur
-            </Button>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              src={
+                user?.profilePictureName
+                  ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
+                  : undefined
+              }
+              variant="solid"
+              sx={{ width: 100, height: 100, mr: 2 }}
+            />
+            <Box textAlign="center">
+              <Typography level="h5" marginBottom={0.5}>
+                {user?.firstName}
+              </Typography>
+              <Button size="sm" variant="outlined" color="neutral">
+                Mode Bailleur
+              </Button>
+            </Box>
+          </Box>
+          <Box component="nav" marginTop={5}>
+            <ul>
+              <li className={[styles.navButton, isActive("leases")].join(" ")}>
+                <Link href="/dashboard/leases">
+                  <Typography
+                    startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
+                  >
+                    Mes Annonces
+                  </Typography>
+                </Link>
+              </li>
+              <li
+                className={[styles.navButton, isActive("messages")].join(" ")}
+              >
+                <Link href="/dashboard/messages">
+                  <Typography
+                    startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}
+                  >
+                    Messages
+                  </Typography>
+                </Link>
+              </li>
+              <li className={[styles.navButton, isActive("profile")].join(" ")}>
+                <Link href="/dashboard/profile">
+                  <Typography
+                    startDecorator={<PersonIcon sx={{ marginRight: 1 }} />}
+                  >
+                    Profil
+                  </Typography>
+                </Link>
+              </li>
+              <li className={[styles.navButton, isActive("account")].join(" ")}>
+                <Link href="/dashboard/account">
+                  <Typography
+                    startDecorator={<SettingsIcon sx={{ marginRight: 1 }} />}
+                  >
+                    Compte
+                  </Typography>
+                </Link>
+              </li>
+              <Divider sx={{ marginY: 2 }} />
+              <li
+                className={styles.navButton}
+                onClick={() => {
+                  logout(() => router.push("/"));
+                }}
+              >
+                <Typography
+                  margin={0}
+                  startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
+                >
+                  Déconnexion
+                </Typography>
+              </li>
+              <li
+                className={styles.navButton}
+                onClick={() => console.log("aidez-nous")}
+              >
+                <Typography
+                  margin={0}
+                  startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
+                >
+                  Aidez-nous
+                </Typography>
+              </li>
+            </ul>
           </Box>
         </Box>
-        <nav>
-          <ul>
-            <li className={[styles.navButton, isActive("leases")].join(" ")}>
-              <Link href="/dashboard/leases">
-                <Typography
-                  startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
-                >
-                  Mes Annonces
-                </Typography>
-              </Link>
-            </li>
-            <li className={[styles.navButton, isActive("messages")].join(" ")}>
-              <Link href="/dashboard/messages">
-                <Typography
-                  startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}
-                >
-                  Messages
-                </Typography>
-              </Link>
-            </li>
-            <li className={[styles.navButton, isActive("profile")].join(" ")}>
-              <Link href="/dashboard/profile">
-                <Typography
-                  startDecorator={<PersonIcon sx={{ marginRight: 1 }} />}
-                >
-                  Profil
-                </Typography>
-              </Link>
-            </li>
-            <li className={[styles.navButton, isActive("account")].join(" ")}>
-              <Link href="/dashboard/account">
-                <Typography
-                  startDecorator={<SettingsIcon sx={{ marginRight: 1 }} />}
-                >
-                  Compte
-                </Typography>
-              </Link>
-            </li>
-            <Divider sx={{ marginY: 2 }} />
-            <li
-              className={styles.navButton}
-              onClick={() => {
-                logout(() => router.push("/"));
-              }}
-            >
-              <Typography
-                margin={0}
-                startDecorator={<LogoutIcon sx={{ marginRight: 1 }} />}
-              >
-                Déconnexion
-              </Typography>
-            </li>
-            <li
-              className={styles.navButton}
-              onClick={() => console.log("aidez-nous")}
-            >
-              <Typography
-                margin={0}
-                startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
-              >
-                Aidez-nous
-              </Typography>
-            </li>
-          </ul>
-        </nav>
-      </section>
-      <section className={styles.content}>
-        <p className={styles.title}>{title}</p>
-        <div className={styles.children}>{children}</div>
-      </section>
-    </div>
+      </Box>
+      <Box
+        component="section"
+        className={styles.content}
+        sx={{
+          flex: "1 1",
+          marginX: 8,
+          marginY: 4,
+          borderRadius: "10px",
+        }}
+      >
+        <Box marginBottom={2}>{breadcrumbs}</Box>
+        <Box
+          sx={{
+            marginBottom: 8,
+            padding: 4,
+            backgroundColor: "#ffffff",
+            borderRadius: "10px",
+            boxShadow:
+              "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;",
+          }}
+        >
+          {children}
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
