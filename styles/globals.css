@@ -29,6 +29,11 @@ li {
   list-style-type: none;
 }
 
+.lightbox-container {
+  padding-right: 50px !important;
+  padding-left: 50px !important;
+}
+
 .lightbox-image-pager {
   height: calc(100% - 30px) !important; /* See LeaseLightbox component */
 }

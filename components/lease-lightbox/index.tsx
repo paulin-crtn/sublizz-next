@@ -1,12 +1,13 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { Dispatch, SetStateAction, useEffect } from "react";
+import Lightbox, { ImagesListType } from "react-spring-lightbox";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
-import Chip from "@mui/joy/Chip";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import Lightbox, { ImagesListType } from "react-spring-lightbox";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -58,8 +59,18 @@ const LeaseLightbox = ({
         />
       )}
       // renderFooter={() => (<CustomFooter />)}
-      // renderPrevButton={() => (<CustomLeftArrowButton />)}
-      // renderNextButton={() => (<CustomRightArrowButton />)}
+      renderPrevButton={() => (
+        <CustomLeftArrowButton
+          show={currentImageIndex !== 0}
+          gotoPrevious={gotoPrevious}
+        />
+      )}
+      renderNextButton={() => (
+        <CustomRightArrowButton
+          show={currentImageIndex !== images.length - 1}
+          gotoNext={gotoNext}
+        />
+      )}
       // renderImageOverlay={() => (<ImageOverlayComponent >)}
 
       /* Add styling */
@@ -105,11 +116,16 @@ const CustomHeader = ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "30px 50px", // see .lightbox-image-pager in global.css
+        paddingY: "30px", // see .lightbox-image-pager in global.css
       }}
     >
       <Typography
-        sx={{ color: "#ffffff", fontSize: "1.1rem", fontWeight: 300 }}
+        sx={{
+          color: "#ffffff",
+          fontFamily: "sans-serif",
+          fontSize: "1.1rem",
+          fontWeight: 300,
+        }}
       >
         {currentImageIndex + 1} / {imageCount}
       </Typography>
@@ -124,6 +140,42 @@ const CustomHeader = ({
       >
         Fermer
       </Button>
+    </Box>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const CustomLeftArrowButton = ({
+  show,
+  gotoPrevious,
+}: {
+  show: boolean;
+  gotoPrevious: () => void;
+}) => {
+  if (!show) return null;
+  return (
+    <Box onClick={gotoPrevious} sx={{ cursor: "pointer", zIndex: 1001 }}>
+      <ArrowBackIosIcon sx={{ color: "#ffffff", fontSize: "2.4rem" }} />
+    </Box>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const CustomRightArrowButton = ({
+  show,
+  gotoNext,
+}: {
+  show: boolean;
+  gotoNext: () => void;
+}) => {
+  if (!show) return null;
+  return (
+    <Box onClick={gotoNext} sx={{ cursor: "pointer", zIndex: 1001 }}>
+      <ArrowForwardIosIcon sx={{ color: "#ffffff", fontSize: "2.4rem" }} />
     </Box>
   );
 };
