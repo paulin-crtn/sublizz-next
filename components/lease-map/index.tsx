@@ -2,13 +2,20 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useRouter } from "next/router";
+import Image from "next/image";
+import format from "date-fns/format";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import LeaseChips from "../lease-chips";
-import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import { ILeaseDetail } from "../../interfaces/lease";
+import Card from "@mui/joy/Card";
+import CardOverflow from "@mui/joy/CardOverflow";
+import AspectRatio from "@mui/joy/AspectRatio";
+import CardContent from "@mui/joy/CardContent";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
+import noLeaseImg from "../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -30,9 +37,6 @@ export default function LeaseMap({
   leases: ILeaseDetail[];
   isMultiple: boolean;
 }) {
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
@@ -56,31 +60,71 @@ export default function LeaseMap({
           position={[lease.gpsLatitude, lease.gpsLongitude]}
           icon={icon}
         >
-          {isMultiple && (
-            <Popup className="popup">
-              <Box
-                onClick={() => {
-                  router.push(`/leases/${lease.id}`);
-                }}
-                sx={{ cursor: "pointer" }}
-              >
-                <Typography level="h6" mb={1}>
-                  {lease.pricePerMonth}€
-                </Typography>
-                <LeaseChips lease={lease} size="sm" />
-              </Box>
-            </Popup>
-          )}
+          {isMultiple && <CustomPopup lease={lease} />}
         </Marker>
       ))}
     </MapContainer>
   );
 }
 
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
 const Bounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   const map = useMap();
   map.fitBounds(
     leases.map((lease: ILeaseDetail) => [lease.gpsLatitude, lease.gpsLongitude])
   );
   return null;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
+  /* -------------------------------- TEMPLATE -------------------------------- */
+  return (
+    <Popup className="popup" maxWidth={400}>
+      <Card
+        row
+        onClick={() => {
+          router.push(`/leases/${lease.id}`);
+        }}
+        sx={{ maxWidth: 400, cursor: "pointer", boxShadow: "none" }}
+      >
+        <CardOverflow>
+          <AspectRatio ratio="1" sx={{ width: 120 }}>
+            <Image
+              src={
+                lease.leaseImages[0]
+                  ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
+                  : noLeaseImg
+              }
+              loading="lazy"
+              alt="Photo principale de l'annonce"
+              layout="fill"
+            />
+          </AspectRatio>
+        </CardOverflow>
+        <CardContent sx={{ px: 2 }}>
+          <Typography level="h6">{lease.pricePerMonth}€</Typography>
+          {!lease.endDate && (
+            <Typography level="body2" fontWeight={300}>
+              À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}
+            </Typography>
+          )}
+          {lease.endDate && (
+            <Typography level="body2" fontWeight={300}>
+              Du {format(new Date(lease.startDate), "dd MMM uuuu")} au{" "}
+              {format(new Date(lease.endDate), "dd MMM uuuu")}
+            </Typography>
+          )}
+          <LeaseChips lease={lease} size="sm" />
+        </CardContent>
+      </Card>
+    </Popup>
+  );
 };

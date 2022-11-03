@@ -29,6 +29,24 @@ li {
   list-style-type: none;
 }
 
+/* LEAFLET */
+.leaflet-popup-content-wrapper {
+  padding: 0px !important;
+}
+
+.leaflet-popup-content {
+  margin: 0px !important;
+}
+
+.leaflet-popup-content p {
+  margin: 0 0 15px 0 !important;
+}
+
+.leaflet-popup-close-button {
+  display: none;
+}
+
+/* LIGHTBOX */
 .lightbox-container {
   padding-right: 50px !important;
   padding-left: 50px !important;
