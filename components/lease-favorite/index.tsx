@@ -35,7 +35,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
   leaseFavorite,
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setLeaseFavorites } = useFavorite();
+  const { remove } = useFavorite();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const image = useMemo(
@@ -45,23 +45,6 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
         : undefined,
     [leaseFavorite]
   );
-
-  /* -------------------------------- FUNCTIONS ------------------------------- */
-  const remove = async (id: number) => {
-    try {
-      await customFetch("lease-favorites/" + id, "DELETE");
-      setLeaseFavorites((prevState: IFavorite[]) =>
-        prevState.filter((leaseFavorite: IFavorite) => leaseFavorite.id != id)
-      );
-      toast.success("Annonce retirée des favoris", {
-        style: TOAST_STYLE,
-      });
-    } catch (err) {
-      toast.error("Une erreur est survenue", {
-        style: TOAST_STYLE,
-      });
-    }
-  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

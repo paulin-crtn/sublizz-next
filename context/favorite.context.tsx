@@ -5,15 +5,16 @@ import {
   createContext,
   Dispatch,
   PropsWithChildren,
-  ReactNode,
   SetStateAction,
   useContext,
   useEffect,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import { customFetch } from "../utils/fetch/customFetch";
 import { IFavorite } from "../interfaces/IFavorite";
 import { IUser } from "../interfaces/IUser";
+import { TOAST_STYLE } from "../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -25,7 +26,8 @@ type Props = PropsWithChildren<{ user: IUser | null }>;
 /* -------------------------------------------------------------------------- */
 interface IFavoriteContext {
   leaseFavorites: IFavorite[];
-  setLeaseFavorites: Dispatch<SetStateAction<IFavorite[]>>;
+  store: (leaseId: number) => void;
+  remove: (id: number) => void;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -33,7 +35,8 @@ interface IFavoriteContext {
 /* -------------------------------------------------------------------------- */
 const FavoriteContext = createContext<IFavoriteContext>({
   leaseFavorites: [],
-  setLeaseFavorites: () => {},
+  store: () => {},
+  remove: () => {},
 });
 
 /* -------------------------------------------------------------------------- */
@@ -54,9 +57,45 @@ export const FavoriteProvider = ({ children, user }: Props) => {
     }
   }, [user]);
 
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const store = async (leaseId: number) => {
+    try {
+      const leaseFavorite = await customFetch("lease-favorites", "POST", {
+        leaseId,
+      });
+      setLeaseFavorites((prevState: IFavorite[]) => [
+        ...prevState,
+        leaseFavorite,
+      ]);
+      toast.success("Annonce ajoutée aux favoris", {
+        style: TOAST_STYLE,
+      });
+    } catch (err) {
+      toast.error("Une erreur est survenue", {
+        style: TOAST_STYLE,
+      });
+    }
+  };
+
+  const remove = async (id: number) => {
+    try {
+      await customFetch("lease-favorites/" + id, "DELETE");
+      setLeaseFavorites((prevState: IFavorite[]) =>
+        prevState.filter((leaseFavorite: IFavorite) => leaseFavorite.id != id)
+      );
+      toast.success("Annonce retirée des favoris", {
+        style: TOAST_STYLE,
+      });
+    } catch (err) {
+      toast.error("Une erreur est survenue", {
+        style: TOAST_STYLE,
+      });
+    }
+  };
+
   /* -------------------------------- PROVIDER -------------------------------- */
   return (
-    <FavoriteContext.Provider value={{ leaseFavorites, setLeaseFavorites }}>
+    <FavoriteContext.Provider value={{ leaseFavorites, store, remove }}>
       {children}
     </FavoriteContext.Provider>
   );
