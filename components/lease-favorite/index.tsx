@@ -26,6 +26,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IFavorite } from "../../interfaces/IFavorite";
 import { useFavorite } from "../../context/favorite.context";
 import { primaryColor } from "../../theme";
+import { customFetch } from "../../utils/fetch/customFetch";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -46,6 +47,21 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
+  const remove = async (id: number) => {
+    try {
+      await customFetch("lease-favorites/" + id, "DELETE");
+      setLeaseFavorites((prevState: IFavorite[]) =>
+        prevState.filter((leaseFavorite: IFavorite) => leaseFavorite.id != id)
+      );
+      toast.success("Annonce retirée des favoris", {
+        style: TOAST_STYLE,
+      });
+    } catch (err) {
+      toast.error("Une erreur est survenue", {
+        style: TOAST_STYLE,
+      });
+    }
+  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -79,6 +95,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
               top: 0,
               right: 0,
               color: primaryColor.main,
+              cursor: "pointer",
             }}
             onClick={() => remove(leaseFavorite.id)}
           >
