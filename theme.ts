@@ -162,6 +162,11 @@ export const joyTheme: Theme = extendTheme({
         },
       },
     },
+    JoySvgIcon: {
+      styleOverrides: {
+        root: { margin: 0 }, // JoyAvatar default icons
+      },
+    },
   },
 });
 

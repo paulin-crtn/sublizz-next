@@ -129,7 +129,8 @@ const Navbar: FunctionComponent = () => {
                     ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
                     : undefined
                 }
-                sx={{ height: 30, width: 30, mr: 0.5 }}
+                sx={{ marginRight: 0.5 }}
+                size="md"
               />
             }
             sx={{ paddingY: 0, fontSize: "1rem", fontWeight: 400 }}

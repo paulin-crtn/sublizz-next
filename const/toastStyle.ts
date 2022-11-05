@@ -1,5 +1,5 @@
 export const TOAST_STYLE = {
-  padding: "10px 20px",
+  padding: "15px 20px",
   color: "#fff",
   background: "#333",
 };
