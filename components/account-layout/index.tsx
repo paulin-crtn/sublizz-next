@@ -15,6 +15,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SupportIcon from "@mui/icons-material/Support";
 import EmailIcon from "@mui/icons-material/Email";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
@@ -101,7 +102,18 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
                   <Typography
                     startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
                   >
-                    Mes Annonces
+                    Mes annonces
+                  </Typography>
+                </Link>
+              </li>
+              <li
+                className={[styles.navButton, isActive("favorites")].join(" ")}
+              >
+                <Link href="/dashboard/favorites">
+                  <Typography
+                    startDecorator={<FavoriteIcon sx={{ marginRight: 1 }} />}
+                  >
+                    Mes favoris
                   </Typography>
                 </Link>
               </li>

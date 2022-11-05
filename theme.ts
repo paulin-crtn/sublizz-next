@@ -2,9 +2,11 @@ import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
 
-const principal = "#4700CC";
-const lighter = "#5600F5";
-const darker = "#3E00B3";
+export const primaryColor = {
+  main: "#4700CC",
+  lighter: "#5600F5",
+  darker: "#3E00B3",
+};
 
 export const joyTheme: Theme = extendTheme({
   fontFamily: {
@@ -16,28 +18,28 @@ export const joyTheme: Theme = extendTheme({
     light: {
       palette: {
         primary: {
-          solidBorder: principal,
-          solidActiveBorder: principal,
-          solidActiveColor: principal,
-          solidActiveBg: lighter,
-          solidBg: principal,
-          solidHoverBg: lighter,
-          solidDisabledBg: darker,
-          solidDisabledBorder: darker,
-          solidDisabledColor: darker,
+          solidBorder: primaryColor.main,
+          solidActiveBorder: primaryColor.main,
+          solidActiveColor: primaryColor.main,
+          solidActiveBg: primaryColor.lighter,
+          solidBg: primaryColor.main,
+          solidHoverBg: primaryColor.lighter,
+          solidDisabledBg: primaryColor.darker,
+          solidDisabledBorder: primaryColor.darker,
+          solidDisabledColor: primaryColor.darker,
 
-          softColor: principal,
+          softColor: primaryColor.main,
           softBg: "#eeeeff",
           softHoverBg: "#f5f5ff",
           softActiveBg: "#f5f5ff",
 
-          outlinedBorder: principal,
-          outlinedColor: principal,
+          outlinedBorder: primaryColor.main,
+          outlinedColor: primaryColor.main,
 
-          plainColor: principal,
+          plainColor: primaryColor.main,
         },
         danger: {
-          plainColor: principal,
+          plainColor: primaryColor.main,
         },
         info: {
           outlinedColor: "#0c68dc",

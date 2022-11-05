@@ -32,6 +32,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 /* --------------------------------- STYLES --------------------------------- */
@@ -146,7 +147,14 @@ const Navbar: FunctionComponent = () => {
             <Link href="/dashboard/leases">
               <MenuItem onClick={handleClose}>
                 <Typography startDecorator={<NotesIcon />}>
-                  Mes Annonces
+                  Mes annonces
+                </Typography>
+              </MenuItem>
+            </Link>
+            <Link href="/dashboard/favorites">
+              <MenuItem onClick={handleClose}>
+                <Typography startDecorator={<FavoriteIcon />}>
+                  Mes favoris
                 </Typography>
               </MenuItem>
             </Link>
