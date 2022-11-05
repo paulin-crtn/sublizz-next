@@ -60,7 +60,7 @@ const _originalRequest = async (
   throw new Error(data.message);
 };
 
-export const _refreshToken = async () => {
+const _refreshToken = async () => {
   const response = await fetch(`${API_URL}/auth/refresh`, {
     method: "POST",
     headers: {

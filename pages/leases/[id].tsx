@@ -12,6 +12,12 @@ import format from "date-fns/format";
 import dynamic from "next/dynamic";
 import { ImagesListType } from "react-spring-lightbox";
 
+/* --------------------------------- CONTEXT -------------------------------- */
+import { FavoriteProvider } from "../../context/favorite.context";
+
+/* ---------------------------------- UTILS --------------------------------- */
+import { getLease } from "../../utils/fetch/fetchLease";
+
 /* -------------------------------- COMPONENT ------------------------------- */
 import { useAuth } from "../../context/auth.context";
 import LeaseChips from "../../components/lease-chips";
@@ -21,20 +27,17 @@ import SendReport from "../../components/send-report";
 import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
+import LeaseLightbox from "../../components/lease-lightbox";
 
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
 });
 
-/* -------------------------------- INTERFACE ------------------------------- */
-import { ILeaseDetail } from "../../interfaces/lease";
-
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlagIcon from "@mui/icons-material/Flag";
+import FavoriteButton from "../../components/favorite-button";
 
 /* --------------------------------- MUI JOY -------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
@@ -57,7 +60,6 @@ import {
   LEASE_IMAGE_PATH,
   PROFILE_PICTURE_PATH,
 } from "../../const/supabasePath";
-import LeaseLightbox from "../../components/lease-lightbox";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -115,8 +117,6 @@ const LeasePage: NextPage = ({
       setOpenSignAlert(true);
     }
   };
-
-  const handleFavorite = () => {};
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -260,15 +260,9 @@ const LeasePage: NextPage = ({
             >
               Envoyer un message
             </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              startDecorator={<FavoriteBorderIcon />}
-              onClick={handleFavorite}
-              sx={{ mt: 1, backgroundColor: "#ffffff" }}
-            >
-              Sauvegarder l'annonce
-            </Button>
+            <FavoriteProvider user={user}>
+              <FavoriteButton leaseId={lease.id} />
+            </FavoriteProvider>
           </Box>
         </Box>
 
@@ -361,9 +355,14 @@ export default LeasePage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const id = context?.params?.id;
-  const response = await fetch(`${API_URL}/leases/${id}`);
-  const lease: ILeaseDetail = await response.json();
-  return {
-    props: { lease },
-  };
+  try {
+    const lease = await getLease(id);
+    return {
+      props: { lease },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
