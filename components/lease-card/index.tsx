@@ -27,7 +27,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
         <AspectRatio ratio="16/10" sx={{ width: 240 }}>
           <Image
             src={
-              lease.leaseImages[0]
+              lease.leaseImages && lease.leaseImages[0]
                 ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
                 : noLeaseImg
             }

@@ -1,9 +1,11 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { FunctionComponent, useMemo, useState } from "react";
+import { FunctionComponent, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import format from "date-fns/format";
+import { useFavorite } from "../../context/favorite.context";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -11,22 +13,11 @@ import Typography from "@mui/joy/Typography";
 import Chip from "@mui/joy/Chip";
 import Sheet from "@mui/joy/Sheet";
 import LeaseChips from "../lease-chips";
-import noLeaseImg from "../../public/img/no-lease-img.png";
-import { ILeaseDetail } from "../../interfaces/lease";
 import Box from "@mui/joy/Box";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Link from "next/link";
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
-import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
-import toast from "react-hot-toast";
-import { TOAST_STYLE } from "../../const/toastStyle";
-import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import Button from "@mui/joy/Button";
+import noLeaseImg from "../../public/img/no-lease-img.png";
 import { IFavorite } from "../../interfaces/IFavorite";
-import { useFavorite } from "../../context/favorite.context";
-import { primaryColor } from "../../theme";
-import { customFetch } from "../../utils/fetch/customFetch";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -70,19 +61,8 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
           <Typography level="h5" fontWeight="600">
             {leaseFavorite.lease.city}
           </Typography>
-
-          <Typography
-            fontSize="1.6rem"
-            sx={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              color: primaryColor.main,
-              cursor: "pointer",
-            }}
-            onClick={() => remove(leaseFavorite.id)}
-          >
-            <FavoriteIcon />
+          <Typography fontWeight="400">
+            {leaseFavorite.lease.pricePerMonth}€ CC
           </Typography>
         </Sheet>
 
@@ -112,9 +92,21 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
 
         <LeaseChips lease={leaseFavorite.lease} size="sm" />
 
-        <Typography level="h6" fontWeight="300" marginTop={2}>
-          {leaseFavorite.lease.pricePerMonth}€ CC
-        </Typography>
+        <Box marginTop={2.5}>
+          <Link href={"/leases/" + leaseFavorite.lease.id}>
+            <Button size="sm" variant="soft" sx={{ marginRight: 1 }}>
+              Voir l'annonce
+            </Button>
+          </Link>
+          <Button
+            size="sm"
+            variant="outlined"
+            color="neutral"
+            onClick={() => remove(leaseFavorite.id)}
+          >
+            Retirer des favoris
+          </Button>
+        </Box>
       </CardContent>
     </Box>
   );
