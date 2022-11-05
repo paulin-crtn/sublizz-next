@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import setDefaultOptions from "date-fns/setDefaultOptions";
 import fr from "date-fns/locale/fr";
 import { AuthProvider } from "../context/auth.context";
+import { FavoriteProvider } from "../context/favorite.context";
 import { theme } from "../theme";
 import Layout from "../components/layout";
 import "../styles/globals.css";
@@ -30,10 +31,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <CssVarsProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Layout>
-            <Toaster />
-            <Component {...pageProps} />
-          </Layout>
+          <FavoriteProvider>
+            <Layout>
+              <Toaster />
+              <Component {...pageProps} />
+            </Layout>
+          </FavoriteProvider>
         </AuthProvider>
       </QueryClientProvider>
     </CssVarsProvider>

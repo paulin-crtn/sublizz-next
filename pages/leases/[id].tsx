@@ -11,15 +11,12 @@ import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
 import { ImagesListType } from "react-spring-lightbox";
-
-/* --------------------------------- CONTEXT -------------------------------- */
-import { FavoriteProvider } from "../../context/favorite.context";
-
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLease } from "../../utils/fetch/fetchLease";
-
-/* -------------------------------- COMPONENT ------------------------------- */
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useFavorite } from "../../context/favorite.context";
 import { useAuth } from "../../context/auth.context";
+/* -------------------------------- COMPONENT ------------------------------- */
 import LeaseChips from "../../components/lease-chips";
 import ModalLayout from "../../components/modal-layout";
 import SendMessage from "../../components/send-message";
@@ -28,17 +25,15 @@ import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
 import LeaseLightbox from "../../components/lease-lightbox";
-
+import FavoriteButton from "../../components/favorite-button";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
 });
-
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
-import FavoriteButton from "../../components/favorite-button";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 /* --------------------------------- MUI JOY -------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -51,10 +46,8 @@ import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
-
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
-
 /* -------------------------------- CONSTANT -------------------------------- */
 import {
   LEASE_IMAGE_PATH,
@@ -69,6 +62,7 @@ const LeasePage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
+  const { store } = useFavorite();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openLightbox, setOpenLightbox] = useState<boolean>(false);
@@ -222,6 +216,7 @@ const LeasePage: NextPage = ({
             </Button>
           </Box>
 
+          {/** Contact Author */}
           <Box
             sx={{
               flex: "0 0 350px",
@@ -252,6 +247,8 @@ const LeasePage: NextPage = ({
               />
               <Typography level="h6">{lease.user.firstName}</Typography>
             </Box>
+
+            {/** Message */}
             <Button
               fullWidth
               startDecorator={<EmailIcon />}
@@ -260,9 +257,23 @@ const LeasePage: NextPage = ({
             >
               Envoyer un message
             </Button>
-            <FavoriteProvider user={user}>
-              <FavoriteButton leaseId={lease.id} />
-            </FavoriteProvider>
+
+            {/** Favorite */}
+            {user && <FavoriteButton leaseId={lease.id} />}
+            {!user && (
+              <Button
+                fullWidth
+                variant="outlined"
+                startDecorator={<FavoriteBorderIcon />}
+                onClick={() => {
+                  setSignCallback(() => () => store(lease.id));
+                  setOpenSignAlert(true);
+                }}
+                sx={{ mt: 1, backgroundColor: "#ffffff" }}
+              >
+                Ajouter aux favoris
+              </Button>
+            )}
           </Box>
         </Box>
 

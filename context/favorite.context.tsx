@@ -3,9 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import {
   createContext,
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
+  ReactNode,
   useContext,
   useEffect,
   useState,
@@ -13,13 +11,8 @@ import {
 import toast from "react-hot-toast";
 import { customFetch } from "../utils/fetch/customFetch";
 import { IFavorite } from "../interfaces/IFavorite";
-import { IUser } from "../interfaces/IUser";
 import { TOAST_STYLE } from "../const/toastStyle";
-
-/* -------------------------------------------------------------------------- */
-/*                                    PROPS                                   */
-/* -------------------------------------------------------------------------- */
-type Props = PropsWithChildren<{ user: IUser | null }>;
+import { useAuth } from "./auth.context";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -42,7 +35,10 @@ const FavoriteContext = createContext<IFavoriteContext>({
 /* -------------------------------------------------------------------------- */
 /*                                AUTH PROVIDER                               */
 /* -------------------------------------------------------------------------- */
-export const FavoriteProvider = ({ children, user }: Props) => {
+export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [leaseFavorites, setLeaseFavorites] = useState<IFavorite[]>([]);
 

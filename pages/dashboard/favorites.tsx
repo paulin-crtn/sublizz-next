@@ -30,7 +30,7 @@ const LeaseFavoritesPage: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <FavoriteProvider user={user}>
+    <FavoriteProvider>
       <LeaseFavorites />
     </FavoriteProvider>
   );
