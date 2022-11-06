@@ -145,6 +145,3 @@ const DeleteAccount = ({
 };
 
 export default DeleteAccount;
-function logout() {
-  throw new Error("Function not implemented.");
-}
