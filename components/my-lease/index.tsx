@@ -31,6 +31,7 @@ import toast from "react-hot-toast";
 import { TOAST_STYLE } from "../../const/toastStyle";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { destroyLeaseImages } from "../../utils/fetch/fetchLeaseImages";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -69,7 +70,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
       onError: async (error) => {
         error instanceof Error
           ? toast.error(error.message, { style: TOAST_STYLE })
-          : toast.error("An error occured", {
+          : toast.error("Une erreur est survenue", {
               style: TOAST_STYLE,
             });
       },
@@ -94,7 +95,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
       onError: async (error) => {
         error instanceof Error
           ? toast.error(error.message, { style: TOAST_STYLE })
-          : toast.error("An error occured", {
+          : toast.error("Une erreur est survenue", {
               style: TOAST_STYLE,
             });
       },
@@ -118,7 +119,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
         <AspectRatio ratio="16/12.1" sx={{ width: 200 }}>
           <Image
             src={
-              lease.leaseImages[0]
+              lease.leaseImages && lease.leaseImages[0]
                 ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
                 : noLeaseImg
             }
@@ -206,9 +207,12 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               </Link>
               <ListDivider />
               <MenuItem
-                onClick={() => {
+                onClick={async () => {
                   handleClose();
-                  mutateDeleteLease();
+                  mutateDeleteLease(); // Delete lease from DB
+                  lease.leaseImages
+                    ? await destroyLeaseImages(lease.leaseImages) // Delete leaseImages from storage
+                    : null;
                 }}
               >
                 <Typography color="danger" startDecorator={<DeleteIcon />}>

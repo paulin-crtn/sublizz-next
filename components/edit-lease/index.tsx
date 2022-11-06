@@ -122,7 +122,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
     lease: ILeaseDetail | undefined,
     storedFileNames: string[]
   ) => {
-    if (!lease || !lease.leaseImages.length) {
+    if (!lease || !lease.leaseImages?.length) {
       return storedFileNames;
     }
     // Update (keep images in the correct order)
