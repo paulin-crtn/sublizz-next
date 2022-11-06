@@ -259,21 +259,10 @@ const LeasePage: NextPage = ({
             </Button>
 
             {/** Favorite */}
-            {user && <FavoriteButton leaseId={lease.id} />}
-            {!user && (
-              <Button
-                fullWidth
-                variant="outlined"
-                startDecorator={<FavoriteBorderIcon />}
-                onClick={() => {
-                  setSignCallback(() => () => store(lease.id));
-                  setOpenSignAlert(true);
-                }}
-                sx={{ mt: 1, backgroundColor: "#ffffff" }}
-              >
-                Ajouter aux favoris
-              </Button>
-            )}
+            <FavoriteButton
+              leaseId={lease.id}
+              setOpenSignAlert={setOpenSignAlert}
+            />
           </Box>
         </Box>
 

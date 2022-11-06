@@ -1,7 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { FunctionComponent, useMemo } from "react";
+import { Dispatch, FunctionComponent, SetStateAction, useMemo } from "react";
+import { useAuth } from "../../context/auth.context";
 import { useFavorite } from "../../context/favorite.context";
 import Button from "@mui/joy/Button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -13,18 +14,20 @@ import { IFavorite } from "../../interfaces/IFavorite";
 /* -------------------------------------------------------------------------- */
 const FavoriteButton: FunctionComponent<{
   leaseId: number;
-}> = ({ leaseId }) => {
+  setOpenSignAlert: Dispatch<SetStateAction<boolean>>;
+}> = ({ leaseId, setOpenSignAlert }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
   const { leaseFavorites, store, remove } = useFavorite();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
-  const leaseFavorite: IFavorite | undefined = useMemo(
-    () =>
-      leaseFavorites?.find(
+  const leaseFavorite: IFavorite | undefined = useMemo(() => {
+    if (user) {
+      return leaseFavorites?.find(
         (leaseFavorite: IFavorite) => leaseFavorite.lease.id === leaseId
-      ),
-    [leaseId, leaseFavorites]
-  );
+      );
+    }
+  }, [leaseId, leaseFavorites]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (leaseFavorite) {
@@ -45,7 +48,7 @@ const FavoriteButton: FunctionComponent<{
       fullWidth
       variant="outlined"
       startDecorator={<FavoriteBorderIcon />}
-      onClick={() => store(leaseId)}
+      onClick={() => (user ? store(leaseId) : setOpenSignAlert(true))}
       sx={{ mt: 1, backgroundColor: "#ffffff" }}
     >
       Ajouter aux favoris

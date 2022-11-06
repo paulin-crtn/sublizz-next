@@ -22,28 +22,12 @@ import LeaseFavorite from "../../components/lease-favorite";
 const LeaseFavoritesPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
+  const { leaseFavorites } = useFavorite();
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
     return <AccessDenied />;
   }
-
-  /* -------------------------------- TEMPLATE -------------------------------- */
-  return (
-    <FavoriteProvider>
-      <LeaseFavorites />
-    </FavoriteProvider>
-  );
-};
-
-export default LeaseFavoritesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const LeaseFavorites = () => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { leaseFavorites } = useFavorite();
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (!leaseFavorites.length) {
@@ -75,6 +59,8 @@ const LeaseFavorites = () => {
     </AccountLayout>
   );
 };
+
+export default LeaseFavoritesPage;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
