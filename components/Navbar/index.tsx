@@ -5,6 +5,7 @@
 import { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -35,6 +36,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { TOAST_STYLE } from "../../const/toastStyle";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "./navbar.module.css";
 
@@ -183,6 +185,9 @@ const Navbar: FunctionComponent = () => {
                 router.asPath.split("/")[1] === "dashboard"
                   ? logout(() => router.push("/"))
                   : logout();
+                toast.success(`À bientôt ${user?.firstName}`, {
+                  style: TOAST_STYLE,
+                });
               }}
             >
               <Typography color="danger" startDecorator={<LogoutIcon />}>

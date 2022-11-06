@@ -4,6 +4,7 @@
 import { FunctionComponent, PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -19,6 +20,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -150,7 +152,12 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
               <li
                 className={styles.navButton}
                 onClick={() => {
-                  logout(() => router.push("/"));
+                  logout(() => {
+                    router.push("/");
+                    toast.success(`À bientôt ${user?.firstName}`, {
+                      style: TOAST_STYLE,
+                    });
+                  });
                 }}
               >
                 <Typography

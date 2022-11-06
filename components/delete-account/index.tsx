@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction, useState } from "react";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
@@ -39,6 +40,9 @@ const DeleteAccount = ({
   /* --------------------------------- CONTEXT -------------------------------- */
   const { logout } = useAuth();
 
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
@@ -66,7 +70,7 @@ const DeleteAccount = ({
       // Toast
       toast.success("Compte supprimé", { style: TOAST_STYLE });
       // Logout user
-      logout();
+      logout(() => router.push("/"));
     } catch (err) {
       err instanceof Error
         ? setError(err.message)
