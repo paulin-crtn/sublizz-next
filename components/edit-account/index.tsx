@@ -1,9 +1,19 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+/* ---------------------------------- UTILS --------------------------------- */
+import { updateUser } from "../../utils/fetch/fetchUser";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../context/auth.context";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import ModalLayout from "../modal-layout";
+import DeleteAccount from "../delete-account";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -12,10 +22,13 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
-import { updateUser } from "../../utils/fetch/fetchUser";
-import { useAuth } from "../../context/auth.context";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
+/* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
@@ -25,6 +38,9 @@ const AccountSettings = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [openDeleteAccount, setOpenDeleteAccount] = useState<boolean>(false);
+
   /* -------------------------------- USE FORM -------------------------------- */
   const { register, handleSubmit, formState } = useForm<IUpdateUser>({
     mode: "onTouched",
@@ -32,19 +48,21 @@ const AccountSettings = ({ user }: { user: IUser }) => {
   const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
-  const { mutate, isLoading, isError, error } = useMutation(
-    (payload: IUpdateUser) => updateUser(user.id, payload),
-    {
-      onSuccess: async (data) => {
-        setUser(data);
-        toast.success("Informations mises à jour", { style: TOAST_STYLE });
-      },
-    }
-  );
+  const {
+    mutate: mutateUpdate,
+    isLoading,
+    isError,
+    error,
+  } = useMutation((payload: IUpdateUser) => updateUser(user.id, payload), {
+    onSuccess: async (data) => {
+      setUser(data);
+      toast.success("Informations mises à jour", { style: TOAST_STYLE });
+    },
+  });
 
-  /* -------------------------------- FUNCTION -------------------------------- */
+  /* -------------------------------- FUNCTIONS ------------------------------- */
   const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
-    mutate({ ...user, ...payload });
+    mutateUpdate({ ...user, ...payload });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -103,12 +121,36 @@ const AccountSettings = ({ user }: { user: IUser }) => {
         )}
       </FormControl>
 
+      <Button
+        color="danger"
+        variant="soft"
+        onClick={() => setOpenDeleteAccount(true)}
+      >
+        Supprimer mon compte
+      </Button>
+
       {!isLoading && <Button type="submit">Enregistrer</Button>}
       {isLoading && (
         <Button disabled>
           <CircularProgress color="danger" thickness={3} />
         </Button>
       )}
+
+      {/** Delete Account */}
+      <Modal
+        open={openDeleteAccount}
+        onClose={() => setOpenDeleteAccount(false)}
+      >
+        <ModalDialog size="lg" aria-labelledby="close-modal-delete-account">
+          <ModalClose />
+          <ModalLayout title="Supprimer mon compte">
+            <DeleteAccount
+              setOpenDeleteAccount={setOpenDeleteAccount}
+              user={user}
+            />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
     </form>
   );
 };

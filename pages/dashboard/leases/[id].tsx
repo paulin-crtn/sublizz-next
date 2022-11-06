@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -14,7 +13,7 @@ import AccountLayout from "../../../components/account-layout";
 import EditLease from "../../../components/edit-lease";
 import { useAuth } from "../../../context/auth.context";
 import { getLease } from "../../../utils/fetch/fetchLease";
-import { Link as JoyLink } from "@mui/joy";
+import Link from "@mui/joy/Link";
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
@@ -100,15 +99,16 @@ const BasicBreadcrumbs = () => {
       aria-label="breadcrumbs"
       sx={{ fontSize: "1.6rem" }}
     >
-      <JoyLink
-        key="Mes Annonces"
+      <Link
+        key="edit-lease"
         underline="none"
         color="neutral"
         fontSize="inherit"
         fontWeight="300"
+        href="/dashboard/leases"
       >
-        <Link href="/dashboard/leases">Mes Annonces</Link>
-      </JoyLink>
+        Mes Annonces
+      </Link>
       <Typography fontSize="inherit" fontWeight={500}>
         Modifier
       </Typography>

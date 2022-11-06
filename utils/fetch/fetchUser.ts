@@ -10,3 +10,7 @@ import { IUpdateUser } from "../../interfaces/IUserUpdate";
 export const updateUser = async (userId: number, payload: IUpdateUser) => {
   return await customFetch(`users/${userId}`, "PUT", payload);
 };
+
+export const deleteUser = async (userId: number) => {
+  return await customFetch(`users/${userId}`, "DELETE");
+};

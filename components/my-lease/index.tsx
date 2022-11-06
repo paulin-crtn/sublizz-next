@@ -91,6 +91,10 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
         );
         // Toast
         toast.success("Annonce supprimée", { style: TOAST_STYLE });
+        // Delete leaseImages from storage
+        if (lease.leaseImages) {
+          await destroyLeaseImages(lease.leaseImages);
+        }
       },
       onError: async (error) => {
         error instanceof Error
@@ -209,10 +213,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               <MenuItem
                 onClick={async () => {
                   handleClose();
-                  mutateDeleteLease(); // Delete lease from DB
-                  lease.leaseImages
-                    ? await destroyLeaseImages(lease.leaseImages) // Delete leaseImages from storage
-                    : null;
+                  mutateDeleteLease();
                 }}
               >
                 <Typography color="danger" startDecorator={<DeleteIcon />}>

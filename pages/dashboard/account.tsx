@@ -6,7 +6,7 @@ import Box from "@mui/joy/Box";
 import { useAuth } from "../../context/auth.context";
 import AccountLayout from "../../components/account-layout";
 import AccessDenied from "../../components/access-denied";
-import AccountSettings from "../../components/account-settings";
+import AccountSettings from "../../components/edit-account";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
 import Typography from "@mui/joy/Typography";
 

@@ -2,7 +2,6 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
-import Link from "next/link";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
@@ -10,7 +9,7 @@ import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import EditLease from "../../../components/edit-lease";
 import { useAuth } from "../../../context/auth.context";
-import { Link as JoyLink } from "@mui/joy";
+import Link from "@mui/joy/Link";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
 import Typography from "@mui/joy/Typography";
 
@@ -48,15 +47,16 @@ const BasicBreadcrumbs = () => {
       aria-label="breadcrumbs"
       sx={{ fontSize: "1.6rem" }}
     >
-      <JoyLink
-        key="Mes Annonces"
+      <Link
+        key="new-lease"
         underline="none"
         color="neutral"
         fontSize="inherit"
         fontWeight="300"
+        href="/dashboard/leases"
       >
-        <Link href="/dashboard/leases">Mes Annonces</Link>
-      </JoyLink>
+        Mes Annonces
+      </Link>
       <Typography fontSize="inherit" fontWeight={500}>
         Publier
       </Typography>
