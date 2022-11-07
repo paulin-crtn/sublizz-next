@@ -9,9 +9,7 @@ import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
 import EditLease from "../../../components/edit-lease";
 import { useAuth } from "../../../context/auth.context";
-import Link from "@mui/joy/Link";
-import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import Typography from "@mui/joy/Typography";
+import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -28,7 +26,20 @@ const EditLeasePage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout
+        breadcrumbs={
+          <CustomBreadcrumbs
+            currentPage="Publier"
+            prevPages={[
+              {
+                key: "new-lease",
+                name: "Mes Annonces",
+                href: "/dashboard/leases",
+              },
+            ]}
+          />
+        }
+      >
         <EditLease lease={undefined} />
       </AccountLayout>
     </LocalizationProvider>
@@ -36,30 +47,3 @@ const EditLeasePage: NextPage = () => {
 };
 
 export default EditLeasePage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const BasicBreadcrumbs = () => {
-  return (
-    <Breadcrumbs
-      separator="›"
-      aria-label="breadcrumbs"
-      sx={{ fontSize: "1.6rem" }}
-    >
-      <Link
-        key="new-lease"
-        underline="none"
-        color="neutral"
-        fontSize="inherit"
-        fontWeight="300"
-        href="/dashboard/leases"
-      >
-        Mes Annonces
-      </Link>
-      <Typography fontSize="inherit" fontWeight={500}>
-        Publier
-      </Typography>
-    </Breadcrumbs>
-  );
-};

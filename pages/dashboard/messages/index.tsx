@@ -20,7 +20,7 @@ import AccountLayout from "../../../components/account-layout";
 import AccountMessage from "../../../components/account-message";
 import { ILease } from "../../../interfaces/lease";
 import { IAccountMessage } from "../../../interfaces/lease/IAccountMessage";
-import Breadcrumbs from "@mui/joy/Breadcrumbs";
+import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -43,7 +43,7 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
@@ -55,7 +55,7 @@ const UserMessagesPage: NextPage = () => {
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
         {error.message.split(",").map((msg) => (
           <Alert
             startDecorator={<ErrorIcon />}
@@ -73,7 +73,7 @@ const UserMessagesPage: NextPage = () => {
 
   if (data && !data.length) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez envoyé aucun message.
@@ -89,7 +89,7 @@ const UserMessagesPage: NextPage = () => {
   }
 
   return (
-    <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+    <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
       <Box>
         <Alert
           variant="soft"
@@ -118,20 +118,3 @@ const UserMessagesPage: NextPage = () => {
 };
 
 export default UserMessagesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const BasicBreadcrumbs = () => {
-  return (
-    <Breadcrumbs
-      separator="›"
-      aria-label="breadcrumbs"
-      sx={{ fontSize: "1.6rem" }}
-    >
-      <Typography fontSize="inherit" fontWeight={500}>
-        Messages
-      </Typography>
-    </Breadcrumbs>
-  );
-};

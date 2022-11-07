@@ -15,6 +15,7 @@ import Breadcrumbs from "@mui/joy/Breadcrumbs";
 import { FavoriteProvider, useFavorite } from "../../context/favorite.context";
 import { IFavorite } from "../../interfaces/IFavorite";
 import LeaseFavorite from "../../components/lease-favorite";
+import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -32,7 +33,9 @@ const LeaseFavoritesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (!leaseFavorites.length) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout
+        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Favoris" />}
+      >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez aucune annonce dans vos favoris.
@@ -48,7 +51,9 @@ const LeaseFavoritesPage: NextPage = () => {
   }
 
   return (
-    <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+    <AccountLayout
+      breadcrumbs={<CustomBreadcrumbs currentPage="Mes Favoris" />}
+    >
       {leaseFavorites.map((leaseFavorite: IFavorite, index: number) => (
         <Box key={leaseFavorite.id}>
           {index === 0 && <Divider />}
@@ -61,20 +66,3 @@ const LeaseFavoritesPage: NextPage = () => {
 };
 
 export default LeaseFavoritesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const BasicBreadcrumbs = () => {
-  return (
-    <Breadcrumbs
-      separator="›"
-      aria-label="breadcrumbs"
-      sx={{ fontSize: "1.6rem" }}
-    >
-      <Typography fontSize="inherit" fontWeight={500}>
-        Mes favoris
-      </Typography>
-    </Breadcrumbs>
-  );
-};

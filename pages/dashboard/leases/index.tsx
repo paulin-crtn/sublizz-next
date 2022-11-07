@@ -11,7 +11,6 @@ import Add from "@mui/icons-material/Add";
 import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-import InfoIcon from "@mui/icons-material/Info";
 import { useAuth } from "../../../context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
 import AccessDenied from "../../../components/access-denied";
@@ -19,7 +18,7 @@ import AccountLayout from "../../../components/account-layout";
 import MyLease from "../../../components/my-lease";
 import { ILeaseDetail } from "../../../interfaces/lease";
 import Divider from "@mui/joy/Divider";
-import Breadcrumbs from "@mui/joy/Breadcrumbs";
+import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -43,7 +42,9 @@ const UserLeasesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout
+        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+      >
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
@@ -55,7 +56,9 @@ const UserLeasesPage: NextPage = () => {
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout
+        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+      >
         {error.message.split(",").map((msg, index) => (
           <Alert
             key={index}
@@ -73,7 +76,9 @@ const UserLeasesPage: NextPage = () => {
 
   if (!data || !data.length) {
     return (
-      <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+      <AccountLayout
+        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+      >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez publié aucune annonce.
@@ -89,7 +94,9 @@ const UserLeasesPage: NextPage = () => {
   }
 
   return (
-    <AccountLayout breadcrumbs={<BasicBreadcrumbs />}>
+    <AccountLayout
+      breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+    >
       {/* <Alert
         variant="soft"
         color="info"
@@ -110,20 +117,3 @@ const UserLeasesPage: NextPage = () => {
 };
 
 export default UserLeasesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const BasicBreadcrumbs = () => {
-  return (
-    <Breadcrumbs
-      separator="›"
-      aria-label="breadcrumbs"
-      sx={{ fontSize: "1.6rem" }}
-    >
-      <Typography fontSize="inherit" fontWeight={500}>
-        Mes Annonces
-      </Typography>
-    </Breadcrumbs>
-  );
-};
