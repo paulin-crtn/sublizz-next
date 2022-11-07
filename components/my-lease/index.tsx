@@ -26,11 +26,10 @@ import MenuItem from "@mui/joy/MenuItem";
 import ListDivider from "@mui/joy/ListDivider";
 /* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
-import EditIcon from "@mui/icons-material/Edit";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
@@ -187,35 +186,32 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               {!!lease.isPublished && (
                 <Link href={`/leases/${lease.id}`}>
                   <MenuItem onClick={handleClose}>
-                    <Typography startDecorator={<VisibilityIcon />}>
+                    <Typography startDecorator={<FilterVintageIcon />}>
                       Voir
                     </Typography>
                   </MenuItem>
                 </Link>
               )}
+              <Link href={`/dashboard/leases/${lease.id}`}>
+                <MenuItem onClick={handleClose}>
+                  <Typography startDecorator={<DriveFileRenameOutlineIcon />}>
+                    Modifier
+                  </Typography>
+                </MenuItem>
+              </Link>
               <MenuItem
                 onClick={() => {
                   handleClose();
                   mutatePublishedStatus();
                 }}
               >
-                <Typography
-                  startDecorator={
-                    lease.isPublished ? <PauseIcon /> : <PlayArrowIcon />
-                  }
-                >
+                <Typography startDecorator={<PowerSettingsNewIcon />}>
                   {lease.isPublished ? "Désactiver" : "Activer"}
                 </Typography>
               </MenuItem>
-              <Link href={`/dashboard/leases/${lease.id}`}>
-                <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<EditIcon />}>
-                    Modifier
-                  </Typography>
-                </MenuItem>
-              </Link>
               <ListDivider />
               <MenuItem
+                color="danger"
                 onClick={async () => {
                   handleClose();
                   mutateDeleteLease();

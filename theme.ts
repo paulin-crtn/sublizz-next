@@ -38,9 +38,6 @@ export const joyTheme: Theme = extendTheme({
 
           plainColor: primaryColor.main,
         },
-        danger: {
-          plainColor: primaryColor.main,
-        },
         info: {
           outlinedColor: "#0c68dc",
           outlinedBorder: "#0c68dc",
