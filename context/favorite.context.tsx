@@ -18,18 +18,18 @@ import { useAuth } from "./auth.context";
 /*                                  INTERFACE                                 */
 /* -------------------------------------------------------------------------- */
 interface IFavoriteContext {
-  leaseFavorites: IFavorite[];
-  store: (leaseId: number) => void;
-  remove: (id: number) => void;
+  favorites: IFavorite[];
+  storeFavorite: (leaseId: number) => void;
+  removeFavorite: (id: number) => void;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                                AUTH CONTEXT                                */
 /* -------------------------------------------------------------------------- */
 const FavoriteContext = createContext<IFavoriteContext>({
-  leaseFavorites: [],
-  store: () => {},
-  remove: () => {},
+  favorites: [],
+  storeFavorite: () => {},
+  removeFavorite: () => {},
 });
 
 /* -------------------------------------------------------------------------- */
@@ -40,29 +40,26 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [leaseFavorites, setLeaseFavorites] = useState<IFavorite[]>([]);
+  const [favorites, setFavorites] = useState<IFavorite[]>([]);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
     if (user) {
       customFetch("lease-favorites", "GET")
-        .then((favorites) => setLeaseFavorites(favorites))
+        .then((favorites) => setFavorites(favorites))
         .catch((error) => console.error(error));
     } else {
-      setLeaseFavorites([]);
+      setFavorites([]);
     }
   }, [user]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const store = async (leaseId: number) => {
+  const storeFavorite = async (leaseId: number) => {
     try {
       const leaseFavorite = await customFetch("lease-favorites", "POST", {
         leaseId,
       });
-      setLeaseFavorites((prevState: IFavorite[]) => [
-        ...prevState,
-        leaseFavorite,
-      ]);
+      setFavorites((prevState: IFavorite[]) => [leaseFavorite, ...prevState]);
       toast.success("Annonce ajoutée aux favoris", {
         style: TOAST_STYLE,
       });
@@ -73,10 +70,10 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const remove = async (id: number) => {
+  const removeFavorite = async (id: number) => {
     try {
       await customFetch("lease-favorites/" + id, "DELETE");
-      setLeaseFavorites((prevState: IFavorite[]) =>
+      setFavorites((prevState: IFavorite[]) =>
         prevState.filter((leaseFavorite: IFavorite) => leaseFavorite.id != id)
       );
       toast.success("Annonce retirée des favoris", {
@@ -91,7 +88,13 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
 
   /* -------------------------------- PROVIDER -------------------------------- */
   return (
-    <FavoriteContext.Provider value={{ leaseFavorites, store, remove }}>
+    <FavoriteContext.Provider
+      value={{
+        favorites,
+        storeFavorite,
+        removeFavorite,
+      }}
+    >
       {children}
     </FavoriteContext.Provider>
   );

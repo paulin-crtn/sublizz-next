@@ -26,7 +26,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
   leaseFavorite,
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { remove } = useFavorite();
+  const { removeFavorite } = useFavorite();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const image = useMemo(
@@ -102,7 +102,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
             size="sm"
             variant="outlined"
             color="neutral"
-            onClick={() => remove(leaseFavorite.id)}
+            onClick={() => removeFavorite(leaseFavorite.id)}
           >
             Retirer des favoris
           </Button>

@@ -28,11 +28,15 @@ const UserLeasesPage: NextPage = () => {
   const { user } = useAuth();
 
   /* -------------------------------- USE QUERY ------------------------------- */
-  const { isLoading, isError, data, error } = useQuery(
-    ["userLeases"],
-    getUserLeases,
-    { enabled: !!user }
-  );
+  const {
+    isLoading,
+    isError,
+    data: userLeases,
+    error,
+  } = useQuery(["userLeases"], getUserLeases, {
+    enabled: !!user,
+    initialData: [],
+  });
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
@@ -74,7 +78,7 @@ const UserLeasesPage: NextPage = () => {
     );
   }
 
-  if (!data || !data.length) {
+  if (!userLeases.length) {
     return (
       <AccountLayout
         breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
@@ -97,15 +101,7 @@ const UserLeasesPage: NextPage = () => {
     <AccountLayout
       breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
     >
-      {/* <Alert
-        variant="soft"
-        color="info"
-        startDecorator={<InfoIcon />}
-        sx={{ marginBottom: "20px" }}
-      >
-        Vous pouvez ajouter jusqu'à 3 annonces.
-      </Alert> */}
-      {data.map((lease: ILeaseDetail, index: number) => (
+      {userLeases.map((lease: ILeaseDetail, index: number) => (
         <Box key={lease.id}>
           {index === 0 && <Divider />}
           <MyLease lease={lease} />

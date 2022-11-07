@@ -18,16 +18,16 @@ const FavoriteButton: FunctionComponent<{
 }> = ({ leaseId, setOpenSignAlert }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { leaseFavorites, store, remove } = useFavorite();
+  const { favorites, storeFavorite, removeFavorite } = useFavorite();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const leaseFavorite: IFavorite | undefined = useMemo(() => {
     if (user) {
-      return leaseFavorites?.find(
+      return favorites?.find(
         (leaseFavorite: IFavorite) => leaseFavorite.lease.id === leaseId
       );
     }
-  }, [leaseId, leaseFavorites]);
+  }, [leaseId, favorites]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (leaseFavorite) {
@@ -36,7 +36,7 @@ const FavoriteButton: FunctionComponent<{
         fullWidth
         variant="outlined"
         startDecorator={<FavoriteIcon />}
-        onClick={() => remove(leaseFavorite.id)}
+        onClick={() => removeFavorite(leaseFavorite.id)}
         sx={{ mt: 1, backgroundColor: "#ffffff" }}
       >
         Retirer des favoris
@@ -48,7 +48,7 @@ const FavoriteButton: FunctionComponent<{
       fullWidth
       variant="outlined"
       startDecorator={<FavoriteBorderIcon />}
-      onClick={() => (user ? store(leaseId) : setOpenSignAlert(true))}
+      onClick={() => (user ? storeFavorite(leaseId) : setOpenSignAlert(true))}
       sx={{ mt: 1, backgroundColor: "#ffffff" }}
     >
       Ajouter aux favoris

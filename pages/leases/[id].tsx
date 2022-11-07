@@ -33,7 +33,6 @@ const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 /* --------------------------------- MUI JOY -------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -62,7 +61,6 @@ const LeasePage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { store } = useFavorite();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openLightbox, setOpenLightbox] = useState<boolean>(false);

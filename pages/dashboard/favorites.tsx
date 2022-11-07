@@ -11,8 +11,7 @@ import { useAuth } from "../../context/auth.context";
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";
 import Divider from "@mui/joy/Divider";
-import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { FavoriteProvider, useFavorite } from "../../context/favorite.context";
+import { useFavorite } from "../../context/favorite.context";
 import { IFavorite } from "../../interfaces/IFavorite";
 import LeaseFavorite from "../../components/lease-favorite";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
@@ -23,7 +22,7 @@ import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 const LeaseFavoritesPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { leaseFavorites } = useFavorite();
+  const { favorites } = useFavorite();
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
@@ -31,7 +30,7 @@ const LeaseFavoritesPage: NextPage = () => {
   }
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  if (!leaseFavorites.length) {
+  if (!favorites.length) {
     return (
       <AccountLayout
         breadcrumbs={<CustomBreadcrumbs currentPage="Mes Favoris" />}
@@ -54,7 +53,7 @@ const LeaseFavoritesPage: NextPage = () => {
     <AccountLayout
       breadcrumbs={<CustomBreadcrumbs currentPage="Mes Favoris" />}
     >
-      {leaseFavorites.map((leaseFavorite: IFavorite, index: number) => (
+      {favorites.map((leaseFavorite: IFavorite, index: number) => (
         <Box key={leaseFavorite.id}>
           {index === 0 && <Divider />}
           <LeaseFavorite leaseFavorite={leaseFavorite} />

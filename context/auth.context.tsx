@@ -19,7 +19,6 @@ interface IAuthContext {
   user: IUser | null;
   setUser: (arg: IUser | null) => void;
   logout: (arg?: () => void) => void;
-  // fetchUser: () => Promise<any>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -29,7 +28,6 @@ const AuthContext = createContext<IAuthContext>({
   user: null,
   setUser: () => {},
   logout: () => {},
-  // fetchUser: () => Promise.resolve(),
 });
 
 /* -------------------------------------------------------------------------- */
