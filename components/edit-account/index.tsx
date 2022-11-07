@@ -34,7 +34,7 @@ import { TOAST_STYLE } from "../../const/toastStyle";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const AccountSettings = ({ user }: { user: IUser }) => {
+const EditAccount = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
@@ -81,14 +81,21 @@ const AccountSettings = ({ user }: { user: IUser }) => {
           </Alert>
         ))}
 
-      <FormControl error={!!errors.email}>
+      <FormControl>
         <FormLabel>Email</FormLabel>
+        <Input type="email" variant="soft" value={user.email} readOnly />
+      </FormControl>
+
+      <FormControl error={!!errors.email}>
+        <FormLabel>Nouvelle adresse email</FormLabel>
+        <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
+          Votre adresse email précédente continuera d'être associée à votre
+          compte tant que vous n'aurez pas confirmé la nouvelle.
+        </FormHelperText>
         <Input
           type="email"
           variant="soft"
-          defaultValue={user.email}
           {...register("email", {
-            required: "Ce champs est requis",
             pattern: {
               value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
               message: "Vous devez renseigner une adresse email valide",
@@ -121,13 +128,17 @@ const AccountSettings = ({ user }: { user: IUser }) => {
         )}
       </FormControl>
 
-      <Button
-        color="danger"
-        variant="soft"
-        onClick={() => setOpenDeleteAccount(true)}
-      >
-        Supprimer mon compte
-      </Button>
+      <FormControl>
+        <FormLabel>Suppression du compte</FormLabel>
+        <Button
+          color="danger"
+          variant="soft"
+          onClick={() => setOpenDeleteAccount(true)}
+          sx={{ maxWidth: "max-content" }}
+        >
+          Supprimer mon compte
+        </Button>
+      </FormControl>
 
       {!isLoading && <Button type="submit">Enregistrer</Button>}
       {isLoading && (
@@ -155,4 +166,4 @@ const AccountSettings = ({ user }: { user: IUser }) => {
   );
 };
 
-export default AccountSettings;
+export default EditAccount;

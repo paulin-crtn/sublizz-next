@@ -6,7 +6,7 @@ import Box from "@mui/joy/Box";
 import { useAuth } from "../../context/auth.context";
 import AccountLayout from "../../components/account-layout";
 import AccessDenied from "../../components/access-denied";
-import AccountSettings from "../../components/edit-account";
+import EditAccount from "../../components/edit-account";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
@@ -23,7 +23,7 @@ const UserAccountPage: NextPage = () => {
   return (
     <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Compte" />}>
       <Box sx={{ width: "65%" }}>
-        <AccountSettings user={user} />
+        <EditAccount user={user} />
       </Box>
     </AccountLayout>
   );
