@@ -150,14 +150,14 @@ const Navbar: FunctionComponent = () => {
             <Link href="/dashboard/leases">
               <MenuItem onClick={handleClose}>
                 <Typography startDecorator={<NotesIcon />}>
-                  Mes annonces
+                  Mes Annonces
                 </Typography>
               </MenuItem>
             </Link>
             <Link href="/dashboard/favorites">
               <MenuItem onClick={handleClose}>
                 <Typography startDecorator={<FavoriteIcon />}>
-                  Mes favoris
+                  Favoris
                 </Typography>
               </MenuItem>
             </Link>

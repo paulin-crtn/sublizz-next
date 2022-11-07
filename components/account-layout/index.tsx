@@ -72,13 +72,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
             padding: 3,
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Box>
             <Avatar
               src={
                 user?.profilePictureName
@@ -86,16 +80,11 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
                   : undefined
               }
               variant="solid"
-              sx={{ width: 100, height: 100, mr: 2 }}
+              sx={{ width: 90, height: 90, mx: "auto" }}
             />
-            <Box textAlign="center">
-              <Typography level="h5" marginBottom={0.5}>
-                {user?.firstName}
-              </Typography>
-              <Button size="sm" variant="outlined" color="neutral">
-                Mode Bailleur
-              </Button>
-            </Box>
+            <Typography level="h5" marginTop={1} textAlign="center">
+              {user?.firstName}
+            </Typography>
           </Box>
           <Box component="nav" marginTop={5}>
             <ul>
@@ -104,7 +93,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
                   <Typography
                     startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
                   >
-                    Mes annonces
+                    Mes Annonces
                   </Typography>
                 </Link>
               </li>
@@ -115,7 +104,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
                   <Typography
                     startDecorator={<FavoriteIcon sx={{ marginRight: 1 }} />}
                   >
-                    Mes favoris
+                    Favoris
                   </Typography>
                 </Link>
               </li>
