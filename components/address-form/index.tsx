@@ -84,12 +84,11 @@ const AddressForm = ({
         {dataGouvAddresses.map((address) => (
           <Alert
             key={address.properties.id}
-            color="info"
             variant="soft"
             sx={{
               marginTop: 1,
               cursor: "pointer",
-              ":hover": { backgroundColor: "#D5E6F2" },
+              ":hover": { backgroundColor: "#ceceff" },
             }}
             onClick={() => setDataGouvAddress(address)}
           >

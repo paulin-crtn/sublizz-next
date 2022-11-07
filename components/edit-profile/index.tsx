@@ -13,6 +13,7 @@ import {
   storeProfilePicture,
   destroyProfilePicture,
 } from "../../utils/fetch/fetchProfilePicture";
+import parseUserForm from "../../utils/parseUserForm";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -153,7 +154,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
   };
 
   const mutateSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
-    mutate({ ...user, ...payload });
+    mutate(parseUserForm({ ...user, ...payload }));
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */

@@ -33,7 +33,6 @@ import Option from "@mui/joy/Option";
 import Chip from "@mui/joy/Chip";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
-import Sheet from "@mui/joy/Sheet";
 import Textarea from "@mui/joy/Textarea";
 import Typography from "@mui/joy/Typography";
 import Modal from "@mui/joy/Modal";
@@ -291,26 +290,25 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
       <FormControl>
         <FormLabel>Dates flexibles</FormLabel>
-        <RadioGroup
-          aria-labelledby="is-date-flexible-label"
-          defaultValue={lease ? lease.isDateFlexible : "0"}
-        >
-          <Sheet>
-            <Radio
-              label="Oui"
-              value="1"
-              disableIcon
-              {...register("isDateFlexible")}
-            />
-            <Radio
-              label="Non"
-              value="0"
-              disableIcon
-              {...register("isDateFlexible")}
-              sx={{ marginLeft: 1 }}
-            />
-          </Sheet>
-        </RadioGroup>
+        <Controller
+          name="isDateFlexible"
+          control={control}
+          defaultValue={lease ? String(lease.isDateFlexible) : "0"}
+          render={({ field: { onChange, ...field } }) => (
+            <RadioGroup
+              aria-labelledby="is-date-flexible-label"
+              {...field}
+              onChange={(event) => {
+                onChange(event);
+              }}
+            >
+              <Box display="flex" gap="10px">
+                <Radio label="Oui" value="1" variant="soft" disableIcon />
+                <Radio label="Non" value="0" variant="soft" disableIcon />
+              </Box>
+            </RadioGroup>
+          )}
+        />
         {errors.isDateFlexible && (
           <FormHelperText>{errors.isDateFlexible.message}</FormHelperText>
         )}
@@ -494,26 +492,30 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
       <FormControl>
         <FormLabel>Publier</FormLabel>
-        <RadioGroup
-          aria-labelledby="is-published-label"
-          defaultValue={lease ? lease.isPublished : "1"}
-        >
-          <Sheet>
-            <Radio
-              label="Maintenant"
-              value="1"
-              disableIcon
-              {...register("isPublished")}
-            />
-            <Radio
-              label="Plus tard"
-              value="0"
-              disableIcon
-              {...register("isPublished")}
-              sx={{ marginLeft: 1 }}
-            />
-          </Sheet>
-        </RadioGroup>
+        <Controller
+          name="isPublished"
+          control={control}
+          defaultValue={lease ? String(lease.isPublished) : "1"}
+          render={({ field: { onChange, ...field } }) => (
+            <RadioGroup
+              aria-labelledby="is-published-label"
+              {...field}
+              onChange={(event) => {
+                onChange(event);
+              }}
+            >
+              <Box display="flex" gap="10px">
+                <Radio
+                  label="Maintenant"
+                  value="1"
+                  variant="soft"
+                  disableIcon
+                />
+                <Radio label="Plus tard" value="0" variant="soft" disableIcon />
+              </Box>
+            </RadioGroup>
+          )}
+        />
       </FormControl>
 
       {!isLoading && !isUploadingFile && (

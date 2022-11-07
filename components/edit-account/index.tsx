@@ -4,10 +4,11 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
 import { updateUser } from "../../utils/fetch/fetchUser";
+import parseUserForm from "../../utils/parseUserForm";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -25,9 +26,13 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import RadioGroup from "@mui/joy/RadioGroup";
+import Box from "@mui/joy/Box";
+import Radio from "@mui/joy/Radio";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../const/toastStyle";
 
@@ -42,9 +47,10 @@ const EditAccount = ({ user }: { user: IUser }) => {
   const [openDeleteAccount, setOpenDeleteAccount] = useState<boolean>(false);
 
   /* -------------------------------- USE FORM -------------------------------- */
-  const { register, handleSubmit, formState } = useForm<IUpdateUser>({
-    mode: "onTouched",
-  });
+  const { register, handleSubmit, formState, control, getValues } =
+    useForm<IUpdateUser>({
+      mode: "onTouched",
+    });
   const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
@@ -62,7 +68,10 @@ const EditAccount = ({ user }: { user: IUser }) => {
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onSubmit: SubmitHandler<IUpdateUser> = async (payload) => {
-    mutateUpdate({ ...user, ...payload });
+    if (!getValues("email")) {
+      payload.email = user.email;
+    }
+    mutateUpdate(parseUserForm({ ...user, ...payload }));
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -70,8 +79,9 @@ const EditAccount = ({ user }: { user: IUser }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {isError &&
         error instanceof Error &&
-        error.message.split(",").map((msg) => (
+        error.message.split(",").map((msg, index) => (
           <Alert
+            key={index}
             startDecorator={<ErrorIcon />}
             variant="soft"
             color="danger"
@@ -80,6 +90,40 @@ const EditAccount = ({ user }: { user: IUser }) => {
             {msg}
           </Alert>
         ))}
+
+      <FormControl>
+        <FormLabel>Role</FormLabel>
+        <Controller
+          name="role"
+          control={control}
+          defaultValue={user.role}
+          render={({ field: { onChange, ...field } }) => (
+            <RadioGroup
+              aria-labelledby="account-role-label"
+              {...field}
+              onChange={(event) => {
+                onChange(event);
+              }}
+            >
+              <Box display="flex" gap="10px">
+                <Radio
+                  label="Je cherche un logement"
+                  value={UserRoleEnum.SEEKER}
+                  variant="soft"
+                  disableIcon
+                />
+                <Radio
+                  label="Je propose un logement"
+                  value={UserRoleEnum.OWNER}
+                  variant="soft"
+                  disableIcon
+                />
+              </Box>
+            </RadioGroup>
+          )}
+        />
+        {errors.role && <FormHelperText>{errors.role.message}</FormHelperText>}
+      </FormControl>
 
       <FormControl>
         <FormLabel>Email</FormLabel>
