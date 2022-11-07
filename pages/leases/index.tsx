@@ -62,94 +62,95 @@ const LeasesPage: NextPage = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <main>
-      <Box
-        sx={{
-          position: "relative",
-          display: "flex",
-          gap: 6,
-        }}
-      >
-        <Box flex="1 1 52%">
-          <Box>
-            <Typography fontWeight={500}>
-              {query ? query + " : " : ""}
-              {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
-            </Typography>
-            {query && (
-              <Typography
-                level="body2"
-                mt={0.5}
-                sx={{
-                  cursor: "pointer",
-                }}
-                onClick={() => router.push("/leases")}
-              >
-                Effacer la recherche
-              </Typography>
-            )}
-          </Box>
-          {!!data.totalCount && (
-            <Box mt={2}>
-              {data.leases.map((lease: ILease, index: number) => (
-                <Link href={`/leases/${lease.id}`} key={lease.id}>
-                  <Box sx={{ cursor: "pointer" }}>
-                    {index === 0 && <Divider />}
-                    <LeaseCard lease={lease} />
-                    <Divider />
-                  </Box>
-                </Link>
-              ))}
-            </Box>
-          )}
-          {data.totalCount > RESULTS_PER_PAGE && (
-            <Pagination
-              count={pageCount}
-              sx={{ width: "fit-content", mt: 3, mx: "auto" }}
-              onChange={onDataPageChange}
-              page={currentPage}
-            />
-          )}
-          {!data.totalCount && (
-            <Box
+    <Box
+      component="main"
+      sx={{
+        position: "relative",
+        display: "flex",
+        gap: 6,
+        padding: 6,
+        marginBottom: "90px",
+      }}
+    >
+      <Box flex="1 1 52%">
+        <Box>
+          <Typography fontWeight={500}>
+            {query ? query + " : " : ""}
+            {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
+          </Typography>
+          {query && (
+            <Typography
+              level="body2"
+              mt={0.5}
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "calc(100% - 50px)",
+                cursor: "pointer",
               }}
+              onClick={() => router.push("/leases")}
             >
-              <Image src="/img/no-result.svg" width="450" height="450" />
-            </Box>
+              Effacer la recherche
+            </Typography>
           )}
         </Box>
-
-        {/** Map */}
         {!!data.totalCount && (
-          <Box
-            flex="0 0 48%"
-            sx={{
-              alignSelf: "flex-start",
-              position: "sticky",
-              top: 135, // 90px height navbar + 45px container marginTop
-            }}
-          >
-            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          <Box mt={2}>
+            {data.leases.map((lease: ILease, index: number) => (
+              <Link href={`/leases/${lease.id}`} key={lease.id}>
+                <Box sx={{ cursor: "pointer" }}>
+                  {index === 0 && <Divider />}
+                  <LeaseCard lease={lease} />
+                  <Divider />
+                </Box>
+              </Link>
+            ))}
           </Box>
+        )}
+        {data.totalCount > RESULTS_PER_PAGE && (
+          <Pagination
+            count={pageCount}
+            sx={{ width: "fit-content", mt: 3, mx: "auto" }}
+            onChange={onDataPageChange}
+            page={currentPage}
+          />
         )}
         {!data.totalCount && (
           <Box
-            flex="0 0 48%"
             sx={{
-              height: "calc(100vh - 160px)",
-              backgroundColor: "#eeeeee",
-              borderRadius: "16px",
-              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "calc(100% - 50px)",
             }}
-          ></Box>
+          >
+            <Image src="/img/no-result.svg" width="450" height="450" />
+          </Box>
         )}
       </Box>
-    </main>
+
+      {/** Map */}
+      {!!data.totalCount && (
+        <Box
+          flex="0 0 48%"
+          sx={{
+            alignSelf: "flex-start",
+            position: "sticky",
+            top: 135, // 90px height navbar + 45px container marginTop
+          }}
+        >
+          <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+        </Box>
+      )}
+      {!data.totalCount && (
+        <Box
+          flex="0 0 48%"
+          sx={{
+            height: "calc(100vh - 160px)",
+            backgroundColor: "#eeeeee",
+            borderRadius: "16px",
+            overflow: "hidden",
+          }}
+        ></Box>
+      )}
+    </Box>
   );
 };
 

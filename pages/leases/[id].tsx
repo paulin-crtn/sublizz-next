@@ -14,7 +14,6 @@ import { ImagesListType } from "react-spring-lightbox";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLease } from "../../utils/fetch/fetchLease";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useFavorite } from "../../context/favorite.context";
 import { useAuth } from "../../context/auth.context";
 /* -------------------------------- COMPONENT ------------------------------- */
 import LeaseChips from "../../components/lease-chips";
@@ -26,6 +25,7 @@ import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
 import LeaseLightbox from "../../components/lease-lightbox";
 import FavoriteButton from "../../components/favorite-button";
+import LeaseDates from "../../components/lease-dates";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
@@ -44,7 +44,6 @@ import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Button from "@mui/joy/Button";
-import Chip from "@mui/joy/Chip";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
 /* -------------------------------- CONSTANT -------------------------------- */
@@ -118,28 +117,7 @@ const LeasePage: NextPage = ({
           <Typography component="h1" level="h2">
             {lease.city}
           </Typography>
-
-          <div className={styles.dates}>
-            {!lease.endDate && (
-              <Typography level="h5" fontWeight={300}>
-                À partir du {format(new Date(lease.startDate), "dd MMMM uuuu")}
-              </Typography>
-            )}
-
-            {lease.endDate && (
-              <Typography level="h5" fontWeight={300}>
-                Du {format(new Date(lease.startDate), "dd MMMM uuuu")} au{" "}
-                {format(new Date(lease.endDate), "dd MMMM uuuu")}
-              </Typography>
-            )}
-
-            {!!lease.isDateFlexible && (
-              <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>
-                Dates flexibles
-              </Chip>
-            )}
-          </div>
-
+          <LeaseDates lease={lease} isMinimized={false} />
           <LeaseChips lease={lease} />
         </div>
 

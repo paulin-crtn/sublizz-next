@@ -4,20 +4,10 @@
   align-items: flex-start;
 }
 
-.author,
-.dates {
+.author {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-
-.dates {
-  margin-top: 8px;
-  margin-bottom: 24px;
-}
-
-.dates > * {
-  margin-right: 15px;
 }
 
 .cta button {

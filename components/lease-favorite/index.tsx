@@ -4,21 +4,19 @@
 import { FunctionComponent, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import format from "date-fns/format";
 import { useFavorite } from "../../context/favorite.context";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
-import Chip from "@mui/joy/Chip";
 import LeaseChips from "../lease-chips";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import LabelIcon from "@mui/icons-material/Label";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { IFavorite } from "../../interfaces/IFavorite";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
+import LeaseDates from "../lease-dates";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -56,37 +54,8 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
           <Typography level="h5" fontWeight="600">
             {leaseFavorite.lease.city}
           </Typography>
-          <Box display="flex" sx={{ mt: 0.5, mb: 2 }}>
-            <Box>
-              {!leaseFavorite.lease.endDate && (
-                <Typography level="body1" fontWeight={300}>
-                  À partir du{" "}
-                  {format(
-                    new Date(leaseFavorite.lease.startDate),
-                    "dd MMM uuuu"
-                  )}
-                </Typography>
-              )}
-              {leaseFavorite.lease.endDate && (
-                <Typography level="body1" fontWeight={300}>
-                  Du{" "}
-                  {format(
-                    new Date(leaseFavorite.lease.startDate),
-                    "dd MMM uuuu"
-                  )}{" "}
-                  au{" "}
-                  {format(new Date(leaseFavorite.lease.endDate), "dd MMM uuuu")}
-                </Typography>
-              )}
-            </Box>
-            {!!leaseFavorite.lease.isDateFlexible && (
-              <Chip variant="soft" color="neutral" size="sm" sx={{ ml: 1 }}>
-                Dates flexibles
-              </Chip>
-            )}
-          </Box>
+          <LeaseDates lease={leaseFavorite.lease} />
           <LeaseChips lease={leaseFavorite.lease} size="sm" />
-
           <Typography level="h6" fontWeight="300" marginTop={2}>
             {leaseFavorite.lease.pricePerMonth}€ CC
           </Typography>

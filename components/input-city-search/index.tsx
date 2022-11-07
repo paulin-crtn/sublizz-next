@@ -54,7 +54,7 @@ const InputCitySearch = ({ isLarge = false }) => {
    * Fetch cities when query changes
    */
   useEffect(() => {
-    if (query.length < 3) return;
+    if (query.length < 2) return;
     const getCities = async (query: string) => {
       const data = await getDataGouvCity(query);
       const dataSorted = data

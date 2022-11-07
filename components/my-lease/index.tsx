@@ -1,37 +1,42 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useState } from "react";
 import Image from "next/image";
-import format from "date-fns/format";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+/* ---------------------------------- UTILS --------------------------------- */
+import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
+import { destroyLeaseImages } from "../../utils/fetch/fetchLeaseImages";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LeaseChips from "../lease-chips";
+import LeaseDates from "../lease-dates";
+/* ----------------------------------- MUI ---------------------------------- */
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Chip from "@mui/joy/Chip";
-import Sheet from "@mui/joy/Sheet";
-import LeaseChips from "../lease-chips";
-import noLeaseImg from "../../public/img/no-lease-img.png";
-import { ILeaseDetail } from "../../interfaces/lease";
 import Box from "@mui/joy/Box";
 import IconButton from "@mui/joy/IconButton";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
+import ListDivider from "@mui/joy/ListDivider";
+/* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ListDivider from "@mui/joy/ListDivider";
-import Link from "next/link";
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
-import { deleteLease, updateLease } from "../../utils/fetch/fetchLease";
-import toast from "react-hot-toast";
-import { TOAST_STYLE } from "../../const/toastStyle";
-import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { destroyLeaseImages } from "../../utils/fetch/fetchLeaseImages";
+/* ------------------------------- INTERFACES ------------------------------- */
+import { ILeaseDetail } from "../../interfaces/lease";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import noLeaseImg from "../../public/img/no-lease-img.png";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -134,7 +139,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
       </CardOverflow>
 
       <CardContent sx={{ pl: 3 }}>
-        <Sheet
+        <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -222,31 +227,9 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               </MenuItem>
             </Menu>
           </Box>
-        </Sheet>
-
-        <Sheet sx={{ display: "flex", alignItems: "center", mt: 0.5, mb: 2 }}>
-          <Box>
-            {!lease.endDate && (
-              <Typography level="body1" fontWeight={300}>
-                À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}
-              </Typography>
-            )}
-            {lease.endDate && (
-              <Typography level="body1" fontWeight={300}>
-                Du {format(new Date(lease.startDate), "dd MMM uuuu")} au{" "}
-                {format(new Date(lease.endDate), "dd MMM uuuu")}
-              </Typography>
-            )}
-          </Box>
-          {!!lease.isDateFlexible && (
-            <Chip variant="soft" color="neutral" size="sm" sx={{ ml: 1 }}>
-              Dates flexibles
-            </Chip>
-          )}
-        </Sheet>
-
+        </Box>
+        <LeaseDates lease={lease} />
         <LeaseChips lease={lease} size="sm" />
-
         <Typography level="h6" fontWeight="300" marginTop={2}>
           {lease.pricePerMonth}€ CC
         </Typography>

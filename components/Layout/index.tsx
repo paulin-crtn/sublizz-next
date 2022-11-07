@@ -15,10 +15,13 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
-  const isDashboard: boolean = useMemo(
-    () => router.pathname.split("/")[1] === "dashboard",
-    [router.pathname]
-  );
+  const isFullwidth: boolean = useMemo(() => {
+    const pathnameArr = router.pathname.split("/");
+    const isDashboard = pathnameArr[1] === "dashboard";
+    const isLeasesPage =
+      pathnameArr[1] === "leases" && pathnameArr.length === 2;
+    return isDashboard || isLeasesPage;
+  }, [router.pathname]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -33,8 +36,8 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
       <Box sx={{ flex: "1 0 auto" }}>
         <Box
           sx={{
-            maxWidth: isDashboard ? "auto" : "1300px",
-            padding: isDashboard ? "0" : "45px 30px 90px 30px",
+            maxWidth: isFullwidth ? "auto" : "1600px",
+            padding: isFullwidth ? "0" : "45px 90px 90px 90px",
             margin: "0 auto",
           }}
         >
