@@ -59,24 +59,23 @@ const SignAlert = ({
       </List>
       <Button
         fullWidth
+        onClick={() => {
+          setOpenSignup(true);
+          setOpenSignAlert(false);
+        }}
         sx={{ mb: 1 }}
+      >
+        Créer un compte
+      </Button>
+      <Button
+        fullWidth
+        variant="outlined"
         onClick={() => {
           setOpenSignin(true);
           setOpenSignAlert(false);
         }}
       >
         Se connecter
-      </Button>
-      <Button
-        fullWidth
-        variant="soft"
-        color="neutral"
-        onClick={() => {
-          setOpenSignup(true);
-          setOpenSignAlert(false);
-        }}
-      >
-        Créer un compte
       </Button>
     </Box>
   );

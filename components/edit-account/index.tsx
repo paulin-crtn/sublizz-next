@@ -27,8 +27,8 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import RadioGroup from "@mui/joy/RadioGroup";
-import Box from "@mui/joy/Box";
 import Radio from "@mui/joy/Radio";
+import Box from "@mui/joy/Box";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IUser } from "../../interfaces/IUser";
 import { IUpdateUser } from "../../interfaces/IUserUpdate";
