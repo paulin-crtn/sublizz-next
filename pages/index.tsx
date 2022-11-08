@@ -1,7 +1,11 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import type { NextPage } from "next";
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import Link from "next/link";
 import FormControl from "@mui/joy/FormControl";
 import FormHelperText from "@mui/joy/FormHelperText";
@@ -13,11 +17,17 @@ import Image from "next/future/image";
 import homePic from "../public/img/home.jpg";
 import InputCitySearch from "../components/input-city-search";
 import Box from "@mui/joy/Box";
+import { getLeases } from "../utils/fetch/fetchLease";
+import { ILease } from "../interfaces/lease";
+import LeaseCard from "../components/lease-card";
+import Divider from "@mui/joy/Divider";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Home: NextPage = () => {
+const Home: NextPage = ({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
@@ -71,6 +81,27 @@ const Home: NextPage = () => {
           Dernières annonces publiées
         </Typography>
 
+        {!!data.totalCount && (
+          <Box sx={{ display: "flex", gap: 6 }}>
+            <Box flex="1 1">
+              {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
+                <Link href={`/leases/${lease.id}`} key={lease.id}>
+                  <Box sx={{ cursor: "pointer" }}>
+                    {index !== 0 && <Divider />}
+                    <LeaseCard lease={lease} />
+                  </Box>
+                </Link>
+              ))}
+            </Box>
+            <Box
+              flex="0 0 300px"
+              sx={{ backgroundColor: "#ccc", borderRadius: "10px" }}
+            >
+              hello
+            </Box>
+          </Box>
+        )}
+
         <Typography
           level="h3"
           marginTop="60px"
@@ -86,3 +117,13 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+/* -------------------------------------------------------------------------- */
+/*                              SERVER SIDE PROPS                             */
+/* -------------------------------------------------------------------------- */
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await getLeases();
+  return {
+    props: { data },
+  };
+};
