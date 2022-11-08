@@ -4,6 +4,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import Link from "next/link";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -238,17 +239,23 @@ const Signup = ({
               )}
               <Typography fontSize="0.9rem">
                 J'accepte les{" "}
-                <a target="_blank" href="#">
-                  Conditions Générales d'Utilisation
-                </a>
+                <Link href="#" target="_blank">
+                  <Box component="span" fontWeight={500}>
+                    Conditions Générales d'Utilisation
+                  </Box>
+                </Link>
                 , la{" "}
-                <a target="_blank" href="#">
-                  Politique de Confidentialité
-                </a>{" "}
+                <Link href="#" target="_blank">
+                  <Box component="span" fontWeight={500}>
+                    Politique de Confidentialité
+                  </Box>
+                </Link>{" "}
                 et les{" "}
-                <a target="_blank" href="#">
-                  Mentions Légales
-                </a>
+                <Link href="#" target="_blank">
+                  <Box component="span" fontWeight={500}>
+                    Mentions Légales
+                  </Box>
+                </Link>
               </Typography>
             </Box>
           </FormControl>

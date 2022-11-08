@@ -1,8 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import Link from "next/link";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
 /* -------------------------------------------------------------------------- */
@@ -28,15 +28,14 @@ const CustomBreadcrumbs = ({
     <Breadcrumbs separator="›" sx={{ fontSize: "1.6rem" }}>
       {prevPages &&
         prevPages.map((page: IBreadcrumbPrevPage) => (
-          <Link
-            key={page.key}
-            href={page.href}
-            underline="none"
-            color="neutral"
-            fontSize="inherit"
-            fontWeight="300"
-          >
-            {page.name}
+          <Link key={page.key} href={page.href}>
+            <Typography
+              fontSize="inherit"
+              fontWeight="300"
+              sx={{ color: "#707070", cursor: "pointer" }}
+            >
+              {page.name}
+            </Typography>
           </Link>
         ))}
       <Typography fontSize="inherit" fontWeight={500}>

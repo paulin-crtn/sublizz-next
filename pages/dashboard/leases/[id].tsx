@@ -75,7 +75,7 @@ const EditLeasePage: NextPage = () => {
     return (
       <AccountLayout
         breadcrumbs={
-          <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
+          <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
       >
         {error.message.split(",").map((msg, index) => (
@@ -97,7 +97,7 @@ const EditLeasePage: NextPage = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
       <AccountLayout
         breadcrumbs={
-          <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
+          <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
       >
         <EditLease lease={data} />
