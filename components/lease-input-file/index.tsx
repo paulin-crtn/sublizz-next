@@ -24,14 +24,14 @@ import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 const LeaseInputFile = ({
   leaseImages,
   setLeaseImagesToRemove,
-  setInputFileError,
+  setHasInputFileError,
   inputFiles,
   setInputFiles,
   index,
 }: {
   leaseImages: string[];
   setLeaseImagesToRemove: Dispatch<SetStateAction<string[]>>;
-  setInputFileError: Dispatch<SetStateAction<string | undefined>>;
+  setHasInputFileError: Dispatch<SetStateAction<boolean>>;
   inputFiles: File[] | Blob[];
   setInputFiles: Dispatch<SetStateAction<File[] | Blob[]>>;
   index: number;
@@ -41,15 +41,16 @@ const LeaseInputFile = ({
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onAdd = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    setHasInputFileError(false);
     // Check inputFile
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file.size > 5000000) {
-      setInputFileError("Le fichier doit faire moins de 5MB");
+      setHasInputFileError(true);
       return;
     }
     if (!["image/jpeg", "image/png"].includes(file.type)) {
-      setInputFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
+      setHasInputFileError(true);
       return;
     }
 
@@ -113,7 +114,7 @@ const LeaseInputFile = ({
           )}
         </Sheet>
       </FormLabel>
-      {!isDeletingFile && (
+      {/* {!isDeletingFile && (
         <Button
           variant="outlined"
           color="neutral"
@@ -129,7 +130,7 @@ const LeaseInputFile = ({
         <Button variant="outlined" color="neutral" size="sm" fullWidth disabled>
           <CircularProgress color="neutral" thickness={3} />
         </Button>
-      )}
+      )} */}
     </>
   );
 };

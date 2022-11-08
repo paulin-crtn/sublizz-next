@@ -8,6 +8,9 @@ import Button from "@mui/joy/Button";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IFavorite } from "../../interfaces/IFavorite";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import toast from "react-hot-toast";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -29,29 +32,36 @@ const FavoriteButton: FunctionComponent<{
     }
   }, [leaseId, favorites]);
 
+  /* -------------------------------- FUNCTION -------------------------------- */
+  const handleClick = () => {
+    if (leaseFavorite) {
+      removeFavorite(leaseFavorite.id);
+    } else {
+      if (user) {
+        if (user.role === UserRoleEnum.SEEKER) {
+          storeFavorite(leaseId);
+        } else {
+          toast.error(
+            "Action reservée aux utilisateurs à la recherche d'un logement",
+            { style: TOAST_STYLE }
+          );
+        }
+      } else {
+        setOpenSignAlert(true);
+      }
+    }
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
-  if (leaseFavorite) {
-    return (
-      <Button
-        fullWidth
-        variant="outlined"
-        startDecorator={<FavoriteIcon />}
-        onClick={() => removeFavorite(leaseFavorite.id)}
-        sx={{ mt: 1, backgroundColor: "#ffffff" }}
-      >
-        Retirer des favoris
-      </Button>
-    );
-  }
   return (
     <Button
       fullWidth
       variant="outlined"
-      startDecorator={<FavoriteBorderIcon />}
-      onClick={() => (user ? storeFavorite(leaseId) : setOpenSignAlert(true))}
+      startDecorator={leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      onClick={handleClick}
       sx={{ mt: 1, backgroundColor: "#ffffff" }}
     >
-      Ajouter aux favoris
+      {leaseFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
     </Button>
   );
 };

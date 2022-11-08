@@ -22,7 +22,7 @@ const UserProfilePage: NextPage = () => {
   }
   return (
     <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Profil" />}>
-      <Box sx={{ width: "65%" }}>
+      <Box width="65%">
         <EditProfile user={user} />
       </Box>
     </AccountLayout>

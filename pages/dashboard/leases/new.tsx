@@ -84,7 +84,9 @@ const EditLeasePage: NextPage = () => {
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
         }
       >
-        <EditLease lease={undefined} />
+        <Box width="65%">
+          <EditLease lease={undefined} />
+        </Box>
       </AccountLayout>
     </LocalizationProvider>
   );

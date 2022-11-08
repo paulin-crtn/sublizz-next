@@ -42,6 +42,7 @@ import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
 /* ---------------------------------- ICONS --------------------------------- */
 import ErrorIcon from "@mui/icons-material/Error";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 /* ---------------------------------- ENUM ---------------------------------- */
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 /* ---------------------------------- CONST --------------------------------- */
@@ -61,7 +62,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   const [dataGouvAddress, setDataGouvAddress] = useState<any>();
   const [leaseImagesToRemove, setLeaseImagesToRemove] = useState<string[]>([]);
   const [inputFiles, setInputFiles] = useState<Blob[]>([]);
-  const [inputFileError, setInputFileError] = useState<string | undefined>();
+  const [hasInputFileError, setHasInputFileError] = useState<boolean>(false);
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
@@ -166,8 +167,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   };
 
   const mutateSubmit: SubmitHandler<ILeaseForm> = async (payload) => {
-    console.log("YOU'VE RECAHED mutateSubmit");
-    console.log({ ...lease, ...payload });
     mutate({ ...lease, ...payload });
   };
 
@@ -195,7 +194,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           render={({ field: { onChange, ...field } }) => (
             <Select
               variant="soft"
-              placeholder="Sous-location"
               onChange={async (event) => {
                 setValue(
                   "type",
@@ -216,84 +214,89 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
       </FormControl>
 
-      <FormControl error={!!errors.startDate}>
-        <FormLabel>À partir du</FormLabel>
-        <Controller
-          name="startDate"
-          control={control}
-          rules={{ required: "Ce champs est requis" }}
-          defaultValue={lease ? lease.startDate : null} // Null value avoid to have the current date by default
-          render={({ field: { onChange, ...field } }) => (
-            <MobileDatePicker
-              onChange={(event) => {
-                onChange(event);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!errors.startDate}
-                  placeholder="jj/mm/aaaa"
-                />
-              )}
-              {...field}
-              closeOnSelect
-              disablePast
-              maxDate={watch("endDate")}
-              inputFormat="dd/MM/yyyy"
-            />
-          )}
-        />
-        {errors.startDate && (
-          <FormHelperText>{errors.startDate.message}</FormHelperText>
-        )}
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>
-          Jusqu'au
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
-        </FormLabel>
-        <Controller
-          name="endDate"
-          control={control}
-          defaultValue={lease ? lease.endDate : null} // Null value avoid to have the current date by default
-          render={({ field: { onChange, ...field } }) => (
-            <MobileDatePicker
-              onChange={(event) => {
-                onChange(event);
-              }}
-              renderInput={(params) => (
-                <TextField {...params} placeholder="jj/mm/aaaa" />
-              )}
-              {...field}
-              closeOnSelect
-              disablePast
-              minDate={watch("startDate")}
-              inputFormat="dd/MM/yyyy"
-            />
-          )}
-        />
-        <FormHelperText
-          onClick={() => setValue("endDate", null)}
-          sx={{ cursor: "pointer" }}
+      <Box display="flex">
+        <FormControl
+          error={!!errors.startDate}
+          sx={{ flex: "1 1", marginRight: 2 }}
         >
-          Effacer la date
-        </FormHelperText>
-      </FormControl>
+          <FormLabel>Disponible à partir du</FormLabel>
+          <Controller
+            name="startDate"
+            control={control}
+            rules={{ required: "Ce champs est requis" }}
+            defaultValue={lease ? lease.startDate : null} // Null value avoid to have the current date by default
+            render={({ field: { onChange, ...field } }) => (
+              <MobileDatePicker
+                onChange={(event) => {
+                  onChange(event);
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} error={!!errors.startDate} />
+                )}
+                {...field}
+                closeOnSelect
+                disablePast
+                maxDate={watch("endDate")}
+                inputFormat="dd/MM/yyyy"
+              />
+            )}
+          />
+          {errors.startDate && (
+            <FormHelperText>{errors.startDate.message}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl sx={{ flex: "1 1", marginRight: 0.5 }}>
+          <FormLabel>
+            Jusqu'au
+            <Chip
+              size="sm"
+              color="info"
+              variant="soft"
+              sx={{ marginLeft: 1, fontWeight: 400 }}
+            >
+              Optionnel
+            </Chip>
+          </FormLabel>
+          <Controller
+            name="endDate"
+            control={control}
+            defaultValue={lease ? lease.endDate : null} // Null value avoid to have the current date by default
+            render={({ field: { onChange, ...field } }) => (
+              <MobileDatePicker
+                onChange={(event) => {
+                  onChange(event);
+                }}
+                renderInput={(params) => (
+                  <Box display="flex">
+                    <TextField {...params} sx={{ flex: "1 1" }} />
+                    <Button
+                      variant="soft"
+                      color="neutral"
+                      onClick={() => setValue("endDate", null)}
+                      sx={{ marginLeft: 0.5 }}
+                    >
+                      <HighlightOffIcon />
+                    </Button>
+                  </Box>
+                )}
+                {...field}
+                closeOnSelect
+                disablePast
+                minDate={watch("startDate")}
+                inputFormat="dd/MM/yyyy"
+              />
+            )}
+          />
+        </FormControl>
+      </Box>
 
       <FormControl>
         <FormLabel>Dates flexibles</FormLabel>
         <Controller
           name="isDateFlexible"
           control={control}
-          defaultValue={lease ? String(lease.isDateFlexible) : "0"}
+          defaultValue={lease ? String(lease.isDateFlexible) : "1"}
           render={({ field: { onChange, ...field } }) => (
             <RadioGroup
               aria-labelledby="is-date-flexible-label"
@@ -365,78 +368,82 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         )}
       </FormControl>
 
-      <FormControl error={!!errors.room}>
-        <FormLabel>Nombre de pièces</FormLabel>
-        <Input
-          type="number"
-          variant="soft"
-          placeholder="2"
-          defaultValue={lease ? lease.room : undefined}
-          {...register("room", {
-            valueAsNumber: true,
-            required: "Ce champs est requis",
-            min: {
-              value: 1,
-              message: "1 pièce minimum",
-            },
-            max: {
-              value: 10,
-              message: "10 pièces maximum",
-            },
-          })}
-        />
-        {errors.room && <FormHelperText>{errors.room.message}</FormHelperText>}
-      </FormControl>
+      <Box display="flex">
+        <FormControl error={!!errors.room} sx={{ flex: "1 1", marginRight: 2 }}>
+          <FormLabel>Nombre de pièces</FormLabel>
+          <Input
+            type="number"
+            variant="soft"
+            defaultValue={lease ? lease.room : undefined}
+            {...register("room", {
+              valueAsNumber: true,
+              required: "Ce champs est requis",
+              min: {
+                value: 1,
+                message: "1 pièce minimum",
+              },
+              max: {
+                value: 10,
+                message: "10 pièces maximum",
+              },
+            })}
+          />
+          {errors.room && (
+            <FormHelperText>{errors.room.message}</FormHelperText>
+          )}
+        </FormControl>
 
-      <FormControl error={!!errors.surface}>
-        <FormLabel>Surface</FormLabel>
-        <Input
-          type="number"
-          variant="soft"
-          placeholder="45"
-          defaultValue={lease ? lease.surface : undefined}
-          {...register("surface", {
-            valueAsNumber: true,
-            required: "Ce champs est requis",
-            min: {
-              value: 10,
-              message: "10 m2 minimum",
-            },
-            max: {
-              value: 200,
-              message: "200 m2 maximum",
-            },
-          })}
-        />
-        {errors.surface && (
-          <FormHelperText>{errors.surface.message}</FormHelperText>
-        )}
-      </FormControl>
+        <FormControl
+          error={!!errors.surface}
+          sx={{ flex: "1 1", marginRight: 2 }}
+        >
+          <FormLabel>Surface</FormLabel>
+          <Input
+            type="number"
+            variant="soft"
+            defaultValue={lease ? lease.surface : undefined}
+            {...register("surface", {
+              valueAsNumber: true,
+              required: "Ce champs est requis",
+              min: {
+                value: 10,
+                message: "10m2 minimum",
+              },
+              max: {
+                value: 200,
+                message: "200m2 maximum",
+              },
+            })}
+          />
+          {errors.surface && (
+            <FormHelperText>{errors.surface.message}</FormHelperText>
+          )}
+        </FormControl>
 
-      <FormControl error={!!errors.pricePerMonth}>
-        <FormLabel>Prix par mois</FormLabel>
-        <Input
-          type="number"
-          variant="soft"
-          placeholder="1200"
-          defaultValue={lease ? lease.pricePerMonth : undefined}
-          {...register("pricePerMonth", {
-            valueAsNumber: true,
-            required: "Ce champs est requis",
-            min: {
-              value: 200,
-              message: "200€ minimum",
-            },
-            max: {
-              value: 2000,
-              message: "2000€ maximum",
-            },
-          })}
-        />
-        {errors.pricePerMonth && (
-          <FormHelperText>{errors.pricePerMonth.message}</FormHelperText>
-        )}
-      </FormControl>
+        <FormControl error={!!errors.pricePerMonth} sx={{ flex: "1 1" }}>
+          <FormLabel>Prix par mois</FormLabel>
+          <Input
+            type="number"
+            variant="soft"
+            defaultValue={lease ? lease.pricePerMonth : undefined}
+            {...register("pricePerMonth", {
+              valueAsNumber: true,
+              required: "Ce champs est requis",
+              min: {
+                value: 200,
+                message: "200€ minimum",
+              },
+              max: {
+                value: 2000,
+                message: "2000€ maximum",
+              },
+            })}
+          />
+          {errors.pricePerMonth && (
+            <FormHelperText>{errors.pricePerMonth.message}</FormHelperText>
+          )}
+        </FormControl>
+      </Box>
 
       <FormControl>
         <FormLabel>
@@ -471,16 +478,22 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
             Optionnel
           </Chip>
         </FormLabel>
-        <FormHelperText sx={{ marginBottom: "15px" }}>
+        <FormHelperText
+          sx={{
+            marginTop: "-5px",
+            marginBottom: "10px",
+            color: hasInputFileError ? "#d3232f" : "auto",
+          }}
+        >
           Format : JPG ou PNG. Poids max : 5Mo.
         </FormHelperText>
-        <Box sx={{ display: "flex", gap: 3 }}>
-          {[...Array(3)].map((u, i) => (
+        <Box sx={{ display: "flex", gap: 2 }}>
+          {[...Array(4)].map((u, i) => (
             <FormControl key={i}>
               <LeaseInputFile
                 leaseImages={lease?.leaseImages ?? []}
                 setLeaseImagesToRemove={setLeaseImagesToRemove}
-                setInputFileError={setInputFileError}
+                setHasInputFileError={setHasInputFileError}
                 inputFiles={inputFiles}
                 setInputFiles={setInputFiles}
                 index={i}

@@ -213,7 +213,7 @@ const Signup = ({
             <Controller
               name="consent"
               control={control}
-              rules={{ required: "Ce champs est requis" }}
+              rules={{ required: "Vous devez accepter pour continuer" }}
               defaultValue={false}
               render={({ field: { onChange, ...field } }) => (
                 <Switch
@@ -225,14 +225,14 @@ const Signup = ({
                   }}
                   {...field}
                   sx={{ marginBottom: "auto", mr: 2 }}
-                ></Switch>
+                />
               )}
             />
             <Box>
               {errors.consent && (
                 <Typography
                   display="block"
-                  margin={0}
+                  margin="0 0 5px 0"
                   fontSize="0.85rem"
                   sx={{ color: "#d3232f" }}
                 >

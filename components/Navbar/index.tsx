@@ -39,6 +39,7 @@ import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "./navbar.module.css";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -88,26 +89,32 @@ const Navbar: FunctionComponent = () => {
             <span className={styles.textGradient2}>logements</span>
           </div>
         </Link>
-        <Button
-          className={styles.cta}
-          startDecorator={<Add />}
-          color="primary"
-          onClick={() => {
-            if (user) {
-              router.push("/dashboard/leases/new");
-            } else {
-              setSignCallback(() => () => router.push("/dashboard/leases/new"));
-              setOpenSignAlert(true);
-            }
-          }}
-          sx={{ marginLeft: 3 }}
-        >
-          Publier une annonce
-        </Button>
+        {(!user || user.role === UserRoleEnum.OWNER) && (
+          <Button
+            className={styles.cta}
+            startDecorator={<Add />}
+            color="primary"
+            onClick={() => {
+              if (user) {
+                router.push("/dashboard/leases/new");
+              } else {
+                setSignCallback(
+                  () => () => router.push("/dashboard/leases/new")
+                );
+                setOpenSignAlert(true);
+              }
+            }}
+            sx={{ marginLeft: 3 }}
+          >
+            Publier une annonce
+          </Button>
+        )}
       </Box>
-      <Box sx={{ flex: "0 1" }}>
-        <InputCitySearch />
-      </Box>
+      {(!user || user.role === UserRoleEnum.SEEKER) && (
+        <Box sx={{ flex: "0 1" }}>
+          <InputCitySearch />
+        </Box>
+      )}
       {!user && (
         <Box component="ul" className={styles.unorderList}>
           <li onClick={() => setOpenSignin(true)}>Se connecter</li>
@@ -147,20 +154,24 @@ const Navbar: FunctionComponent = () => {
             size="lg"
             aria-labelledby="basic-demo-button"
           >
-            <Link href="/dashboard/leases">
-              <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<NotesIcon />}>
-                  Mes Annonces
-                </Typography>
-              </MenuItem>
-            </Link>
-            <Link href="/dashboard/favorites">
-              <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<FavoriteIcon />}>
-                  Favoris
-                </Typography>
-              </MenuItem>
-            </Link>
+            {user.role === UserRoleEnum.OWNER && (
+              <Link href="/dashboard/leases">
+                <MenuItem onClick={handleClose}>
+                  <Typography startDecorator={<NotesIcon />}>
+                    Mes Annonces
+                  </Typography>
+                </MenuItem>
+              </Link>
+            )}
+            {user.role === UserRoleEnum.SEEKER && (
+              <Link href="/dashboard/favorites">
+                <MenuItem onClick={handleClose}>
+                  <Typography startDecorator={<FavoriteIcon />}>
+                    Favoris
+                  </Typography>
+                </MenuItem>
+              </Link>
+            )}
             <Link href="/dashboard/messages">
               <MenuItem onClick={handleClose}>
                 <Typography startDecorator={<EmailIcon />}>Messages</Typography>

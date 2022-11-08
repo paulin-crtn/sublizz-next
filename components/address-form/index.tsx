@@ -136,7 +136,16 @@ const AddressForm = ({
       )}
 
       <FormControl error={!!errors.street}>
-        <FormLabel>Rue</FormLabel>
+        <FormLabel>Numéro et nom de rue</FormLabel>
+        <FormHelperText
+          sx={{
+            marginTop: "-5px",
+            marginBottom: "10px",
+            color: "#646872",
+          }}
+        >
+          Le numéro n'est pas obligatoire.
+        </FormHelperText>
         <Input
           type="text"
           variant="soft"

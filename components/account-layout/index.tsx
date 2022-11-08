@@ -21,6 +21,7 @@ import { useAuth } from "../../context/auth.context";
 import styles from "./account-layout.module.css";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -88,26 +89,34 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
           </Box>
           <Box component="nav" marginTop={5}>
             <ul>
-              <li className={[styles.navButton, isActive("leases")].join(" ")}>
-                <Link href="/dashboard/leases">
-                  <Typography
-                    startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
-                  >
-                    Mes Annonces
-                  </Typography>
-                </Link>
-              </li>
-              <li
-                className={[styles.navButton, isActive("favorites")].join(" ")}
-              >
-                <Link href="/dashboard/favorites">
-                  <Typography
-                    startDecorator={<FavoriteIcon sx={{ marginRight: 1 }} />}
-                  >
-                    Favoris
-                  </Typography>
-                </Link>
-              </li>
+              {user?.role === UserRoleEnum.OWNER && (
+                <li
+                  className={[styles.navButton, isActive("leases")].join(" ")}
+                >
+                  <Link href="/dashboard/leases">
+                    <Typography
+                      startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
+                    >
+                      Mes Annonces
+                    </Typography>
+                  </Link>
+                </li>
+              )}
+              {user?.role === UserRoleEnum.SEEKER && (
+                <li
+                  className={[styles.navButton, isActive("favorites")].join(
+                    " "
+                  )}
+                >
+                  <Link href="/dashboard/favorites">
+                    <Typography
+                      startDecorator={<FavoriteIcon sx={{ marginRight: 1 }} />}
+                    >
+                      Favoris
+                    </Typography>
+                  </Link>
+                </li>
+              )}
               <li
                 className={[styles.navButton, isActive("messages")].join(" ")}
               >

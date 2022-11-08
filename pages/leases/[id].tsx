@@ -11,6 +11,7 @@ import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
 import { ImagesListType } from "react-spring-lightbox";
+import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLease } from "../../utils/fetch/fetchLease";
 /* --------------------------------- CONTEXT -------------------------------- */
@@ -47,6 +48,8 @@ import Button from "@mui/joy/Button";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "../../styles/Lease.module.css";
 /* -------------------------------- CONSTANT -------------------------------- */
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../const/toastStyle";
 import {
   LEASE_IMAGE_PATH,
   PROFILE_PICTURE_PATH,
@@ -93,7 +96,14 @@ const LeasePage: NextPage = ({
 
   const handleContact = () => {
     if (user) {
-      setOpenMessage(true);
+      if (user.role === UserRoleEnum.SEEKER) {
+        setOpenMessage(true);
+      } else {
+        toast.error(
+          "Action reservée aux utilisateurs à la recherche d'un logement",
+          { style: TOAST_STYLE }
+        );
+      }
     } else {
       setSignCallback(() => () => setOpenMessage(true));
       setOpenSignAlert(true);
