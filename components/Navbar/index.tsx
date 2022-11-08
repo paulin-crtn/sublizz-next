@@ -110,11 +110,9 @@ const Navbar: FunctionComponent = () => {
           </Button>
         )}
       </Box>
-      {(!user || user.role === UserRoleEnum.SEEKER) && (
-        <Box sx={{ flex: "0 1" }}>
-          <InputCitySearch />
-        </Box>
-      )}
+      <Box sx={{ flex: "0 1" }}>
+        <InputCitySearch />
+      </Box>
       {!user && (
         <Box component="ul" className={styles.unorderList}>
           <li onClick={() => setOpenSignin(true)}>Se connecter</li>

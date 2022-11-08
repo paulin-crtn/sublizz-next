@@ -397,7 +397,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           error={!!errors.surface}
           sx={{ flex: "1 1", marginRight: 2 }}
         >
-          <FormLabel>Surface</FormLabel>
+          <FormLabel>Surface en m2</FormLabel>
           <Input
             type="number"
             variant="soft"
@@ -421,7 +421,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         </FormControl>
 
         <FormControl error={!!errors.pricePerMonth} sx={{ flex: "1 1" }}>
-          <FormLabel>Prix par mois</FormLabel>
+          <FormLabel>Prix par mois CC</FormLabel>
           <Input
             type="number"
             variant="soft"

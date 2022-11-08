@@ -57,6 +57,7 @@ const FavoriteButton: FunctionComponent<{
     <Button
       fullWidth
       variant="outlined"
+      color="neutral"
       startDecorator={leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       onClick={handleClick}
       sx={{ mt: 1, backgroundColor: "#ffffff" }}

@@ -34,6 +34,7 @@ const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 /* --------------------------------- MUI JOY -------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -175,7 +176,7 @@ const LeasePage: NextPage = ({
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            gap: 3,
+            gap: 6,
             marginTop: 6,
             marginBottom: 4,
           }}
@@ -243,6 +244,26 @@ const LeasePage: NextPage = ({
             >
               Envoyer un message
             </Button>
+
+            {/** Phone Number */}
+            {lease.user.phoneNumber && (
+              <Button
+                fullWidth
+                variant="soft"
+                color="neutral"
+                startDecorator={<PhoneAndroidIcon />}
+                onClick={() => {
+                  if (!user) setOpenSignAlert(true);
+                }}
+                sx={{ mt: 1 }}
+              >
+                {user
+                  ? _formatPhoneNumber(lease.user.phoneNumber)
+                  : _formatPhoneNumber(
+                      lease.user.phoneNumber.slice(0, -4) + "XXXX"
+                    )}
+              </Button>
+            )}
 
             {/** Favorite */}
             <FavoriteButton
@@ -339,7 +360,6 @@ export default LeasePage;
 /*                              SERVER SIDE PROPS                             */
 /* -------------------------------------------------------------------------- */
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const id = context?.params?.id;
   try {
     const lease = await getLease(id);
@@ -351,4 +371,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                  FUNCTIONS                                 */
+/* -------------------------------------------------------------------------- */
+/**
+ * Format phone number
+ * Ex: 0600000000 will return 06 00 00 00 00
+ *
+ * @param phoneNumber
+ */
+const _formatPhoneNumber = (phoneNumber: string) => {
+  return phoneNumber
+    .split("")
+    .map((letter: string, index: number) => {
+      return index % 2 === 0 ? letter : letter + " ";
+    })
+    .join("");
 };
