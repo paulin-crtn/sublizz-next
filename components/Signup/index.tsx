@@ -230,9 +230,9 @@ const Signup = ({
               {errors.consent && (
                 <Typography
                   display="block"
-                  color="danger"
                   margin={0}
                   fontSize="0.9rem"
+                  sx={{ color: "#d3232f" }}
                 >
                   {errors.consent.message}
                 </Typography>
