@@ -147,17 +147,6 @@ const Signup = ({
 
       {stepIndex === 1 && (
         <Box>
-          <Alert
-            color="info"
-            startDecorator={<PrivacyTipIcon />}
-            sx={{
-              alignItems: "flex-start",
-              marginBottom: 3,
-            }}
-          >
-            Vos données personnelles ne sont pas revendues et nous ne spammons
-            pas.
-          </Alert>
           <FormControl error={!!errors.firstName}>
             <FormLabel>Prénom</FormLabel>
             <Input
@@ -229,6 +218,7 @@ const Signup = ({
               render={({ field: { onChange, ...field } }) => (
                 <Switch
                   variant="soft"
+                  size="lg"
                   color={watch("consent") === true ? "primary" : "neutral"}
                   onChange={(event) => {
                     onChange(event);
@@ -243,13 +233,13 @@ const Signup = ({
                 <Typography
                   display="block"
                   margin={0}
-                  fontSize="0.9rem"
+                  fontSize="0.85rem"
                   sx={{ color: "#d3232f" }}
                 >
                   {errors.consent.message}
                 </Typography>
               )}
-              <Typography fontSize="0.9rem">
+              <Typography fontSize="0.85rem">
                 J'accepte les{" "}
                 <Link href="#" target="_blank">
                   <Box component="span" fontWeight={500}>
