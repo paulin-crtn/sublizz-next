@@ -80,7 +80,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
     e: ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
     setHasInputFileError(false);
-    if (!e.target.files) return;
+    if (!e.target.files || !e.target.files[0]) return;
     const file = e.target.files[0];
     if (file.size > 5000000) {
       setHasInputFileError(true);
