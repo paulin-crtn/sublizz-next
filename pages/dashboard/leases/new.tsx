@@ -14,7 +14,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Link from "next/link";
 import Button from "@mui/joy/Button";
-import NotesIcon from "@mui/icons-material/Notes";
+import StyleIcon from "@mui/icons-material/Style";
 import { useQuery } from "@tanstack/react-query";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
 
@@ -68,7 +68,7 @@ const EditLeasePage: NextPage = () => {
             annonces.
           </Typography>
           <Link href="/dashboard/leases">
-            <Button variant="soft" startDecorator={<NotesIcon />}>
+            <Button variant="soft" startDecorator={<StyleIcon />}>
               Lister mes annonces
             </Button>
           </Link>

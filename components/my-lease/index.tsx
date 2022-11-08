@@ -24,12 +24,14 @@ import IconButton from "@mui/joy/IconButton";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import ListDivider from "@mui/joy/ListDivider";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
 /* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
+import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
+import StopCircleIcon from "@mui/icons-material/StopCircle";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
@@ -164,8 +166,8 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               {lease.isPublished ? "En ligne" : "Désactivée"}
             </Chip>
             <IconButton
-              id="positioned-demo-button"
-              aria-controls={open ? "positioned-demo-menu" : undefined}
+              id="lease-options-button"
+              aria-controls={open ? "lease-options-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               variant="outlined"
@@ -176,27 +178,30 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               <MoreVert />
             </IconButton>
             <Menu
-              id="positioned-demo-menu"
+              id="lease-options-menu"
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
-              aria-labelledby="positioned-demo-button"
+              size="sm"
+              aria-labelledby="lease-options-button"
               placement="bottom-end"
             >
               {!!lease.isPublished && (
                 <Link href={`/leases/${lease.id}`}>
                   <MenuItem onClick={handleClose}>
-                    <Typography startDecorator={<FilterVintageIcon />}>
-                      Voir
-                    </Typography>
+                    <ListItemDecorator>
+                      <FilterVintageIcon />
+                    </ListItemDecorator>
+                    Voir
                   </MenuItem>
                 </Link>
               )}
               <Link href={`/dashboard/leases/${lease.id}`}>
                 <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<DriveFileRenameOutlineIcon />}>
-                    Modifier
-                  </Typography>
+                  <ListItemDecorator>
+                    <DriveFileRenameOutlineIcon />
+                  </ListItemDecorator>
+                  Modifier
                 </MenuItem>
               </Link>
               <MenuItem
@@ -205,9 +210,14 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                   mutatePublishedStatus();
                 }}
               >
-                <Typography startDecorator={<PowerSettingsNewIcon />}>
-                  {lease.isPublished ? "Désactiver" : "Activer"}
-                </Typography>
+                <ListItemDecorator>
+                  {lease.isPublished ? (
+                    <StopCircleIcon />
+                  ) : (
+                    <PlayCircleFilledWhiteIcon />
+                  )}
+                </ListItemDecorator>
+                {lease.isPublished ? "Désactiver" : "Activer"}
               </MenuItem>
               <ListDivider />
               <MenuItem
@@ -217,9 +227,10 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                   mutateDeleteLease();
                 }}
               >
-                <Typography color="danger" startDecorator={<DeleteIcon />}>
-                  Supprimer
-                </Typography>
+                <ListItemDecorator sx={{ color: "inherit" }}>
+                  <DeleteIcon />
+                </ListItemDecorator>
+                Supprimer
               </MenuItem>
             </Menu>
           </Box>

@@ -21,25 +21,25 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Menu from "@mui/joy/Menu";
-import MenuItem from "@mui/joy/MenuItem";
 import ListDivider from "@mui/joy/ListDivider";
-import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
+import MenuItem from "@mui/joy/MenuItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
 /* ---------------------------------- ICONS --------------------------------- */
 import Add from "@mui/icons-material/Add";
-import NotesIcon from "@mui/icons-material/Notes";
+import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
 /* --------------------------------- STYLES --------------------------------- */
 import styles from "./navbar.module.css";
-import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -122,8 +122,8 @@ const Navbar: FunctionComponent = () => {
       {user && (
         <>
           <Button
-            id="basic-demo-button"
-            aria-controls={open ? "basic-menu" : undefined}
+            id="menu-button"
+            aria-controls={open ? "menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             variant="plain"
@@ -145,46 +145,56 @@ const Navbar: FunctionComponent = () => {
             {user.firstName}
           </Button>
           <Menu
-            id="basic-menu"
+            id="menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            size="lg"
-            aria-labelledby="basic-demo-button"
+            size="md"
+            aria-labelledby="menu-button"
+            placement="bottom-end"
           >
             {user.role === UserRoleEnum.OWNER && (
               <Link href="/dashboard/leases">
                 <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<NotesIcon />}>
-                    Mes Annonces
-                  </Typography>
+                  <ListItemDecorator>
+                    <StyleIcon />
+                  </ListItemDecorator>
+                  Mes Annonces
                 </MenuItem>
               </Link>
             )}
             {user.role === UserRoleEnum.SEEKER && (
               <Link href="/dashboard/favorites">
                 <MenuItem onClick={handleClose}>
-                  <Typography startDecorator={<FavoriteIcon />}>
-                    Favoris
-                  </Typography>
+                  <ListItemDecorator>
+                    <FavoriteIcon />
+                  </ListItemDecorator>
+                  Favoris
                 </MenuItem>
               </Link>
             )}
             <Link href="/dashboard/messages">
               <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<EmailIcon />}>Messages</Typography>
+                <ListItemDecorator>
+                  <EmailIcon />
+                </ListItemDecorator>
+                Message
               </MenuItem>
             </Link>
             <Link href="/dashboard/profile">
               <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<PersonIcon />}>Profil</Typography>
+                <ListItemDecorator>
+                  <PersonIcon />
+                </ListItemDecorator>
+                Profil
               </MenuItem>
             </Link>
             <Link href="/dashboard/account">
               <MenuItem onClick={handleClose}>
-                <Typography startDecorator={<SettingsIcon />}>
-                  Compte
-                </Typography>
+                <ListItemDecorator>
+                  <SettingsIcon />
+                </ListItemDecorator>
+                Compte
               </MenuItem>
             </Link>
             <ListDivider />
@@ -199,9 +209,10 @@ const Navbar: FunctionComponent = () => {
                 });
               }}
             >
-              <Typography color="danger" startDecorator={<LogoutIcon />}>
-                Déconnexion
-              </Typography>
+              <ListItemDecorator>
+                <LogoutIcon />
+              </ListItemDecorator>
+              Déconnexion
             </MenuItem>
           </Menu>
         </>

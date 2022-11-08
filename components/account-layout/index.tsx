@@ -9,8 +9,7 @@ import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
-import Button from "@mui/joy/Button";
-import NotesIcon from "@mui/icons-material/Notes";
+import StyleIcon from "@mui/icons-material/Style";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -95,7 +94,7 @@ const AccountLayout: FunctionComponent<Props> = ({ children, breadcrumbs }) => {
                 >
                   <Link href="/dashboard/leases">
                     <Typography
-                      startDecorator={<NotesIcon sx={{ marginRight: 1 }} />}
+                      startDecorator={<StyleIcon sx={{ marginRight: 1 }} />}
                     >
                       Mes Annonces
                     </Typography>

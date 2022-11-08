@@ -164,6 +164,24 @@ export const joyTheme: Theme = extendTheme({
         root: { margin: 0 }, // JoyAvatar default icons
       },
     },
+    JoyMenu: {
+      styleOverrides: {
+        root: { backgroundColor: "#262626" },
+      },
+    },
+    JoyMenuItem: {
+      styleOverrides: {
+        root: {
+          color: "#ffffff",
+          "&:hover": { backgroundColor: "#474747", color: "#ffffff" },
+        },
+      },
+    },
+    JoyListItemDecorator: {
+      styleOverrides: {
+        root: { color: "inherit" },
+      },
+    },
   },
 });
 
