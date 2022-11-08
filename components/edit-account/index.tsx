@@ -132,7 +132,9 @@ const EditAccount = ({ user }: { user: IUser }) => {
 
       <FormControl error={!!errors.email}>
         <FormLabel>Nouvelle adresse email</FormLabel>
-        <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
+        <FormHelperText
+          sx={{ marginTop: "-5px", marginBottom: "10px", color: "#646872" }}
+        >
           Votre adresse email précédente continuera d'être associée à votre
           compte tant que vous n'aurez pas confirmé la nouvelle.
         </FormHelperText>

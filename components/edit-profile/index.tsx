@@ -42,6 +42,7 @@ import { IUpdateUser } from "../../interfaces/IUserUpdate";
 /* ---------------------------------- CONST --------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -52,7 +53,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [inputFile, setInputFile] = useState<File | Blob | undefined>();
-  const [inputFileError, setInputFileError] = useState<string | undefined>();
+  const [hasInputFileError, setHasInputFileError] = useState<boolean>(false);
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
   const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
 
@@ -78,14 +79,15 @@ const EditProfile = ({ user }: { user: IUser }) => {
   const onAddInputFile = async (
     e: ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
+    setHasInputFileError(false);
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file.size > 5000000) {
-      setInputFileError("Le fichier doit faire moins de 5MB");
+      setHasInputFileError(true);
       return;
     }
     if (!["image/jpeg", "image/png"].includes(file.type)) {
-      setInputFileError("Le fichier doit être au format JPG, JPEG ou PNG.");
+      setHasInputFileError(true);
       return;
     }
     const compressedFile = await compressFile(file);
@@ -174,47 +176,150 @@ const EditProfile = ({ user }: { user: IUser }) => {
           </Alert>
         ))}
 
-      {inputFileError && (
-        <Typography>
-          <Alert
-            startDecorator={<ErrorIcon />}
-            variant="soft"
-            color="danger"
-            sx={{ mb: 2 }}
-          >
-            {inputFileError}
-          </Alert>
-        </Typography>
-      )}
-
-      <Box sx={{ display: "flex", gap: 6 }}>
-        <Box sx={{ flex: "1 1" }}>
-          <FormControl error={!!errors.firstName}>
-            <FormLabel>Prénom</FormLabel>
-            <Input
-              type="text"
+      <Box>
+        <FormControl sx={{ flex: "0 0" }}>
+          <FormLabel>
+            Photo
+            <Chip
+              size="sm"
+              color="info"
               variant="soft"
-              defaultValue={user.firstName}
-              {...register("firstName", {
-                required: "Ce champs est requis",
-                minLength: {
-                  value: 3,
-                  message: "3 caractères minimum",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "30 caractères maximum",
-                },
-              })}
+              sx={{ marginLeft: 1, fontWeight: 400 }}
+            >
+              Optionnel
+            </Chip>
+          </FormLabel>
+          <FormHelperText
+            sx={{
+              marginTop: "-5px",
+              marginBottom: "10px",
+              color: hasInputFileError ? "#d3232f" : "auto",
+            }}
+          >
+            Format : JPG ou PNG. Poids max : 5Mo.
+          </FormHelperText>
+          <FormLabel sx={{ marginBottom: 0 }}>
+            <Input
+              type="file"
+              sx={{ display: "none" }}
+              onChange={onAddInputFile}
             />
-            {errors.firstName && (
-              <FormHelperText>{errors.firstName.message}</FormHelperText>
+            <Sheet
+              sx={{
+                width: 120,
+                borderRadius: "9999px",
+                overflow: "auto",
+                cursor: "pointer",
+              }}
+            >
+              {!inputFile && !user.profilePictureName && (
+                <AspectRatio ratio={1}>
+                  <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
+                    <AddIcon />
+                  </Typography>
+                </AspectRatio>
+              )}
+              {!inputFile && user.profilePictureName && (
+                <Card sx={{ width: 120, height: 120, boxShadow: "none" }}>
+                  <CardCover>
+                    <img
+                      src={
+                        PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
+                      }
+                    />
+                  </CardCover>
+                </Card>
+              )}
+              {inputFile && (
+                <Card sx={{ width: 120, height: 120, boxShadow: "none" }}>
+                  <CardCover>
+                    <img src={URL.createObjectURL(inputFile)} />
+                  </CardCover>
+                </Card>
+              )}
+            </Sheet>
+          </FormLabel>
+          <Button
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            disabled={isDeletingFile ? true : false}
+            onClick={onDeleteProfilePicture}
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              left: "80px",
+              backgroundColor: "#ffffff",
+              borderRadius: "9999px",
+            }}
+          >
+            {isDeletingFile ? (
+              <CircularProgress color="neutral" thickness={3} />
+            ) : (
+              <DeleteIcon />
             )}
-          </FormControl>
+          </Button>
+        </FormControl>
 
-          <FormControl error={!!errors.lastName}>
+        <FormControl error={!!errors.firstName}>
+          <FormLabel>Prénom</FormLabel>
+          <Input
+            type="text"
+            variant="soft"
+            defaultValue={user.firstName}
+            {...register("firstName", {
+              required: "Ce champs est requis",
+              minLength: {
+                value: 3,
+                message: "3 caractères minimum",
+              },
+              maxLength: {
+                value: 30,
+                message: "30 caractères maximum",
+              },
+            })}
+          />
+          {errors.firstName && (
+            <FormHelperText>{errors.firstName.message}</FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl error={!!errors.lastName}>
+          <FormLabel>
+            Nom
+            <Chip
+              size="sm"
+              color="info"
+              variant="soft"
+              sx={{ marginLeft: 1, fontWeight: 400 }}
+            >
+              Optionnel
+            </Chip>
+          </FormLabel>
+          <Input
+            type="text"
+            variant="soft"
+            defaultValue={user.lastName}
+            {...register("lastName", {
+              minLength: {
+                value: 3,
+                message: "3 caractères minimum",
+              },
+              maxLength: {
+                value: 30,
+                message: "30 caractères maximum",
+              },
+            })}
+          />
+          {errors.lastName && (
+            <FormHelperText>{errors.lastName.message}</FormHelperText>
+          )}
+        </FormControl>
+
+        {user.role === UserRoleEnum.OWNER && (
+          <FormControl error={!!errors.phoneNumber}>
             <FormLabel>
-              Nom
+              Numéro de téléphone
               <Chip
                 size="sm"
                 color="info"
@@ -224,26 +329,30 @@ const EditProfile = ({ user }: { user: IUser }) => {
                 Optionnel
               </Chip>
             </FormLabel>
+            <FormHelperText
+              sx={{ marginTop: "-5px", marginBottom: "10px", color: "#646872" }}
+            >
+              Le numéro sera affiché avec vos annonces.
+            </FormHelperText>
             <Input
               type="text"
               variant="soft"
-              defaultValue={user.lastName}
-              {...register("lastName", {
-                minLength: {
-                  value: 3,
-                  message: "3 caractères minimum",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "30 caractères maximum",
+              defaultValue={user.phoneNumber}
+              {...register("phoneNumber", {
+                pattern: {
+                  value: /^[0-9]{1,10}$/g,
+                  message:
+                    "10 chiffres uniquement, sans espace ni indicatif pays.",
                 },
               })}
             />
-            {errors.lastName && (
-              <FormHelperText>{errors.lastName.message}</FormHelperText>
+            {errors.phoneNumber && (
+              <FormHelperText>{errors.phoneNumber.message}</FormHelperText>
             )}
           </FormControl>
+        )}
 
+        {user.role === UserRoleEnum.SEEKER && (
           <FormControl>
             <FormLabel>
               Message type
@@ -268,97 +377,16 @@ const EditProfile = ({ user }: { user: IUser }) => {
               maxRows={5}
             />
           </FormControl>
+        )}
 
-          {!isUploadingFile && !isLoading && (
-            <Button type="submit">Enregistrer</Button>
-          )}
-          {(isUploadingFile || isLoading) && (
-            <Button disabled>
-              <CircularProgress color="danger" thickness={3} />
-            </Button>
-          )}
-        </Box>
-
-        <FormControl sx={{ flex: "0 0" }}>
-          <FormLabel>
-            Photo
-            <Chip
-              size="sm"
-              color="info"
-              variant="soft"
-              sx={{ marginLeft: 1, fontWeight: 400 }}
-            >
-              Optionnel
-            </Chip>
-          </FormLabel>
-          <FormHelperText sx={{ marginBottom: "15px" }}>
-            Format : JPG ou PNG. Poids max : 5Mo.
-          </FormHelperText>
-          <FormLabel>
-            <Input
-              type="file"
-              sx={{ display: "none" }}
-              onChange={onAddInputFile}
-            />
-            <Sheet
-              sx={{
-                width: 150,
-                borderRadius: "9999px",
-                overflow: "auto",
-                cursor: "pointer",
-              }}
-            >
-              {!inputFile && !user.profilePictureName && (
-                <AspectRatio ratio={1}>
-                  <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
-                    <AddIcon />
-                  </Typography>
-                </AspectRatio>
-              )}
-              {!inputFile && user.profilePictureName && (
-                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
-                  <CardCover>
-                    <img
-                      src={
-                        PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
-                      }
-                    />
-                  </CardCover>
-                </Card>
-              )}
-              {inputFile && (
-                <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
-                  <CardCover>
-                    <img src={URL.createObjectURL(inputFile)} />
-                  </CardCover>
-                </Card>
-              )}
-            </Sheet>
-          </FormLabel>
-          {!isDeletingFile && (
-            <Button
-              variant="outlined"
-              color="neutral"
-              size="sm"
-              fullWidth
-              onClick={onDeleteProfilePicture}
-              startDecorator={<DeleteIcon />}
-            >
-              Supprimer
-            </Button>
-          )}
-          {isDeletingFile && (
-            <Button
-              variant="outlined"
-              color="neutral"
-              size="sm"
-              fullWidth
-              disabled
-            >
-              <CircularProgress color="neutral" thickness={3} />
-            </Button>
-          )}
-        </FormControl>
+        {!isUploadingFile && !isLoading && (
+          <Button type="submit">Enregistrer</Button>
+        )}
+        {(isUploadingFile || isLoading) && (
+          <Button disabled>
+            <CircularProgress color="danger" thickness={3} />
+          </Button>
+        )}
       </Box>
     </form>
   );

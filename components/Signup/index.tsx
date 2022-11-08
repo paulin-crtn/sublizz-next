@@ -22,6 +22,7 @@ import SuccessAnimation from "../success-animation";
 import { signup } from "../../utils/fetch/fetchAuth";
 import ISignup from "../../interfaces/ISignup";
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -103,8 +104,8 @@ const Signup = ({
                   }}
                 >
                   <Radio
-                    label="Je cherche un logement"
-                    value={UserRoleEnum.SEEKER}
+                    label="Je propose un logement"
+                    value={UserRoleEnum.OWNER}
                     variant="solid"
                     color="primary"
                     disableIcon
@@ -114,8 +115,8 @@ const Signup = ({
                     }}
                   />
                   <Radio
-                    label="Je propose un logement"
-                    value={UserRoleEnum.OWNER}
+                    label="Je cherche un logement"
+                    value={UserRoleEnum.SEEKER}
                     variant="outlined"
                     color="primary"
                     disableIcon
@@ -146,6 +147,17 @@ const Signup = ({
 
       {stepIndex === 1 && (
         <Box>
+          <Alert
+            color="info"
+            startDecorator={<PrivacyTipIcon />}
+            sx={{
+              alignItems: "flex-start",
+              marginBottom: 3,
+            }}
+          >
+            Vos données personnelles ne sont pas revendues et nous ne spammons
+            pas.
+          </Alert>
           <FormControl error={!!errors.firstName}>
             <FormLabel>Prénom</FormLabel>
             <Input
