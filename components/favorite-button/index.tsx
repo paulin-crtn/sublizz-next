@@ -55,14 +55,13 @@ const FavoriteButton: FunctionComponent<{
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Button
-      fullWidth
+      size="lg"
       variant="outlined"
-      color="neutral"
-      startDecorator={leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      color={leaseFavorite ? "primary" : "neutral"}
       onClick={handleClick}
-      sx={{ mt: 1, backgroundColor: "#ffffff" }}
+      sx={{ width: "fit-content", marginLeft: "auto" }}
     >
-      {leaseFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+      {leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
     </Button>
   );
 };

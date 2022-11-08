@@ -47,7 +47,7 @@ const Signin = ({
         localStorage.setItem("sublizz", data.access_token);
         const user = await customFetch("users/me", "GET");
         setUser(user);
-        toast.success(`Bienvenue ${user?.firstName}`, {
+        toast.success(`Ravi de vous revoir ${user?.firstName}`, {
           style: TOAST_STYLE,
         });
         signCallback?.();

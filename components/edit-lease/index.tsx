@@ -42,7 +42,7 @@ import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
 /* ---------------------------------- ICONS --------------------------------- */
 import ErrorIcon from "@mui/icons-material/Error";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import ClearIcon from "@mui/icons-material/Clear";
 /* ---------------------------------- ENUM ---------------------------------- */
 import { LeaseTypeEnum } from "../../enum/LeaseTypeEnum";
 /* ---------------------------------- CONST --------------------------------- */
@@ -276,7 +276,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                       onClick={() => setValue("endDate", null)}
                       sx={{ marginLeft: 0.5 }}
                     >
-                      <HighlightOffIcon />
+                      <ClearIcon />
                     </Button>
                   </Box>
                 )}
@@ -371,6 +371,15 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       <Box display="flex">
         <FormControl error={!!errors.room} sx={{ flex: "1 1", marginRight: 2 }}>
           <FormLabel>Nombre de pièces</FormLabel>
+          <FormHelperText
+            sx={{
+              marginTop: "-5px",
+              marginBottom: "10px",
+              color: "#646872",
+            }}
+          >
+            Hors cuisine et salle de bain.
+          </FormHelperText>
           <Input
             type="number"
             variant="soft"
@@ -397,7 +406,16 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           error={!!errors.surface}
           sx={{ flex: "1 1", marginRight: 2 }}
         >
-          <FormLabel>Surface en m2</FormLabel>
+          <FormLabel>Surface</FormLabel>
+          <FormHelperText
+            sx={{
+              marginTop: "-5px",
+              marginBottom: "10px",
+              color: "#646872",
+            }}
+          >
+            En m2.
+          </FormHelperText>
           <Input
             type="number"
             variant="soft"
@@ -419,31 +437,40 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
             <FormHelperText>{errors.surface.message}</FormHelperText>
           )}
         </FormControl>
-
-        <FormControl error={!!errors.pricePerMonth} sx={{ flex: "1 1" }}>
-          <FormLabel>Prix par mois CC</FormLabel>
-          <Input
-            type="number"
-            variant="soft"
-            defaultValue={lease ? lease.pricePerMonth : undefined}
-            {...register("pricePerMonth", {
-              valueAsNumber: true,
-              required: "Ce champs est requis",
-              min: {
-                value: 200,
-                message: "200€ minimum",
-              },
-              max: {
-                value: 2000,
-                message: "2000€ maximum",
-              },
-            })}
-          />
-          {errors.pricePerMonth && (
-            <FormHelperText>{errors.pricePerMonth.message}</FormHelperText>
-          )}
-        </FormControl>
       </Box>
+
+      <FormControl error={!!errors.pricePerMonth} sx={{ flex: "1 1" }}>
+        <FormLabel>Prix par mois</FormLabel>
+        <FormHelperText
+          sx={{
+            marginTop: "-5px",
+            marginBottom: "10px",
+            color: "#646872",
+          }}
+        >
+          Charges comprises, en euros.
+        </FormHelperText>
+        <Input
+          type="number"
+          variant="soft"
+          defaultValue={lease ? lease.pricePerMonth : undefined}
+          {...register("pricePerMonth", {
+            valueAsNumber: true,
+            required: "Ce champs est requis",
+            min: {
+              value: 200,
+              message: "200€ minimum",
+            },
+            max: {
+              value: 2000,
+              message: "2000€ maximum",
+            },
+          })}
+        />
+        {errors.pricePerMonth && (
+          <FormHelperText>{errors.pricePerMonth.message}</FormHelperText>
+        )}
+      </FormControl>
 
       <FormControl>
         <FormLabel>

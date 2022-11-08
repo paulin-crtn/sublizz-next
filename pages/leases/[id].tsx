@@ -46,8 +46,6 @@ import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Button from "@mui/joy/Button";
-/* --------------------------------- STYLES --------------------------------- */
-import styles from "../../styles/Lease.module.css";
 /* -------------------------------- CONSTANT -------------------------------- */
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { TOAST_STYLE } from "../../const/toastStyle";
@@ -123,21 +121,30 @@ const LeasePage: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <header className={styles.header}>
-        <div>
+      <Box component="header" display="flex" justifyContent="space-between">
+        <Box>
           <Typography component="h1" level="h2">
             {lease.city}
           </Typography>
           <LeaseDates lease={lease} isMinimized={false} />
           <LeaseChips lease={lease} />
-        </div>
+        </Box>
 
-        <div>
-          <Typography level="h4" fontWeight={500}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Typography level="h3" fontWeight={200}>
             {lease.pricePerMonth}€ CC
           </Typography>
-        </div>
-      </header>
+          {/** Favorite */}
+          <FavoriteButton
+            leaseId={lease.id}
+            setOpenSignAlert={setOpenSignAlert}
+          />
+        </Box>
+      </Box>
 
       <main>
         {lease.leaseImages && !!lease.leaseImages.length && (
@@ -264,12 +271,6 @@ const LeasePage: NextPage = ({
                     )}
               </Button>
             )}
-
-            {/** Favorite */}
-            <FavoriteButton
-              leaseId={lease.id}
-              setOpenSignAlert={setOpenSignAlert}
-            />
           </Box>
         </Box>
 
