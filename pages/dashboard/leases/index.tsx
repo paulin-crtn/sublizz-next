@@ -9,7 +9,6 @@ import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Add from "@mui/icons-material/Add";
 import Alert from "@mui/joy/Alert";
-import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../../context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
@@ -19,6 +18,7 @@ import MyLease from "../../../components/my-lease";
 import { ILeaseDetail } from "../../../interfaces/lease";
 import Divider from "@mui/joy/Divider";
 import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
+import LeaseSkeleton from "../../../components/lease-skeleton";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -49,11 +49,7 @@ const UserLeasesPage: NextPage = () => {
       <AccountLayout
         breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
       >
-        <Box sx={{ height: "100%", display: "flex" }}>
-          <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <CircularProgress size="lg" color="neutral" />
-          </Box>
-        </Box>
+        <LeaseSkeleton />
       </AccountLayout>
     );
   }

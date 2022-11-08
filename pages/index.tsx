@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import type { NextPage } from "next";
+import Link from "next/link";
 import FormControl from "@mui/joy/FormControl";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -10,10 +11,8 @@ import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Image from "next/future/image";
 import homePic from "../public/img/home.jpg";
-import Link from "next/link";
 import InputCitySearch from "../components/input-city-search";
 import Box from "@mui/joy/Box";
-import styles from "../styles/Home.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -70,6 +69,16 @@ const Home: NextPage = () => {
           fontWeight={600}
         >
           Dernières annonces publiées
+        </Typography>
+
+        <Typography
+          level="h3"
+          marginTop="60px"
+          marginBottom="30px"
+          fontFamily="Bitter"
+          fontWeight={600}
+        >
+          Questions fréquentes
         </Typography>
       </main>
     </>
