@@ -14,7 +14,7 @@
   background-color: #ffffff;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .container .logo {

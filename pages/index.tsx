@@ -7,7 +7,8 @@ import type {
   NextPage,
 } from "next";
 import Link from "next/link";
-import FormControl from "@mui/joy/FormControl";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
@@ -31,13 +32,18 @@ import Signin from "../components/signin";
 import PasswordReset from "../components/password-reset";
 import { useState } from "react";
 import Signup from "../components/signup";
-import CardOverflow from "@mui/joy/CardOverflow";
 import Alert from "@mui/joy/Alert";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-import { primaryColor } from "../theme";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import InfoIcon from "@mui/icons-material/Info";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PowerIcon from "@mui/icons-material/Power";
+import HourglassFullIcon from "@mui/icons-material/HourglassFull";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
+const LeaseMapWithNoSSR = dynamic(() => import("../components/lease-map"), {
+  ssr: false,
+});
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -45,6 +51,9 @@ import InfoIcon from "@mui/icons-material/Info";
 const Home: NextPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
@@ -65,24 +74,7 @@ const Home: NextPage = ({
   return (
     <>
       <header>
-        <Box sx={{ margin: "0 0 60px 0", width: "65%" }}>
-          <Typography
-            component="h1"
-            level="h1"
-            fontFamily="Bitter"
-            fontSize={48}
-            fontWeight={800}
-            lineHeight={1.2}
-          >
-            Locations et sous-locations temporaires entre particuliers
-          </Typography>
-          <Typography component="h2" level="h5" marginTop={2} fontWeight={300}>
-            Réalisez vos projets en découvrant nos offres de locations de
-            courtes durées sans frais d’agence 🙌
-          </Typography>
-        </Box>
-
-        <Card sx={{ height: "300px" }}>
+        <Card>
           <CardCover>
             <Image
               src={homePic}
@@ -90,16 +82,37 @@ const Home: NextPage = ({
               placeholder="blur"
             />
           </CardCover>
-          <CardContent>
-            <FormControl sx={{ my: "auto", ml: "30px" }}>
-              <Typography level="h4" mb={3}>
-                Dans quelle ville cherchez-vous ?
+          <CardCover />
+          <CardContent sx={{ marginX: 4, marginY: 6 }}>
+            <Box sx={{ marginBottom: 4 }}>
+              <Typography
+                component="h1"
+                level="h1"
+                width="55%"
+                fontFamily="Bitter"
+                fontSize={42}
+                fontWeight={800}
+                lineHeight={1.2}
+              >
+                Locations et sous-locations temporaires entre particuliers
               </Typography>
-              <InputCitySearch isLarge={true} />
+              <Typography
+                component="h2"
+                level="h5"
+                width="40%"
+                marginTop={2}
+                fontWeight={300}
+              >
+                Découvrez nos offres de location de courte et moyenne durée sans
+                frais d’agence
+              </Typography>
+            </Box>
+            <InputCitySearch isLarge={true} />
+            <Link href="/leases">
               <FormHelperText sx={{ mt: 2 }}>
-                <Link href="/leases">Voir toutes les annonces</Link>
+                Voir toutes les annonces
               </FormHelperText>
-            </FormControl>
+            </Link>
           </CardContent>
         </Card>
       </header>
@@ -127,81 +140,181 @@ const Home: NextPage = ({
                 </Link>
               ))}
             </Box>
-            <Box
-              flex="0 0 300px"
-              sx={{ backgroundColor: "#ccc", borderRadius: "10px" }}
-            >
-              hello
+            <Box flex="0 0 420px" sx={{ borderRadius: "10px" }}>
+              <LeaseMapWithNoSSR
+                leases={data.leases.slice(0, 3)}
+                isMultiple={true}
+              />
             </Box>
           </Box>
         )}
 
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 2,
+            mt: "40px",
+            padding: 4,
+            backgroundColor: "#262626",
+            borderRadius: "16px",
+          }}
+        >
+          <Typography
+            fontSize="1.5rem"
+            fontWeight="500"
+            marginRight="30px"
+            sx={{ color: "#ffffff" }}
+          >
+            Découvrez toutes nos offres de locations et de sous-locations
+          </Typography>
+          <Button
+            size="lg"
+            onClick={() => router.push("/leases")}
+            sx={{
+              backgroundColor: "#ffffff",
+              color: "#000000",
+              border: "none",
+              "&:hover": {
+                backgroundColor: "#eeeeee",
+              },
+            }}
+          >
+            Découvrir les annonces
+          </Button>
+        </Box>
+
+        {/** How it works */}
         <Box>
           <Typography
             level="h3"
-            marginTop="40px"
+            marginTop="60px"
             marginBottom="20px"
             fontFamily="Bitter"
             fontSize="2.2rem"
             fontWeight={700}
           >
-            Louer ou sous-louer en toute simplicité
+            Comment ça marche ?
           </Typography>
           <Typography
             maxWidth="820px"
-            marginBottom={3}
+            marginBottom="30px"
             fontSize="1.1rem"
             fontWeight={300}
           >
-            La carte des logements est un service de mise en relation entre
-            particuliers visant à faciliter la mise en location ou sous-location
-            d’un appartement ou d’une maison.
+            La carte des logements vous propose un fonctionnement simple afin de
+            vous offrir une mise en relation rapide de particulier à
+            particulier.
           </Typography>
-          <Box display="flex" alignItems="stretch" gap={2}>
-            {[
-              {
-                title: "Bail étudiant",
-                description:
-                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs.",
-                duration: "Durée de 9 mois",
-                imgName: "student.jpg",
-                info: "Logement meublé",
-              },
-              {
-                title: "Bail mobilité",
-                description:
-                  "Pour les salariés en mission temporaire ou en formation professionnelle.",
-                duration: "Durée de 1 à 10 mois",
-                imgName: "mobility.jpg",
-                info: "Logement meublé",
-              },
-              {
-                title: "Colocation",
-                description:
-                  "Pour les budgets plus limités ou les personnes à la recherche de convivialité.",
-                duration: "Durée variable",
-                imgName: "share.jpg",
-                info: "Avec ou sans clause de solidarité",
-              },
-              {
-                title: "Sous-location",
-                description:
-                  "Pour s’absenter de son logement sans perdre de loyer ou se loger temporairement.",
-                duration: "Durée variable",
-                imgName: "sublease.jpg",
-                info: "Avec accord du propriétaire",
-              },
-            ].map(({ title, description, duration, imgName, info }) => (
-              <Box key={title} flex="1 1">
-                <LeaseType
-                  title={title}
-                  description={description}
-                  duration={duration}
-                  imgName={imgName}
-                  info={info}
-                />
+          <Box display="flex" alignItems="stretch" gap={6}>
+            {/** OWNER */}
+            <Box sx={{ flex: "1 1" }}>
+              <Typography
+                component="h4"
+                level="h5"
+                fontWeight={400}
+                sx={{
+                  padding: 2,
+                  // @ts-ignore
+                  background: "linear-gradient(to right, #4700cc, #920be3)",
+                  color: "#ffffff",
+                  borderRadius: "12px",
+                }}
+              >
+                Je propose un logement
+              </Typography>
+              <Box sx={{ marginY: 2 }}>
+                <List>
+                  <ListItem>
+                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
+                    gratuitement en 2 minutes
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>2️⃣</ListItemDecorator>Cliquez sur
+                    « Publier une annonce » puis remplissez le formulaire
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>3️⃣</ListItemDecorator>
+                    Ajoutez jusqu'à 4 photos
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>4️⃣</ListItemDecorator>
+                    Echangez avec de futurs locataires via la messagerie
+                    intégrée
+                  </ListItem>
+                </List>
+                <Alert
+                  color="info"
+                  startDecorator={<PowerIcon />}
+                  sx={{ mt: 1 }}
+                >
+                  Vous pouvez suspendre la publication de votre annonce sans la
+                  supprimer.
+                </Alert>
+                <Alert
+                  color="info"
+                  startDecorator={<PhoneAndroidIcon />}
+                  sx={{ mt: 1 }}
+                >
+                  Renseignez votre numéro de téléphone pour être contacté plus
+                  rapidement.
+                </Alert>
               </Box>
-            ))}
+            </Box>
+
+            {/** SEEKER */}
+            <Box sx={{ flex: "1 1" }}>
+              <Typography
+                component="h4"
+                level="h5"
+                fontWeight={400}
+                sx={{
+                  padding: 2,
+                  // @ts-ignore
+                  background: "linear-gradient(to right, #4700cc, #920be3)",
+                  color: "#ffffff",
+                  borderRadius: "12px",
+                }}
+              >
+                Je cherche un logement
+              </Typography>
+              <Box sx={{ marginY: 2 }}>
+                <List>
+                  <ListItem>
+                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
+                    gratuitement en 2 minutes
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>2️⃣</ListItemDecorator>Contactez l'auteur
+                    d'une annonce via la messagerie intégrée
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>3️⃣</ListItemDecorator>
+                    Posez vos questions et échangez sur votre situation
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>4️⃣</ListItemDecorator>
+                    Visitez le logement et positionnez vous 🤞
+                  </ListItem>
+                </List>
+              </Box>
+              <Alert
+                color="info"
+                startDecorator={<FavoriteIcon />}
+                sx={{ mt: 1 }}
+              >
+                Vous pouvez enregistrer une annonce en favoris et la retrouver
+                plus tard.
+              </Alert>
+              <Alert
+                color="info"
+                startDecorator={<HourglassFullIcon />}
+                sx={{ mt: 1 }}
+              >
+                Gagnez du temps en enregistrant une réponse type.
+              </Alert>
+            </Box>
           </Box>
         </Box>
 
@@ -218,7 +331,7 @@ const Home: NextPage = ({
           }}
         >
           <Typography
-            fontSize="1.7rem"
+            fontSize="1.5rem"
             fontWeight="500"
             marginRight="30px"
             sx={{ color: "#ffffff" }}
@@ -260,135 +373,79 @@ const Home: NextPage = ({
           </Box>
         </Box>
 
-        {/** How it works */}
         <Box>
           <Typography
             level="h3"
-            marginTop="40px"
+            marginTop="60px"
             marginBottom="20px"
             fontFamily="Bitter"
             fontSize="2.2rem"
             fontWeight={700}
           >
-            Fonctionnement de la carte des logements
+            Trouvez le logement qui convient à votre situation
           </Typography>
-          <Box display="flex" alignItems="stretch" gap={2}>
-            {/** OWNER */}
-            <Card
-              variant="outlined"
-              sx={{ flex: "1 1", height: "100%", boxShadow: "none" }}
-            >
-              <CardOverflow sx={{ padding: 0 }}>
-                <Typography
-                  component="h4"
-                  level="h5"
-                  fontWeight={400}
-                  sx={{
-                    padding: 2,
-                    background: primaryColor.main,
-                    color: "#ffffff",
-                    borderRadius: "12px 12px 0 0",
-                  }}
-                >
-                  Je propose un logement
-                </Typography>
-              </CardOverflow>
-              <Box sx={{ marginY: 2 }}>
-                <List>
-                  <ListItem>
-                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
-                    gratuitement en 2 minutes
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>2️⃣</ListItemDecorator>Cliquez sur
-                    « Publier une annonce »
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>3️⃣</ListItemDecorator>
-                    Remplissez le formulaire, ajoutez des photos et publié
-                    l’annonce
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>4️⃣</ListItemDecorator>
-                    Vous serez contacté via la messagerie intégrée ou sur votre
-                    téléphone si vous l’avez renseigné
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>#️⃣</ListItemDecorator>
-                    Optionnel : augmenter votre taux de réponse en indiquant
-                    votre numéro de téléphone et en ajoutant une photo de profil
-                  </ListItem>
-                </List>
-                <Alert
-                  color="info"
-                  startDecorator={<InfoIcon />}
-                  sx={{ mt: 1 }}
-                >
-                  Vous pouvez suspendre la publication de votre annonce sans la
-                  supprimer.
-                </Alert>
+          <Typography
+            maxWidth="820px"
+            marginBottom="30px"
+            fontSize="1.1rem"
+            fontWeight={300}
+          >
+            La carte des logements est un service de mise en relation entre
+            particuliers permettant de louer ou de sous-louer facilement un
+            appartement ou une maison.
+          </Typography>
+          <Box display="flex" alignItems="stretch" gap={3}>
+            {[
+              {
+                title: "Bail étudiant",
+                description:
+                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs.",
+                duration: "Durée de 9 mois",
+                imgName: "student.jpg",
+                info: "Logement meublé",
+              },
+              {
+                title: "Bail mobilité",
+                description:
+                  "Pour les salariés en mission temporaire ou en formation professionnelle.",
+                duration: "Durée de 1 à 10 mois",
+                imgName: "mobility.jpg",
+                info: "Logement meublé",
+              },
+              {
+                title: "Colocation",
+                description:
+                  "Pour les budgets plus limités ou les personnes qui aiment la vie à plusieurs.",
+                duration: "Durée variable",
+                imgName: "share.jpg",
+                info: "Avec ou sans clause de solidarité",
+              },
+              {
+                title: "Sous-location",
+                description:
+                  "Pour s’absenter de son logement sans perdre de loyer ou se loger temporairement.",
+                duration: "Durée variable",
+                imgName: "sublease.jpg",
+                info: "Avec accord du propriétaire",
+              },
+            ].map(({ title, description, duration, imgName, info }) => (
+              <Box key={title} flex="1 1">
+                <LeaseType
+                  title={title}
+                  description={description}
+                  duration={duration}
+                  imgName={imgName}
+                  info={info}
+                />
               </Box>
-            </Card>
-
-            {/** SEEKER */}
-            <Card
-              variant="outlined"
-              sx={{ flex: "1 1", height: "100%", boxShadow: "none" }}
-            >
-              <CardOverflow sx={{ padding: 0 }}>
-                <Typography
-                  component="h4"
-                  level="h5"
-                  fontWeight={400}
-                  sx={{
-                    padding: 2,
-                    background: primaryColor.main,
-                    color: "#ffffff",
-                    borderRadius: "12px 12px 0 0",
-                  }}
-                >
-                  Je cherche un logement
-                </Typography>
-              </CardOverflow>
-              <Box sx={{ marginY: 2 }}>
-                <List>
-                  <ListItem>
-                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
-                    gratuitement en 2 minutes
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>2️⃣</ListItemDecorator>Une annonce vous
-                    intéresse ? Cliquez sur « Envoyer un message » ou contactez
-                    directement la personne par téléphone
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>3️⃣</ListItemDecorator>
-                    Posez vos questions, échangez sur votre situation et
-                    organisez des visites
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>#️⃣</ListItemDecorator>
-                    Optionnel : gagnez du temps en rédigeant une réponse type
-                    afin de disposer d’un message prêt à être envoyé
-                  </ListItem>
-                </List>
-              </Box>
-              <Alert
-                color="info"
-                startDecorator={<InfoIcon />}
-                sx={{ mt: "auto" }}
-              >
-                Vous pouvez enregistrer une annonce en favoris et la retrouver
-                plus tard.
-              </Alert>
-            </Card>
+            ))}
           </Box>
         </Box>
 
         <Typography
           level="h3"
-          marginTop="40px"
-          marginBottom="20px"
+          marginTop="60px"
+          marginBottom="30px"
           fontFamily="Bitter"
           fontSize="2.2rem"
           fontWeight={700}
