@@ -109,7 +109,7 @@ const Home: NextPage = ({
             </Box>
             <InputCitySearch isLarge={true} />
             <Link href="/leases">
-              <FormHelperText sx={{ mt: 2 }}>
+              <FormHelperText sx={{ mt: 2, cursor: "pointer" }}>
                 Voir toutes les annonces
               </FormHelperText>
             </Link>
