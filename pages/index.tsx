@@ -109,6 +109,7 @@ const Home: NextPage = ({
           marginTop="60px"
           marginBottom="30px"
           fontFamily="Bitter"
+          fontSize="2.2rem"
           fontWeight={700}
         >
           Dernières annonces publiées
@@ -141,6 +142,7 @@ const Home: NextPage = ({
             marginTop="40px"
             marginBottom="20px"
             fontFamily="Bitter"
+            fontSize="2.2rem"
             fontWeight={700}
           >
             Louer ou sous-louer en toute simplicité
@@ -153,8 +155,7 @@ const Home: NextPage = ({
           >
             La carte des logements est un service de mise en relation entre
             particuliers visant à faciliter la mise en location ou sous-location
-            d’un appartement ou d’une maison. Les baux et contrats suivants sont
-            disponibles :
+            d’un appartement ou d’une maison.
           </Typography>
           <Box display="flex" alignItems="stretch" gap={2}>
             {[
@@ -163,6 +164,7 @@ const Home: NextPage = ({
                 description:
                   "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs.",
                 duration: "Durée de 9 mois",
+                imgName: "student.jpg",
                 info: "Logement meublé",
               },
               {
@@ -170,6 +172,7 @@ const Home: NextPage = ({
                 description:
                   "Pour les salariés en mission temporaire ou en formation professionnelle.",
                 duration: "Durée de 1 à 10 mois",
+                imgName: "mobility.jpg",
                 info: "Logement meublé",
               },
               {
@@ -177,21 +180,24 @@ const Home: NextPage = ({
                 description:
                   "Pour les budgets plus limités ou les personnes à la recherche de convivialité.",
                 duration: "Durée variable",
+                imgName: "share.jpg",
                 info: "Avec ou sans clause de solidarité",
               },
               {
                 title: "Sous-location",
                 description:
-                  "Pour s’absenter de son logement sans perdre d’argent ou se loger temporairement.",
+                  "Pour s’absenter de son logement sans perdre de loyer ou se loger temporairement.",
                 duration: "Durée variable",
+                imgName: "sublease.jpg",
                 info: "Avec accord du propriétaire",
               },
-            ].map(({ title, description, duration, info }) => (
+            ].map(({ title, description, duration, imgName, info }) => (
               <Box key={title} flex="1 1">
                 <LeaseType
                   title={title}
                   description={description}
                   duration={duration}
+                  imgName={imgName}
                   info={info}
                 />
               </Box>
@@ -261,6 +267,7 @@ const Home: NextPage = ({
             marginTop="40px"
             marginBottom="20px"
             fontFamily="Bitter"
+            fontSize="2.2rem"
             fontWeight={700}
           >
             Fonctionnement de la carte des logements
@@ -383,6 +390,7 @@ const Home: NextPage = ({
           marginTop="40px"
           marginBottom="20px"
           fontFamily="Bitter"
+          fontSize="2.2rem"
           fontWeight={700}
         >
           Questions fréquentes

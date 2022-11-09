@@ -1,13 +1,14 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import Image from "next/future/image";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
-import { primaryColor } from "../../theme";
+import AspectRatio from "@mui/joy/AspectRatio";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -16,31 +17,31 @@ const LeaseType = ({
   title,
   description,
   duration,
+  imgName,
   info,
 }: {
   title: string;
   description: string;
   duration: string;
+  imgName: string;
   info: string | undefined;
 }) => {
   return (
     <Card variant="outlined" sx={{ height: "100%", boxShadow: "none" }}>
-      <CardOverflow sx={{ padding: 0 }}>
-        <Typography
-          component="h4"
-          level="h5"
-          fontWeight={400}
-          sx={{
-            padding: 2,
-            background: primaryColor.main,
-            color: "#ffffff",
-            borderRadius: "12px 12px 0 0",
-          }}
-        >
-          {title}
-        </Typography>
+      <CardOverflow>
+        <AspectRatio ratio="2">
+          <Image
+            src={"/img/" + imgName}
+            alt="illustration lease type"
+            width={400}
+            height={400}
+          />
+        </AspectRatio>
       </CardOverflow>
       <Box sx={{ marginY: 3 }}>
+        <Typography component="h4" level="h5" fontWeight={600} marginBottom={1}>
+          {title}
+        </Typography>
         <Typography sx={{ mb: 2 }}>{description}</Typography>
         <Alert>{info}</Alert>
       </Box>
