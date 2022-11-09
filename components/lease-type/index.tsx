@@ -7,6 +7,7 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
+import { primaryColor } from "../../theme";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -31,13 +32,7 @@ const LeaseType = ({
           fontWeight={400}
           sx={{
             padding: 2,
-            background: "#C33764" /* fallback for old browsers */,
-            // @ts-ignore
-            background:
-              "-webkit-linear-gradient(to right, #0071b8, #5d00ff)" /* Chrome 10-25, Safari 5.1-6 */,
-            // @ts-ignore
-            background:
-              "linear-gradient(to right, #0071b8, #5d00ff)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
+            background: primaryColor.main,
             color: "#ffffff",
             borderRadius: "12px 12px 0 0",
           }}
@@ -46,9 +41,7 @@ const LeaseType = ({
         </Typography>
       </CardOverflow>
       <Box sx={{ marginY: 3 }}>
-        <Typography fontWeight={300} sx={{ mb: 2 }}>
-          {description}
-        </Typography>
+        <Typography sx={{ mb: 2 }}>{description}</Typography>
         <Alert>{info}</Alert>
       </Box>
       <CardOverflow

@@ -31,6 +31,13 @@ import Signin from "../components/signin";
 import PasswordReset from "../components/password-reset";
 import { useState } from "react";
 import Signup from "../components/signup";
+import CardOverflow from "@mui/joy/CardOverflow";
+import Alert from "@mui/joy/Alert";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import { primaryColor } from "../theme";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import InfoIcon from "@mui/icons-material/Info";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -102,7 +109,7 @@ const Home: NextPage = ({
           marginTop="60px"
           marginBottom="30px"
           fontFamily="Bitter"
-          fontWeight={600}
+          fontWeight={700}
         >
           Dernières annonces publiées
         </Typography>
@@ -134,7 +141,7 @@ const Home: NextPage = ({
             marginTop="40px"
             marginBottom="20px"
             fontFamily="Bitter"
-            fontWeight={600}
+            fontWeight={700}
           >
             Louer ou sous-louer en toute simplicité
           </Typography>
@@ -247,12 +254,136 @@ const Home: NextPage = ({
           </Box>
         </Box>
 
+        {/** How it works */}
+        <Box>
+          <Typography
+            level="h3"
+            marginTop="40px"
+            marginBottom="20px"
+            fontFamily="Bitter"
+            fontWeight={700}
+          >
+            Fonctionnement de la carte des logements
+          </Typography>
+          <Box display="flex" alignItems="stretch" gap={2}>
+            {/** OWNER */}
+            <Card
+              variant="outlined"
+              sx={{ flex: "1 1", height: "100%", boxShadow: "none" }}
+            >
+              <CardOverflow sx={{ padding: 0 }}>
+                <Typography
+                  component="h4"
+                  level="h5"
+                  fontWeight={400}
+                  sx={{
+                    padding: 2,
+                    background: primaryColor.main,
+                    color: "#ffffff",
+                    borderRadius: "12px 12px 0 0",
+                  }}
+                >
+                  Je propose un logement
+                </Typography>
+              </CardOverflow>
+              <Box sx={{ marginY: 2 }}>
+                <List>
+                  <ListItem>
+                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
+                    gratuitement en 2 minutes
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>2️⃣</ListItemDecorator>Cliquez sur
+                    « Publier une annonce »
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>3️⃣</ListItemDecorator>
+                    Remplissez le formulaire, ajoutez des photos et publié
+                    l’annonce
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>4️⃣</ListItemDecorator>
+                    Vous serez contacté via la messagerie intégrée ou sur votre
+                    téléphone si vous l’avez renseigné
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>#️⃣</ListItemDecorator>
+                    Optionnel : augmenter votre taux de réponse en indiquant
+                    votre numéro de téléphone et en ajoutant une photo de profil
+                  </ListItem>
+                </List>
+                <Alert
+                  color="info"
+                  startDecorator={<InfoIcon />}
+                  sx={{ mt: 1 }}
+                >
+                  Vous pouvez suspendre la publication de votre annonce sans la
+                  supprimer.
+                </Alert>
+              </Box>
+            </Card>
+
+            {/** SEEKER */}
+            <Card
+              variant="outlined"
+              sx={{ flex: "1 1", height: "100%", boxShadow: "none" }}
+            >
+              <CardOverflow sx={{ padding: 0 }}>
+                <Typography
+                  component="h4"
+                  level="h5"
+                  fontWeight={400}
+                  sx={{
+                    padding: 2,
+                    background: primaryColor.main,
+                    color: "#ffffff",
+                    borderRadius: "12px 12px 0 0",
+                  }}
+                >
+                  Je cherche un logement
+                </Typography>
+              </CardOverflow>
+              <Box sx={{ marginY: 2 }}>
+                <List>
+                  <ListItem>
+                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
+                    gratuitement en 2 minutes
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>2️⃣</ListItemDecorator>Une annonce vous
+                    intéresse ? Cliquez sur « Envoyer un message » ou contactez
+                    directement la personne par téléphone
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>3️⃣</ListItemDecorator>
+                    Posez vos questions, échangez sur votre situation et
+                    organisez des visites
+                  </ListItem>
+                  <ListItem>
+                    <ListItemDecorator>#️⃣</ListItemDecorator>
+                    Optionnel : gagnez du temps en rédigeant une réponse type
+                    afin de disposer d’un message prêt à être envoyé
+                  </ListItem>
+                </List>
+              </Box>
+              <Alert
+                color="info"
+                startDecorator={<InfoIcon />}
+                sx={{ mt: "auto" }}
+              >
+                Vous pouvez enregistrer une annonce en favoris et la retrouver
+                plus tard.
+              </Alert>
+            </Card>
+          </Box>
+        </Box>
+
         <Typography
           level="h3"
           marginTop="40px"
           marginBottom="20px"
           fontFamily="Bitter"
-          fontWeight={600}
+          fontWeight={700}
         >
           Questions fréquentes
         </Typography>
