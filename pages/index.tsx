@@ -21,6 +21,7 @@ import { getLeases } from "../utils/fetch/fetchLease";
 import { ILease } from "../interfaces/lease";
 import LeaseCard from "../components/lease-card";
 import Divider from "@mui/joy/Divider";
+import LeaseType from "../components/lease-type";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -102,10 +103,74 @@ const Home: NextPage = ({
           </Box>
         )}
 
+        <Box>
+          <Typography
+            level="h3"
+            marginTop="40px"
+            marginBottom="20px"
+            fontFamily="Bitter"
+            fontWeight={600}
+          >
+            Louer ou sous-louer en toute simplicité
+          </Typography>
+          <Typography
+            maxWidth="820px"
+            marginBottom={3}
+            fontSize="1.1rem"
+            fontWeight={300}
+          >
+            La carte des logements est un service de mise en relation entre
+            particuliers visant à faciliter la mise en location ou sous-location
+            d’un appartement ou d’une maison. Les baux et contrats suivants sont
+            disponibles :
+          </Typography>
+          <Box display="flex" alignItems="stretch" gap={2}>
+            {[
+              {
+                title: "Bail étudiant",
+                description:
+                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs",
+                duration: "Durée de 9 mois",
+                info: "Logement meublé",
+              },
+              {
+                title: "Bail mobilité",
+                description:
+                  "Pour les salariés en mission temporaire ou en formation professionnelle.",
+                duration: "Durée de 1 à 10 mois",
+                info: "Logement meublé",
+              },
+              {
+                title: "Colocation",
+                description:
+                  "Pour les budgets plus limités ou les personnes à la recherche de convivialité.",
+                duration: "Durée variable",
+                info: "Avec ou sans clause de solidarité",
+              },
+              {
+                title: "Sous-location",
+                description:
+                  "Pour s’absenter de son logement sans perdre d’argent ou se loger temporairement.",
+                duration: "Durée variable",
+                info: "Avec accord du propriétaire",
+              },
+            ].map(({ title, description, duration, info }) => (
+              <Box key={title} flex="1 1">
+                <LeaseType
+                  title={title}
+                  description={description}
+                  duration={duration}
+                  info={info}
+                />
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
         <Typography
           level="h3"
-          marginTop="60px"
-          marginBottom="30px"
+          marginTop="40px"
+          marginBottom="20px"
           fontFamily="Bitter"
           fontWeight={600}
         >
