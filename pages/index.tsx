@@ -21,7 +21,16 @@ import { getLeases } from "../utils/fetch/fetchLease";
 import { ILease } from "../interfaces/lease";
 import LeaseCard from "../components/lease-card";
 import Divider from "@mui/joy/Divider";
+import Button from "@mui/joy/Button";
 import LeaseType from "../components/lease-type";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+import ModalLayout from "../components/modal-layout";
+import Signin from "../components/signin";
+import PasswordReset from "../components/password-reset";
+import { useState } from "react";
+import Signup from "../components/signup";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -29,6 +38,22 @@ import LeaseType from "../components/lease-type";
 const Home: NextPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [openSignin, setOpenSignin] = useState<boolean>(false);
+  const [openSignup, setOpenSignup] = useState<boolean>(false);
+  const [openPasswordReset, setOpenPasswordReset] = useState<boolean>(false);
+
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const switchSignModal = () => {
+    setOpenSignup((openSignup) => !openSignup);
+    setOpenSignin((openSignin) => !openSignin);
+  };
+
+  const switchToPasswordReset = () => {
+    setOpenSignin(false);
+    setOpenPasswordReset(true);
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
@@ -129,7 +154,7 @@ const Home: NextPage = ({
               {
                 title: "Bail étudiant",
                 description:
-                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs",
+                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs.",
                 duration: "Durée de 9 mois",
                 info: "Logement meublé",
               },
@@ -167,6 +192,61 @@ const Home: NextPage = ({
           </Box>
         </Box>
 
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 2,
+            mt: "40px",
+            padding: 4,
+            backgroundColor: "#262626",
+            borderRadius: "16px",
+          }}
+        >
+          <Typography
+            fontSize="1.7rem"
+            fontWeight="500"
+            marginRight="30px"
+            sx={{ color: "#ffffff" }}
+          >
+            Optez pour la simplicité
+          </Typography>
+          <Box
+            flex="0 0 400px"
+            sx={{ display: "flex", alignItems: "center", gap: 2 }}
+          >
+            <Button
+              size="lg"
+              onClick={() => setOpenSignup(true)}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+              }}
+            >
+              Créer un compte
+            </Button>
+            <Button
+              size="lg"
+              onClick={() => setOpenSignin(true)}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+              }}
+            >
+              Se connecter
+            </Button>
+          </Box>
+        </Box>
+
         <Typography
           level="h3"
           marginTop="40px"
@@ -177,6 +257,46 @@ const Home: NextPage = ({
           Questions fréquentes
         </Typography>
       </main>
+
+      {/** Signin */}
+      <Modal open={openSignin} onClose={() => setOpenSignin(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-signin">
+          <ModalClose />
+          <ModalLayout title="Se connecter">
+            <Signin
+              setOpenSignin={setOpenSignin}
+              switchSignModal={switchSignModal}
+              switchToPasswordReset={switchToPasswordReset}
+            />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Signup */}
+      <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
+        <ModalDialog size="lg" aria-labelledby="close-modal-signup">
+          <ModalClose />
+          <ModalLayout title="Créer un compte">
+            <Signup
+              setOpenSignup={setOpenSignup}
+              switchSignModal={switchSignModal}
+            />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Password Reset */}
+      <Modal
+        open={openPasswordReset}
+        onClose={() => setOpenPasswordReset(false)}
+      >
+        <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
+          <ModalClose />
+          <ModalLayout title="Réinitialiser le mot de passe">
+            <PasswordReset setOpenPasswordReset={setOpenPasswordReset} />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
     </>
   );
 };

@@ -33,8 +33,8 @@ const Signin = ({
   setOpenSignin: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
-  signCallback: (() => any) | undefined;
-  setSignCallback: Dispatch<SetStateAction<(() => any) | undefined>>;
+  signCallback?: (() => any) | undefined;
+  setSignCallback?: Dispatch<SetStateAction<(() => any) | undefined>>;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
@@ -51,7 +51,7 @@ const Signin = ({
           style: TOAST_STYLE,
         });
         signCallback?.();
-        setSignCallback(undefined);
+        setSignCallback ? setSignCallback(undefined) : null;
         setOpenSignin(false);
       },
     }

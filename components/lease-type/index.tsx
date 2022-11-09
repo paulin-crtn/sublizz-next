@@ -34,10 +34,10 @@ const LeaseType = ({
             background: "#C33764" /* fallback for old browsers */,
             // @ts-ignore
             background:
-              "-webkit-linear-gradient(to right, #4c39ff, #753bda)" /* Chrome 10-25, Safari 5.1-6 */,
+              "-webkit-linear-gradient(to right, #0071b8, #5d00ff)" /* Chrome 10-25, Safari 5.1-6 */,
             // @ts-ignore
             background:
-              "linear-gradient(to right, #4c39ff, #753bda)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
+              "linear-gradient(to right, #0071b8, #5d00ff)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */,
             color: "#ffffff",
             borderRadius: "12px 12px 0 0",
           }}
