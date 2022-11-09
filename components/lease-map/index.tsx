@@ -52,6 +52,10 @@ const LeaseMap = ({
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
         //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        /**
+         * https://studio.mapbox.com
+         * https://www.youtube.com/watch?v=b6Oh4ZBKf6o
+         */
         url="https://api.mapbox.com/styles/v1/paulin-crtn/cla9yw4j6006d14ptbi3jtoou/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGF1bGluLWNydG4iLCJhIjoiY2xhOXlmMTY1MDJudzN2bGZ1YWhwZ3V3biJ9.MLYpFVzGbIR3q0t6tsibxQ"
       />
       {isMultiple && <Bounds leases={leases} />}
