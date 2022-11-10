@@ -66,7 +66,7 @@ const LeasesPage: NextPage = ({
     <>
       <Head>
         <title>
-          Annonces de locations et de sous-location | lacartedeslogements
+          Annonces de locations et de sous-locations | lacartedeslogements
         </title>
         <meta
           name="description"
