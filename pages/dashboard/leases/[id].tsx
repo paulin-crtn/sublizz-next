@@ -58,6 +58,7 @@ const EditLeasePage: NextPage = () => {
   if (isLoading) {
     return (
       <AccountLayout
+        pageTitle="Modifier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
@@ -74,6 +75,7 @@ const EditLeasePage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <AccountLayout
+        pageTitle="Modifier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
@@ -94,17 +96,21 @@ const EditLeasePage: NextPage = () => {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
-      <AccountLayout
-        breadcrumbs={
-          <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
-        }
-      >
-        <Box width="65%">
+    <AccountLayout
+      pageTitle="Modifier une annonce"
+      breadcrumbs={
+        <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
+      }
+    >
+      <Box width="65%">
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+          adapterLocale={frLocale}
+        >
           <EditLease lease={data} />
-        </Box>
-      </AccountLayout>
-    </LocalizationProvider>
+        </LocalizationProvider>
+      </Box>
+    </AccountLayout>
   );
 };
 

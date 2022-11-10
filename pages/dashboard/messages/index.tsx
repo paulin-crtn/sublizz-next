@@ -43,7 +43,10 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
+      <AccountLayout
+        pageTitle="Messagerie"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
+      >
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
@@ -55,7 +58,10 @@ const UserMessagesPage: NextPage = () => {
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
+      <AccountLayout
+        pageTitle="Messagerie"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
+      >
         {error.message.split(",").map((msg) => (
           <Alert
             startDecorator={<ErrorIcon />}
@@ -73,7 +79,10 @@ const UserMessagesPage: NextPage = () => {
 
   if (data && !data.length) {
     return (
-      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
+      <AccountLayout
+        pageTitle="Messagerie"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
+      >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez envoyé aucun message.
@@ -89,7 +98,10 @@ const UserMessagesPage: NextPage = () => {
   }
 
   return (
-    <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}>
+    <AccountLayout
+      pageTitle="Messagerie"
+      breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
+    >
       <Box>
         <Alert
           variant="soft"

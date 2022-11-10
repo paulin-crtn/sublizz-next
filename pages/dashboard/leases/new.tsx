@@ -49,6 +49,7 @@ const EditLeasePage: NextPage = () => {
   if (userLeases.length >= 2) {
     return (
       <AccountLayout
+        pageTitle="Publier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
         }
@@ -78,17 +79,21 @@ const EditLeasePage: NextPage = () => {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={frLocale}>
-      <AccountLayout
-        breadcrumbs={
-          <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
-        }
-      >
-        <Box width="65%">
+    <AccountLayout
+      pageTitle="Publier une annonce"
+      breadcrumbs={
+        <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
+      }
+    >
+      <Box width="65%">
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+          adapterLocale={frLocale}
+        >
           <EditLease lease={undefined} />
-        </Box>
-      </AccountLayout>
-    </LocalizationProvider>
+        </LocalizationProvider>
+      </Box>
+    </AccountLayout>
   );
 };
 

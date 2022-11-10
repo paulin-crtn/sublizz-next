@@ -7,6 +7,7 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/future/image";
@@ -85,6 +86,15 @@ const Home: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
+      <Head>
+        <title>
+          Location et sous-location entre particuliers | lacartedeslogements
+        </title>
+        <meta
+          name="description"
+          content="⭐⭐⭐ Louer ou sous-louer de particulier à particulier grâce à nos annonces immobilières pas chères et sans frais d'agence"
+        />
+      </Head>
       <header>
         <Card>
           <CardCover>

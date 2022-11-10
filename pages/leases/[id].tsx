@@ -7,6 +7,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
@@ -14,6 +15,7 @@ import { ImagesListType } from "react-spring-lightbox";
 import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLease } from "../../utils/fetch/fetchLease";
+import { convertLeaseType } from "../../utils/convertLeaseType";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* -------------------------------- COMPONENT ------------------------------- */
@@ -121,6 +123,15 @@ const LeasePage: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
+      <Head>
+        <title>
+          {convertLeaseType(lease.type)} à {lease.city} | lacartedeslogements
+        </title>
+        <meta
+          name="description"
+          content={`⭐⭐⭐ Emménagez à ${lease.city} via notre réseau d'annonces de locations et de sous locations. Particuliers uniquement, pas de frais d'agence.`}
+        />
+      </Head>
       <Box component="header" display="flex" justifyContent="space-between">
         <Box>
           <Typography component="h1" level="h2">

@@ -32,7 +32,10 @@ const LeaseFavoritesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (!favorites.length) {
     return (
-      <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}>
+      <AccountLayout
+        pageTitle="Favoris"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
+      >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez aucune annonce dans vos favoris.
@@ -48,7 +51,10 @@ const LeaseFavoritesPage: NextPage = () => {
   }
 
   return (
-    <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}>
+    <AccountLayout
+      pageTitle="Favoris"
+      breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
+    >
       {favorites.map((leaseFavorite: IFavorite, index: number) => (
         <Box key={leaseFavorite.id}>
           {index === 0 && <Divider />}

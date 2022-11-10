@@ -16,12 +16,17 @@ const UserAccountPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
-  /* -------------------------------- TEMPLATE -------------------------------- */
+  /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
     return <AccessDenied />;
   }
+
+  /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <AccountLayout breadcrumbs={<CustomBreadcrumbs currentPage="Compte" />}>
+    <AccountLayout
+      pageTitle="Compte"
+      breadcrumbs={<CustomBreadcrumbs currentPage="Compte" />}
+    >
       <Box width="65%">
         <EditAccount user={user} />
       </Box>
