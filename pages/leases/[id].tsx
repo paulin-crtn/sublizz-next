@@ -289,11 +289,15 @@ const LeasePage: NextPage = ({
         setCurrentImageIndex={setCurrentImageIndex}
       />
 
-      {/** Contact author */}
+      {/** Send message */}
       <Modal open={openMessage} onClose={() => setOpenMessage(false)}>
-        <ModalDialog size="lg" aria-labelledby="close-modal-contact">
+        <ModalDialog
+          aria-labelledby="close-modal-contact"
+          size="lg"
+          sx={{ maxWidth: "700px" }}
+        >
           <ModalClose />
-          <ModalLayout title={`Contacter ${lease.user.firstName}`}>
+          <ModalLayout title={"Envoyer un message"}>
             <SendMessage lease={lease} setOpenMessage={setOpenMessage} />
           </ModalLayout>
         </ModalDialog>

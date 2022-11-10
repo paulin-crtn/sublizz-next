@@ -72,11 +72,11 @@ const SendReport = ({
       )}
 
       <FormControl>
-        <FormLabel>Motif</FormLabel>
         <Textarea
           variant="soft"
-          minRows={4}
-          maxRows={4}
+          minRows={5}
+          maxRows={5}
+          placeholder="Indiquez la raison de votre signalement"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />

@@ -107,7 +107,7 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
         sx={{ maxWidth: 410, cursor: "pointer", boxShadow: "none" }}
       >
         <CardOverflow>
-          <AspectRatio ratio="1" sx={{ width: 125 }}>
+          <AspectRatio ratio="1" sx={{ width: 115 }}>
             <Image
               src={
                 lease.leaseImages && lease.leaseImages[0]
@@ -121,7 +121,12 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
           </AspectRatio>
         </CardOverflow>
         <CardContent sx={{ px: 2 }}>
-          <Typography level="h6" fontSize="1rem" sx={{ marginBottom: 1 }}>
+          <Typography
+            level="h6"
+            fontSize="1rem"
+            fontWeight={400}
+            sx={{ marginBottom: 0.5 }}
+          >
             {lease.pricePerMonth}€ CC
           </Typography>
           {!lease.endDate && (
