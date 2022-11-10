@@ -251,7 +251,7 @@ const Navbar: FunctionComponent = () => {
       <Modal open={openSignAlert} onClose={() => setOpenSignAlert(false)}>
         <ModalDialog
           aria-labelledby="close-modal-sign-alert"
-          sx={{ maxWidth: "700px", padding: 0, border: "none" }}
+          sx={{ maxWidth: "650px", padding: 0, border: "none" }}
         >
           <ModalClose />
           <SignAlert

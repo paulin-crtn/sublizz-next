@@ -29,7 +29,7 @@ const SignAlert = ({
     <Box sx={{ display: "flex", padding: 0 }}>
       <Box
         sx={{
-          flex: "0 0 250px",
+          flex: "0 0 230px",
           position: "relative",
         }}
       >
@@ -42,13 +42,13 @@ const SignAlert = ({
         />
         <CardCover
           sx={{
-            background: "rgba(0,0,0,0.1)",
+            background: "rgba(0,0,0,0.15)",
             borderRadius: "12px 0 0 12px",
           }}
         />
       </Box>
       <Box sx={{ flex: "1 1", padding: 3 }}>
-        <Typography level="h4">Identifiez-vous pour continuer</Typography>
+        <Typography level="h4">Vous devez vous identifier</Typography>
         <List
           aria-labelledby="list-why-create-an-account"
           sx={{
