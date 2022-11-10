@@ -47,6 +47,7 @@ const LeaseMap = ({
       style={{
         height: isMultiple ? "calc(100vh - 160px)" : "360px",
         borderRadius: "16px",
+        zIndex: 1, // Safari : fix borderRadius
       }}
     >
       <TileLayer
