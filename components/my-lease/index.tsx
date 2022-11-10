@@ -98,7 +98,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
         // Toast
         toast.success("Annonce supprimée", { style: TOAST_STYLE });
         // Delete leaseImages from storage
-        if (lease.leaseImages) {
+        if (lease.leaseImages && !!lease.leaseImages.length) {
           await destroyLeaseImages(lease.leaseImages);
         }
       },
