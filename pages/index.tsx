@@ -49,7 +49,6 @@ import { IDetailsSummary } from "../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import homeImg from "../public/img/home.jpg";
 import mapImg from "../public/img/map.jpg";
-import roomImg from "../public/img/room.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
 

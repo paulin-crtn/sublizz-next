@@ -249,15 +249,16 @@ const Navbar: FunctionComponent = () => {
 
       {/** Sign Alert */}
       <Modal open={openSignAlert} onClose={() => setOpenSignAlert(false)}>
-        <ModalDialog size="lg" aria-labelledby="close-modal-sign-alert">
+        <ModalDialog
+          aria-labelledby="close-modal-sign-alert"
+          sx={{ maxWidth: "700px", padding: 0, border: "none" }}
+        >
           <ModalClose />
-          <ModalLayout title="Identifiez-vous pour continuer">
-            <SignAlert
-              setOpenSignAlert={setOpenSignAlert}
-              setOpenSignin={setOpenSignin}
-              setOpenSignup={setOpenSignup}
-            />
-          </ModalLayout>
+          <SignAlert
+            setOpenSignAlert={setOpenSignAlert}
+            setOpenSignin={setOpenSignin}
+            setOpenSignup={setOpenSignup}
+          />
         </ModalDialog>
       </Modal>
 
