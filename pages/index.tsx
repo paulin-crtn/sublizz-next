@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -9,41 +10,47 @@ import type {
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import Image from "next/future/image";
+import { useState } from "react";
+/* ---------------------------------- UTILS --------------------------------- */
+import { getLeases } from "../utils/fetch/fetchLease";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import InputCitySearch from "../components/input-city-search";
+import LeaseCard from "../components/lease-card";
+import ModalLayout from "../components/modal-layout";
+import Signin from "../components/signin";
+import PasswordReset from "../components/password-reset";
+import Signup from "../components/signup";
+import LeaseType from "../components/lease-type";
+/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
+const LeaseMapWithNoSSR = dynamic(() => import("../components/lease-map"), {
+  ssr: false,
+});
+/* ----------------------------------- MUI ---------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
-import Image from "next/future/image";
-import homePic from "../public/img/home.jpg";
-import InputCitySearch from "../components/input-city-search";
 import Box from "@mui/joy/Box";
-import { getLeases } from "../utils/fetch/fetchLease";
-import { ILease } from "../interfaces/lease";
-import LeaseCard from "../components/lease-card";
 import Divider from "@mui/joy/Divider";
 import Button from "@mui/joy/Button";
-import LeaseType from "../components/lease-type";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import ModalLayout from "../components/modal-layout";
-import Signin from "../components/signin";
-import PasswordReset from "../components/password-reset";
-import { useState } from "react";
-import Signup from "../components/signup";
 import Alert from "@mui/joy/Alert";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
+/* ---------------------------------- ICONS --------------------------------- */
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PowerIcon from "@mui/icons-material/Power";
 import HourglassFullIcon from "@mui/icons-material/HourglassFull";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(() => import("../components/lease-map"), {
-  ssr: false,
-});
+/* ------------------------------- INTERFACES ------------------------------- */
+import { ILease } from "../interfaces/lease";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import homePic from "../public/img/home.jpg";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
