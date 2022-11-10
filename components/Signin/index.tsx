@@ -4,6 +4,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -14,10 +15,10 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../context/auth.context";
-import { useAlert } from "../../context/alert.context";
-import { customFetch } from "../../utils/customFetch";
-import { signin } from "../../utils/fetchAuth";
+import { customFetch } from "../../utils/fetch/customFetch";
+import { signin } from "../../utils/fetch/fetchAuth";
 import ISignin from "../../interfaces/ISignin";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -32,12 +33,11 @@ const Signin = ({
   setOpenSignin: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
-  signCallback: (() => any) | undefined;
-  setSignCallback: Dispatch<SetStateAction<(() => any) | undefined>>;
+  signCallback?: (() => any) | undefined;
+  setSignCallback?: Dispatch<SetStateAction<(() => any) | undefined>>;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
-  const { success } = useAlert();
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error } = useMutation(
@@ -47,9 +47,11 @@ const Signin = ({
         localStorage.setItem("sublizz", data.access_token);
         const user = await customFetch("users/me", "GET");
         setUser(user);
-        success("Bienvenue " + user.firstName);
+        toast.success(`Ravi de vous revoir ${user?.firstName}`, {
+          style: TOAST_STYLE,
+        });
         signCallback?.();
-        setSignCallback(undefined);
+        setSignCallback ? setSignCallback(undefined) : null;
         setOpenSignin(false);
       },
     }
@@ -134,11 +136,9 @@ const Signin = ({
         </Button>
       )}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress color="danger" thickness={3} />}
-        />
+        <Button fullWidth disabled>
+          <CircularProgress color="danger" thickness={3} />
+        </Button>
       )}
 
       <Typography

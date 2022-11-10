@@ -5,15 +5,15 @@ export interface ILease {
   type: LeaseTypeEnum;
   postCode: string;
   city: string;
-  gpsLatitude?: string;
-  gpsLongitude?: string;
+  gpsLatitude: number;
+  gpsLongitude: number;
   surface: number;
   room: number;
-  startDate: Date;
-  endDate: Date;
-  isDateFlexible: number;
   pricePerMonth: number;
+  startDate: Date;
+  endDate?: Date;
+  isDateFlexible: number;
   createdAt: Date;
   updatedAt: Date;
-  leaseImages: ILeaseImage[];
+  leaseImages?: string[];
 }

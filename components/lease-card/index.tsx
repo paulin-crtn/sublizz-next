@@ -3,15 +3,17 @@
 /* -------------------------------------------------------------------------- */
 import { FunctionComponent } from "react";
 import Image from "next/image";
-import Card from "@mui/joy/Card";
+import Box from "@mui/joy/Box";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
-import Chip from "@mui/joy/Chip";
 import Sheet from "@mui/joy/Sheet";
 import LeaseChips from "../lease-chips";
+import noLeaseImg from "../../public/img/no-lease-img.png";
 import { ILease } from "../../interfaces/lease";
+import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
+import LeaseDates from "../lease-dates";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -19,44 +21,32 @@ import { ILease } from "../../interfaces/lease";
 const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Card row>
-      <CardOverflow>
-        <AspectRatio ratio="16/12.1" sx={{ width: 260 }}>
-          <Image src={lease.leaseImages[0].url} layout="fill" priority={true} />
+    <Box sx={{ display: "flex", paddingY: 2 }}>
+      <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
+        <AspectRatio ratio="16/10" sx={{ width: 240 }}>
+          <Image
+            src={
+              lease.leaseImages && lease.leaseImages[0]
+                ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
+                : noLeaseImg
+            }
+            layout="fill"
+            priority={true}
+          />
         </AspectRatio>
       </CardOverflow>
 
-      <CardContent sx={{ pl: 2 }}>
-        <Sheet
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography level="h5" fontWeight="600">
-            {lease.city}
-          </Typography>
-          <Typography level="h6" fontWeight="300">
-            {lease.pricePerMonth}€ CC
-          </Typography>
-        </Sheet>
-
-        <Sheet sx={{ mt: 2, mb: 3 }}>
-          <Typography level="body2">
-            Disponible du {lease.startDate.toString()} au{" "}
-            {lease.endDate.toString()}
-          </Typography>
-          {!!lease.isDateFlexible && (
-            <Chip variant="soft" color="neutral" size="sm" sx={{ mt: 0.5 }}>
-              Dates flexibles
-            </Chip>
-          )}
-        </Sheet>
-
+      <CardContent sx={{ pl: 3 }}>
+        <Typography level="h6" fontWeight="600">
+          {lease.city}
+        </Typography>
+        <LeaseDates lease={lease} />
         <LeaseChips lease={lease} size="sm" />
+        <Typography level="h6" fontWeight="300" marginTop={2}>
+          {lease.pricePerMonth}€ CC
+        </Typography>
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 

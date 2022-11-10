@@ -1,39 +1,11 @@
-.container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 40px;
-}
-
-.menu,
-.content {
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.menu {
-  flex: 0 0 300px;
-}
-
-.menu nav {
-  margin-top: 40px;
-}
-
 .navButton {
-  margin: 10px 0;
-  background-color: rgb(235, 235, 235);
+  margin: 5px 0;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.navButton:last-child {
-  margin-top: 50px;
-}
-
 .navButton:hover {
-  background-color: rgb(225, 225, 225);
+  background-color: rgb(245, 245, 245);
 }
 
 .navButton > * {
@@ -41,13 +13,9 @@
 }
 
 .navButton.active {
-  background-color: #000000;
+  background: #4700cc;
 }
 
 .navButton.active > * {
   color: #ffffff;
-}
-
-.content {
-  flex: 1 1;
 }

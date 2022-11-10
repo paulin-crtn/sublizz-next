@@ -9,28 +9,41 @@
   position: sticky;
   top: 0;
   justify-content: space-between;
-  padding: 25px 50px;
+  padding: 25px 35px;
   color: #000000;
   background-color: #ffffff;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .container .logo {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   cursor: pointer;
 }
 
-.container ul li {
+.textGradient1 {
+  background: linear-gradient(to right, #4700cc, #920be3);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.textGradient2 {
+  background: linear-gradient(to right, #920be3, #4700cc);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.cta {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.container .unorderList li {
   margin-left: 30px;
   font-weight: 400;
   cursor: pointer;
-}
-
-.container ul .cta {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  border-radius: 9999px;
 }

@@ -8,9 +8,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { customFetch } from "../utils/customFetch";
+import { customFetch } from "../utils/fetch/customFetch";
 import { IUser } from "../interfaces/IUser";
-import { useAlert } from "./alert.context";
+import { useQueryClient } from "@tanstack/react-query";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -19,7 +19,6 @@ interface IAuthContext {
   user: IUser | null;
   setUser: (arg: IUser | null) => void;
   logout: (arg?: () => void) => void;
-  // fetchUser: () => Promise<any>;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -29,18 +28,17 @@ const AuthContext = createContext<IAuthContext>({
   user: null,
   setUser: () => {},
   logout: () => {},
-  // fetchUser: () => Promise.resolve(),
 });
 
 /* -------------------------------------------------------------------------- */
 /*                                AUTH PROVIDER                               */
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { success } = useAlert();
-
   /* ------------------------------- REACT STATE ------------------------------ */
   const [user, setUser] = useState<IUser | null>(null);
+
+  /* ------------------------------- REACT QUERY ------------------------------ */
+  const queryClient = useQueryClient();
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
@@ -55,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   /* -------------------------------- FUNCTION -------------------------------- */
   const logout = (callback?: () => void) => {
     localStorage.removeItem("sublizz");
-    success("À bientôt " + user?.firstName);
+    queryClient.removeQueries();
     setUser(null);
     callback?.();
   };

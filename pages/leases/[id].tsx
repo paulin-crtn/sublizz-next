@@ -1,34 +1,42 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
 import Image from "next/image";
-import { fr } from "date-fns/locale";
-import { format } from "date-fns";
-
-/* -------------------------------- COMPONENT ------------------------------- */
+import format from "date-fns/format";
+import dynamic from "next/dynamic";
+import { ImagesListType } from "react-spring-lightbox";
+import toast from "react-hot-toast";
+/* ---------------------------------- UTILS --------------------------------- */
+import { getLease } from "../../utils/fetch/fetchLease";
+/* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
+/* -------------------------------- COMPONENT ------------------------------- */
 import LeaseChips from "../../components/lease-chips";
 import ModalLayout from "../../components/modal-layout";
-import LeaseMessage from "../../components/lease-message";
-import LeaseReport from "../../components/lease-report";
+import SendMessage from "../../components/send-message";
+import SendReport from "../../components/send-report";
 import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
-
-/* -------------------------------- INTERFACE ------------------------------- */
-import { ILeaseDetail, ILeaseImage } from "../../interfaces/lease";
-
+import LeaseLightbox from "../../components/lease-lightbox";
+import FavoriteButton from "../../components/favorite-button";
+import LeaseDates from "../../components/lease-dates";
+/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
+const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
+  ssr: false,
+});
 /* -------------------------------- MUI ICONS ------------------------------- */
 import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
-
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 /* --------------------------------- MUI JOY -------------------------------- */
+import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Modal from "@mui/joy/Modal";
@@ -38,27 +46,42 @@ import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Button from "@mui/joy/Button";
-import Chip from "@mui/joy/Chip";
-
-/* --------------------------------- STYLES --------------------------------- */
-import styles from "../../styles/Lease.module.css";
+/* -------------------------------- CONSTANT -------------------------------- */
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../const/toastStyle";
+import {
+  LEASE_IMAGE_PATH,
+  PROFILE_PICTURE_PATH,
+} from "../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Lease: NextPage = ({
+const LeasePage: NextPage = ({
   lease,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
+  const [openLightbox, setOpenLightbox] = useState<boolean>(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [openMessage, setOpenMessage] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
   const [signCallback, setSignCallback] = useState<() => any>();
+
+  /* ------------------------------- REACT MEMO ------------------------------- */
+  const lightboxImages: ImagesListType = useMemo(
+    () =>
+      lease.leaseImages.map((name: string) => ({
+        src: LEASE_IMAGE_PATH + "/" + name,
+        loading: "lazy",
+      })),
+    [lease]
+  );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const switchSignModal = () => {
@@ -72,7 +95,14 @@ const Lease: NextPage = ({
 
   const handleContact = () => {
     if (user) {
-      setOpenMessage(true);
+      if (user.role === UserRoleEnum.SEEKER) {
+        setOpenMessage(true);
+      } else {
+        toast.error(
+          "Action reservée aux utilisateurs à la recherche d'un logement",
+          { style: TOAST_STYLE }
+        );
+      }
     } else {
       setSignCallback(() => () => setOpenMessage(true));
       setOpenSignAlert(true);
@@ -91,100 +121,180 @@ const Lease: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <header className={styles.header}>
-        <div>
-          <Typography component="h1" level="h3">
+      <Box component="header" display="flex" justifyContent="space-between">
+        <Box>
+          <Typography component="h1" level="h2">
             {lease.city}
           </Typography>
-
-          <div className={styles.dates}>
-            <Typography level="h5" fontWeight={300}>
-              Du {lease.startDate /*format(lease.startDate, "dd LLLL uuuu")*/}{" "}
-              au {lease.endDate}
-            </Typography>
-            {!!lease.isDateFlexible && (
-              <Chip color="neutral" variant="soft" sx={{ fontWeight: 400 }}>
-                Dates flexibles
-              </Chip>
-            )}
-          </div>
-
+          <LeaseDates lease={lease} isMinimized={false} />
           <LeaseChips lease={lease} />
-        </div>
-
-        <div>
-          <Typography level="h4" fontWeight={400}>
-            {lease.pricePerMonth}€ CC
-          </Typography>
-        </div>
-      </header>
-
-      <main>
-        <Box
-          component="ul"
-          sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 3, mb: 6 }}
-        >
-          {lease.leaseImages.map((image: ILeaseImage) => (
-            <Card
-              key={image.id}
-              component="li"
-              sx={{ flexGrow: 1, height: 250, maxWidth: 400 }}
-            >
-              <CardCover>
-                <Image src={image.url} layout="fill" priority={true} />
-              </CardCover>
-            </Card>
-          ))}
         </Box>
 
-        <div className={styles.wrapper}>
-          <div>
-            <Typography level="h6" fontWeight={300}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Typography level="h3" fontWeight={200}>
+            {lease.pricePerMonth}€ CC
+          </Typography>
+          {/** Favorite */}
+          <FavoriteButton
+            leaseId={lease.id}
+            setOpenSignAlert={setOpenSignAlert}
+          />
+        </Box>
+      </Box>
+
+      <main>
+        {lease.leaseImages && !!lease.leaseImages.length && (
+          <Box
+            component="ul"
+            sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 4 }}
+          >
+            {lease.leaseImages.map((image: string, index: number) => (
+              <Card
+                key={index}
+                component="li"
+                sx={{
+                  flexGrow: 1,
+                  height: 250,
+                  boxShadow: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setCurrentImageIndex(index);
+                  setOpenLightbox(true);
+                }}
+              >
+                <CardCover>
+                  <Image
+                    src={LEASE_IMAGE_PATH + "/" + image}
+                    layout="fill"
+                    priority={true}
+                  />
+                </CardCover>
+              </Card>
+            ))}
+          </Box>
+        )}
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 6,
+            marginTop: 6,
+            marginBottom: 4,
+          }}
+        >
+          <Box sx={{ flex: "1 1" }}>
+            <Typography level="h4" marginBottom={3}>
+              Description
+            </Typography>
+            <Typography level="h6" fontWeight={300} marginBottom={3}>
               {lease.description}
             </Typography>
-            <div className={styles.author}>
-              <Avatar
-                alt="Photo de profil de l'auteur de l'annonce"
-                src={lease.user.profilePictureUrl}
-                sx={{
-                  width: 80,
-                  height: 80,
-                  mr: 2,
-                }}
-              />
-              <div>
-                <Typography fontWeight={300}>
-                  Annonce publiée le {lease.createdAt}
-                  <br />
-                  par{" "}
-                  <Typography fontWeight={500}>
-                    {lease.user.firstName}
-                  </Typography>
-                </Typography>
-              </div>
-            </div>
-          </div>
-          <div className={styles.cta}>
-            <Button startDecorator={<EmailIcon />} onClick={handleContact}>
-              Contacter {lease.user.firstName}
-            </Button>
+            <FormHelperText sx={{ marginBottom: 1 }}>
+              Annonce publiée le{" "}
+              {format(new Date(lease.createdAt), "dd LLLL uuuu")}
+            </FormHelperText>
             <Button
               startDecorator={<FlagIcon />}
               onClick={handleReport}
               variant="outlined"
+              color="neutral"
+              size="sm"
             >
               Signaler l'annonce
             </Button>
-          </div>
-        </div>
+          </Box>
+
+          {/** Contact Author */}
+          <Box
+            sx={{
+              flex: "0 0 350px",
+              height: "fit-content",
+              padding: 2,
+              borderRadius: "16px",
+              border: "1px solid #dddddd",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Avatar
+                alt="Photo de profil de l'auteur de l'annonce"
+                src={
+                  lease.user.profilePictureName
+                    ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
+                    : undefined
+                }
+                sx={{
+                  width: 60,
+                  height: 60,
+                  mr: 2,
+                }}
+              />
+              <Typography level="h6">{lease.user.firstName}</Typography>
+            </Box>
+
+            {/** Message */}
+            <Button
+              fullWidth
+              startDecorator={<EmailIcon />}
+              onClick={handleContact}
+              sx={{ mt: 2 }}
+            >
+              Envoyer un message
+            </Button>
+
+            {/** Phone Number */}
+            {lease.user.phoneNumber && (
+              <Button
+                fullWidth
+                variant="soft"
+                color="neutral"
+                startDecorator={<PhoneAndroidIcon />}
+                onClick={() => {
+                  if (!user) setOpenSignAlert(true);
+                }}
+                sx={{ mt: 1 }}
+              >
+                {user
+                  ? _formatPhoneNumber(lease.user.phoneNumber)
+                  : _formatPhoneNumber(
+                      lease.user.phoneNumber.slice(0, -4) + "XXXX"
+                    )}
+              </Button>
+            )}
+          </Box>
+        </Box>
+
+        <Typography level="h4" marginBottom={3}>
+          Emplacement du logement
+        </Typography>
+        <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
       </main>
+
+      {/** Lightbox */}
+      <LeaseLightbox
+        images={lightboxImages}
+        open={openLightbox}
+        setOpen={setOpenLightbox}
+        currentImageIndex={currentImageIndex}
+        setCurrentImageIndex={setCurrentImageIndex}
+      />
 
       {/** Contact author */}
       <Modal open={openMessage} onClose={() => setOpenMessage(false)}>
         <ModalDialog size="lg" aria-labelledby="close-modal-contact">
           <ModalClose />
           <ModalLayout title={`Contacter ${lease.user.firstName}`}>
-            <LeaseMessage lease={lease} setOpenMessage={setOpenMessage} />
+            <SendMessage lease={lease} setOpenMessage={setOpenMessage} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
@@ -194,7 +304,7 @@ const Lease: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-report">
           <ModalClose />
           <ModalLayout title="Signaler l'annonce">
-            <LeaseReport leaseId={lease.id} setOpenReport={setOpenReport} />
+            <SendReport leaseId={lease.id} setOpenReport={setOpenReport} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
@@ -245,17 +355,39 @@ const Lease: NextPage = ({
   );
 };
 
-export default Lease;
+export default LeasePage;
 
 /* -------------------------------------------------------------------------- */
 /*                              SERVER SIDE PROPS                             */
 /* -------------------------------------------------------------------------- */
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const id = context?.params?.id;
-  const response = await fetch(`${API_URL}/leases/${id}`);
-  const lease: ILeaseDetail = await response.json();
-  return {
-    props: { lease },
-  };
+  try {
+    const lease = await getLease(id);
+    return {
+      props: { lease },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                  FUNCTIONS                                 */
+/* -------------------------------------------------------------------------- */
+/**
+ * Format phone number
+ * Ex: 0600000000 will return 06 00 00 00 00
+ *
+ * @param phoneNumber
+ */
+const _formatPhoneNumber = (phoneNumber: string) => {
+  return phoneNumber
+    .split("")
+    .map((letter: string, index: number) => {
+      return index % 2 === 0 ? letter : letter + " ";
+    })
+    .join("");
 };
