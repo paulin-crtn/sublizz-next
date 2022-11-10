@@ -172,15 +172,10 @@ const AddressForm = ({
           placeholder="33000"
           defaultValue={postCode}
           {...register("postCode", {
-            valueAsNumber: true,
             required: "Ce champs est requis",
-            minLength: {
-              value: 5,
-              message: "5 chiffres sont attendus",
-            },
-            maxLength: {
-              value: 5,
-              message: "5 chiffres sont attendus",
+            pattern: {
+              value: /^[0-9]{5}$/,
+              message: "Le code postale doit contenir 5 chiffres",
             },
           })}
         />

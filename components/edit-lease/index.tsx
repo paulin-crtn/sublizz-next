@@ -173,17 +173,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <form onSubmit={onSubmit}>
-      {isError && error instanceof Error && (
-        <Alert
-          startDecorator={<ErrorIcon />}
-          variant="soft"
-          color="danger"
-          sx={{ mb: 2 }}
-        >
-          {error.message}
-        </Alert>
-      )}
-
       <FormControl error={!!errors.type}>
         <FormLabel>Type</FormLabel>
         <Controller
@@ -557,6 +546,17 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           )}
         />
       </FormControl>
+
+      {isError && error instanceof Error && (
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          {error.message}
+        </Alert>
+      )}
 
       {!isLoading && !isUploadingFile && (
         <Button type="submit">

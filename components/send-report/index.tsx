@@ -76,7 +76,7 @@ const SendReport = ({
           variant="soft"
           minRows={5}
           maxRows={5}
-          placeholder="Indiquez la raison de votre signalement"
+          placeholder="Indiquez la raison du signalement"
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
