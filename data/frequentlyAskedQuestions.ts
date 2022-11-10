@@ -10,7 +10,7 @@ export const FREQUENTLY_ASKED_QUESTIONS: IDetailsSummary[] = [
   },
   {
     summary:
-      "Combien cela coûte de publier ou de répondre à une annonce de location ?",
+      "Quel est le prix pour publier ou répondre à une annonce de location ?",
     details: [
       "Le service est gratuit car le développement du site est issu d'un projet personnel et que nous l'hébergeons avec des offres gratuites. Cependant des limitations s'appliquent, notamment pour le nombre d'annonces et de photos qu'il est possible de publier.",
       "Vos données personnelles ne sont pas revendues et nous ne spammons pas.",

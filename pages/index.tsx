@@ -287,8 +287,8 @@ const Home: NextPage = ({
                   startDecorator={<PhoneAndroidIcon />}
                   sx={{ mt: 1 }}
                 >
-                  Renseignez votre numéro de téléphone pour être contacté plus
-                  rapidement.
+                  Renseignez votre numéro de téléphone pour être contacté
+                  directement.
                 </Alert>
               </Box>
             </Box>
