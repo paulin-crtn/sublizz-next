@@ -13,6 +13,8 @@ import Image from "next/future/image";
 import { useState } from "react";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLeases } from "../utils/fetch/fetchLease";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import InputCitySearch from "../components/input-city-search";
 import LeaseCard from "../components/lease-card";
@@ -58,6 +60,9 @@ import { LEASE_TYPES } from "../data/leaseTypes";
 const Home: NextPage = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -347,57 +352,59 @@ const Home: NextPage = ({
           </Box>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 2,
-            mt: "40px",
-            padding: 4,
-            backgroundColor: "#262626",
-            borderRadius: "16px",
-          }}
-        >
-          <Typography
-            fontSize="1.5rem"
-            fontWeight="500"
-            marginRight="30px"
-            sx={{ color: "#ffffff" }}
+        {!user && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2,
+              mt: "40px",
+              padding: 4,
+              backgroundColor: "#262626",
+              borderRadius: "16px",
+            }}
           >
-            Optez pour la simplicité
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button
-              size="lg"
-              onClick={() => setOpenSignup(true)}
-              sx={{
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                border: "none",
-                "&:hover": {
-                  backgroundColor: "#eeeeee",
-                },
-              }}
+            <Typography
+              fontSize="1.5rem"
+              fontWeight="500"
+              marginRight="30px"
+              sx={{ color: "#ffffff" }}
             >
-              Créer un compte
-            </Button>
-            <Button
-              size="lg"
-              onClick={() => setOpenSignin(true)}
-              sx={{
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                border: "none",
-                "&:hover": {
-                  backgroundColor: "#eeeeee",
-                },
-              }}
-            >
-              Se connecter
-            </Button>
+              Optez pour la simplicité
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <Button
+                size="lg"
+                onClick={() => setOpenSignup(true)}
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  border: "none",
+                  "&:hover": {
+                    backgroundColor: "#eeeeee",
+                  },
+                }}
+              >
+                Créer un compte
+              </Button>
+              <Button
+                size="lg"
+                onClick={() => setOpenSignin(true)}
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  border: "none",
+                  "&:hover": {
+                    backgroundColor: "#eeeeee",
+                  },
+                }}
+              >
+                Se connecter
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        )}
 
         <Box>
           <Typography
@@ -478,20 +485,22 @@ const Home: NextPage = ({
             C'est le moment d'aller plus loin
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button
-              size="lg"
-              onClick={() => setOpenSignup(true)}
-              sx={{
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                border: "none",
-                "&:hover": {
-                  backgroundColor: "#eeeeee",
-                },
-              }}
-            >
-              Créer un compte
-            </Button>
+            {!user && (
+              <Button
+                size="lg"
+                onClick={() => setOpenSignup(true)}
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  border: "none",
+                  "&:hover": {
+                    backgroundColor: "#eeeeee",
+                  },
+                }}
+              >
+                Créer un compte
+              </Button>
+            )}
             <Button
               size="lg"
               onClick={() => router.push("/leases")}
