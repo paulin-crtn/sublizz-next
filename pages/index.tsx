@@ -8,7 +8,6 @@ import type {
   NextPage,
 } from "next";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Image from "next/future/image";
 import { useState } from "react";
@@ -22,10 +21,7 @@ import Signin from "../components/signin";
 import PasswordReset from "../components/password-reset";
 import Signup from "../components/signup";
 import LeaseType from "../components/lease-type";
-/* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(() => import("../components/lease-map"), {
-  ssr: false,
-});
+import DetailsSummary from "../components/details-summary";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -49,8 +45,13 @@ import HourglassFullIcon from "@mui/icons-material/HourglassFull";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../interfaces/lease";
+import { IDetailsSummary } from "../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import homePic from "../public/img/home.jpg";
+import homeImg from "../public/img/home.jpg";
+import mapImg from "../public/img/map.jpg";
+import roomImg from "../public/img/room.jpg";
+import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
+import { LEASE_TYPES } from "../data/leaseTypes";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -84,13 +85,12 @@ const Home: NextPage = ({
         <Card>
           <CardCover>
             <Image
-              src={homePic}
+              src={homeImg}
               alt="Picture of a parisian appartment"
               placeholder="blur"
             />
           </CardCover>
-          <CardCover />
-          <CardContent sx={{ marginX: 4, marginY: 6 }}>
+          <CardContent sx={{ marginX: 4, marginY: 8 }}>
             <Box sx={{ marginBottom: 4 }}>
               <Typography
                 component="h1"
@@ -136,7 +136,7 @@ const Home: NextPage = ({
         </Typography>
 
         {!!data.totalCount && (
-          <Box sx={{ display: "flex", gap: 6 }}>
+          <Box sx={{ display: "flex", alignItems: "stretch", gap: 6 }}>
             <Box flex="1 1">
               {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
                 <Link href={`/leases/${lease.id}`} key={lease.id}>
@@ -147,11 +147,34 @@ const Home: NextPage = ({
                 </Link>
               ))}
             </Box>
-            <Box flex="0 0 420px" sx={{ borderRadius: "10px" }}>
-              <LeaseMapWithNoSSR
-                leases={data.leases.slice(0, 3)}
-                isMultiple={true}
-              />
+            <Box flex="0 0 400px" alignSelf="stretch">
+              <Card sx={{ height: "100%", boxShadow: "none" }}>
+                <CardCover>
+                  <Image src={mapImg} alt="map illustration" />
+                </CardCover>
+                <CardCover
+                  sx={{
+                    background: "rgba(0,0,0,0.2)",
+                  }}
+                />
+                <CardContent
+                  sx={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <Button
+                    onClick={() => router.push("/leases")}
+                    sx={{
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
+                      border: "none",
+                      "&:hover": {
+                        backgroundColor: "#eeeeee",
+                      },
+                    }}
+                  >
+                    Voir sur la carte
+                  </Button>
+                </CardContent>
+              </Card>
             </Box>
           </Box>
         )}
@@ -345,10 +368,7 @@ const Home: NextPage = ({
           >
             Optez pour la simplicité
           </Typography>
-          <Box
-            flex="0 0 400px"
-            sx={{ display: "flex", alignItems: "center", gap: 2 }}
-          >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Button
               size="lg"
               onClick={() => setOpenSignup(true)}
@@ -402,63 +422,93 @@ const Home: NextPage = ({
             appartement ou une maison.
           </Typography>
           <Box display="flex" alignItems="stretch" gap={3}>
-            {[
-              {
-                title: "Bail étudiant",
-                description:
-                  "Pour celles et ceux qui doivent déménager afin de suivre des études supérieurs.",
-                duration: "Durée de 9 mois",
-                imgName: "student.jpg",
-                info: "Logement meublé",
-              },
-              {
-                title: "Bail mobilité",
-                description:
-                  "Pour les salariés en mission temporaire ou en formation professionnelle.",
-                duration: "Durée de 1 à 10 mois",
-                imgName: "mobility.jpg",
-                info: "Logement meublé",
-              },
-              {
-                title: "Colocation",
-                description:
-                  "Pour les budgets plus limités ou les personnes qui aiment la vie à plusieurs.",
-                duration: "Durée variable",
-                imgName: "share.jpg",
-                info: "Avec ou sans clause de solidarité",
-              },
-              {
-                title: "Sous-location",
-                description:
-                  "Pour s’absenter de son logement sans perdre de loyer ou se loger temporairement.",
-                duration: "Durée variable",
-                imgName: "sublease.jpg",
-                info: "Avec accord du propriétaire",
-              },
-            ].map(({ title, description, duration, imgName, info }) => (
-              <Box key={title} flex="1 1">
-                <LeaseType
-                  title={title}
-                  description={description}
-                  duration={duration}
-                  imgName={imgName}
-                  info={info}
-                />
-              </Box>
-            ))}
+            {LEASE_TYPES.map(
+              ({ title, description, duration, imgName, info }) => (
+                <Box key={title} flex="1 1">
+                  <LeaseType
+                    title={title}
+                    description={description}
+                    duration={duration}
+                    imgName={imgName}
+                    info={info}
+                  />
+                </Box>
+              )
+            )}
           </Box>
         </Box>
 
-        <Typography
-          level="h3"
-          marginTop="60px"
-          marginBottom="30px"
-          fontFamily="Bitter"
-          fontSize="2.2rem"
-          fontWeight={700}
+        <Box>
+          <Typography
+            level="h3"
+            marginTop="60px"
+            marginBottom="30px"
+            fontFamily="Bitter"
+            fontSize="2.2rem"
+            fontWeight={700}
+          >
+            Questions fréquentes
+          </Typography>
+          <Box display="flex" flexDirection="column" gap={1.5}>
+            {FREQUENTLY_ASKED_QUESTIONS.map(
+              ({ summary, details }: IDetailsSummary) => (
+                <DetailsSummary summary={summary} details={details} />
+              )
+            )}
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 2,
+            mt: "40px",
+            padding: 4,
+            backgroundColor: "#262626",
+            borderRadius: "16px",
+          }}
         >
-          Questions fréquentes
-        </Typography>
+          <Typography
+            fontSize="1.5rem"
+            fontWeight="500"
+            marginRight="30px"
+            sx={{ color: "#ffffff" }}
+          >
+            C'est le moment d'aller plus loin
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Button
+              size="lg"
+              onClick={() => setOpenSignup(true)}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+              }}
+            >
+              Créer un compte
+            </Button>
+            <Button
+              size="lg"
+              onClick={() => router.push("/leases")}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+              }}
+            >
+              Découvrir les annonces
+            </Button>
+          </Box>
+        </Box>
       </main>
 
       {/** Signin */}
