@@ -31,27 +31,35 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
         component="summary"
         onClick={() => setIsOpen((prev) => !prev)}
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
           listStyle: "none",
           userSelect: "none",
           cursor: "pointer",
-          "&:after": {
+          "&::after": {
             content: '""',
             position: "absolute",
             left: 0,
             top: 0,
             width: "100%",
             height: "58px",
-            // background: "#e83474",
+          },
+          /* Safari */
+          "&::-webkit-details-marker": {
+            display: "none",
           },
         }}
       >
-        <Typography level="h6" fontWeight={400}>
-          {summary}
-        </Typography>
-        {isOpen ? <RemoveIcon /> : <AddIcon />}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography level="h6" fontWeight={400}>
+            {summary}
+          </Typography>
+          {isOpen ? <RemoveIcon /> : <AddIcon />}
+        </Box>
       </Box>
       <Box marginTop={2}>
         {details.map((detail: string) => (
