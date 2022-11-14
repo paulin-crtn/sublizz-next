@@ -38,6 +38,11 @@ import { ILeaseDetail } from "../../interfaces/lease";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+import ModalLayout from "../modal-layout";
+import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -45,6 +50,7 @@ import { TOAST_STYLE } from "../../const/toastStyle";
 const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openConfirmDelete, setOpenConfirmDelete] = useState<boolean>(false);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const queryClient = useQueryClient();
@@ -224,7 +230,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                 color="danger"
                 onClick={async () => {
                   handleClose();
-                  mutateDeleteLease();
+                  setOpenConfirmDelete(true);
                 }}
               >
                 <ListItemDecorator sx={{ color: "inherit" }}>
@@ -241,6 +247,55 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           {lease.pricePerMonth}€ CC
         </Typography>
       </CardContent>
+
+      {/** Confirm Lease Delete */}
+      <Modal
+        open={openConfirmDelete}
+        onClose={() => setOpenConfirmDelete(false)}
+      >
+        <ModalDialog size="lg" aria-labelledby="confirm-delete-modal">
+          <ModalClose />
+          <ModalLayout title="Confirmer la suppression">
+            <Typography mb={3} textAlign="center" fontWeight={300}>
+              L'annonce suivante sera définitivement supprimée.
+            </Typography>
+            <Box
+              sx={{
+                marginBottom: 3,
+                padding: 2,
+                border: "1px solid #dddee0",
+                borderRadius: "12px",
+              }}
+            >
+              <Typography level="h5" fontWeight="600">
+                {lease.city}
+              </Typography>
+              <LeaseDates lease={lease} />
+              <LeaseChips lease={lease} size="sm" />
+              <Typography level="h6" fontWeight="300" marginTop={2}>
+                {lease.pricePerMonth}€ CC
+              </Typography>
+            </Box>
+            <Button
+              variant="soft"
+              color="danger"
+              fullWidth
+              onClick={() => mutateDeleteLease()}
+            >
+              Supprimer l'annonce
+            </Button>
+            <Button
+              variant="soft"
+              color="neutral"
+              fullWidth
+              onClick={() => setOpenConfirmDelete(false)}
+              sx={{ mt: 1 }}
+            >
+              Annuler
+            </Button>
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
     </Box>
   );
 };
