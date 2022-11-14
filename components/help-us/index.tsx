@@ -1,7 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState, FormEvent, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
@@ -12,8 +13,9 @@ import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import SuccessAnimation from "../success-animation";
-import { IHelpUsFom } from "../../interfaces/IHelpUsForm";
+import { IHelpUsForm } from "../../interfaces/IHelpUsForm";
 import { storeHelpUsMessage } from "../../utils/fetch/fetchHelpUs";
+import FormHelperText from "@mui/joy/FormHelperText";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,18 +25,20 @@ const HelpUs = ({
 }: {
   setOpenHelp: Dispatch<SetStateAction<boolean>>;
 }) => {
-  /* ------------------------------- REACT STATE ------------------------------ */
-  const [message, setMessage] = useState<string>("");
+  /* -------------------------------- USE FORM -------------------------------- */
+  const { register, handleSubmit, formState } = useForm<IHelpUsForm>({
+    mode: "onTouched",
+  });
+  const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: IHelpUsFom) => storeHelpUsMessage(payload)
+    (payload: IHelpUsForm) => storeHelpUsMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    mutate({ message });
+  const onSubmit: SubmitHandler<IHelpUsForm> = async (payload) => {
+    mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -56,7 +60,7 @@ const HelpUs = ({
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {isError && error instanceof Error && (
         <Alert
           startDecorator={<ErrorIcon />}
@@ -68,22 +72,23 @@ const HelpUs = ({
         </Alert>
       )}
 
-      <FormControl>
-        <Typography mb={1} fontWeight={500}>
-          Suggestion d'amélioration ou bug sur le site ?
-        </Typography>
-        <Typography mb={2} fontWeight={300}>
-          Aidez-nous à améliorer notre service en décrivant le plus précisément
-          possible votre demande ou le problème rencontré.
-        </Typography>
-
+      <FormControl error={!!errors.message}>
         <Textarea
           variant="soft"
           minRows={6}
           maxRows={6}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Partagez une suggestion d'amélioration ou un bug rencontré..."
+          {...register("message", {
+            required: "Ce champs est requis",
+            maxLength: {
+              value: 2000,
+              message: "2000 caractères maximum",
+            },
+          })}
         />
+        {errors.message && (
+          <FormHelperText>{errors.message.message}</FormHelperText>
+        )}
       </FormControl>
       {!isLoading && (
         <Button fullWidth type="submit">

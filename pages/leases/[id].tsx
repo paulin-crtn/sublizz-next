@@ -21,8 +21,8 @@ import { useAuth } from "../../context/auth.context";
 /* -------------------------------- COMPONENT ------------------------------- */
 import LeaseChips from "../../components/lease-chips";
 import ModalLayout from "../../components/modal-layout";
-import SendMessage from "../../components/send-message";
-import SendReport from "../../components/send-report";
+import LeaseMessage from "../../components/lease-message";
+import LeaseReport from "../../components/lease-report";
 import Signin from "../../components/signin";
 import SignAlert from "../../components/sign-alert";
 import Signup from "../../components/signup";
@@ -309,7 +309,7 @@ const LeasePage: NextPage = ({
         >
           <ModalClose />
           <ModalLayout title={"Envoyer un message"}>
-            <SendMessage lease={lease} setOpenMessage={setOpenMessage} />
+            <LeaseMessage lease={lease} setOpenMessage={setOpenMessage} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
@@ -319,7 +319,7 @@ const LeasePage: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-report">
           <ModalClose />
           <ModalLayout title="Signaler l'annonce">
-            <SendReport leaseId={lease.id} setOpenReport={setOpenReport} />
+            <LeaseReport leaseId={lease.id} setOpenReport={setOpenReport} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

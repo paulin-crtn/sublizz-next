@@ -1,4 +1,4 @@
-export interface ISendMessage {
+export interface ILeaseMessageForm {
   leaseId: number;
   message: string;
 }

@@ -1,3 +1,3 @@
-export interface IHelpUsFom {
+export interface IHelpUsForm {
   message: string;
 }

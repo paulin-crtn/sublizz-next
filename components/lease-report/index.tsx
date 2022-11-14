@@ -1,11 +1,12 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useState, FormEvent, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
 import Textarea from "@mui/joy/Textarea";
+import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Box from "@mui/joy/Box";
@@ -14,30 +15,32 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 import { storeLeaseReport } from "../../utils/fetch/fetchLease";
 import SuccessAnimation from "../success-animation";
-import { ISendReport } from "../../interfaces/lease";
+import { ILeaseReportForm } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const SendReport = ({
+const LeaseReport = ({
   leaseId,
   setOpenReport,
 }: {
   leaseId: number;
   setOpenReport: Dispatch<SetStateAction<boolean>>;
 }) => {
-  /* ------------------------------- REACT STATE ------------------------------ */
-  const [reason, setReason] = useState<string>("");
+  /* -------------------------------- USE FORM -------------------------------- */
+  const { register, handleSubmit, formState } = useForm<ILeaseReportForm>({
+    mode: "onTouched",
+  });
+  const { errors } = formState;
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ISendReport) => storeLeaseReport(payload)
+    (payload: ILeaseReportForm) => storeLeaseReport({ ...payload, leaseId })
   );
 
-  /* -------------------------------- FUNCTIONS ------------------------------- */
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    mutate({ leaseId, reason });
+  /* -------------------------------- FUNCTION -------------------------------- */
+  const onSubmit: SubmitHandler<ILeaseReportForm> = async (payload) => {
+    mutate(payload);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -59,7 +62,7 @@ const SendReport = ({
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {isError && error instanceof Error && (
         <Alert
           startDecorator={<ErrorIcon />}
@@ -71,15 +74,23 @@ const SendReport = ({
         </Alert>
       )}
 
-      <FormControl>
+      <FormControl error={!!errors.reason}>
         <Textarea
           variant="soft"
           minRows={5}
           maxRows={5}
           placeholder="Indiquez la raison du signalement"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
+          {...register("reason", {
+            required: "Ce champs est requis",
+            maxLength: {
+              value: 2000,
+              message: "2000 caractères maximum",
+            },
+          })}
         />
+        {errors.reason && (
+          <FormHelperText>{errors.reason.message}</FormHelperText>
+        )}
       </FormControl>
       {!isLoading && (
         <Button fullWidth type="submit">
@@ -97,4 +108,4 @@ const SendReport = ({
   );
 };
 
-export default SendReport;
+export default LeaseReport;

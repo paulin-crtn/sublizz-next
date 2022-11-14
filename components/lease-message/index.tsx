@@ -26,7 +26,7 @@ import Alert from "@mui/joy/Alert";
 import FormLabel from "@mui/joy/FormLabel";
 import { Divider } from "@mui/joy";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease, ISendMessage } from "../../interfaces/lease";
+import { ILease, ILeaseMessageForm } from "../../interfaces/lease";
 import { IAuthor } from "../../interfaces/IAuthor";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
@@ -35,7 +35,7 @@ import noLeaseImg from "../../public/img/no-lease-img.png";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const SendMessage = ({
+const LeaseMessage = ({
   lease,
   setOpenMessage,
 }: {
@@ -49,7 +49,7 @@ const SendMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ISendMessage) => storeLeaseMessage(payload)
+    (payload: ILeaseMessageForm) => storeLeaseMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -165,4 +165,4 @@ const SendMessage = ({
   );
 };
 
-export default SendMessage;
+export default LeaseMessage;

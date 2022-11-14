@@ -1,4 +1,4 @@
-export interface ISendReport {
+export interface ILeaseReportForm {
   leaseId: number;
   reason: string;
 }
