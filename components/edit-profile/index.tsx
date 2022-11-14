@@ -384,7 +384,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         )}
         {(isUploadingFile || isLoading) && (
           <Button disabled>
-            <CircularProgress color="danger" thickness={3} />
+            <CircularProgress thickness={3} />
           </Button>
         )}
       </Box>

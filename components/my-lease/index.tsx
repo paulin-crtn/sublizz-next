@@ -13,6 +13,7 @@ import { destroyLeaseImages } from "../../utils/fetch/fetchLeaseImages";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseChips from "../lease-chips";
 import LeaseDates from "../lease-dates";
+import ModalLayout from "../modal-layout";
 /* ----------------------------------- MUI ---------------------------------- */
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
@@ -25,6 +26,10 @@ import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import ListDivider from "@mui/joy/ListDivider";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import ModalClose from "@mui/joy/ModalClose";
+import Button from "@mui/joy/Button";
 /* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -38,11 +43,6 @@ import { ILeaseDetail } from "../../interfaces/lease";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
-import Modal from "@mui/joy/Modal";
-import ModalDialog from "@mui/joy/ModalDialog";
-import ModalClose from "@mui/joy/ModalClose";
-import ModalLayout from "../modal-layout";
-import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

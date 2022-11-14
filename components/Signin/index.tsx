@@ -137,7 +137,7 @@ const Signin = ({
       )}
       {isLoading && (
         <Button fullWidth disabled>
-          <CircularProgress color="danger" thickness={3} />
+          <CircularProgress thickness={3} />
         </Button>
       )}
 

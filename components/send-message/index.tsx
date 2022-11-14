@@ -158,7 +158,7 @@ const SendMessage = ({
         <Button
           fullWidth
           disabled
-          startDecorator={<CircularProgress color="danger" thickness={3} />}
+          startDecorator={<CircularProgress thickness={3} />}
         />
       )}
     </form>
