@@ -33,7 +33,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <FavoriteProvider>
             <Layout>
-              <Toaster position="bottom-left" />
+              <Toaster position="bottom-right" />
               <Component {...pageProps} />
             </Layout>
           </FavoriteProvider>

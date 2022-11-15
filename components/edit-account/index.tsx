@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -43,6 +44,9 @@ const EditAccount = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openDeleteAccount, setOpenDeleteAccount] = useState<boolean>(false);
 
@@ -63,6 +67,7 @@ const EditAccount = ({ user }: { user: IUser }) => {
     onSuccess: async (data) => {
       setUser(data);
       toast.success("Informations mises à jour", { style: TOAST_STYLE });
+      router.push("/dashboard");
     },
   });
 

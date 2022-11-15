@@ -19,6 +19,7 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 /* ---------------------------------- ICONS --------------------------------- */
+import HomeIcon from "@mui/icons-material/Home";
 import StyleIcon from "@mui/icons-material/Style";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -47,8 +48,13 @@ const AccountNav = () => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
-    const current = router.asPath.split("/")[2];
-    if (current === key) {
+    const pathArr = router.asPath.split("/");
+    // Dashboard
+    if (pathArr[1] === key && pathArr.length === 2) {
+      return styles.active;
+    }
+    // Other Navigation
+    if (pathArr[2] === key) {
       return styles.active;
     }
   };
@@ -57,6 +63,13 @@ const AccountNav = () => {
   return (
     <Box component="nav" marginTop={5}>
       <ul>
+        <li className={[styles.navButton, isActive("dashboard")].join(" ")}>
+          <Link href="/dashboard">
+            <Typography startDecorator={<HomeIcon sx={{ marginRight: 1 }} />}>
+              Dashboard
+            </Typography>
+          </Link>
+        </li>
         {user?.role === UserRoleEnum.OWNER && (
           <li className={[styles.navButton, isActive("leases")].join(" ")}>
             <Link href="/dashboard/leases">

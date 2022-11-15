@@ -15,7 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Custom404: NextPage = () => {
+const Custom404Page: NextPage = () => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -50,4 +50,4 @@ const Custom404: NextPage = () => {
   );
 };
 
-export default Custom404;
+export default Custom404Page;

@@ -22,7 +22,6 @@ import SuccessAnimation from "../success-animation";
 import { signup } from "../../utils/fetch/fetchAuth";
 import ISignup from "../../interfaces/ISignup";
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
-import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

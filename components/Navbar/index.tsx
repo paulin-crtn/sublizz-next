@@ -31,9 +31,9 @@ import Add from "@mui/icons-material/Add";
 import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
+import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import LogoutIcon from "@mui/icons-material/Logout";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
@@ -153,6 +153,14 @@ const Navbar: FunctionComponent = () => {
             aria-labelledby="menu-button"
             placement="bottom-end"
           >
+            <Link href="/dashboard">
+              <MenuItem onClick={handleClose}>
+                <ListItemDecorator>
+                  <HomeIcon />
+                </ListItemDecorator>
+                Dashboard
+              </MenuItem>
+            </Link>
             {user.role === UserRoleEnum.OWNER && (
               <Link href="/dashboard/leases">
                 <MenuItem onClick={handleClose}>
@@ -187,14 +195,6 @@ const Navbar: FunctionComponent = () => {
                   <PersonIcon />
                 </ListItemDecorator>
                 Profil
-              </MenuItem>
-            </Link>
-            <Link href="/dashboard/account">
-              <MenuItem onClick={handleClose}>
-                <ListItemDecorator>
-                  <SettingsIcon />
-                </ListItemDecorator>
-                Compte
               </MenuItem>
             </Link>
             <ListDivider />

@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -51,6 +52,9 @@ const EditProfile = ({ user }: { user: IUser }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [inputFile, setInputFile] = useState<File | Blob | undefined>();
   const [hasInputFileError, setHasInputFileError] = useState<boolean>(false);
@@ -71,6 +75,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         setUser(data);
         setInputFile(undefined); // Avoid uploading twice if user continue to edit/save its profile
         toast.success("Profil mis à jour", { style: TOAST_STYLE });
+        router.push("/dashboard");
       },
     }
   );
