@@ -29,35 +29,12 @@ const NoticePage: NextPage = () => {
       </Head>
 
       <Box component="main">
-        <Typography component="h1" level="h2">
-          Mentions légales
-        </Typography>
-
-        <Box display="flex" gap={6} marginTop={6} position="relative">
-          <Alert
-            sx={{
-              flex: "0 0 300px",
-              alignSelf: "flex-start",
-              position: "sticky",
-              top: "120px",
-            }}
-          >
-            <List
-              component="ol"
-              aria-label="basic-list"
-              sx={{ fontWeight: 500 }}
-            >
-              <ListItem>
-                <Link href="#editor">Éditeur</Link>
-              </ListItem>
-              <ListItem>
-                <Link href="#host">Hébergeurs</Link>
-              </ListItem>
-            </List>
-          </Alert>
-
+        <Box display="flex" gap={6} position="relative">
           <Box component="section" flex="1 1">
-            <Typography>
+            <Typography component="h1" level="h2">
+              Mentions légales
+            </Typography>
+            <Typography marginTop={4}>
               Conformément aux dispositions des articles 6-III et 19 de la Loi
               n° 2004-575 du 21 juin 2004 pour la Confiance dans l’économie
               numérique, dite L.C.E.N., nous portons à la connaissance des
@@ -65,13 +42,13 @@ const NoticePage: NextPage = () => {
               informations suivantes.
             </Typography>
 
-            <Typography id="editor" component="h2" level="h4" marginTop={3}>
+            <Typography id="editor" component="h2" level="h4" marginTop={4}>
               1. Éditeur
             </Typography>
             <Typography marginTop={1}>
               Le site lacartedeslogements.com est la propriété exclusive de
-              Paulin CARATINI, agissant également sous le nom commercial «
-              Haftwald », qui l’édite.
+              Paulin CARATINI, entrepreneur individuel agissant également sous
+              le nom commercial « Haftwald », qui l’édite.
             </Typography>
             <Typography marginTop={1}>
               Haftwald est une micro-entreprise immatriculée sous le numéro
@@ -79,7 +56,7 @@ const NoticePage: NextPage = () => {
             </Typography>
             <Button sx={{ mt: 2 }}>Contacter l’éditeur</Button>
 
-            <Typography id="host" component="h2" level="h4" marginTop={3}>
+            <Typography id="host" component="h2" level="h4" marginTop={4}>
               2. Hébergeurs
             </Typography>
             <Typography marginTop={1}>
@@ -155,6 +132,28 @@ const NoticePage: NextPage = () => {
               </Card>
             </Box>
           </Box>
+
+          <Alert
+            sx={{
+              flex: "0 0 300px",
+              alignSelf: "flex-start",
+              position: "sticky",
+              top: "120px",
+            }}
+          >
+            <List
+              component="ol"
+              aria-label="basic-list"
+              sx={{ fontWeight: 500 }}
+            >
+              <ListItem>
+                <Link href="#editor">Éditeur</Link>
+              </ListItem>
+              <ListItem>
+                <Link href="#host">Hébergeurs</Link>
+              </ListItem>
+            </List>
+          </Alert>
         </Box>
       </Box>
     </>
