@@ -72,13 +72,17 @@ const Footer: FunctionComponent = () => {
           </Typography>
           <List size="sm" aria-labelledby="decorated-list-demo">
             <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="#">Mentions légales</Link>
+              <Link href="/legal/notice">Mentions légales</Link>
             </ListItem>
             <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="#">Conditions générales d'utilisation</Link>
+              <Link href="/legal/terms-of-service">
+                Conditions générales d'utilisation
+              </Link>
             </ListItem>
             <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="#">Politique de confidentialité &#x26; Cookies</Link>
+              <Link href="/legal/privacy-and-cookies">
+                Politique de confidentialité &#x26; Cookies
+              </Link>
             </ListItem>
           </List>
         </Box>
