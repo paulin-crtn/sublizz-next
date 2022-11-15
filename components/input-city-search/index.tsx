@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { getDataGouvCity } from "../../utils/fetch/fetchCity";
-import Input from "@mui/joy/Input";
+import TextField from "@mui/joy/TextField";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
@@ -36,6 +36,7 @@ const InputCitySearch = ({ isLarge = false }) => {
 
   /* -------------------------------- REACT REF ------------------------------- */
   const dropdown = useRef<HTMLUListElement>(null);
+  const searchInput = useRef<HTMLDivElement>(null);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
@@ -43,11 +44,10 @@ const InputCitySearch = ({ isLarge = false }) => {
    */
   useEffect(() => {
     const { city } = router.query;
-    if (city && typeof city === "string") {
-      setQuery(city);
-    } else {
-      setQuery("");
-    }
+    city && typeof city === "string" ? setQuery(city) : setQuery("");
+    // Close dropdown and lose input focus
+    setShowDropdown(false);
+    searchInput.current?.getElementsByTagName("input")[0].blur();
   }, [router.query.city]);
 
   /**
@@ -64,6 +64,21 @@ const InputCitySearch = ({ isLarge = false }) => {
     };
     getCities(query).catch((error) => console.log(error));
   }, [query]);
+
+  /**
+   * Call handleSearch when user click on "Enter" key
+   */
+  useEffect(() => {
+    if (query.length < 2) return;
+    function handleEnterKey(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        handleSearch(query);
+      }
+    }
+    window.addEventListener("keydown", handleEnterKey);
+    // Clean up
+    return () => window.removeEventListener("keydown", handleEnterKey);
+  }, [query, showDropdown]);
 
   /**
    * Close dropdown when user click outside the list
@@ -95,9 +110,10 @@ const InputCitySearch = ({ isLarge = false }) => {
   return (
     <Box sx={{ display: "flex", zIndex: 10 }}>
       <Box sx={{ position: "relative", width: "360px" }}>
-        <Input
+        <TextField
           size={isLarge ? "lg" : "md"}
           placeholder="Rechercher par ville"
+          ref={searchInput}
           value={query}
           onKeyUp={() => {
             query.length > 2 && cities && !!cities.length

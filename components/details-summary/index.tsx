@@ -62,8 +62,8 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
         </Box>
       </Box>
       <Box marginTop={2}>
-        {details.map((detail: string) => (
-          <Typography marginTop={1} fontWeight={300}>
+        {details.map((detail: string, index: number) => (
+          <Typography key={index} marginTop={1} fontWeight={300}>
             {detail}
           </Typography>
         ))}

@@ -467,8 +467,12 @@ const Home: NextPage = ({
           </Typography>
           <Box display="flex" flexDirection="column" gap={1.5}>
             {FREQUENTLY_ASKED_QUESTIONS.map(
-              ({ summary, details }: IDetailsSummary) => (
-                <DetailsSummary summary={summary} details={details} />
+              ({ summary, details }: IDetailsSummary, index: number) => (
+                <DetailsSummary
+                  key={index}
+                  summary={summary}
+                  details={details}
+                />
               )
             )}
           </Box>
