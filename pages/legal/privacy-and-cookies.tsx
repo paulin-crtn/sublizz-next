@@ -7,8 +7,6 @@ import Head from "next/head";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
 import Link from "next/link";
 
 /* -------------------------------------------------------------------------- */
@@ -35,7 +33,7 @@ const PrivacyPage: NextPage = () => {
           Politique de confidentialité & Cookies
         </Typography>
 
-        <Typography id="editor" component="h2" level="h4" marginTop={4}>
+        <Typography component="h2" level="h4" marginTop={4}>
           Données personnelles
         </Typography>
 
@@ -45,7 +43,7 @@ const PrivacyPage: NextPage = () => {
           226-13 du Code pénal et la Directive Européenne du 24 octobre 1995.
         </Typography>
 
-        <Typography id="host" component="h3" level="h5" marginTop={4}>
+        <Typography component="h3" level="h5" marginTop={4}>
           Données collectées et finalités
         </Typography>
 

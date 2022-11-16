@@ -35,7 +35,7 @@ const NoticePage: NextPage = () => {
           visiteurs du site lacartedeslogements.com les informations suivantes.
         </Typography>
 
-        <Typography id="editor" component="h2" level="h4" marginTop={4}>
+        <Typography component="h2" level="h4" marginTop={4}>
           Éditeur
         </Typography>
         <Typography marginTop={2}>
@@ -49,7 +49,7 @@ const NoticePage: NextPage = () => {
         </Typography>
         <Button sx={{ mt: 2 }}>Contacter l’éditeur</Button>
 
-        <Typography id="host" component="h2" level="h4" marginTop={4}>
+        <Typography component="h2" level="h4" marginTop={4}>
           Hébergeurs
         </Typography>
         <Typography marginTop={2}>
