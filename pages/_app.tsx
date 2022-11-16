@@ -12,6 +12,10 @@ import { FavoriteProvider } from "../context/favorite.context";
 import { theme } from "../theme";
 import Layout from "../components/layout";
 import "../styles/globals.css";
+import { useState } from "react";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
+import CookieBanner from "../components/cookie-banner";
 
 /* -------------------------------------------------------------------------- */
 /*                               DATE-FNS LOCALE                              */
@@ -27,6 +31,10 @@ const queryClient = new QueryClient();
 /*                                 CUSTOM APP                                 */
 /* -------------------------------------------------------------------------- */
 export default function MyApp({ Component, pageProps }: AppProps) {
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [openCookie, setOpenCookie] = useState<boolean>(true);
+
+  /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <CssVarsProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
@@ -35,6 +43,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <Layout>
               <Toaster position="bottom-right" />
               <Component {...pageProps} />
+              {/** Cookie */}
+              <Modal open={openCookie}>
+                <ModalDialog size="lg" aria-labelledby="cookie-modal">
+                  <CookieBanner setOpenCookie={setOpenCookie} />
+                </ModalDialog>
+              </Modal>
             </Layout>
           </FavoriteProvider>
         </AuthProvider>
