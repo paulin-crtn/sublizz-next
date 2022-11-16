@@ -104,6 +104,7 @@ const InputCitySearch = ({ isLarge = false }) => {
       : router.push("/leases");
     setQuery(cityTrimmed);
     setShowDropdown(false);
+    searchInput.current?.getElementsByTagName("input")[0].blur();
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
