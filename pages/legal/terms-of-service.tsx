@@ -48,11 +48,12 @@ const TermsPage: NextPage = () => {
           Publics autorisés
         </Typography>
         <Typography marginTop={2}>
-          L'utilisation du site lacartedeslogements.com est exclusivement
-          réservée aux personnes physiques majeures. Les personnes morales ne
-          sont pas autorisées à utiliser le présent site et ses services. Cela
-          concerne particulièrement, mais pas uniquement : les agences
-          immobilières, les mandataires, les SCI et SCPI.
+          La création d'un compte sur le site lacartedeslogements.com est
+          exclusivement réservée aux personnes physiques majeures. Les personnes
+          morales ne sont pas autorisées à créer un compte et utiliser les
+          services du présent site. Cela concerne particulièrement, mais pas
+          uniquement : les agences immobilières, les mandataires, les SCI et
+          SCPI.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -63,6 +64,49 @@ const TermsPage: NextPage = () => {
           particuliers afin de faciliter la location ou la sous-location, avec
           l'accord du propriétaire, d'un bien immobilier. À ce titre le site
           permet la publication d'annonce immobilière.
+        </Typography>
+
+        <Typography component="h2" level="h4" marginTop={4}>
+          Création d'un compte
+        </Typography>
+        <Typography marginTop={2}>
+          Si vous souhaitez créer un compte sur le site lacartedeslogements.com,
+          vous devez accepter les Conditions Générales d’Utilisation.
+        </Typography>
+        <Typography marginTop={2}>
+          Vous devez veiller à choisir un mot de passe « fort », c'est à dire
+          qui contient au moins 8 caractères et 4 types différents : des
+          minuscules, des majuscules, des chiffres et des caractères spéciaux.
+        </Typography>
+        <Typography marginTop={2}>
+          Pour éviter les piratages en cascade, votre compte doit avoir un mot
+          de passe propre et unique. Vous ne devez pas choisir un mot de passe
+          que vous utilisez déjà pour un autre compte.
+        </Typography>
+        <Typography marginTop={2}>
+          Vous pourrez modifier votre mot de passe à tout moment depuis votre
+          espace personnel. Vous devez informer immédiatement
+          lacartedeslogements.com de toute perte ou utilisation non autorisée de
+          votre compte, de vos identifiants et mot de passe. Les mots de passe
+          et identifiants sont personnels et vous vous engagez à ne pas les
+          divulguer. A ce titre, vous êtes responsable de l'utilisation de votre
+          compte et de vos identifiants et mots de passe.
+        </Typography>
+        <Typography marginTop={2}>
+          Toute tentative de substitution de mot de passe ou d'identifiant d'un
+          autre utilisateur est strictement interdite.
+        </Typography>
+        <Typography marginTop={2}>
+          Vous vous engagez à ne faire aucune action qui pourrait aider toute
+          personne qui n'est pas un membre inscrit à accéder à une zone
+          sécurisée du site, et vous acceptez de ne pas créer des comptes
+          additionnels dans le but d'abuser du fonctionnement du site ou
+          d'autres membres inscrits, ou de chercher à vous faire passer pour un
+          autre membre inscrit.
+        </Typography>
+        <Typography marginTop={2}>
+          Lorsque vous vous authentifiez à notre site avec vos identifiants vous
+          restez authentifié pendant 1 semaine.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -83,7 +127,7 @@ const TermsPage: NextPage = () => {
         </Typography>
         <Typography marginTop={2}>
           La publication d'une annonce s'effectue en remplissant les champs du
-          formulaire disponible dans l'espace client de l'utilisateur.
+          formulaire disponible dans l'espace personnel de l'utilisateur.
           L'utilisateur devra alors renseigner les informations concernant le
           logement, dont notamment l'adresse du logement. C'est à partir de
           cette adresse que les coordonnées du logement sont récupérées. Ces

@@ -70,27 +70,29 @@ const PrivacyPage: NextPage = () => {
         <Typography marginTop={2}>
           Les données sont conservées aussi longtemps que l'utilisateur conserve
           son compte actif. Lorsque le compte est supprimée, les données de
-          l'utilisateur le sont également. Les données sont enregistrées dans
-          une base de données mise à disposition par l'entreprise Supabase. Les
-          coordonnées de cette entreprise sont disponibles sur la page des
-          mentions légales.
+          l'utilisateur le sont également.
         </Typography>
 
+        <Typography id="host" component="h3" level="h5" marginTop={4}>
+          Transfert de vos données
+        </Typography>
+        <Typography marginTop={2}>
+          Seul les administrateurs du site lacartedeslogements.com et les
+          fournisseurs de services du site lacartedeslogements.com peuvent avoir
+          accès aux informations des utilisateurs.
+        </Typography>
+        <Typography marginTop={2}>
+          Les données et fichiers sont enregistrés dans une base de données et
+          un espace de stockage mise à disposition par l'entreprise Supabase.
+          Les coordonnées de cette entreprise sont disponibles sur la page des
+          mentions légales.
+        </Typography>
         <Link href="/legal/notice">
           <Button sx={{ mt: 2 }}>Mentions légales</Button>
         </Link>
 
-        <Typography marginTop={2} fontWeight={500}>
-          Aucune information personnelle de l’utilisateur du site
-          lacartedeslogements.com n’est publiée à l’insu de l’utilisateur,
-          échangée, transférée, cédée ou vendue sur un support quelconque à des
-          tiers. Seul les administrateurs du site lacartedeslogements.com et les
-          hébergeurs du site lacartedeslogements.com peuvent avoir accès aux
-          informations des utilisateurs.
-        </Typography>
-
         <Typography id="host" component="h3" level="h5" marginTop={4}>
-          Délégué à la protection des données
+          Accès, modification et suppression de vos données
         </Typography>
 
         <Typography marginTop={2}>
@@ -98,9 +100,12 @@ const PrivacyPage: NextPage = () => {
           78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux
           libertés, tout utilisateur dispose d’un droit d’accès, de
           rectification, de suppression et d’opposition aux données personnelles
-          le concernant. Pour l’exercer, l’utilisateur doit contacter l’éditeur
-          du site dont les coordonnées sont disponibles sur la page des mentions
-          légales.
+          le concernant.
+        </Typography>
+        <Typography marginTop={2}>
+          Pour exercer ce droit, l’utilisateur doit contacter l’éditeur du site,
+          qui fait office de Délégué à la protection des données, et dont les
+          coordonnées sont disponibles sur la page des mentions légales.
         </Typography>
 
         <Link href="/legal/notice">
