@@ -30,9 +30,9 @@ const TermsPage: NextPage = () => {
 
         <Typography marginTop={4}>
           L’utilisation du présent site implique l’acceptation pleine et entière
-          des conditions générales d’utilisation (CGU) décrites ci-après. Ces
-          conditions d’utilisation sont susceptibles d’être modifiées ou
-          complétées à tout moment.
+          par l'utilisateur des conditions générales d’utilisation (CGU)
+          décrites ci-après. Ces conditions d’utilisation sont susceptibles
+          d’être modifiées ou complétées à tout moment.
         </Typography>
         <Typography marginTop={2}>
           Les présentes conditions générales d'utilisation remplacent
