@@ -94,8 +94,8 @@ const TermsPage: NextPage = () => {
           conforme ou contraire à la morale via le formulaire accessible sur la
           page de l'annonce. Il peut s'agir notamment mais pas exclusivement
           d'annonce dont le bien immobilier est insalubre ou impropre à
-          l'habitation. L'éditeur ainsi notifié pourra décider de conserver ou
-          non l'annonce sur le site lacartedeslogements.com.
+          l'habitation. L'éditeur ainsi notifié pourra décider de supprimer ou
+          non l'annonce du site lacartedeslogements.com.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -108,6 +108,11 @@ const TermsPage: NextPage = () => {
           s'appliquent, notamment concernant le nombre d'annonces et de photos
           qu'il est possible de publier.
         </Typography>
+        <Typography marginTop={2}>
+          Actuellement les limites sont fixées à : 1 compte par personne, 2
+          annonces par compte et 4 photos par annonce. Ces limites peuvent être
+          amenées à changer sans préavis.
+        </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
           Propriété des contenus publiés
@@ -115,9 +120,13 @@ const TermsPage: NextPage = () => {
         <Typography marginTop={2}>
           L'utilisateur du site lacartedeslogements.com n'est autorisé à publier
           une annonce immobilière que s'il dispose de la jouissance du bien pour
-          lequel il publie l'annonce. L'utilisateur s'engage à publier une
-          annonce conforme aux caractéristiques du logement et à n'utiliser que
-          des photos dont il est l'auteur et dont il possède la propriété.
+          lequel il publie l'annonce.
+        </Typography>
+        <Typography marginTop={2}>
+          L'utilisateur s'engage à publier une annonce conforme aux
+          caractéristiques du logement et à mettre en ligne uniquement des
+          photos en lien avec le logement à louer ou à sous-louer et dont il
+          possède les droits.
         </Typography>
         <Typography marginTop={2}>
           L'utilisateur à la stricte interdiction d’introduire dans le site
