@@ -45,7 +45,7 @@ const TermsPage: NextPage = () => {
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
-          Publics autorisés
+          Publics
         </Typography>
         <Typography marginTop={2}>
           La création d'un compte sur le site lacartedeslogements.com est
@@ -151,8 +151,9 @@ const TermsPage: NextPage = () => {
           trompeuse.
         </Typography>
         <Typography marginTop={2}>
-          Ces suppressions pourront intervenir sans préavis, droit d'information
-          ou compensation quelconque.
+          Ces suppressions pourront intervenir sans préavis ou information
+          préalable et ne pourront donner droit à une quelconque indemnisation
+          ou compensation.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -165,6 +166,29 @@ const TermsPage: NextPage = () => {
           d'annonce dont le bien immobilier est insalubre ou impropre à
           l'habitation. L'éditeur ainsi notifié pourra décider de supprimer ou
           non l'annonce du site lacartedeslogements.com.
+        </Typography>
+
+        <Typography component="h2" level="h4" marginTop={4}>
+          Suppression d'un compte
+        </Typography>
+        <Typography marginTop={2}>
+          Un utilisateur peut supprimer son compte à tout moment.
+        </Typography>
+        <Typography marginTop={2}>
+          Le site lacartedeslogements.com se réserve le droit de supprimer le
+          compte d'un utilisateur à tout moment sans préavis ou information
+          préalable et sans compensation ou indemnisation.
+        </Typography>
+        <Typography marginTop={2}>
+          Cette suppression peut notamment intervenir lorsque l'utilisateur
+          utilise ou est suspecté d'utiliser de manière frauduleuse le site
+          internet ou de nuire à son image.
+        </Typography>
+        <Typography marginTop={2}>
+          L'adresse email et l'adresse IP de l'utilisateur pourront être
+          bloquées afin d'empêcher toute nouvelle inscription. Le site
+          lacartedeslogements.com se reserve le droit d'entreprendre des
+          poursuites judiciaires si necessaire.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -257,8 +281,9 @@ const TermsPage: NextPage = () => {
           avant la signature d'un bail ou d'un contrat.
         </Typography>
         <Typography marginTop={2}>
-          L'organisation des visites, la rédaction et la signature de tout
-          contrat ou bail est de la responsabilité des utilisateurs. Le site
+          L'organisation des visites, le choix du locataire ou du
+          sous-locataire, la rédaction et la signature de tout contrat ou bail
+          est de la responsabilité des utilisateurs. Le site
           lacartedeslogements.com se limite exclusivement à la mise en relation
           entre particuliers.
         </Typography>
