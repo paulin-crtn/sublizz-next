@@ -49,10 +49,10 @@ const TermsPage: NextPage = () => {
         </Typography>
         <Typography marginTop={2}>
           L'utilisation du site lacartedeslogements.com est exclusivement
-          réservée aux personnes physiques. Les personnes morales ne sont pas
-          autorisées à utiliser le présent site et ses services. Cela concerne
-          particulièrement, mais pas uniquement : les agences immobilières, les
-          mandataires, les SCI et SCPI.
+          réservée aux personnes physiques majeures. Les personnes morales ne
+          sont pas autorisées à utiliser le présent site et ses services. Cela
+          concerne particulièrement, mais pas uniquement : les agences
+          immobilières, les mandataires, les SCI et SCPI.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -63,6 +63,36 @@ const TermsPage: NextPage = () => {
           particuliers afin de faciliter la location ou la sous-location, avec
           l'accord du propriétaire, d'un bien immobilier. À ce titre le site
           permet la publication d'annonce immobilière.
+        </Typography>
+
+        <Typography component="h2" level="h4" marginTop={4}>
+          Publication d'une annonce
+        </Typography>
+
+        <Typography marginTop={2} fontWeight={500}>
+          Les annonces présentes sur le site lacartedeslogements.com ne sont pas
+          vérifiées.
+        </Typography>
+
+        <Typography id="host" component="h3" level="h5" marginTop={4}>
+          Fonctionnement
+        </Typography>
+        <Typography marginTop={2}>
+          Pour pouvoir publier une annonce il est nécessaire que l'utilisateur
+          dispose d'un compte actif.
+        </Typography>
+        <Typography marginTop={2}>
+          La publication d'une annonce s'effectue en remplissant les champs du
+          formulaire disponible dans l'espace client de l'utilisateur.
+          L'utilisateur devra alors renseigner les informations concernant le
+          logement, dont notamment l'adresse du logement. C'est à partir de
+          cette adresse que les coordonnées du logement sont récupérées. Ces
+          coordonnées servent à afficher l'emplacement du logement sur la carte
+          interactive.
+        </Typography>
+
+        <Typography id="host" component="h3" level="h5" marginTop={4}>
+          Limitations
         </Typography>
         <Typography marginTop={2}>
           Seul les biens immobiliers disponibles sur le sol français, à usage
@@ -79,11 +109,6 @@ const TermsPage: NextPage = () => {
         <Typography marginTop={2}>
           Ces suppressions pourront intervenir sans préavis, droit d'information
           ou compensation quelconque.
-        </Typography>
-        <Typography marginTop={2} fontWeight={500}>
-          Les annonces présentes sur le site lacartedeslogements.com ne sont pas
-          vérifiées. Leur présence sur le site ne vaut pas validation par
-          l'éditeur.
         </Typography>
 
         <Typography component="h2" level="h4" marginTop={4}>
@@ -138,6 +163,12 @@ const TermsPage: NextPage = () => {
         <Typography component="h2" level="h4" marginTop={4}>
           Responsabilité et limitation de responsabilité
         </Typography>
+
+        <Typography marginTop={2} fontWeight={500}>
+          Les annonces présentes sur le site lacartedeslogements.com ne sont pas
+          vérifiées.
+        </Typography>
+
         <Typography id="host" component="h3" level="h5" marginTop={4}>
           Disponibilités et garanties
         </Typography>
@@ -167,11 +198,6 @@ const TermsPage: NextPage = () => {
 
         <Typography id="host" component="h3" level="h5" marginTop={4}>
           Obligation de vigilance de l'utilisateur
-        </Typography>
-        <Typography marginTop={2} fontWeight={500}>
-          Les annonces présentes sur le site lacartedeslogements.com ne sont pas
-          vérifiées. Leur présence sur le site ne vaut pas validation par
-          l'éditeur.
         </Typography>
         <Typography marginTop={2}>
           Il revient à l'utilisateur de faire preuve de vigilance lors de
