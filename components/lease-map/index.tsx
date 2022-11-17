@@ -99,13 +99,13 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Popup className="popup" maxWidth={410}>
+    <Popup className="popup" maxWidth={430}>
       <Card
         row
         onClick={() => {
           router.push(`/leases/${lease.id}`);
         }}
-        sx={{ maxWidth: 410, cursor: "pointer", boxShadow: "none" }}
+        sx={{ maxWidth: 430, cursor: "pointer", boxShadow: "none" }}
       >
         <CardOverflow>
           <AspectRatio ratio="1" sx={{ width: 115 }}>

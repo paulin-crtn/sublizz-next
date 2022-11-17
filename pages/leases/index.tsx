@@ -101,6 +101,11 @@ const LeasesPage: NextPage = ({
           paddingX: 6,
           paddingTop: 4,
           marginBottom: "90px",
+          "@media (max-width: 800px)": {
+            paddingX: 4,
+            paddingTop: 2,
+            marginBottom: "60px",
+          },
         }}
       >
         {!!data.totalCount && (
@@ -134,17 +139,16 @@ const LeasesPage: NextPage = ({
             </Box>
             <RadioGroup
               row
-              aria-labelledby="segmented-controls-example"
-              name="justify"
+              name="mapOrList"
+              size="sm"
               value={showMapOrList}
               onChange={(event) => setShowMapOrList(event.target.value)}
               sx={{
                 minHeight: 48,
                 padding: "4px",
                 borderRadius: "md",
-                bgcolor: "neutral.softBg",
+                bgcolor: "#262626",
                 "--RadioGroup-gap": "4px",
-                "--Radio-action-radius": "8px",
                 "@media (min-width: 1400px)": { display: "none" },
                 "@media (max-width: 800px)": { marginTop: 3 },
               }}
@@ -160,16 +164,24 @@ const LeasesPage: NextPage = ({
                   sx={{
                     px: 2,
                     alignItems: "center",
+                    color: "#ffffff",
                   }}
                   componentsProps={{
                     action: ({ checked }) => ({
                       sx: {
+                        "&:hover": {
+                          bgcolor: "#474747",
+                          borderRadius: "md",
+                        },
+                        "&:active": {
+                          bgcolor: "#474747",
+                          borderRadius: "md",
+                        },
                         ...(checked && {
-                          bgcolor: "background.surface",
-                          boxShadow: "md",
+                          bgcolor: "#474747",
                           borderRadius: "md",
                           "&:hover": {
-                            bgcolor: "background.surface",
+                            bgcolor: "#474747",
                           },
                         }),
                       },
@@ -223,14 +235,14 @@ const LeasesPage: NextPage = ({
                     {index === 0 && (
                       <Divider
                         sx={{
-                          "@media (max-width: 820px)": { display: "none" },
+                          "@media (max-width: 760px)": { display: "none" },
                         }}
                       />
                     )}
                     <LeaseCard lease={lease} />
                     <Divider
                       sx={{
-                        "@media (max-width: 820px)": { display: "none" },
+                        "@media (max-width: 760px)": { display: "none" },
                       }}
                     />
                   </Box>
@@ -244,7 +256,7 @@ const LeasesPage: NextPage = ({
           !showDesktopMap && (
             <Box
               sx={{
-                height: "calc(100vh - 280px)",
+                height: "calc(100vh - 300px)",
               }}
             >
               <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
@@ -256,7 +268,7 @@ const LeasesPage: NextPage = ({
           <Pagination
             count={pageCount}
             size="large"
-            sx={{ width: "fit-content", mt: 3 }}
+            sx={{ width: "fit-content", mt: 4 }}
             onChange={onDataPageChange}
             page={currentPage}
           />

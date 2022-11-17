@@ -136,6 +136,7 @@ const Navbar: FunctionComponent = () => {
                 alt="logo lacartedeslogements"
                 fill={true}
                 style={{ objectFit: "cover" }}
+                sizes="100"
               />
             </Box>
           </Link>

@@ -207,7 +207,7 @@ const Home: NextPage = ({
                     {index !== 0 && (
                       <Divider
                         sx={{
-                          "@media (max-width: 820px)": {
+                          "@media (max-width: 760px)": {
                             display: "none",
                           },
                         }}
@@ -359,7 +359,7 @@ const Home: NextPage = ({
                   paddingX: 3,
                   paddingY: 2,
                   // @ts-ignore
-                  background: "linear-gradient(to right, #4700cc, #920be3)",
+                  background: "linear-gradient(to right, #4700cc, #652ba9)",
                   color: "#ffffff",
                   borderRadius: "12px",
                 }}
@@ -414,7 +414,7 @@ const Home: NextPage = ({
                   paddingX: 3,
                   paddingY: 2,
                   // @ts-ignore
-                  background: "linear-gradient(to right, #4700cc, #920be3)",
+                  background: "linear-gradient(to right, #4700cc, #652ba9)",
                   color: "#ffffff",
                   borderRadius: "12px",
                 }}

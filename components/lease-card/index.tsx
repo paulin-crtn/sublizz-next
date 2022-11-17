@@ -24,7 +24,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
       sx={{
         display: "flex",
         paddingY: 2,
-        "@media (max-width: 820px)": {
+        "@media (max-width: 760px)": {
           display: "block",
         },
       }}
@@ -34,7 +34,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
           ratio="16/10"
           sx={{
             width: 240,
-            "@media (max-width: 820px)": {
+            "@media (max-width: 760px)": {
               width: "100%",
               maxHeight: "300px",
             },
@@ -55,7 +55,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
       <CardContent
         sx={{
           pl: 3,
-          "@media (max-width: 820px)": {
+          "@media (max-width: 760px)": {
             pl: 0,
             pt: 2,
           },

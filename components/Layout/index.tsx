@@ -39,7 +39,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
             maxWidth: isFullwidth ? "auto" : "1600px",
             padding: isFullwidth ? "0" : "45px 90px 90px 90px",
             margin: "0 auto",
-            "@media (max-width: 820px)": {
+            "@media (max-width: 840px)": {
               padding: isFullwidth ? "0" : "30px 50px 70px 50px",
             },
           }}
