@@ -128,7 +128,9 @@ const Home: NextPage = ({
                 frais d’agence
               </Typography>
             </Box>
-            <InputCitySearch isLarge={true} />
+            <Box sx={{ maxWidth: "420px" }}>
+              <InputCitySearch isLarge={true} />
+            </Box>
             <Link href="/leases">
               <FormHelperText sx={{ mt: 2, cursor: "pointer" }}>
                 Voir toutes les annonces
@@ -150,7 +152,13 @@ const Home: NextPage = ({
         </Typography>
 
         {!!data.totalCount && (
-          <Box sx={{ display: "flex", alignItems: "stretch", gap: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "stretch",
+              gap: 6,
+            }}
+          >
             <Box flex="1 1">
               {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
                 <Link href={`/leases/${lease.id}`} key={lease.id}>
@@ -161,7 +169,11 @@ const Home: NextPage = ({
                 </Link>
               ))}
             </Box>
-            <Box flex="0 0 400px" alignSelf="stretch">
+            <Box
+              flex="0 0 400px"
+              alignSelf="stretch"
+              sx={{ "@media (max-width: 1300px)": { display: "none" } }}
+            >
               <Card sx={{ height: "100%", boxShadow: "none" }}>
                 <CardCover>
                   <Image src={mapImg} alt="map illustration" />
@@ -251,7 +263,15 @@ const Home: NextPage = ({
             vous offrir une mise en relation rapide de particulier à
             particulier.
           </Typography>
-          <Box display="flex" alignItems="stretch" gap={6}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gridColumnGap: "30px",
+              gridRowGap: "20px",
+              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr" },
+            }}
+          >
             {/** OWNER */}
             <Box sx={{ flex: "1 1" }}>
               <Typography
@@ -342,22 +362,22 @@ const Home: NextPage = ({
                     Visitez le logement et positionnez vous 🤞
                   </ListItem>
                 </List>
+                <Alert
+                  color="info"
+                  startDecorator={<FavoriteIcon />}
+                  sx={{ mt: 1 }}
+                >
+                  Vous pouvez enregistrer une annonce en favoris et la retrouver
+                  plus tard.
+                </Alert>
+                <Alert
+                  color="info"
+                  startDecorator={<HourglassFullIcon />}
+                  sx={{ mt: 1 }}
+                >
+                  Gagnez du temps en enregistrant une réponse type.
+                </Alert>
               </Box>
-              <Alert
-                color="info"
-                startDecorator={<FavoriteIcon />}
-                sx={{ mt: 1 }}
-              >
-                Vous pouvez enregistrer une annonce en favoris et la retrouver
-                plus tard.
-              </Alert>
-              <Alert
-                color="info"
-                startDecorator={<HourglassFullIcon />}
-                sx={{ mt: 1 }}
-              >
-                Gagnez du temps en enregistrant une réponse type.
-              </Alert>
             </Box>
           </Box>
         </Box>
@@ -437,7 +457,16 @@ const Home: NextPage = ({
             particuliers permettant de louer ou de sous-louer facilement un
             appartement ou une maison.
           </Typography>
-          <Box display="flex" alignItems="stretch" gap={3}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridColumnGap: "20px",
+              gridRowGap: "20px",
+              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
+            }}
+          >
             {LEASE_TYPES.map(
               ({ title, description, duration, imgName, info }) => (
                 <Box key={title} flex="1 1">
