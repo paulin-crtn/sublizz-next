@@ -228,6 +228,7 @@ const Navbar: FunctionComponent = () => {
             variant="outlined"
             color="neutral"
             onClick={handleGuestClick}
+            sx={{ backgroundColor: "#ffffff" }}
           >
             <MenuIcon />
           </Button>
