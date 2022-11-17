@@ -156,9 +156,9 @@ const Navbar: FunctionComponent = () => {
             }}
             sx={(theme) => ({
               boxShadow: theme.vars.shadow.lg,
-              marginX: 3,
+              marginLeft: 3,
               whiteSpace: "nowrap",
-              "@media (max-width: 1200px)": { display: "none" },
+              "@media (max-width: 1150px)": { display: "none" },
             })}
           >
             Publier une annonce
@@ -183,14 +183,13 @@ const Navbar: FunctionComponent = () => {
           component="ul"
           sx={{
             display: "flex",
-            "@media (max-width: 1200px)": { display: "none" },
+            "@media (max-width: 1150px)": { display: "none" },
           }}
         >
           <Box
             component="li"
             onClick={() => setOpenSignin(true)}
             sx={{
-              marginLeft: "30px",
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -217,7 +216,7 @@ const Navbar: FunctionComponent = () => {
       {!user && (
         <Box
           sx={{
-            "@media (min-width: 1201px)": { display: "none" },
+            "@media (min-width: 1151px)": { display: "none" },
           }}
         >
           <Button

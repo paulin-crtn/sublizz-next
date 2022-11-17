@@ -104,7 +104,21 @@ const Home: NextPage = ({
               placeholder="blur"
             />
           </CardCover>
-          <CardContent sx={{ marginX: 4, marginY: 8 }}>
+          <CardCover
+            sx={{
+              "@media (max-width: 1100px)": {
+                background:
+                  "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 320px)",
+              },
+            }}
+          />
+          <CardContent
+            sx={{
+              marginX: 4,
+              marginY: 8,
+              "@media (max-width: 1100px)": { marginX: 2, marginY: 4 },
+            }}
+          >
             <Box sx={{ marginBottom: 4 }}>
               <Typography
                 component="h1"
@@ -114,6 +128,13 @@ const Home: NextPage = ({
                 fontSize={42}
                 fontWeight={800}
                 lineHeight={1.2}
+                sx={{
+                  "@media (max-width: 1100px)": {
+                    width: "100%",
+                    fontSize: "2rem",
+                    color: "#ffffff",
+                  },
+                }}
               >
                 Locations et sous-locations temporaires entre particuliers
               </Typography>
@@ -122,7 +143,14 @@ const Home: NextPage = ({
                 level="h5"
                 width="40%"
                 marginTop={2}
-                fontWeight={300}
+                fontWeight={400}
+                sx={{
+                  "@media (max-width: 1100px)": {
+                    width: "100%",
+                    fontSize: "1.1rem",
+                    color: "#ffffff",
+                  },
+                }}
               >
                 Découvrez nos offres de location de courte et moyenne durée sans
                 frais d’agence
@@ -132,7 +160,15 @@ const Home: NextPage = ({
               <InputCitySearch isLarge={true} />
             </Box>
             <Link href="/leases">
-              <FormHelperText sx={{ mt: 2, cursor: "pointer" }}>
+              <FormHelperText
+                sx={{
+                  mt: 2,
+                  cursor: "pointer",
+                  "@media (max-width: 1100px)": {
+                    color: "#ffffff",
+                  },
+                }}
+              >
                 Voir toutes les annonces
               </FormHelperText>
             </Link>
