@@ -123,24 +123,17 @@ const Navbar: FunctionComponent = () => {
             </Box>
           </Link>
         </Box>
-        <Box
-          sx={{
-            cursor: "pointer",
-            "@media (min-width: 761px)": { display: "none" },
-          }}
-        >
-          <Link href="/">
-            <Box sx={{ position: "relative", width: "40px", height: "40px" }}>
-              <Image
-                src={logoImg}
-                alt="logo lacartedeslogements"
-                fill={true}
-                style={{ objectFit: "cover" }}
-                sizes="100"
-              />
-            </Box>
-          </Link>
-        </Box>
+        <Link href="/">
+          <Box
+            sx={{
+              height: "40px",
+              cursor: "pointer",
+              "@media (min-width: 761px)": { display: "none" },
+            }}
+          >
+            <Image src={logoImg} alt="logo lacartedeslogements" height={40} />
+          </Box>
+        </Link>
         {!user && (
           <Button
             startDecorator={<Add />}
