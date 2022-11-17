@@ -1,5 +1,4 @@
-.container,
-.container ul {
+.container {
   display: flex;
   align-items: center;
 }
@@ -17,33 +16,7 @@
   z-index: 1000;
 }
 
-.container .logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.textGradient1 {
-  background: linear-gradient(to right, #4700cc, #920be3);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.textGradient2 {
-  background: linear-gradient(to right, #920be3, #4700cc);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
 .cta {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.container .unorderList li {
-  margin-left: 30px;
-  font-weight: 400;
-  cursor: pointer;
 }

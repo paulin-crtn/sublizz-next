@@ -2,7 +2,6 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { Dispatch, SetStateAction, useState } from "react";
-import Image from "next/future/image";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Switch from "@mui/joy/Switch";
@@ -62,21 +61,9 @@ const CookieBanner = ({
       >
         lacartedeslogements
       </Typography>
-      <Box display="flex" alignItems="center">
-        <Typography marginRight={2} fontWeight={500} fontSize="1.4rem">
-          Gestion des cookies
-        </Typography>
-        {/* <Box sx={{ position: "relative", width: "60px", height: "40px" }}>
-          <Image
-            src="/img/cookie.png"
-            alt="cookie"
-            fill={true}
-            sizes={"100"}
-            style={{ objectFit: "cover" }}
-          />
-        </Box> */}
-      </Box>
-
+      <Typography marginRight={2} fontWeight={500} fontSize="1.4rem">
+        Gestion des cookies
+      </Typography>
       <Typography
         fontSize="1.1rem"
         fontWeight={300}

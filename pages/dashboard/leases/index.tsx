@@ -47,8 +47,8 @@ const UserLeasesPage: NextPage = () => {
   if (isLoading) {
     return (
       <AccountLayout
-        pageTitle="Mes annonces"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+        pageTitle="Gérer mes annonces"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         <LeaseSkeleton />
       </AccountLayout>
@@ -58,8 +58,8 @@ const UserLeasesPage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <AccountLayout
-        pageTitle="Mes annonces"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+        pageTitle="Gérer mes annonces"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         {error.message.split(",").map((msg, index) => (
           <Alert
@@ -79,8 +79,8 @@ const UserLeasesPage: NextPage = () => {
   if (!userLeases.length) {
     return (
       <AccountLayout
-        pageTitle="Mes annonces"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+        pageTitle="Gérer mes annonces"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
@@ -98,8 +98,8 @@ const UserLeasesPage: NextPage = () => {
 
   return (
     <AccountLayout
-      pageTitle="Mes annonces"
-      breadcrumbs={<CustomBreadcrumbs currentPage="Mes Annonces" />}
+      pageTitle="Gérer mes annonces"
+      breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
     >
       {userLeases.map((lease: ILeaseDetail, index: number) => (
         <Box key={lease.id}>

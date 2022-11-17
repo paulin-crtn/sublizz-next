@@ -2,8 +2,9 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { FunctionComponent, PropsWithChildren } from "react";
+import { FunctionComponent, PropsWithChildren, useMemo } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -12,8 +13,11 @@ import AccountNav from "../account-nav";
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
+import Add from "@mui/icons-material/Add";
+import Button from "@mui/joy/Button";
 /* -------------------------------- CONSTANT -------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                                    PROPS                                   */
@@ -30,6 +34,15 @@ const AccountLayout: FunctionComponent<Props> = ({
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
+
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
+  /* ------------------------------- REACT MEMO ------------------------------- */
+  const showAddLeaseButton = useMemo(() => {
+    const pathArr = router.pathname.split("/");
+    return user && user.role === UserRoleEnum.OWNER && pathArr.length < 4;
+  }, [user]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -89,7 +102,26 @@ const AccountLayout: FunctionComponent<Props> = ({
             borderRadius: "10px",
           }}
         >
-          <Box marginBottom={2}>{breadcrumbs}</Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            marginBottom={2}
+          >
+            <Box>{breadcrumbs}</Box>
+            {showAddLeaseButton && (
+              <Button
+                startDecorator={<Add />}
+                color="primary"
+                onClick={() => {
+                  router.push("/dashboard/leases/new");
+                }}
+                sx={(theme) => ({ boxShadow: theme.vars.shadow.lg })}
+              >
+                Publier une annonce
+              </Button>
+            )}
+          </Box>
           <Box
             sx={{
               marginBottom: 8,

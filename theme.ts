@@ -166,14 +166,19 @@ export const joyTheme: Theme = extendTheme({
     },
     JoyMenu: {
       styleOverrides: {
-        root: { backgroundColor: "#262626" },
+        // root: { backgroundColor: "#262626" },
       },
     },
     JoyMenuItem: {
       styleOverrides: {
+        // root: {
+        //   color: "#ffffff",
+        //   "&:hover": { backgroundColor: "#474747", color: "#ffffff" },
+        // },
         root: {
-          color: "#ffffff",
-          "&:hover": { backgroundColor: "#474747", color: "#ffffff" },
+          fontSize: "0.9rem",
+          paddingLeft: "20px",
+          paddingRight: "60px",
         },
       },
     },

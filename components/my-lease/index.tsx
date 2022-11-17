@@ -195,18 +195,18 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               {!!lease.isPublished && (
                 <Link href={`/leases/${lease.id}`}>
                   <MenuItem onClick={handleClose}>
-                    <ListItemDecorator>
+                    {/* <ListItemDecorator>
                       <FilterVintageIcon />
-                    </ListItemDecorator>
-                    Voir
+                    </ListItemDecorator> */}
+                    Voir l'annonce
                   </MenuItem>
                 </Link>
               )}
               <Link href={`/dashboard/leases/${lease.id}`}>
                 <MenuItem onClick={handleClose}>
-                  <ListItemDecorator>
+                  {/* <ListItemDecorator>
                     <DriveFileRenameOutlineIcon />
-                  </ListItemDecorator>
+                  </ListItemDecorator> */}
                   Modifier
                 </MenuItem>
               </Link>
@@ -216,26 +216,25 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                   mutatePublishedStatus();
                 }}
               >
-                <ListItemDecorator>
+                {/* <ListItemDecorator>
                   {lease.isPublished ? (
                     <StopCircleIcon />
                   ) : (
                     <PlayCircleFilledWhiteIcon />
                   )}
-                </ListItemDecorator>
+                </ListItemDecorator> */}
                 {lease.isPublished ? "Désactiver" : "Activer"}
               </MenuItem>
               <ListDivider />
               <MenuItem
-                color="danger"
                 onClick={async () => {
                   handleClose();
                   setOpenConfirmDelete(true);
                 }}
               >
-                <ListItemDecorator sx={{ color: "inherit" }}>
+                {/* <ListItemDecorator sx={{ color: "inherit" }}>
                   <DeleteIcon />
-                </ListItemDecorator>
+                </ListItemDecorator> */}
                 Supprimer
               </MenuItem>
             </Menu>

@@ -8,9 +8,7 @@ import TextField from "@mui/joy/TextField";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import FormHelperText from "@mui/joy/FormHelperText";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */

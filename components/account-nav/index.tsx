@@ -66,7 +66,7 @@ const AccountNav = () => {
         <li className={[styles.navButton, isActive("dashboard")].join(" ")}>
           <Link href="/dashboard">
             <Typography startDecorator={<HomeIcon sx={{ marginRight: 1 }} />}>
-              Dashboard
+              Tableau de bord
             </Typography>
           </Link>
         </li>
@@ -76,7 +76,7 @@ const AccountNav = () => {
               <Typography
                 startDecorator={<StyleIcon sx={{ marginRight: 1 }} />}
               >
-                Mes Annonces
+                Gérer mes annonces
               </Typography>
             </Link>
           </li>

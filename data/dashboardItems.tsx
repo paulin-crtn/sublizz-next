@@ -13,7 +13,7 @@ export const DASHBOARD_ITEMS = [
   },
   {
     icon: <StyleIcon />,
-    title: "Mes annonces",
+    title: "Gérer mes annonces",
     description: "Pour activer, désactiver, modifier ou supprimer une annonce.",
     href: "/dashboard/leases",
   },

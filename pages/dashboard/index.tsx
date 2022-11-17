@@ -46,8 +46,8 @@ const DashboardPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <AccountLayout
-      pageTitle="Dashboard"
-      breadcrumbs={<CustomBreadcrumbs currentPage="Dashboard" />}
+      pageTitle="Tableau de bord"
+      breadcrumbs={<CustomBreadcrumbs currentPage="Tableau de bord" />}
     >
       <Box
         sx={{
@@ -55,6 +55,7 @@ const DashboardPage: NextPage = () => {
           gridTemplateColumns: "1fr 1fr",
           gridColumnGap: "15px",
           gridRowGap: "15px",
+          "@media (max-width: 1200px)": { gridTemplateColumns: "1fr" },
         }}
       >
         {data.map(({ icon, title, description, href }, index: number) => (
