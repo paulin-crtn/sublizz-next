@@ -21,8 +21,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
       component="details"
       sx={{
         position: "relative",
-        paddingX: 3,
-        paddingY: 2,
+        padding: 3,
         border: "1px solid #dddee0",
         borderRadius: "12px",
       }}
@@ -40,7 +39,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
             left: 0,
             top: 0,
             width: "100%",
-            height: "58px",
+            height: "100%",
           },
           /* Safari */
           "&::-webkit-details-marker": {
@@ -55,7 +54,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
             alignItems: "center",
           }}
         >
-          <Typography level="h6" fontWeight={400}>
+          <Typography level="h6" fontWeight={400} marginRight={2}>
             {summary}
           </Typography>
           {isOpen ? <RemoveIcon /> : <AddIcon />}
