@@ -67,10 +67,15 @@ const NoticePage: NextPage = () => {
           Le site lacartedeslogements.com est hébergé par différents services.
         </Typography>
 
-        <Box display="flex" gap={2} marginTop={2}>
+        <Box
+          display="flex"
+          gap={2}
+          marginTop={2}
+          sx={{ "@media (max-width: 800px)": { display: "block" } }}
+        >
           <Card
             variant="outlined"
-            sx={{ flex: "1 1 150px", boxShadow: "none" }}
+            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
             <Typography level="h6">Vercel</Typography>
             <Typography level="body2">Front-end</Typography>
@@ -91,7 +96,7 @@ const NoticePage: NextPage = () => {
           </Card>
           <Card
             variant="outlined"
-            sx={{ flex: "1 1 150px", boxShadow: "none" }}
+            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
             <Typography level="h6">Heroku</Typography>
             <Typography level="body2">Back-end</Typography>
@@ -112,7 +117,7 @@ const NoticePage: NextPage = () => {
           </Card>
           <Card
             variant="outlined"
-            sx={{ flex: "1 1 150px", boxShadow: "none" }}
+            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
             <Typography level="h6">Supabase</Typography>
             <Typography level="body2">Base de données & stockage</Typography>

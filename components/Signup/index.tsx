@@ -240,7 +240,7 @@ const Signup = ({
               )}
               <Typography fontSize="0.85rem">
                 J'accepte les{" "}
-                <Link href="#" target="_blank">
+                <a href="/legal/terms-of-service" target="_blank">
                   <Box
                     component="span"
                     fontWeight={500}
@@ -248,9 +248,9 @@ const Signup = ({
                   >
                     Conditions Générales d'Utilisation
                   </Box>
-                </Link>
+                </a>
                 , la{" "}
-                <Link href="#" target="_blank">
+                <a href="/legal/privacy-and-cookies" target="_blank">
                   <Box
                     component="span"
                     fontWeight={500}
@@ -258,9 +258,9 @@ const Signup = ({
                   >
                     Politique de Confidentialité
                   </Box>
-                </Link>{" "}
+                </a>{" "}
                 et les{" "}
-                <Link href="#" target="_blank">
+                <a href="/legal/notice" target="_blank">
                   <Box
                     component="span"
                     fontWeight={500}
@@ -268,7 +268,7 @@ const Signup = ({
                   >
                     Mentions Légales
                   </Box>
-                </Link>
+                </a>
               </Typography>
             </Box>
           </FormControl>
