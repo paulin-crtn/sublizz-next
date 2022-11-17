@@ -115,7 +115,7 @@ const Home: NextPage = ({
           <CardContent
             sx={{
               marginX: 4,
-              marginY: 8,
+              marginY: 6,
               "@media (max-width: 1100px)": { marginX: 2, marginY: 4 },
             }}
           >
@@ -152,8 +152,8 @@ const Home: NextPage = ({
                   },
                 }}
               >
-                Découvrez nos offres de location de courte et moyenne durée sans
-                frais d’agence
+                Annonces immobilières de courte et moyenne durée sans frais
+                d’agence : location meublée, colocation et sous-location.
               </Typography>
             </Box>
             <Box sx={{ maxWidth: "420px" }}>
