@@ -143,7 +143,15 @@ const LeasePage: NextPage = ({
         }}
       >
         <Box>
-          <Typography component="h1" level="h2">
+          <Typography
+            component="h1"
+            level="h2"
+            sx={{
+              "@media (max-width: 1000px)": {
+                fontSize: "1.9rem",
+              },
+            }}
+          >
             {lease.city}
           </Typography>
           <LeaseDates lease={lease} isMinimized={false} />
@@ -177,7 +185,19 @@ const LeasePage: NextPage = ({
         {lease.leaseImages && !!lease.leaseImages.length && (
           <Box
             component="ul"
-            sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 4 }}
+            sx={{
+              position: "relative",
+              display: "flex",
+              gap: 2,
+              mt: 4,
+              scrollSnapType: "x mandatory",
+              overflowX: "scroll",
+              scrollbarWidth: "none" /* Firefox */,
+              msOverflowStyle: "none" /* IE and Edge */,
+              "&::-webkit-scrollbar": {
+                display: "none" /* Chrome, Safari and Opera */,
+              },
+            }}
           >
             {lease.leaseImages.map((image: string, index: number) => (
               <Card
@@ -186,8 +206,10 @@ const LeasePage: NextPage = ({
                 sx={{
                   flexGrow: 1,
                   height: 250,
+                  minWidth: 250,
                   boxShadow: "none",
                   cursor: "pointer",
+                  scrollSnapAlign: "start",
                 }}
                 onClick={() => {
                   setCurrentImageIndex(index);
