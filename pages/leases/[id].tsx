@@ -132,7 +132,16 @@ const LeasePage: NextPage = ({
           content={`⭐⭐⭐ Emménagez à ${lease.city} via notre réseau d'annonces de locations et de sous locations. Particuliers uniquement, pas de frais d'agence.`}
         />
       </Head>
-      <Box component="header" display="flex" justifyContent="space-between">
+      <Box
+        component="header"
+        display="flex"
+        justifyContent="space-between"
+        sx={{
+          "@media (max-width: 1000px)": {
+            display: "block",
+          },
+        }}
+      >
         <Box>
           <Typography component="h1" level="h2">
             {lease.city}
@@ -145,6 +154,13 @@ const LeasePage: NextPage = ({
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
+          sx={{
+            "@media (max-width: 1000px)": {
+              flexDirection: "row",
+              alignItems: "center",
+              mt: 4,
+            },
+          }}
         >
           <Typography level="h3" fontWeight={200}>
             {lease.pricePerMonth}€ CC
@@ -197,6 +213,9 @@ const LeasePage: NextPage = ({
             gap: 6,
             marginTop: 6,
             marginBottom: 4,
+            "@media (max-width: 1000px)": {
+              display: "block",
+            },
           }}
         >
           <Box sx={{ flex: "1 1" }}>
@@ -229,6 +248,10 @@ const LeasePage: NextPage = ({
               padding: 2,
               borderRadius: "16px",
               border: "1px solid #dddddd",
+              "@media (max-width: 1000px)": {
+                mt: 4,
+                width: "fit-content",
+              },
             }}
           >
             <Box
@@ -254,12 +277,7 @@ const LeasePage: NextPage = ({
             </Box>
 
             {/** Message */}
-            <Button
-              fullWidth
-              startDecorator={<EmailIcon />}
-              onClick={handleContact}
-              sx={{ mt: 2 }}
-            >
+            <Button fullWidth onClick={handleContact} sx={{ mt: 2 }}>
               Envoyer un message
             </Button>
 
@@ -269,7 +287,6 @@ const LeasePage: NextPage = ({
                 fullWidth
                 variant="soft"
                 color="neutral"
-                startDecorator={<PhoneAndroidIcon />}
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);
                 }}
