@@ -16,6 +16,7 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import CardContent from "@mui/joy/CardContent";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import noLeaseImg from "../../public/img/no-lease-img.png";
+import { useEffect } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -37,6 +38,9 @@ const LeaseMap = ({
   leases: ILeaseDetail[];
   isMultiple: boolean;
 }) => {
+  useEffect(() => {
+    console.log(leases);
+  }, [leases]);
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
@@ -45,7 +49,7 @@ const LeaseMap = ({
       zoom={13}
       scrollWheelZoom={false}
       style={{
-        height: isMultiple ? "calc(100vh - 160px)" : "360px",
+        height: "100%",
         borderRadius: "16px",
         zIndex: 1, // Safari : fix borderRadius
       }}

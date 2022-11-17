@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/lease-card";
 import Divider from "@mui/joy/Divider";
@@ -28,6 +28,9 @@ import Box from "@mui/joy/Box";
 import Pagination from "@mui/material/Pagination";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../interfaces/lease";
+import RadioGroup from "@mui/joy/RadioGroup";
+import Radio from "@mui/joy/Radio";
+import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -42,6 +45,9 @@ const LeasesPage: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [show, setShow] = useState<string>("Afficher la carte");
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -76,34 +82,97 @@ const LeasesPage: NextPage = ({
       <Box
         component="main"
         sx={{
-          position: "relative",
-          display: "flex",
-          gap: 6,
-          padding: 6,
+          paddingX: 6,
+          paddingTop: 4,
           marginBottom: "90px",
         }}
       >
-        <Box flex="1 1 52%">
-          <Box>
-            <Typography fontWeight={500}>
-              {query ? query + " : " : ""}
-              {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
-            </Typography>
-            {query && (
-              <Typography
-                level="body2"
-                mt={0.5}
-                sx={{
-                  cursor: "pointer",
-                }}
-                onClick={() => router.push("/leases")}
-              >
-                Effacer la recherche
+        {!!data.totalCount && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: 2,
+              mb: 3,
+              "@media (max-width: 800px)": { display: "inline-block" },
+            }}
+          >
+            <Box>
+              <Typography fontWeight={500}>
+                {query ? query + " : " : ""}
+                {data.totalCount}{" "}
+                {data.totalCount > 1 ? "logements" : "logement"}
               </Typography>
-            )}
+              {query && (
+                <Typography
+                  level="body2"
+                  mt={0.5}
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => router.push("/leases")}
+                >
+                  Effacer la recherche
+                </Typography>
+              )}
+            </Box>
+            <RadioGroup
+              row
+              aria-labelledby="segmented-controls-example"
+              name="justify"
+              value={show}
+              onChange={(event) => setShow(event.target.value)}
+              sx={{
+                minHeight: 48,
+                padding: "4px",
+                borderRadius: "md",
+                bgcolor: "neutral.softBg",
+                "--RadioGroup-gap": "4px",
+                "--Radio-action-radius": "8px",
+                "@media (min-width: 1400px)": { display: "none" },
+                "@media (max-width: 800px)": { marginTop: 3 },
+              }}
+            >
+              {["Afficher la carte", "Afficher la liste"].map((item) => (
+                <Radio
+                  key={item}
+                  color="neutral"
+                  value={item}
+                  disableIcon
+                  label={item}
+                  variant="plain"
+                  sx={{
+                    px: 2,
+                    alignItems: "center",
+                  }}
+                  componentsProps={{
+                    action: ({ checked }) => ({
+                      sx: {
+                        ...(checked && {
+                          bgcolor: "background.surface",
+                          boxShadow: "md",
+                          borderRadius: "md",
+                          "&:hover": {
+                            bgcolor: "background.surface",
+                          },
+                        }),
+                      },
+                    }),
+                  }}
+                />
+              ))}
+            </RadioGroup>
           </Box>
-          {!!data.totalCount && (
-            <Box mt={2}>
+        )}
+
+        {/** LIST & MAP DESKTOP */}
+        {/** List */}
+        {!!data.totalCount && (
+          <Box display="flex" gap={6} sx={{ position: "relative" }}>
+            <Box
+              flex="1 1 52%"
+              sx={{ "@media (max-width: 1400px)": { display: "none" } }}
+            >
               {data.leases.map((lease: ILease, index: number) => (
                 <Link href={`/leases/${lease.id}`} key={lease.id}>
                   <Box sx={{ cursor: "pointer" }}>
@@ -114,52 +183,90 @@ const LeasesPage: NextPage = ({
                 </Link>
               ))}
             </Box>
-          )}
-          {data.totalCount > RESULTS_PER_PAGE && (
-            <Pagination
-              count={pageCount}
-              sx={{ width: "fit-content", mt: 3, mx: "auto" }}
-              onChange={onDataPageChange}
-              page={currentPage}
-            />
-          )}
-          {!data.totalCount && (
+            {/** Map */}
             <Box
+              flex="0 1 48%"
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "calc(100% - 50px)",
+                position: "sticky",
+                top: 148,
+                alignSelf: "flex-start",
+                height: "calc(100vh - 200px)",
+                "@media (max-width: 1400px)": { display: "none" },
               }}
             >
-              <Image src="/img/no-result.svg" width="450" height="450" />
+              <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
             </Box>
-          )}
-        </Box>
+          </Box>
+        )}
 
+        {/** LIST & MAP MOBILE */}
+        {/** List */}
+        {show === "Afficher la liste" && !!data.totalCount && (
+          <Box sx={{ "@media (min-width: 1401px)": { display: "none" } }}>
+            {data.leases.map((lease: ILease, index: number) => (
+              <Link href={`/leases/${lease.id}`} key={lease.id}>
+                <Box sx={{ cursor: "pointer" }}>
+                  {index === 0 && (
+                    <Divider
+                      sx={{
+                        "@media (max-width: 820px)": { display: "none" },
+                      }}
+                    />
+                  )}
+                  <LeaseCard lease={lease} />
+                  <Divider
+                    sx={{
+                      "@media (max-width: 820px)": { display: "none" },
+                    }}
+                  />
+                </Box>
+              </Link>
+            ))}
+          </Box>
+        )}
         {/** Map */}
-        {!!data.totalCount && (
+        {show === "Afficher la carte" && !!data.totalCount && (
           <Box
-            flex="0 0 48%"
             sx={{
-              alignSelf: "flex-start",
-              position: "sticky",
-              top: 135, // 90px height navbar + 45px container marginTop
+              height: "calc(100vh - 280px)",
+              "@media (min-width: 1401px)": { display: "none" },
             }}
           >
             <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
           </Box>
         )}
+
+        {/** Pagination */}
+        {data.totalCount > RESULTS_PER_PAGE && (
+          <Pagination
+            count={pageCount}
+            size="large"
+            sx={{ width: "fit-content", mt: 3 }}
+            onChange={onDataPageChange}
+            page={currentPage}
+          />
+        )}
+
+        {/** No result */}
         {!data.totalCount && (
           <Box
-            flex="0 0 48%"
             sx={{
-              height: "calc(100vh - 160px)",
-              backgroundColor: "#eeeeee",
-              borderRadius: "16px",
-              overflow: "hidden",
+              display: "flex",
+              height: "calc(100vh - 300px)",
             }}
-          ></Box>
+          >
+            <Box margin="auto" textAlign="center">
+              <Image src="/img/no-result.svg" width="320" height="220" />
+              <Typography level="h5" fontWeight={400} textAlign="center">
+                Aucun résultat
+              </Typography>
+              {query && (
+                <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
+                  Effacer la recherche
+                </Button>
+              )}
+            </Box>
+          </Box>
         )}
       </Box>
     </>

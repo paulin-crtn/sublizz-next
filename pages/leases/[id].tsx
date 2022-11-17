@@ -327,7 +327,9 @@ const LeasePage: NextPage = ({
         <Typography level="h4" marginBottom={3}>
           Emplacement du logement
         </Typography>
-        <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
+        <Box height="360px">
+          <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
+        </Box>
       </main>
 
       {/** Lightbox */}
