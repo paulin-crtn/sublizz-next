@@ -251,30 +251,54 @@ const Home: NextPage = ({
             padding: 4,
             backgroundColor: "#262626",
             borderRadius: "16px",
+            "@media (max-width: 1100px)": {
+              display: "block",
+            },
           }}
         >
           <Typography
             fontSize="1.5rem"
             fontWeight="500"
             marginRight="30px"
-            sx={{ color: "#ffffff" }}
-          >
-            Découvrez toutes nos offres de locations et de sous-locations
-          </Typography>
-          <Button
-            size="lg"
-            onClick={() => router.push("/leases")}
             sx={{
-              backgroundColor: "#ffffff",
-              color: "#000000",
-              border: "none",
-              "&:hover": {
-                backgroundColor: "#eeeeee",
+              color: "#ffffff",
+              "@media (max-width: 1100px)": {
+                fontSize: "1.3rem",
               },
             }}
           >
-            Découvrir les annonces
-          </Button>
+            Découvrez toutes nos offres de locations et de sous-locations
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              "@media (max-width: 800px)": {
+                display: "block",
+              },
+            }}
+          >
+            <Button
+              size="lg"
+              fullWidth
+              onClick={() => router.push("/leases")}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                whiteSpace: "nowrap",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+                "@media (max-width: 1100px)": {
+                  mt: 3,
+                },
+              }}
+            >
+              Découvrir les annonces
+            </Button>
+          </Box>
         </Box>
 
         {/** How it works */}
@@ -313,9 +337,9 @@ const Home: NextPage = ({
               <Typography
                 component="h4"
                 level="h5"
-                fontWeight={400}
                 sx={{
-                  padding: 2,
+                  paddingX: 3,
+                  paddingY: 2,
                   // @ts-ignore
                   background: "linear-gradient(to right, #4700cc, #920be3)",
                   color: "#ffffff",
@@ -368,9 +392,9 @@ const Home: NextPage = ({
               <Typography
                 component="h4"
                 level="h5"
-                fontWeight={400}
                 sx={{
-                  padding: 2,
+                  paddingX: 3,
+                  paddingY: 2,
                   // @ts-ignore
                   background: "linear-gradient(to right, #4700cc, #920be3)",
                   color: "#ffffff",
@@ -429,26 +453,49 @@ const Home: NextPage = ({
               padding: 4,
               backgroundColor: "#262626",
               borderRadius: "16px",
+              "@media (max-width: 1100px)": {
+                display: "block",
+              },
             }}
           >
             <Typography
               fontSize="1.5rem"
               fontWeight="500"
               marginRight="30px"
-              sx={{ color: "#ffffff" }}
+              sx={{
+                color: "#ffffff",
+                "@media (max-width: 1100px)": {
+                  fontSize: "1.3rem",
+                  mb: 3,
+                },
+              }}
             >
               Optez pour la simplicité
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                "@media (max-width:800px)": {
+                  display: "block",
+                },
+              }}
+            >
               <Button
                 size="lg"
+                fullWidth
                 onClick={() => setOpenSignup(true)}
                 sx={{
+                  whiteSpace: "nowrap",
                   backgroundColor: "#ffffff",
                   color: "#000000",
                   border: "none",
                   "&:hover": {
                     backgroundColor: "#eeeeee",
+                  },
+                  "@media (max-width: 1100px)": {
+                    mb: 1,
                   },
                 }}
               >
@@ -456,13 +503,18 @@ const Home: NextPage = ({
               </Button>
               <Button
                 size="lg"
+                fullWidth
                 onClick={() => setOpenSignin(true)}
                 sx={{
+                  whiteSpace: "nowrap",
                   backgroundColor: "#ffffff",
                   color: "#000000",
                   border: "none",
                   "&:hover": {
                     backgroundColor: "#eeeeee",
+                  },
+                  "@media (max-width: 1100px)": {
+                    mb: 1,
                   },
                 }}
               >
@@ -553,27 +605,50 @@ const Home: NextPage = ({
             padding: 4,
             backgroundColor: "#262626",
             borderRadius: "16px",
+            "@media (max-width: 1100px)": {
+              display: "block",
+            },
           }}
         >
           <Typography
             fontSize="1.5rem"
             fontWeight="500"
             marginRight="30px"
-            sx={{ color: "#ffffff" }}
+            sx={{
+              color: "#ffffff",
+              "@media (max-width: 1100px)": {
+                fontSize: "1.3rem",
+                mb: 3,
+              },
+            }}
           >
             C'est le moment d'aller plus loin
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              "@media (max-width: 800px)": {
+                display: "block",
+              },
+            }}
+          >
             {!user && (
               <Button
                 size="lg"
+                fullWidth
                 onClick={() => setOpenSignup(true)}
                 sx={{
                   backgroundColor: "#ffffff",
                   color: "#000000",
                   border: "none",
+                  whiteSpace: "nowrap",
                   "&:hover": {
                     backgroundColor: "#eeeeee",
+                  },
+                  "@media (max-width: 800px)": {
+                    mb: 1,
                   },
                 }}
               >
@@ -582,13 +657,18 @@ const Home: NextPage = ({
             )}
             <Button
               size="lg"
+              fullWidth
               onClick={() => router.push("/leases")}
               sx={{
                 backgroundColor: "#ffffff",
                 color: "#000000",
                 border: "none",
+                whiteSpace: "nowrap",
                 "&:hover": {
                   backgroundColor: "#eeeeee",
+                },
+                "@media (max-width: 800px)": {
+                  mb: 1,
                 },
               }}
             >
