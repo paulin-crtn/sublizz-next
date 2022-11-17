@@ -102,7 +102,7 @@ const Navbar: FunctionComponent = () => {
           alignItems: "center",
         }}
       >
-        <Box sx={{ "@media (max-width: 700px)": { display: "none" } }}>
+        <Box sx={{ "@media (max-width: 760px)": { display: "none" } }}>
           <Link href="/">
             <Box
               sx={{
@@ -126,7 +126,7 @@ const Navbar: FunctionComponent = () => {
         <Box
           sx={{
             cursor: "pointer",
-            "@media (min-width: 701px)": { display: "none" },
+            "@media (min-width: 761px)": { display: "none" },
           }}
         >
           <Link href="/">
@@ -142,7 +142,6 @@ const Navbar: FunctionComponent = () => {
         </Box>
         {!user && (
           <Button
-            className={styles.cta}
             startDecorator={<Add />}
             color="primary"
             onClick={() => {
@@ -155,11 +154,12 @@ const Navbar: FunctionComponent = () => {
                 setOpenSignAlert(true);
               }
             }}
-            sx={{
+            sx={(theme) => ({
+              boxShadow: theme.vars.shadow.lg,
               marginX: 3,
               whiteSpace: "nowrap",
               "@media (max-width: 1200px)": { display: "none" },
-            }}
+            })}
           >
             Publier une annonce
           </Button>
@@ -169,7 +169,7 @@ const Navbar: FunctionComponent = () => {
       {/** SEARCH */}
       <Box
         sx={{
-          flex: "0 1 360px",
+          flex: "0 1 100%",
           marginX: "30px",
         }}
       >

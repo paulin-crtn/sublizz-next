@@ -19,12 +19,19 @@ const Footer: FunctionComponent = () => {
       >
         lacartedeslogements
       </Typography>
-      <Box sx={{ display: "flex", gap: 8 }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 8,
+          "@media (max-width: 1250px)": { display: "block" },
+        }}
+      >
         <Box sx={{ flex: "1 1" }}>
           <Typography
             fontWeight={200}
             fontSize="0.9rem"
             lineHeight="1.6rem"
+            marginBottom={4}
             sx={{ flex: "1 1", color: "#ffffff" }}
           >
             La carte des logements est un service de mise en relation entre des
@@ -34,59 +41,71 @@ const Footer: FunctionComponent = () => {
             favoriser la mobilité et de permettre à chacun de réaliser ses
             projets personnels ou professionnels.
           </Typography>
-          <Typography fontSize="0.9rem" marginTop={4} sx={{ color: "#ffffff" }}>
-            © {new Date().getFullYear()} lacartedeslogements
-          </Typography>
         </Box>
 
-        <Box sx={{ flex: "0 1 280px" }}>
-          <Typography
-            id="decorated-list-demo"
-            component="h6"
-            level="body2"
-            fontWeight="lg"
-            mb={1}
-            sx={{ color: "#ffffff" }}
-          >
-            Location et sous-location
-          </Typography>
-          <List size="sm" aria-labelledby="decorated-list-demo">
-            <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="/leases">Rechercher une annonce</Link>
-            </ListItem>
-            <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="/leases">Consulter toutes les annonces</Link>
-            </ListItem>
-          </List>
-        </Box>
+        <Box
+          sx={{
+            flex: "0 1 600px",
+            display: "flex",
+            gap: 8,
+            "@media (max-width: 700px)": { display: "block" },
+          }}
+        >
+          <Box marginBottom={4}>
+            <Typography
+              id="decorated-list-demo"
+              component="h6"
+              level="body2"
+              fontWeight="lg"
+              mb={1}
+              sx={{ color: "#ffffff" }}
+            >
+              Location et sous-location
+            </Typography>
+            <List size="sm" aria-labelledby="decorated-list-demo">
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/leases">Rechercher une annonce</Link>
+              </ListItem>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/leases">Annonces de location</Link>
+              </ListItem>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/leases">Annonces de sous-location</Link>
+              </ListItem>
+            </List>
+          </Box>
 
-        <Box sx={{ flex: "0 1 280px" }}>
-          <Typography
-            id="decorated-list-demo"
-            level="body2"
-            fontWeight="lg"
-            mb={1}
-            sx={{ color: "#ffffff" }}
-          >
-            Documents légaux
-          </Typography>
-          <List size="sm" aria-labelledby="decorated-list-demo">
-            <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="/legal/notice">Mentions légales</Link>
-            </ListItem>
-            <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="/legal/terms-of-service">
-                Conditions générales d'utilisation
-              </Link>
-            </ListItem>
-            <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
-              <Link href="/legal/privacy-and-cookies">
-                Politique de confidentialité &#x26; Cookies
-              </Link>
-            </ListItem>
-          </List>
+          <Box marginBottom={4}>
+            <Typography
+              id="decorated-list-demo"
+              level="body2"
+              fontWeight="lg"
+              mb={1}
+              sx={{ color: "#ffffff" }}
+            >
+              Documents légaux
+            </Typography>
+            <List size="sm" aria-labelledby="decorated-list-demo">
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/legal/notice">Mentions légales</Link>
+              </ListItem>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/legal/terms-of-service">
+                  Conditions générales d'utilisation
+                </Link>
+              </ListItem>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+                <Link href="/legal/privacy-and-cookies">
+                  Politique de confidentialité &#x26; Cookies
+                </Link>
+              </ListItem>
+            </List>
+          </Box>
         </Box>
       </Box>
+      <Typography fontSize="0.9rem" sx={{ color: "#ffffff" }}>
+        © {new Date().getFullYear()} lacartedeslogements
+      </Typography>
     </Box>
   );
 };
