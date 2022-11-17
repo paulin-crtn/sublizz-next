@@ -44,7 +44,10 @@ const Signin = ({
     (payload: ISignin) => signin(payload),
     {
       onSuccess: async (data) => {
-        localStorage.setItem("sublizz", data.access_token);
+        localStorage.setItem(
+          "lacartesdeslogements_access_token",
+          data.access_token
+        );
         const user = await customFetch("users/me", "GET");
         setUser(user);
         toast.success(`Ravi de vous revoir ${user?.firstName}`, {

@@ -110,7 +110,7 @@ const Navbar: FunctionComponent = () => {
           </Button>
         )}
       </Box>
-      <Box sx={{ flex: "0 1" }}>
+      <Box sx={{ flex: "0 1 360px" }}>
         <InputCitySearch />
       </Box>
       {!user && (

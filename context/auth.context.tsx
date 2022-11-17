@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    const jwt = localStorage.getItem("sublizz");
+    const jwt = localStorage.getItem("lacartesdeslogements_access_token");
     if (jwt) {
       customFetch("users/me", "GET")
         .then((user) => setUser(user))
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const logout = (callback?: () => void) => {
-    localStorage.removeItem("sublizz");
+    localStorage.removeItem("lacartesdeslogements_access_token");
     queryClient.removeQueries();
     setUser(null);
     callback?.();

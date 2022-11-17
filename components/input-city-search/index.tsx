@@ -110,7 +110,7 @@ const InputCitySearch = ({ isLarge = false }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box sx={{ display: "flex", zIndex: 10 }}>
-      <Box sx={{ position: "relative", width: "360px" }}>
+      <Box sx={{ position: "relative", width: "100%" }}>
         <TextField
           size={isLarge ? "lg" : "md"}
           placeholder="Rechercher par ville"
@@ -137,7 +137,7 @@ const InputCitySearch = ({ isLarge = false }) => {
             ref={dropdown}
             sx={{
               position: "absolute",
-              width: "360px",
+              width: "100%",
               marginTop: 1,
               backgroundColor: "#ffffff",
               borderRadius: 8,
