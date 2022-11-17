@@ -8,7 +8,6 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
-import Sheet from "@mui/joy/Sheet";
 import LeaseChips from "../lease-chips";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { ILease } from "../../interfaces/lease";

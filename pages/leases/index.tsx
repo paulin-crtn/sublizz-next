@@ -12,10 +12,13 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/lease-card";
 import Divider from "@mui/joy/Divider";
+import RadioGroup from "@mui/joy/RadioGroup";
+import Radio from "@mui/joy/Radio";
+import Button from "@mui/joy/Button";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
@@ -28,9 +31,6 @@ import Box from "@mui/joy/Box";
 import Pagination from "@mui/material/Pagination";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../interfaces/lease";
-import RadioGroup from "@mui/joy/RadioGroup";
-import Radio from "@mui/joy/Radio";
-import Button from "@mui/joy/Button";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -47,7 +47,9 @@ const LeasesPage: NextPage = ({
   const router = useRouter();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [show, setShow] = useState<string>("Afficher la carte");
+  const [showMapOrList, setShowMapOrList] =
+    useState<string>("Afficher la carte");
+  const [showDesktopMap, setShowDesktopMap] = useState<boolean>(false);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -62,9 +64,23 @@ const LeasesPage: NextPage = ({
 
   const query = useMemo(() => router.query.city, [router.query.city]);
 
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  /**
+   * Add event listener to compute screen size when viewport changes
+   */
+  useEffect(() => {
+    setInnerWidth();
+    window.addEventListener("resize", setInnerWidth);
+    return () => window.removeEventListener("resize", setInnerWidth);
+  }, []);
+
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
     router.push("leases?page=" + page);
+  };
+
+  const setInnerWidth = () => {
+    setShowDesktopMap(window.innerWidth >= 1400);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -120,8 +136,8 @@ const LeasesPage: NextPage = ({
               row
               aria-labelledby="segmented-controls-example"
               name="justify"
-              value={show}
-              onChange={(event) => setShow(event.target.value)}
+              value={showMapOrList}
+              onChange={(event) => setShowMapOrList(event.target.value)}
               sx={{
                 minHeight: 48,
                 padding: "4px",
@@ -167,12 +183,9 @@ const LeasesPage: NextPage = ({
 
         {/** LIST & MAP DESKTOP */}
         {/** List */}
-        {!!data.totalCount && (
+        {!!data.totalCount && showDesktopMap && (
           <Box display="flex" gap={6} sx={{ position: "relative" }}>
-            <Box
-              flex="1 1 52%"
-              sx={{ "@media (max-width: 1400px)": { display: "none" } }}
-            >
+            <Box flex="1 1 52%">
               {data.leases.map((lease: ILease, index: number) => (
                 <Link href={`/leases/${lease.id}`} key={lease.id}>
                   <Box sx={{ cursor: "pointer" }}>
@@ -191,7 +204,6 @@ const LeasesPage: NextPage = ({
                 top: 148,
                 alignSelf: "flex-start",
                 height: "calc(100vh - 200px)",
-                "@media (max-width: 1400px)": { display: "none" },
               }}
             >
               <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
@@ -201,40 +213,43 @@ const LeasesPage: NextPage = ({
 
         {/** LIST & MAP MOBILE */}
         {/** List */}
-        {show === "Afficher la liste" && !!data.totalCount && (
-          <Box sx={{ "@media (min-width: 1401px)": { display: "none" } }}>
-            {data.leases.map((lease: ILease, index: number) => (
-              <Link href={`/leases/${lease.id}`} key={lease.id}>
-                <Box sx={{ cursor: "pointer" }}>
-                  {index === 0 && (
+        {showMapOrList === "Afficher la liste" &&
+          !!data.totalCount &&
+          !showDesktopMap && (
+            <Box>
+              {data.leases.map((lease: ILease, index: number) => (
+                <Link href={`/leases/${lease.id}`} key={lease.id}>
+                  <Box sx={{ cursor: "pointer" }}>
+                    {index === 0 && (
+                      <Divider
+                        sx={{
+                          "@media (max-width: 820px)": { display: "none" },
+                        }}
+                      />
+                    )}
+                    <LeaseCard lease={lease} />
                     <Divider
                       sx={{
                         "@media (max-width: 820px)": { display: "none" },
                       }}
                     />
-                  )}
-                  <LeaseCard lease={lease} />
-                  <Divider
-                    sx={{
-                      "@media (max-width: 820px)": { display: "none" },
-                    }}
-                  />
-                </Box>
-              </Link>
-            ))}
-          </Box>
-        )}
+                  </Box>
+                </Link>
+              ))}
+            </Box>
+          )}
         {/** Map */}
-        {show === "Afficher la carte" && !!data.totalCount && (
-          <Box
-            sx={{
-              height: "calc(100vh - 280px)",
-              "@media (min-width: 1401px)": { display: "none" },
-            }}
-          >
-            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
-          </Box>
-        )}
+        {showMapOrList === "Afficher la carte" &&
+          !!data.totalCount &&
+          !showDesktopMap && (
+            <Box
+              sx={{
+                height: "calc(100vh - 280px)",
+              }}
+            >
+              <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+            </Box>
+          )}
 
         {/** Pagination */}
         {data.totalCount > RESULTS_PER_PAGE && (
