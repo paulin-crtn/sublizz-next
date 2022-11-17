@@ -170,7 +170,8 @@ const Navbar: FunctionComponent = () => {
       <Box
         sx={{
           flex: "0 1 100%",
-          marginX: "30px",
+          marginX: "50px",
+          "@media (max-width: 850px)": { marginX: "20px" },
         }}
       >
         <InputCitySearch />
@@ -274,7 +275,7 @@ const Navbar: FunctionComponent = () => {
       )}
 
       {user && (
-        <Box>
+        <>
           <Button
             id="user-menu-button"
             aria-controls={openUser ? "user-menu" : undefined}
@@ -283,9 +284,6 @@ const Navbar: FunctionComponent = () => {
             variant="plain"
             color="neutral"
             onClick={handleUserClick}
-            // onClick={() => {
-            //   router.push("/dashboard");
-            // }}
             startDecorator={
               <Avatar
                 src={
@@ -298,6 +296,7 @@ const Navbar: FunctionComponent = () => {
               />
             }
             sx={{
+              paddingX: 0,
               paddingY: 0,
               fontSize: "1rem",
               fontWeight: 400,
@@ -387,7 +386,7 @@ const Navbar: FunctionComponent = () => {
               Déconnexion
             </MenuItem>
           </Menu>
-        </Box>
+        </>
       )}
 
       {/** Signin */}

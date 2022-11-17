@@ -204,7 +204,15 @@ const Home: NextPage = ({
               {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
                 <Link href={`/leases/${lease.id}`} key={lease.id}>
                   <Box sx={{ cursor: "pointer" }}>
-                    {index !== 0 && <Divider />}
+                    {index !== 0 && (
+                      <Divider
+                        sx={{
+                          "@media (max-width: 820px)": {
+                            display: "none",
+                          },
+                        }}
+                      />
+                    )}
                     <LeaseCard lease={lease} />
                   </Box>
                 </Link>

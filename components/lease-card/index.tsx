@@ -21,9 +21,26 @@ import LeaseDates from "../lease-dates";
 const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ display: "flex", paddingY: 2 }}>
+    <Box
+      sx={{
+        display: "flex",
+        paddingY: 2,
+        "@media (max-width: 820px)": {
+          display: "block",
+        },
+      }}
+    >
       <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
-        <AspectRatio ratio="16/10" sx={{ width: 240 }}>
+        <AspectRatio
+          ratio="16/10"
+          sx={{
+            width: 240,
+            "@media (max-width: 820px)": {
+              width: "100%",
+              maxHeight: "300px",
+            },
+          }}
+        >
           <Image
             src={
               lease.leaseImages && lease.leaseImages[0]
@@ -36,7 +53,15 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
         </AspectRatio>
       </CardOverflow>
 
-      <CardContent sx={{ pl: 3 }}>
+      <CardContent
+        sx={{
+          pl: 3,
+          "@media (max-width: 820px)": {
+            pl: 0,
+            pt: 2,
+          },
+        }}
+      >
         <Typography level="h6" fontWeight="600">
           {lease.city}
         </Typography>
