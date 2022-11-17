@@ -26,7 +26,7 @@ export const customFetch = async (
   method: string,
   payload?: any
 ) => {
-  let jwt = localStorage.getItem("sublizz");
+  let jwt = localStorage.getItem("lacartesdeslogements_access_token");
   if (!jwt) return;
   const jwtDecoded: { sub: number; iat: number; exp: number } = jwtDecode(jwt);
   const isExpired = isAfter(Date.now(), jwtDecoded.exp * 1000);
@@ -43,7 +43,7 @@ const _originalRequest = async (
   method: string,
   payload?: any
 ) => {
-  const jwt = localStorage.getItem("sublizz");
+  const jwt = localStorage.getItem("lacartesdeslogements_access_token");
   const response = await fetch(`${API_URL}/${endPoint}`, {
     method,
     headers: {
@@ -71,7 +71,10 @@ const _refreshToken = async () => {
   });
   const data = await response.json();
   if (response.ok) {
-    localStorage.setItem("sublizz", data.access_token);
+    localStorage.setItem(
+      "lacartesdeslogements_access_token",
+      data.access_token
+    );
     return data.access_token;
   }
   throw new Error(data.message);
