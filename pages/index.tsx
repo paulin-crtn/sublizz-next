@@ -183,6 +183,11 @@ const Home: NextPage = ({
           fontFamily="Bitter"
           fontSize="2.2rem"
           fontWeight={700}
+          sx={{
+            "@media (max-width: 800px)": {
+              fontSize: "1.8rem",
+            },
+          }}
         >
           Dernières annonces publiées
         </Typography>
@@ -310,6 +315,11 @@ const Home: NextPage = ({
             fontFamily="Bitter"
             fontSize="2.2rem"
             fontWeight={700}
+            sx={{
+              "@media (max-width: 800px)": {
+                fontSize: "1.8rem",
+              },
+            }}
           >
             Comment ça marche ?
           </Typography>
@@ -532,6 +542,11 @@ const Home: NextPage = ({
             fontFamily="Bitter"
             fontSize="2.2rem"
             fontWeight={700}
+            sx={{
+              "@media (max-width: 800px)": {
+                fontSize: "1.8rem",
+              },
+            }}
           >
             Trouvez le logement qui convient à votre situation
           </Typography>
@@ -579,6 +594,11 @@ const Home: NextPage = ({
             fontFamily="Bitter"
             fontSize="2.2rem"
             fontWeight={700}
+            sx={{
+              "@media (max-width: 800px)": {
+                fontSize: "1.8rem",
+              },
+            }}
           >
             Questions fréquentes
           </Typography>
