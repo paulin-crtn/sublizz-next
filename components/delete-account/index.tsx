@@ -132,7 +132,7 @@ const DeleteAccount = ({
       )}
       {isDeletingFile && (
         <Button color="danger" variant="soft" fullWidth disabled>
-          <CircularProgress thickness={3} />
+          <CircularProgress color="danger" thickness={3} />
         </Button>
       )}
       <Button

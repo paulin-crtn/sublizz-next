@@ -35,8 +35,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchIcon from "@mui/icons-material/Search";
+import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from "@mui/icons-material/Add";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
@@ -313,18 +314,18 @@ const Navbar: FunctionComponent = () => {
             {user.role === UserRoleEnum.SEEKER && (
               <Link href="/dashboard/favorites">
                 <MenuItem onClick={handleUserClose}>
-                  {/* <ListItemDecorator>
+                  <ListItemDecorator>
                     <FavoriteIcon />
-                  </ListItemDecorator> */}
+                  </ListItemDecorator>
                   Favoris
                 </MenuItem>
               </Link>
             )}
             <Link href="/dashboard/messages">
               <MenuItem onClick={handleUserClose}>
-                {/* <ListItemDecorator>
+                <ListItemDecorator>
                   <EmailIcon />
-                </ListItemDecorator> */}
+                </ListItemDecorator>
                 Message
               </MenuItem>
             </Link>
@@ -333,14 +334,17 @@ const Navbar: FunctionComponent = () => {
               <>
                 <Link href="/dashboard/leases">
                   <MenuItem onClick={handleUserClose}>
-                    {/* <ListItemDecorator>
-                    <StyleIcon />
-                  </ListItemDecorator> */}
+                    <ListItemDecorator>
+                      <StyleIcon />
+                    </ListItemDecorator>
                     Gérer mes annonces
                   </MenuItem>
                 </Link>
                 <Link href="/dashboard/leases/new">
                   <MenuItem onClick={handleUserClose}>
+                    <ListItemDecorator>
+                      <AddIcon />
+                    </ListItemDecorator>
                     Publier une annonce
                   </MenuItem>
                 </Link>
@@ -349,17 +353,17 @@ const Navbar: FunctionComponent = () => {
             )}
             <Link href="/dashboard/profile">
               <MenuItem onClick={handleUserClose}>
-                {/* <ListItemDecorator>
+                <ListItemDecorator>
                   <PersonIcon />
-                </ListItemDecorator> */}
+                </ListItemDecorator>
                 Profil
               </MenuItem>
             </Link>
             <Link href="/dashboard/account">
               <MenuItem onClick={handleUserClose}>
-                {/* <ListItemDecorator>
-                  <PersonIcon />
-                </ListItemDecorator> */}
+                <ListItemDecorator>
+                  <SettingsIcon />
+                </ListItemDecorator>
                 Compte
               </MenuItem>
             </Link>
@@ -375,9 +379,9 @@ const Navbar: FunctionComponent = () => {
                 });
               }}
             >
-              {/* <ListItemDecorator>
+              <ListItemDecorator>
                 <LogoutIcon />
-              </ListItemDecorator> */}
+              </ListItemDecorator>
               Déconnexion
             </MenuItem>
           </Menu>

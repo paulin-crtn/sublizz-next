@@ -30,6 +30,7 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Button from "@mui/joy/Button";
+import CircularProgress from "@mui/joy/CircularProgress";
 /* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -55,7 +56,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   /* ------------------------------ USE MUTATION ------------------------------ */
   const queryClient = useQueryClient();
 
-  const { mutate: mutatePublishedStatus } = useMutation(
+  const { mutate: mutatePublishedStatus, isLoading } = useMutation(
     () => {
       const isPublished = lease.isPublished === 0 ? "1" : "0";
       return updateLease(lease.id, {
@@ -275,14 +276,21 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                 {lease.pricePerMonth}€ CC
               </Typography>
             </Box>
-            <Button
-              variant="soft"
-              color="danger"
-              fullWidth
-              onClick={() => mutateDeleteLease()}
-            >
-              Supprimer l'annonce
-            </Button>
+            {!isLoading && (
+              <Button
+                variant="soft"
+                color="danger"
+                fullWidth
+                onClick={() => mutateDeleteLease()}
+              >
+                Supprimer l'annonce
+              </Button>
+            )}
+            {isLoading && (
+              <Button variant="soft" color="danger" fullWidth disabled>
+                <CircularProgress color="danger" thickness={3} />
+              </Button>
+            )}
             <Button
               variant="soft"
               color="neutral"
