@@ -27,12 +27,12 @@ import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
 import MenuItem from "@mui/joy/MenuItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
 /* ---------------------------------- ICONS --------------------------------- */
 import Add from "@mui/icons-material/Add";
 import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
-import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -105,7 +105,8 @@ const Navbar: FunctionComponent = () => {
       >
         <Box sx={{ "@media (max-width: 760px)": { display: "none" } }}>
           <Link href="/">
-            <Box
+            <Typography
+              component="p"
               sx={{
                 fontSize: "1.6rem",
                 fontWeight: 600,
@@ -121,7 +122,7 @@ const Navbar: FunctionComponent = () => {
               <Box component="span" sx={{ color: "#4700cc" }}>
                 logements
               </Box>
-            </Box>
+            </Typography>
           </Link>
         </Box>
         <Link href="/">

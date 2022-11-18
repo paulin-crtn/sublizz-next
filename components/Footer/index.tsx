@@ -15,6 +15,7 @@ const Footer: FunctionComponent = () => {
         component="h6"
         level="h4"
         marginBottom={4}
+        letterSpacing={0}
         sx={{ color: "#ffffff" }}
       >
         lacartedeslogements
