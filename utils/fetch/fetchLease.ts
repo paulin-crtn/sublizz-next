@@ -79,14 +79,6 @@ export const deleteLease = async (id: number) => {
   return await customFetch(`leases/${id}`, "DELETE");
 };
 
-export const getUserMessages = async () => {
-  return await customFetch("lease-messages/user", "GET");
-};
-
-export const storeLeaseMessage = async (payload: ILeaseMessageForm) => {
-  return await customFetch("lease-messages", "POST", payload);
-};
-
 export const storeLeaseReport = async (payload: ILeaseReportForm) => {
   return await customFetch("lease-reports", "POST", payload);
 };

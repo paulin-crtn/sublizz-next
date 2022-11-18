@@ -1,26 +1,27 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../../context/auth.context";
+/* ---------------------------------- UTILS --------------------------------- */
+import { getMessages } from "../../../utils/fetch/fetchMessage";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import AccessDenied from "../../../components/access-denied";
+import AccountLayout from "../../../components/account-layout";
+import AccountConversations from "../../../components/account-message";
+import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
+/* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import Divider from "@mui/joy/Divider";
 import Alert from "@mui/joy/Alert";
-import InfoIcon from "@mui/icons-material/Info";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../../context/auth.context";
-import { getUserMessages } from "../../../utils/fetch/fetchLease";
-import AccessDenied from "../../../components/access-denied";
-import AccountLayout from "../../../components/account-layout";
-import AccountMessage from "../../../components/account-message";
-import { ILease } from "../../../interfaces/lease";
-import { IAccountMessage } from "../../../interfaces/lease/IAccountMessage";
-import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -32,7 +33,8 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
     ["userMessages"],
-    getUserMessages
+    getMessages,
+    { enabled: !!user }
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
@@ -72,7 +74,6 @@ const UserMessagesPage: NextPage = () => {
             {msg}
           </Alert>
         ))}
-        ;
       </AccountLayout>
     );
   }
@@ -102,29 +103,7 @@ const UserMessagesPage: NextPage = () => {
       pageTitle="Messagerie"
       breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
     >
-      <Box>
-        <Alert
-          variant="soft"
-          color="info"
-          startDecorator={<InfoIcon />}
-          sx={{ marginBottom: "20px" }}
-        >
-          Lorsqu'une annonce est supprimée, les messages associés le sont
-          également.
-        </Alert>
-        {data.map(
-          (
-            lease: ILease & { leaseMessages: IAccountMessage[] },
-            index: number
-          ) => (
-            <Box key={lease.id}>
-              {index === 0 && <Divider />}
-              <AccountMessage lease={lease} />
-              <Divider />
-            </Box>
-          )
-        )}
-      </Box>
+      <AccountConversations conversations={data} />
     </AccountLayout>
   );
 };
