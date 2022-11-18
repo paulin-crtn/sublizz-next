@@ -8,7 +8,7 @@ import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getMessages } from "../../../utils/fetch/fetchMessage";
+import { getMessages } from "../../../utils/fetch/fetchConversationMessage";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../../components/access-denied";
 import AccountLayout from "../../../components/account-layout";
@@ -34,7 +34,12 @@ const UserMessagesPage: NextPage = () => {
   const { isLoading, isError, data, error } = useQuery(
     ["userMessages"],
     getMessages,
-    { enabled: !!user }
+    {
+      enabled: !!user,
+      onSuccess(data) {
+        console.log(data);
+      },
+    }
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */

@@ -55,7 +55,7 @@ const AccountConversations = ({
   return (
     <Box width={240}>
       {conversations.map((conversation: IConversation, index: number) => (
-        <Box key={conversation.lease.id}>
+        <Box key={conversation.id}>
           {index === 0 && <Divider />}
           <Box
             sx={{
@@ -63,7 +63,7 @@ const AccountConversations = ({
               alignItems: "center",
               gap: 2,
               marginY: 0.5,
-              padding: 1.5,
+              padding: 1,
               cursor: "pointer",
               "&:hover": {
                 backgroundColor: "#eeeeee",
@@ -71,8 +71,11 @@ const AccountConversations = ({
               },
             }}
           >
-            <Avatar src={getConversationPicture(conversation.messages[0])} />
-            <Typography level="h6" fontWeight={400}>
+            <Avatar
+              size="lg"
+              src={getConversationPicture(conversation.messages[0])}
+            />
+            <Typography>
               {getConversationFirstName(conversation.messages[0])}
             </Typography>
           </Box>
