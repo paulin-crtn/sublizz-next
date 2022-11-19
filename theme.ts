@@ -6,6 +6,7 @@ export const primaryColor = {
   main: "#4700CC",
   lighter: "#5600F5",
   darker: "#3E00B3",
+  soft: "#eeeeff",
 };
 
 export const joyTheme: Theme = extendTheme({
@@ -185,6 +186,11 @@ export const joyTheme: Theme = extendTheme({
     JoyListItemDecorator: {
       styleOverrides: {
         root: { color: "inherit" },
+      },
+    },
+    JoyAvatar: {
+      defaultProps: {
+        variant: "solid",
       },
     },
   },

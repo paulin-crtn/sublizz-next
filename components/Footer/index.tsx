@@ -3,7 +3,9 @@
 /* -------------------------------------------------------------------------- */
 import { FunctionComponent } from "react";
 import Link from "next/link";
+import Image from "next/future/image";
 import { Box, List, ListItem, Typography } from "@mui/joy";
+import haftwaldImg from "../../public/img/haftwald.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -104,8 +106,21 @@ const Footer: FunctionComponent = () => {
           </Box>
         </Box>
       </Box>
-      <Typography fontSize="0.9rem" sx={{ color: "#ffffff" }}>
-        © {new Date().getFullYear()} lacartedeslogements
+      <Typography fontWeight={300} fontSize="0.9rem" sx={{ color: "#ffffff" }}>
+        © {new Date().getFullYear()}{" "}
+        <Box component="span" fontWeight={500}>
+          lacartedeslogements
+        </Box>{" "}
+        par
+        <Box component="span" marginLeft="6px" sx={{ cursor: "pointer" }}>
+          <a href="https://haftwald.com" target="_blank">
+            <Image
+              src={haftwaldImg}
+              alt="logo du site haftwald, développeur web freelance javascript et typescript react next nest node"
+              width={80}
+            />
+          </a>
+        </Box>
       </Typography>
     </Box>
   );

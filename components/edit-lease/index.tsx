@@ -203,11 +203,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
       </FormControl>
 
-      <Box display="flex">
-        <FormControl
-          error={!!errors.startDate}
-          sx={{ flex: "1 1", marginRight: 2 }}
-        >
+      <Box display="flex" gap={2}>
+        <FormControl error={!!errors.startDate} sx={{ flex: "1 1" }}>
           <FormLabel>Disponible à partir du</FormLabel>
           <Controller
             name="startDate"
@@ -357,8 +354,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         )}
       </FormControl>
 
-      <Box display="flex">
-        <FormControl error={!!errors.room} sx={{ flex: "1 1", marginRight: 2 }}>
+      <Box display="flex" gap={2}>
+        <FormControl error={!!errors.room} sx={{ flex: "1 1" }}>
           <FormLabel>Nombre de pièces</FormLabel>
           <FormHelperText
             sx={{
@@ -391,10 +388,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           )}
         </FormControl>
 
-        <FormControl
-          error={!!errors.surface}
-          sx={{ flex: "1 1", marginRight: 2 }}
-        >
+        <FormControl error={!!errors.surface} sx={{ flex: "1 1" }}>
           <FormLabel>Surface</FormLabel>
           <FormHelperText
             sx={{

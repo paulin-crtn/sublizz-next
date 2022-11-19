@@ -23,7 +23,11 @@ const TermsPage: NextPage = () => {
           content="Conditions générales d'utilisation du site la carte des logements. Annonces de location et de sous-locations sans frais d'agence."
         />
       </Head>
-      <Box component="main" width="85%">
+      <Box
+        component="main"
+        width="85%"
+        sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+      >
         <Typography component="h1" level="h2">
           Conditions Générales d'Utilisation
         </Typography>

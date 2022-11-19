@@ -33,7 +33,11 @@ const NoticePage: NextPage = () => {
         />
       </Head>
 
-      <Box component="main" width="85%">
+      <Box
+        component="main"
+        width="85%"
+        sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+      >
         <Typography component="h1" level="h2">
           Mentions légales
         </Typography>
@@ -53,8 +57,11 @@ const NoticePage: NextPage = () => {
           commercial « Haftwald », qui l’édite.
         </Typography>
         <Typography marginTop={2}>
-          Haftwald est une micro-entreprise domiciliée au 10 rue Succursale
-          33000 Bordeaux et immatriculée sous le numéro SIRET 819 156 910 00021.
+          <a href="https://haftwald.com" target="_blank">
+            Haftwald
+          </a>{" "}
+          est une micro-entreprise domiciliée au 10 rue Succursale 33000
+          Bordeaux et immatriculée sous le numéro SIRET 819 156 910 00021.
         </Typography>
         <Button onClick={() => setOpenContactEditor(true)} sx={{ mt: 2 }}>
           Contacter l’éditeur

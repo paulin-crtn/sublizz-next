@@ -199,7 +199,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                     {/* <ListItemDecorator>
                       <FilterVintageIcon />
                     </ListItemDecorator> */}
-                    Voir l'annonce
+                    Voir
                   </MenuItem>
                 </Link>
               )}

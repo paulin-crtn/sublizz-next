@@ -1,39 +1,43 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
-import PersonIcon from "@mui/icons-material/Person";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 export const DASHBOARD_ITEMS = [
   {
-    icon: <FavoriteIcon />,
+    icon: <FavoriteIcon sx={{ marginRight: 1 }} />,
     title: "Favoris",
-    description: "Pour retrouver tous les favoris que vous avez enregistré.",
+    description:
+      "Retrouvez la liste de tous les favoris que vous avez enregistré et accédez directement aux annonces correspondantes.",
     href: "/dashboard/favorites",
   },
   {
-    icon: <StyleIcon />,
+    icon: <StyleIcon sx={{ marginRight: 1 }} />,
     title: "Gérer mes annonces",
-    description: "Pour activer, désactiver, modifier ou supprimer une annonce.",
+    description:
+      "Activez ou déscativez une annonce en un clic, apportez des modifications ou supprimez une annonce définitivement.",
     href: "/dashboard/leases",
   },
   {
-    icon: <EmailIcon />,
+    icon: <EmailIcon sx={{ marginRight: 1 }} />,
     title: "Messages",
-    description: "Pour échanger avec d'autres utilisateurs.",
+    description:
+      "Présentez-vous et organisez une visite en échangeant avec l'auteur d'une annonce ou avec un locataire potentiel.",
     href: "/dashboard/messages",
   },
   {
-    icon: <PersonIcon />,
+    icon: <AccountCircleIcon sx={{ marginRight: 1 }} />,
     title: "Profil",
     description:
-      "Pour mettre à jour de vos coordonnées, votre photo de profil, etc.",
+      "Complétez ou modifiez votre profil en renseignant vos coordonnées et une photo de profil. C'est pratique et sympa !",
     href: "/dashboard/profile",
   },
   {
-    icon: <SettingsIcon />,
+    icon: <SettingsIcon sx={{ marginRight: 1 }} />,
     title: "Compte",
-    description: "Pour changer d'adresse email ou de mot de passe.",
+    description:
+      "Changez votre adresse email, votre de mot de passe ou supprimez définitivement votre compte.",
     href: "/dashboard/account",
   },
 ];

@@ -35,7 +35,7 @@ const EditLeasePage: NextPage = () => {
   const prevPages = [
     {
       key: "new-lease",
-      name: "Mes Annonces",
+      name: "Gérer mes annonces",
       href: "/dashboard/leases",
     },
   ];

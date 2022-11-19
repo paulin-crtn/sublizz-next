@@ -98,6 +98,12 @@ const EditAccount = ({ user }: { user: IUser }) => {
 
       <FormControl>
         <FormLabel>Role</FormLabel>
+        <FormHelperText
+          sx={{ marginTop: "-5px", marginBottom: "10px", color: "#646872" }}
+        >
+          Vous n'aurez pas accès aux mêmes fonctionnalités suivant le role
+          selectionné.
+        </FormHelperText>
         <Controller
           name="role"
           control={control}

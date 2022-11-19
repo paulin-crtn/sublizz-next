@@ -15,6 +15,7 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Add from "@mui/icons-material/Add";
 import Button from "@mui/joy/Button";
+import Chip from "@mui/joy/Chip";
 /* -------------------------------- CONSTANT -------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
@@ -50,89 +51,111 @@ const AccountLayout: FunctionComponent<Props> = ({
       <Head>
         <title>{pageTitle} | lacartedeslogements</title>
       </Head>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          backgroundColor: "#eeeeee",
-        }}
-      >
+      <Box sx={{ backgroundColor: "#eeeeee" }}>
         <Box
-          component="section"
           sx={{
-            position: "sticky",
-            top: 0,
-            flex: "0 0 300px",
-            alignSelf: "flex-start",
-            height: "100vh",
-            backgroundColor: "#ffffff",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 6,
+            marginX: 8,
           }}
         >
           <Box
+            component="section"
             sx={{
               position: "sticky",
-              top: 90.5,
-              padding: 3,
+              top: 138,
+              marginY: 6,
+              flex: "0 0 310px",
+              alignSelf: "flex-start",
             }}
           >
-            <Box>
-              <Avatar
-                src={
-                  user?.profilePictureName
-                    ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
-                    : undefined
-                }
-                variant="solid"
-                sx={{ width: 90, height: 90, mx: "auto" }}
-              />
-              <Typography level="h5" marginTop={1} textAlign="center">
-                {user?.firstName}
-              </Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              gap={2}
+              position="absolute"
+              width="100%"
+              sx={(theme) => ({
+                padding: 2,
+                backgroundColor: "#ffffff",
+                borderRadius: "12px",
+                boxShadow: theme.vars.shadow.lg,
+              })}
+            >
+              {user?.profilePictureName && (
+                <Avatar
+                  src={PROFILE_PICTURE_PATH + "/" + user?.profilePictureName}
+                  sx={{ width: 85, height: 85 }}
+                />
+              )}
+              {!user?.profilePictureName && (
+                <Avatar sx={{ width: 85, height: 85, fontSize: "2rem" }}>
+                  {user?.firstName.at(0)?.toUpperCase()}
+                </Avatar>
+              )}
+
+              <Box marginBottom={1}>
+                <Typography level="h5">{user?.firstName}</Typography>
+                <Chip size="sm" color="neutral" variant="soft">
+                  {user?.role === UserRoleEnum.SEEKER
+                    ? "Je cherche un logement"
+                    : "Je propose un logement"}
+                </Chip>
+              </Box>
             </Box>
             {/** NAVIGATION */}
-            <AccountNav />
-          </Box>
-        </Box>
-        <Box
-          component="section"
-          sx={{
-            flex: "1 1",
-            marginX: 8,
-            marginY: 4,
-            borderRadius: "10px",
-          }}
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={2}
-          >
-            <Box>{breadcrumbs}</Box>
-            {showAddLeaseButton && (
-              <Button
-                startDecorator={<Add />}
-                color="primary"
-                onClick={() => {
-                  router.push("/dashboard/leases/new");
-                }}
-                sx={(theme) => ({ boxShadow: theme.vars.shadow.lg })}
-              >
-                Publier une annonce
-              </Button>
-            )}
+            <Box
+              marginTop="135px"
+              sx={(theme) => ({
+                padding: 2,
+                backgroundColor: "#ffffff",
+                borderRadius: "12px",
+                boxShadow: theme.vars.shadow.lg,
+              })}
+            >
+              <AccountNav />
+            </Box>
           </Box>
           <Box
+            component="section"
             sx={{
-              marginBottom: 8,
-              padding: 4,
-              backgroundColor: "#ffffff",
+              flex: "1 1",
+              marginTop: 4,
               borderRadius: "10px",
-              boxShadow:
-                "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;",
             }}
           >
-            {children}
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              marginBottom={2}
+            >
+              <Box>{breadcrumbs}</Box>
+              {showAddLeaseButton && (
+                <Button
+                  startDecorator={<Add />}
+                  color="primary"
+                  onClick={() => {
+                    router.push("/dashboard/leases/new");
+                  }}
+                  sx={(theme) => ({ boxShadow: theme.vars.shadow.lg })}
+                >
+                  Publier une annonce
+                </Button>
+              )}
+            </Box>
+            <Box
+              sx={(theme) => ({
+                marginBottom: 6,
+                padding: 4,
+                backgroundColor: "#ffffff",
+                borderRadius: "10px",
+                boxShadow: theme.vars.shadow.lg,
+              })}
+            >
+              {children}
+            </Box>
           </Box>
         </Box>
       </Box>

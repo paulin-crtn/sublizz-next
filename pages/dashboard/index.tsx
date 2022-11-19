@@ -27,7 +27,7 @@ const DashboardPage: NextPage = () => {
   const data = useMemo(() => {
     if (user && user.role === UserRoleEnum.SEEKER) {
       return DASHBOARD_ITEMS.filter(
-        (item) => item.title.toLowerCase() !== "mes annonces"
+        (item) => item.title.toLowerCase() !== "gérer mes annonces"
       );
     }
     if (user && user.role === UserRoleEnum.OWNER) {
@@ -36,7 +36,7 @@ const DashboardPage: NextPage = () => {
       );
     }
     return DASHBOARD_ITEMS;
-  }, [DASHBOARD_ITEMS]);
+  }, [user, DASHBOARD_ITEMS]);
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
@@ -94,7 +94,8 @@ const DashboardCard = ({
       <Box
         sx={{
           display: "flex",
-          padding: 3,
+          paddingX: 3,
+          paddingY: 2.5,
           height: "100%",
           border: "1px solid #dddddd",
           borderRadius: "12px",
@@ -102,16 +103,13 @@ const DashboardCard = ({
           cursor: "pointer",
         }}
       >
-        <Typography level="h4" marginRight={2}>
-          {icon}
-        </Typography>
         <Box>
-          <Typography lineHeight="inherit" level="h5">
+          <Typography lineHeight="inherit" level="h6" startDecorator={icon}>
             {title}
           </Typography>
           <Typography
             lineHeight="inherit"
-            mt={1}
+            mt={1.5}
             sx={{ color: "text.secondary" }}
           >
             {description}

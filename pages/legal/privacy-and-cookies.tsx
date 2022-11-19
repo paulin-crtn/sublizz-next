@@ -28,7 +28,11 @@ const PrivacyPage: NextPage = () => {
           content="Politique de confidentialité et des cookies du site la carte des logements. Annonces de location et de sous-locations de particulier à particulier."
         />
       </Head>
-      <Box component="main" width="85%">
+      <Box
+        component="main"
+        width="85%"
+        sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+      >
         <Typography component="h1" level="h2">
           Politique de confidentialité & Cookies
         </Typography>

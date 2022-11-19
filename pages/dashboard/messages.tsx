@@ -6,14 +6,14 @@ import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../context/auth.context";
+import { useAuth } from "../../context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getMessages } from "../../../utils/fetch/fetchConversationMessage";
+import { getMessages } from "../../utils/fetch/fetchConversationMessage";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../components/access-denied";
-import AccountLayout from "../../../components/account-layout";
-import AccountConversations from "../../../components/account-message";
-import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
+import AccessDenied from "../../components/access-denied";
+import AccountLayout from "../../components/account-layout";
+import AccountConversations from "../../components/account-message";
+import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";

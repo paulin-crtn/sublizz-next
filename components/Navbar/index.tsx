@@ -32,7 +32,7 @@ import Typography from "@mui/joy/Typography";
 import Add from "@mui/icons-material/Add";
 import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
-import PersonIcon from "@mui/icons-material/Person";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -282,15 +282,17 @@ const Navbar: FunctionComponent = () => {
             color="neutral"
             onClick={handleUserClick}
             startDecorator={
-              <Avatar
-                src={
-                  user?.profilePictureName
-                    ? PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
-                    : undefined
-                }
-                sx={{ marginRight: 0.5 }}
-                size="md"
-              />
+              user.profilePictureName ? (
+                <Avatar
+                  src={PROFILE_PICTURE_PATH + "/" + user?.profilePictureName}
+                  sx={{ marginRight: 0.5 }}
+                  size="md"
+                />
+              ) : (
+                <Avatar sx={{ marginRight: 0.5 }} size="md">
+                  {user?.firstName.at(0)?.toUpperCase()}
+                </Avatar>
+              )
             }
             sx={{
               paddingX: 0,
@@ -327,7 +329,7 @@ const Navbar: FunctionComponent = () => {
                 <ListItemDecorator>
                   <EmailIcon />
                 </ListItemDecorator>
-                Message
+                Messages
               </MenuItem>
             </Link>
             <ListDivider />
@@ -355,7 +357,7 @@ const Navbar: FunctionComponent = () => {
             <Link href="/dashboard/profile">
               <MenuItem onClick={handleUserClose}>
                 <ListItemDecorator>
-                  <PersonIcon />
+                  <AccountCircleIcon />
                 </ListItemDecorator>
                 Profil
               </MenuItem>

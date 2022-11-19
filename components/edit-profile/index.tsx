@@ -266,60 +266,62 @@ const EditProfile = ({ user }: { user: IUser }) => {
           </Button>
         </FormControl>
 
-        <FormControl error={!!errors.firstName}>
-          <FormLabel>Prénom</FormLabel>
-          <Input
-            type="text"
-            variant="soft"
-            defaultValue={user.firstName}
-            {...register("firstName", {
-              required: "Ce champs est requis",
-              minLength: {
-                value: 3,
-                message: "3 caractères minimum",
-              },
-              maxLength: {
-                value: 30,
-                message: "30 caractères maximum",
-              },
-            })}
-          />
-          {errors.firstName && (
-            <FormHelperText>{errors.firstName.message}</FormHelperText>
-          )}
-        </FormControl>
-
-        <FormControl error={!!errors.lastName}>
-          <FormLabel>
-            Nom
-            <Chip
-              size="sm"
-              color="info"
+        <Box display="flex" gap={2}>
+          <FormControl error={!!errors.firstName} sx={{ flex: "1 1" }}>
+            <FormLabel>Prénom</FormLabel>
+            <Input
+              type="text"
               variant="soft"
-              sx={{ marginLeft: 1, fontWeight: 400 }}
-            >
-              Optionnel
-            </Chip>
-          </FormLabel>
-          <Input
-            type="text"
-            variant="soft"
-            defaultValue={user.lastName}
-            {...register("lastName", {
-              minLength: {
-                value: 3,
-                message: "3 caractères minimum",
-              },
-              maxLength: {
-                value: 30,
-                message: "30 caractères maximum",
-              },
-            })}
-          />
-          {errors.lastName && (
-            <FormHelperText>{errors.lastName.message}</FormHelperText>
-          )}
-        </FormControl>
+              defaultValue={user.firstName}
+              {...register("firstName", {
+                required: "Ce champs est requis",
+                minLength: {
+                  value: 3,
+                  message: "3 caractères minimum",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "30 caractères maximum",
+                },
+              })}
+            />
+            {errors.firstName && (
+              <FormHelperText>{errors.firstName.message}</FormHelperText>
+            )}
+          </FormControl>
+
+          <FormControl error={!!errors.lastName} sx={{ flex: "1 1" }}>
+            <FormLabel>
+              Nom
+              <Chip
+                size="sm"
+                color="info"
+                variant="soft"
+                sx={{ marginLeft: 1, fontWeight: 400 }}
+              >
+                Optionnel
+              </Chip>
+            </FormLabel>
+            <Input
+              type="text"
+              variant="soft"
+              defaultValue={user.lastName}
+              {...register("lastName", {
+                minLength: {
+                  value: 3,
+                  message: "3 caractères minimum",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "30 caractères maximum",
+                },
+              })}
+            />
+            {errors.lastName && (
+              <FormHelperText>{errors.lastName.message}</FormHelperText>
+            )}
+          </FormControl>
+        </Box>
 
         {user.role === UserRoleEnum.OWNER && (
           <FormControl error={!!errors.phoneNumber}>

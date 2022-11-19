@@ -6,7 +6,7 @@ import { useState, FormEvent, Dispatch, SetStateAction } from "react";
 import Image from "next/future/image";
 import { useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeLeaseMessage } from "../../utils/fetch/fetchLease";
+import { storeMessage } from "../../utils/fetch/fetchConversationMessage";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -49,7 +49,7 @@ const LeaseMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseMessageForm) => storeLeaseMessage(payload)
+    (payload: ILeaseMessageForm) => storeMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */

@@ -282,19 +282,32 @@ const LeasePage: NextPage = ({
                 alignItems: "center",
               }}
             >
-              <Avatar
-                alt="Photo de profil de l'auteur de l'annonce"
-                src={
-                  lease.user.profilePictureName
-                    ? PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
-                    : undefined
-                }
-                sx={{
-                  width: 60,
-                  height: 60,
-                  mr: 2,
-                }}
-              />
+              {user?.profilePictureName && (
+                <Avatar
+                  alt="Photo de profil de l'auteur de l'annonce"
+                  src={
+                    PROFILE_PICTURE_PATH + "/" + lease.user.profilePictureName
+                  }
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    mr: 2,
+                  }}
+                />
+              )}
+              {!user?.profilePictureName && (
+                <Avatar
+                  alt="Photo de profil de l'auteur de l'annonce"
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    mr: 2,
+                    fontSize: "1.4rem",
+                  }}
+                >
+                  {user?.firstName.at(0)?.toUpperCase()}
+                </Avatar>
+              )}
               <Typography level="h6">{lease.user.firstName}</Typography>
             </Box>
 

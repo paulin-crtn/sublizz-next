@@ -21,7 +21,7 @@ import ModalClose from "@mui/joy/ModalClose";
 /* ---------------------------------- ICONS --------------------------------- */
 import HomeIcon from "@mui/icons-material/Home";
 import StyleIcon from "@mui/icons-material/Style";
-import PersonIcon from "@mui/icons-material/Person";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SupportIcon from "@mui/icons-material/Support";
@@ -61,7 +61,7 @@ const AccountNav = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box component="nav" marginTop={5}>
+    <Box component="nav">
       <ul>
         <li className={[styles.navButton, isActive("dashboard")].join(" ")}>
           <Link href="/dashboard">
@@ -101,7 +101,9 @@ const AccountNav = () => {
         </li>
         <li className={[styles.navButton, isActive("profile")].join(" ")}>
           <Link href="/dashboard/profile">
-            <Typography startDecorator={<PersonIcon sx={{ marginRight: 1 }} />}>
+            <Typography
+              startDecorator={<AccountCircleIcon sx={{ marginRight: 1 }} />}
+            >
               Profil
             </Typography>
           </Link>
