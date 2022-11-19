@@ -126,12 +126,12 @@ const DeleteAccount = ({
         </ListItem>
       </List>
       {!isDeletingFile && (
-        <Button color="danger" variant="soft" fullWidth onClick={handleDelete}>
+        <Button color="danger" fullWidth onClick={handleDelete}>
           Supprimer mon compte
         </Button>
       )}
       {isDeletingFile && (
-        <Button color="danger" variant="soft" fullWidth disabled>
+        <Button color="danger" fullWidth disabled>
           <CircularProgress color="danger" thickness={3} />
         </Button>
       )}

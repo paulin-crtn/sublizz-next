@@ -278,7 +278,6 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
             </Box>
             {!isLoading && (
               <Button
-                variant="soft"
                 color="danger"
                 fullWidth
                 onClick={() => mutateDeleteLease()}

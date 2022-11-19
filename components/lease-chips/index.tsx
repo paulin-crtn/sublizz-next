@@ -23,12 +23,13 @@ const LeaseChips = ({
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
+        flexWrap: "wrap",
+        gap: 0.75,
       }}
     >
       <Chip
         size={size}
         sx={{
-          mr: 0.75,
           color: "#ffffff",
           backgroundColor: "#000000",
           borderColor: "#000000",
@@ -40,7 +41,6 @@ const LeaseChips = ({
         variant="outlined"
         size={size}
         sx={{
-          mr: 0.75,
           color: "#000000",
           backgroundColor: "#ffffff",
           borderColor: "#000000",
