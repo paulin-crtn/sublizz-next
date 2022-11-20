@@ -4,7 +4,7 @@
 import Link from "next/link";
 import Image from "next/future/image";
 import format from "date-fns/format";
-import { ILease } from "../../interfaces/lease";
+import { IConversationMessageForm, ILease } from "../../interfaces/lease";
 import { IConversation } from "../../interfaces/IConversation";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -30,6 +30,8 @@ import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 import noLeaseImg from "../../public/img/no-lease-img.png";
 import { useRouter } from "next/router";
+import { storeMessage } from "../../utils/fetch/fetchConversationMessage";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -43,8 +45,25 @@ const AccountConversations = ({
   const { user } = useAuth();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [selectedConversation, setSelectedConversation] =
-    useState<IConversation>(conversations[0]);
+  const [sortedConversations, setSortedConversations] = useState<
+    IConversation[]
+  >([]);
+  const [selectedConversationId, setSelectedConversationId] = useState<string>(
+    conversations[conversations.length - 1].id
+  );
+
+  useEffect(() => {
+    sortConversations(conversations);
+  }, [conversations]);
+
+  const sortConversations = (conversations: IConversation[]) => {
+    const sorted = conversations.sort(
+      (a: IConversation, b: IConversation) =>
+        new Date(b.messages[b.messages.length - 1].createdAt).getTime() -
+        new Date(a.messages[a.messages.length - 1].createdAt).getTime()
+    );
+    setSortedConversations(sorted);
+  };
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const getAvatar = (messages: IMessage[]) => {
@@ -87,17 +106,12 @@ const AccountConversations = ({
           overflowY: "scroll",
         }}
       >
-        {conversations
-          .sort(
-            (a, b) =>
-              new Date(b.messages[0].createdAt).getTime() -
-              new Date(a.messages[0].createdAt).getTime()
-          )
-          .map((conversation: IConversation, index: number) => (
+        {sortedConversations.map(
+          (conversation: IConversation, index: number) => (
             <Box key={conversation.id}>
               {index != 0 && <Divider />}
               <Box
-                onClick={() => setSelectedConversation(conversation)}
+                onClick={() => setSelectedConversationId(conversation.id)}
                 sx={{
                   display: "flex",
                   gap: 2,
@@ -109,7 +123,7 @@ const AccountConversations = ({
                     backgroundColor: "#f5f5f5",
                     borderRadius: "10px",
                   },
-                  ...(selectedConversation.id === conversation.id && {
+                  ...(selectedConversationId === conversation.id && {
                     backgroundColor: "#f5f5f5",
                   }),
                 }}
@@ -131,10 +145,19 @@ const AccountConversations = ({
                 </Box>
               </Box>
             </Box>
-          ))}
+          )
+        )}
       </Box>
       <Box flex="1 1">
-        <AccountMessage conversation={selectedConversation} />
+        {selectedConversationId && (
+          <AccountConversationMessages
+            conversation={
+              conversations.find(
+                (conversation) => conversation.id === selectedConversationId
+              ) as IConversation
+            }
+          />
+        )}
       </Box>
     </Box>
   );
@@ -142,27 +165,54 @@ const AccountConversations = ({
 
 export default AccountConversations;
 
-const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
+const AccountConversationMessages = ({
+  conversation,
+}: {
+  conversation: IConversation;
+}) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [newMessage, setNewMessage] = useState<string>("");
+
   /* -------------------------------- REACT REF ------------------------------- */
-  const conversationRef = useRef<null | HTMLDivElement>(null);
+  const conversationBottomRef = useRef<null | HTMLDivElement>(null);
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    if (conversationRef && conversationRef.current) {
-      conversationRef.current.scrollTop = conversationRef.current?.scrollHeight;
+    conversationBottomRef.current?.scrollIntoView({
+      block: "end",
+    });
+  }, [conversation.messages.length]);
+
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(
+    (payload: IConversationMessageForm) => storeMessage(payload),
+    {
+      onSuccess: async (data) => {
+        console.log(data);
+        conversationBottomRef.current?.scrollIntoView({
+          block: "end",
+        });
+        setNewMessage("");
+        // Update React Query Cache
+        queryClient.invalidateQueries({ queryKey: ["userConversations"] });
+      },
     }
-  }, [conversation.messages]);
+  );
+
+  const handleStoreMessage = () => {
+    if (!!newMessage.length) {
+      mutate({ conversationId: conversation.id, message: newMessage });
+    }
+  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box display="flex" flexDirection="column" height="100%">
-      <Box
-        sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}
-        ref={conversationRef}
-      >
+      <Box sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}>
         {conversation.messages.map((message, index) => (
           <Box
             key={message.id}
@@ -199,14 +249,17 @@ const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
             </Box>
           </Box>
         ))}
+        <Box ref={conversationBottomRef}></Box>
       </Box>
       <Box marginTop="auto">
         <Textarea
           minRows={3}
           maxRows={3}
           placeholder="Saisissez un message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
           sx={{ flex: "1 1" }}
-        />
+        ></Textarea>
         <Box display="flex" gap={1} marginTop={1}>
           <Button
             size="sm"
@@ -217,7 +270,7 @@ const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
           >
             Voir l'annonce
           </Button>
-          <Button size="sm" fullWidth>
+          <Button size="sm" fullWidth onClick={handleStoreMessage}>
             Envoyer
           </Button>
         </Box>

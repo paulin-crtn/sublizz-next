@@ -1,4 +1,4 @@
-export interface ILeaseMessageForm {
-  leaseId: number;
+export interface IConversationMessageForm {
+  conversationId: string;
   message: string;
 }

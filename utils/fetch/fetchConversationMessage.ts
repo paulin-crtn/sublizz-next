@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { customFetch } from "./customFetch";
-import { ILeaseMessageForm } from "../../interfaces/lease";
+import { IConversationMessageForm } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -16,6 +16,6 @@ export const getMessages = async () => {
   return await customFetch("conversation-message", "GET");
 };
 
-export const storeMessage = async (payload: ILeaseMessageForm) => {
+export const storeMessage = async (payload: IConversationMessageForm) => {
   return await customFetch("conversation-message", "POST", payload);
 };

@@ -32,14 +32,9 @@ const UserMessagesPage: NextPage = () => {
 
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
-    ["userMessages"],
+    ["userConversations"],
     getMessages,
-    {
-      enabled: !!user,
-      onSuccess(data) {
-        console.log(data);
-      },
-    }
+    { enabled: !!user }
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */

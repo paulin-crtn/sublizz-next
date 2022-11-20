@@ -26,7 +26,7 @@ import Alert from "@mui/joy/Alert";
 import FormLabel from "@mui/joy/FormLabel";
 import { Divider } from "@mui/joy";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease, ILeaseMessageForm } from "../../interfaces/lease";
+import { ILease, IConversationMessageForm } from "../../interfaces/lease";
 import { IAuthor } from "../../interfaces/IAuthor";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
@@ -49,13 +49,13 @@ const LeaseMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: ILeaseMessageForm) => storeMessage(payload)
+    (payload: IConversationMessageForm) => storeMessage(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ leaseId: lease.id, message });
+    // mutate({ leaseId: lease.id, message });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
