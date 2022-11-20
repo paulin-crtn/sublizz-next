@@ -19,7 +19,7 @@ import {
 import Chip from "@mui/joy/Chip";
 import { useAuth } from "../../context/auth.context";
 import { IMessage } from "../../interfaces/IMessage";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "@mui/joy/Input";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
@@ -146,10 +146,23 @@ const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
+  /* -------------------------------- REACT REF ------------------------------- */
+  const conversationRef = useRef<null | HTMLDivElement>(null);
+
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  useEffect(() => {
+    if (conversationRef && conversationRef.current) {
+      conversationRef.current.scrollTop = conversationRef.current?.scrollHeight;
+    }
+  }, [conversation.messages]);
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box display="flex" flexDirection="column" height="100%">
-      <Box sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}>
+      <Box
+        sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}
+        ref={conversationRef}
+      >
         {conversation.messages.map((message, index) => (
           <Box
             key={message.id}
