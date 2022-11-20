@@ -47,31 +47,30 @@ const AccountConversations = ({
     useState<IConversation>(conversations[0]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const getAvatar = (message: IMessage) => {
-    if (message.fromUser.id === user?.id) {
-      return message.toUser.profilePictureName ? (
-        <Avatar
-          src={PROFILE_PICTURE_PATH + "/" + message.toUser.profilePictureName}
-        />
-      ) : (
-        <Avatar>{message.toUser.firstName.at(0)?.toUpperCase()}</Avatar>
-      );
-    }
-    if (message.toUser.id === user?.id) {
-      return message.fromUser.profilePictureName ? (
-        <Avatar
-          src={PROFILE_PICTURE_PATH + "/" + message.fromUser.profilePictureName}
-        />
-      ) : (
-        <Avatar>{message.fromUser.firstName.at(0)?.toUpperCase()}</Avatar>
-      );
-    }
+  const getAvatar = (messages: IMessage[]) => {
+    const otherParticipants = messages.filter(
+      (message) => message.fromUser.id !== user?.id
+    );
+    return otherParticipants[0].fromUser.profilePictureName ? (
+      <Avatar
+        src={
+          PROFILE_PICTURE_PATH +
+          "/" +
+          otherParticipants[0].fromUser.profilePictureName
+        }
+      />
+    ) : (
+      <Avatar>
+        {otherParticipants[0].fromUser.firstName.at(0)?.toUpperCase()}
+      </Avatar>
+    );
   };
 
-  const getConversationFirstName = (message: IMessage) => {
-    return message.fromUser.id === user?.id
-      ? message.toUser.firstName
-      : message.fromUser.firstName;
+  const getConversationFirstName = (messages: IMessage[]) => {
+    const otherParticipants = messages.filter(
+      (message) => message.fromUser.id !== user?.id
+    );
+    return otherParticipants[0].fromUser.firstName;
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -88,45 +87,51 @@ const AccountConversations = ({
           overflowY: "scroll",
         }}
       >
-        {conversations.map((conversation: IConversation, index: number) => (
-          <Box key={conversation.id}>
-            {index != 0 && <Divider />}
-            <Box
-              onClick={() => setSelectedConversation(conversation)}
-              sx={{
-                display: "flex",
-                gap: 2,
-                marginY: 0.5,
-                padding: 1,
-                cursor: "pointer",
-                borderRadius: "10px",
-                "&:hover": {
-                  backgroundColor: "#f5f5f5",
+        {conversations
+          .sort(
+            (a, b) =>
+              new Date(b.messages[0].createdAt).getTime() -
+              new Date(a.messages[0].createdAt).getTime()
+          )
+          .map((conversation: IConversation, index: number) => (
+            <Box key={conversation.id}>
+              {index != 0 && <Divider />}
+              <Box
+                onClick={() => setSelectedConversation(conversation)}
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  marginY: 0.5,
+                  padding: 1,
+                  cursor: "pointer",
                   borderRadius: "10px",
-                },
-                ...(selectedConversation.id === conversation.id && {
-                  backgroundColor: "#f5f5f5",
-                }),
-              }}
-            >
-              {getAvatar(conversation.messages[0])}
-              <Box>
-                <Typography fontWeight={500}>
-                  {getConversationFirstName(conversation.messages[0])}
-                </Typography>
-                <Typography level="body2" sx={{ color: "#000000" }}>
-                  {conversation.lease.city}
-                </Typography>
-                <Typography level="body2" fontSize="0.8rem">
-                  {conversation.lease.pricePerMonth}€ &#8226;{" "}
-                  {conversation.lease.room}{" "}
-                  {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
-                  {conversation.lease.surface}m2
-                </Typography>
+                  "&:hover": {
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: "10px",
+                  },
+                  ...(selectedConversation.id === conversation.id && {
+                    backgroundColor: "#f5f5f5",
+                  }),
+                }}
+              >
+                {getAvatar(conversation.messages)}
+                <Box>
+                  <Typography fontWeight={500}>
+                    {getConversationFirstName(conversation.messages)}
+                  </Typography>
+                  <Typography level="body2" sx={{ color: "#000000" }}>
+                    {conversation.lease.city}
+                  </Typography>
+                  <Typography level="body2" fontSize="0.8rem">
+                    {conversation.lease.pricePerMonth}€ &#8226;{" "}
+                    {conversation.lease.room}{" "}
+                    {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
+                    {conversation.lease.surface}m2
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
       </Box>
       <Box flex="1 1">
         <AccountMessage conversation={selectedConversation} />
@@ -144,7 +149,7 @@ const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box display="flex" flexDirection="column" height="100%">
-      <Box sx={{ maxHeight: "calc(100vh - 440px)", overflowY: "scroll" }}>
+      <Box sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}>
         {conversation.messages.map((message, index) => (
           <Box
             key={message.id}
@@ -182,7 +187,7 @@ const AccountMessage = ({ conversation }: { conversation: IConversation }) => {
           </Box>
         ))}
       </Box>
-      <Box marginTop="auto" paddingTop={2}>
+      <Box marginTop="auto">
         <Textarea
           minRows={3}
           maxRows={3}

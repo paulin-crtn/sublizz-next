@@ -7,9 +7,4 @@ export interface IMessage {
     firstName: string;
     profilePictureName: null | string;
   };
-  toUser: {
-    id: number;
-    firstName: string;
-    profilePictureName: null | string;
-  };
 }
