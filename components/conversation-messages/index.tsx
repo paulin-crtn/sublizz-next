@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
+import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeMessage } from "../../utils/fetch/fetchConversationMessage";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -14,11 +15,14 @@ import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
+import CircularProgress from "@mui/joy/CircularProgress";
+import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversationMessageForm } from "../../interfaces/lease";
 import { IConversation } from "../../interfaces/IConversation";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -47,12 +51,19 @@ const ConversationMessages = ({
   /* ------------------------------ USE MUTATION ------------------------------ */
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (payload: IConversationMessageForm) => storeMessage(payload),
     {
       onSuccess: async () => {
         setNewMessage("");
         queryClient.invalidateQueries({ queryKey: ["userConversations"] });
+      },
+      onError: async (error) => {
+        error instanceof Error
+          ? toast.error(error.message, { style: TOAST_STYLE })
+          : toast.error("Une erreur est survenue", {
+              style: TOAST_STYLE,
+            });
       },
     }
   );
@@ -126,9 +137,16 @@ const ConversationMessages = ({
           >
             Voir l'annonce
           </Button>
-          <Button size="sm" fullWidth onClick={handleStoreMessage}>
-            Envoyer
-          </Button>
+          {!isLoading && (
+            <Button size="sm" fullWidth onClick={handleStoreMessage}>
+              <SendIcon />
+            </Button>
+          )}
+          {isLoading && (
+            <Button size="sm" fullWidth disabled>
+              <CircularProgress thickness={3} />
+            </Button>
+          )}
         </Box>
       </Box>
     </Box>
