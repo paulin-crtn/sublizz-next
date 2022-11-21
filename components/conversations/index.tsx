@@ -34,8 +34,8 @@ const Conversations = ({
   const [sortedConversations, setSortedConversations] = useState<
     IConversation[]
   >([]);
-  const [selectedConversationId, setSelectedConversationId] = useState<
-    string | undefined
+  const [selectedConversation, setSelectedConversation] = useState<
+    IConversation | undefined
   >();
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
@@ -46,7 +46,7 @@ const Conversations = ({
 
   useEffect(() => {
     if (sortedConversations && !!sortedConversations.length) {
-      setSelectedConversationId(sortedConversations[0].id);
+      setSelectedConversation(sortedConversations[0]);
     }
   }, [sortedConversations]);
 
@@ -104,7 +104,7 @@ const Conversations = ({
             <Box key={conversation.id}>
               {index != 0 && <Divider />}
               <Box
-                onClick={() => setSelectedConversationId(conversation.id)}
+                onClick={() => setSelectedConversation(conversation)}
                 sx={{
                   display: "flex",
                   gap: 2,
@@ -116,7 +116,7 @@ const Conversations = ({
                     backgroundColor: "#f5f5f5",
                     borderRadius: "10px",
                   },
-                  ...(selectedConversationId === conversation.id && {
+                  ...(selectedConversation?.id === conversation.id && {
                     backgroundColor: primaryColor.soft,
                     "&:hover": {
                       backgroundColor: primaryColor.soft,
@@ -145,14 +145,8 @@ const Conversations = ({
         )}
       </Box>
       <Box flex="1 1">
-        {selectedConversationId && (
-          <ConversationMessages
-            conversation={
-              conversations.find(
-                (conversation) => conversation.id === selectedConversationId
-              ) as IConversation
-            }
-          />
+        {selectedConversation && (
+          <ConversationMessages conversation={selectedConversation} />
         )}
       </Box>
     </Box>

@@ -46,7 +46,7 @@ const ConversationMessages = ({
     conversationBottomRef.current?.scrollIntoView({
       block: "end",
     });
-  }, [conversation.messages.length]);
+  }, [conversation]);
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const queryClient = useQueryClient();
