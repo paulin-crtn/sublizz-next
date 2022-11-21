@@ -78,7 +78,14 @@ const ConversationMessages = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box display="flex" flexDirection="column" height="100%">
-      <Box sx={{ maxHeight: "calc(100vh - 435px)", overflowY: "scroll" }}>
+      <Box
+        sx={{
+          maxHeight: "calc(100vh - 435px)",
+          overflowY: "scroll",
+          maskImage:
+            "linear-gradient(to top, rgba(255,255,255,1) 85%, rgba(255,255,255,0))",
+        }}
+      >
         {conversation.messages.map((message, index) => (
           <Box
             key={message.id}
