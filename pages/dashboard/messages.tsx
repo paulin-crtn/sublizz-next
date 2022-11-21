@@ -12,7 +12,7 @@ import { getMessages } from "../../utils/fetch/fetchConversationMessage";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";
-import AccountConversations from "../../components/account-message";
+import Conversations from "../../components/conversations";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
@@ -103,7 +103,7 @@ const UserMessagesPage: NextPage = () => {
       pageTitle="Messagerie"
       breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
     >
-      <AccountConversations conversations={data} />
+      <Conversations conversations={data} />
     </AccountLayout>
   );
 };
