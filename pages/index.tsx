@@ -152,8 +152,8 @@ const Home: NextPage = ({
                   },
                 }}
               >
-                Annonces immobilières de courte et moyenne durée sans frais
-                d’agence : location meublée, colocation et sous-location.
+                Annonces immobilières sans frais d’agence : location meublée,
+                colocation et sous-location.
               </Typography>
             </Box>
             <Box sx={{ maxWidth: "420px" }}>
