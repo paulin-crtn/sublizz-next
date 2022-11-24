@@ -13,8 +13,8 @@ import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../interfaces/IConversation";
-import { IMessage } from "../../interfaces/IMessage";
+import { IConversation } from "../../interfaces/message/IConversation";
+import { IMessage } from "../../interfaces/message/IMessage";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { primaryColor } from "../../theme";
@@ -59,30 +59,26 @@ const Conversations = ({
     );
   };
 
-  const getConversationAvatar = (messages: IMessage[]) => {
-    const otherParticipants = messages.filter(
-      (message) => message.fromUser.id !== user?.id
+  const getConversationAvatar = (conversation: IConversation) => {
+    const otherParticipants = conversation.participants.filter(
+      (participant) => participant.id !== user?.id
     );
-    return otherParticipants[0].fromUser.profilePictureName ? (
+    return otherParticipants[0].profilePictureName ? (
       <Avatar
         src={
-          PROFILE_PICTURE_PATH +
-          "/" +
-          otherParticipants[0].fromUser.profilePictureName
+          PROFILE_PICTURE_PATH + "/" + otherParticipants[0].profilePictureName
         }
       />
     ) : (
-      <Avatar>
-        {otherParticipants[0].fromUser.firstName.at(0)?.toUpperCase()}
-      </Avatar>
+      <Avatar>{otherParticipants[0].firstName.at(0)?.toUpperCase()}</Avatar>
     );
   };
 
-  const getConversationFirstName = (messages: IMessage[]) => {
-    const otherParticipants = messages.filter(
-      (message) => message.fromUser.id !== user?.id
+  const getConversationFirstName = (conversation: IConversation) => {
+    const otherParticipants = conversation.participants.filter(
+      (participant) => participant.id !== user?.id
     );
-    return otherParticipants[0].fromUser.firstName;
+    return otherParticipants[0].firstName;
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -92,17 +88,15 @@ const Conversations = ({
         flex="0 0 260px"
         sx={{
           border: "1px solid #dddddd",
-          height: "fit-content",
           paddingX: 0.5,
           borderRadius: "12px",
           maxHeight: "calc(100vh - 293px)",
-          overflowY: "scroll",
+          overflowY: "auto",
         }}
       >
         {sortedConversations.map(
           (conversation: IConversation, index: number) => (
             <Box key={conversation.id}>
-              {index != 0 && <Divider />}
               <Box
                 onClick={() => setSelectedConversation(conversation)}
                 sx={{
@@ -124,10 +118,10 @@ const Conversations = ({
                   }),
                 }}
               >
-                {getConversationAvatar(conversation.messages)}
+                {getConversationAvatar(conversation)}
                 <Box>
                   <Typography fontWeight={500}>
-                    {getConversationFirstName(conversation.messages)}
+                    {getConversationFirstName(conversation)}
                   </Typography>
                   <Typography level="body2" sx={{ color: "#000000" }}>
                     {conversation.lease.city}

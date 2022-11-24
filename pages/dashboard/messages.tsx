@@ -8,7 +8,7 @@ import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getMessages } from "../../utils/fetch/fetchConversationMessage";
+import { getMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";

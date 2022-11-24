@@ -6,7 +6,10 @@ import { useState, FormEvent, Dispatch, SetStateAction } from "react";
 import Image from "next/future/image";
 import { useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeMessage } from "../../utils/fetch/fetchConversationMessage";
+import {
+  storeConversation,
+  storeMessage,
+} from "../../utils/fetch/fetchConversation";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -26,8 +29,9 @@ import Alert from "@mui/joy/Alert";
 import FormLabel from "@mui/joy/FormLabel";
 import { Divider } from "@mui/joy";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease, IConversationMessageForm } from "../../interfaces/lease";
+import { ILease } from "../../interfaces/lease";
 import { IAuthor } from "../../interfaces/IAuthor";
+import { IConversationForm } from "../../interfaces/message/IConversationForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
 import noLeaseImg from "../../public/img/no-lease-img.png";
@@ -49,13 +53,13 @@ const LeaseMessage = ({
 
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: IConversationMessageForm) => storeMessage(payload)
+    (payload: IConversationForm) => storeConversation(payload)
   );
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // mutate({ leaseId: lease.id, message });
+    mutate({ leaseId: lease.id, message });
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -155,11 +159,9 @@ const LeaseMessage = ({
         </Button>
       )}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress thickness={3} />}
-        />
+        <Button fullWidth disabled>
+          <CircularProgress thickness={3} />
+        </Button>
       )}
     </form>
   );
