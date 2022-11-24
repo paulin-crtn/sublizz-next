@@ -9,6 +9,7 @@ import Image from "next/future/image";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
+import { useConversation } from "../../context/conversation.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Signin from "../signin";
 import Signup from "../signup";
@@ -28,6 +29,7 @@ import Box from "@mui/joy/Box";
 import MenuItem from "@mui/joy/MenuItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Typography from "@mui/joy/Typography";
+import Badge from "@mui/joy/Badge";
 /* ---------------------------------- ICONS --------------------------------- */
 import Add from "@mui/icons-material/Add";
 import StyleIcon from "@mui/icons-material/Style";
@@ -52,6 +54,7 @@ import styles from "./navbar.module.css";
 const Navbar: FunctionComponent = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
+  const { unread } = useConversation();
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
@@ -330,6 +333,14 @@ const Navbar: FunctionComponent = () => {
                   <EmailIcon />
                 </ListItemDecorator>
                 Messages
+                {!!unread.length && (
+                  <Badge
+                    color="danger"
+                    size="sm"
+                    badgeContent={unread.length}
+                    sx={{ marginLeft: 2 }}
+                  />
+                )}
               </MenuItem>
             </Link>
             <ListDivider />

@@ -106,9 +106,9 @@ const ConversationMessages = ({
           height: "calc(100vh - 438px)",
           overflowY: "auto",
           marginBottom: 2,
-          paddingTop: 1.5,
-          maskImage:
-            "linear-gradient(to top, rgba(255,255,255,1) 90%, rgba(255,255,255,0))",
+          paddingTop: 1,
+          // maskImage:
+          //   "linear-gradient(to top, rgba(255,255,255,1) 90%, rgba(255,255,255,0))",
         }}
       >
         {conversation.messages.map((message, index) => (

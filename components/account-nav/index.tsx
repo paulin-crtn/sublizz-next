@@ -8,6 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
+import { useConversation } from "../../context/conversation.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ModalLayout from "../modal-layout";
 import HelpUs from "../help-us";
@@ -18,6 +19,7 @@ import Divider from "@mui/joy/Divider";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import Badge from "@mui/joy/Badge";
 /* ---------------------------------- ICONS --------------------------------- */
 import HomeIcon from "@mui/icons-material/Home";
 import StyleIcon from "@mui/icons-material/Style";
@@ -39,6 +41,7 @@ import { UserRoleEnum } from "../../enum/UserRoleEnum";
 const AccountNav = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
+  const { unread } = useConversation();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openHelp, setOpenHelp] = useState<boolean>(false);
@@ -70,6 +73,7 @@ const AccountNav = () => {
             </Typography>
           </Link>
         </li>
+
         {user?.role === UserRoleEnum.OWNER && (
           <li className={[styles.navButton, isActive("leases")].join(" ")}>
             <Link href="/dashboard/leases">
@@ -81,6 +85,7 @@ const AccountNav = () => {
             </Link>
           </li>
         )}
+
         {user?.role === UserRoleEnum.SEEKER && (
           <li className={[styles.navButton, isActive("favorites")].join(" ")}>
             <Link href="/dashboard/favorites">
@@ -92,13 +97,22 @@ const AccountNav = () => {
             </Link>
           </li>
         )}
+
         <li className={[styles.navButton, isActive("messages")].join(" ")}>
           <Link href="/dashboard/messages">
             <Typography startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}>
               Messages
+              {!!unread.length && (
+                <Badge
+                  color="danger"
+                  badgeContent={unread.length}
+                  sx={{ marginLeft: 2.5 }}
+                />
+              )}
             </Typography>
           </Link>
         </li>
+
         <li className={[styles.navButton, isActive("profile")].join(" ")}>
           <Link href="/dashboard/profile">
             <Typography
@@ -108,6 +122,7 @@ const AccountNav = () => {
             </Typography>
           </Link>
         </li>
+
         <li className={[styles.navButton, isActive("account")].join(" ")}>
           <Link href="/dashboard/account">
             <Typography
@@ -117,7 +132,9 @@ const AccountNav = () => {
             </Typography>
           </Link>
         </li>
+
         <Divider sx={{ marginY: 2 }} />
+
         <li
           className={styles.navButton}
           onClick={() => {

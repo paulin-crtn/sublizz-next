@@ -9,6 +9,7 @@ import setDefaultOptions from "date-fns/setDefaultOptions";
 import fr from "date-fns/locale/fr";
 import { AuthProvider } from "../context/auth.context";
 import { FavoriteProvider } from "../context/favorite.context";
+import { ConversationProvider } from "../context/conversation.context";
 import { theme } from "../theme";
 import Layout from "../components/layout";
 import "../styles/globals.css";
@@ -50,7 +51,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <FavoriteProvider>
+          <ConversationProvider>
             <Layout>
               <Toaster position="bottom-right" />
               <Head>
@@ -59,7 +60,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                   content="initial-scale=1, width=device-width"
                 />
               </Head>
-              <Component {...pageProps} />
+              <FavoriteProvider>
+                <Component {...pageProps} />
+              </FavoriteProvider>
               {/** Cookie */}
               <Modal open={openCookie}>
                 <ModalDialog
@@ -71,7 +74,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 </ModalDialog>
               </Modal>
             </Layout>
-          </FavoriteProvider>
+          </ConversationProvider>
         </AuthProvider>
       </QueryClientProvider>
     </CssVarsProvider>

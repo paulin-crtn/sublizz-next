@@ -6,21 +6,27 @@ import { IConversationMessageForm } from "../../interfaces/message/IConversation
 import { customFetch } from "./customFetch";
 
 /* -------------------------------------------------------------------------- */
-/*                                  CONSTANT                                  */
-/* -------------------------------------------------------------------------- */
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-/* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
 export const storeConversation = async (payload: IConversationForm) => {
-  return await customFetch("conversation", "POST", payload);
+  return await customFetch("conversations", "POST", payload);
+};
+
+export const getUnreadConversations = async () => {
+  return await customFetch("conversations/unread", "GET");
+};
+
+export const setConversationAsRead = async (conversationId: string) => {
+  return await customFetch(
+    `conversations/set-as-read/${conversationId}`,
+    "POST"
+  );
 };
 
 export const getMessages = async () => {
-  return await customFetch("conversation-message", "GET");
+  return await customFetch("conversation-messages", "GET");
 };
 
 export const storeMessage = async (payload: IConversationMessageForm) => {
-  return await customFetch("conversation-message", "POST", payload);
+  return await customFetch("conversation-messages", "POST", payload);
 };

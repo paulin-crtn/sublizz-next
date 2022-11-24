@@ -5,16 +5,15 @@
 import { useEffect, useState } from "react";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
+import { useConversation } from "../../context/conversation.context";
 /* -------------------------------- COMPONENT ------------------------------- */
 import ConversationMessages from "../conversation-messages";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
-import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../interfaces/message/IConversation";
-import { IMessage } from "../../interfaces/message/IMessage";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { primaryColor } from "../../theme";
@@ -29,6 +28,7 @@ const Conversations = ({
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
+  const { unread, markAsRead } = useConversation();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [sortedConversations, setSortedConversations] = useState<
@@ -47,6 +47,7 @@ const Conversations = ({
   useEffect(() => {
     if (sortedConversations && !!sortedConversations.length) {
       setSelectedConversation(sortedConversations[0]);
+      handleSelectedConversation(sortedConversations[0]);
     }
   }, [sortedConversations]);
 
@@ -57,6 +58,11 @@ const Conversations = ({
         new Date(b.messages[b.messages.length - 1].createdAt).getTime() -
         new Date(a.messages[a.messages.length - 1].createdAt).getTime()
     );
+  };
+
+  const handleSelectedConversation = (conversation: IConversation) => {
+    setSelectedConversation(conversation);
+    setTimeout(() => markAsRead(conversation.id), 2000);
   };
 
   const getConversationAvatar = (conversation: IConversation) => {
@@ -94,49 +100,57 @@ const Conversations = ({
           overflowY: "auto",
         }}
       >
-        {sortedConversations.map(
-          (conversation: IConversation, index: number) => (
-            <Box key={conversation.id}>
-              <Box
-                onClick={() => setSelectedConversation(conversation)}
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  marginY: 0.5,
-                  padding: 1,
-                  cursor: "pointer",
+        {sortedConversations.map((conversation: IConversation) => (
+          <Box key={conversation.id}>
+            <Box
+              onClick={() => handleSelectedConversation(conversation)}
+              sx={{
+                display: "flex",
+                gap: 2,
+                marginY: 0.5,
+                padding: 1,
+                cursor: "pointer",
+                borderRadius: "10px",
+                "&:hover": {
+                  backgroundColor: "#f5f5f5",
                   borderRadius: "10px",
+                },
+                ...(selectedConversation?.id === conversation.id && {
+                  backgroundColor: primaryColor.soft,
                   "&:hover": {
-                    backgroundColor: "#f5f5f5",
-                    borderRadius: "10px",
-                  },
-                  ...(selectedConversation?.id === conversation.id && {
                     backgroundColor: primaryColor.soft,
-                    "&:hover": {
-                      backgroundColor: primaryColor.soft,
-                    },
-                  }),
-                }}
-              >
-                {getConversationAvatar(conversation)}
-                <Box>
-                  <Typography fontWeight={500}>
-                    {getConversationFirstName(conversation)}
-                  </Typography>
-                  <Typography level="body2" sx={{ color: "#000000" }}>
-                    {conversation.lease.city}
-                  </Typography>
-                  <Typography level="body2" fontSize="0.8rem">
-                    {conversation.lease.pricePerMonth}€ &#8226;{" "}
-                    {conversation.lease.room}{" "}
-                    {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
-                    {conversation.lease.surface}m2
-                  </Typography>
-                </Box>
+                  },
+                }),
+              }}
+            >
+              {getConversationAvatar(conversation)}
+              <Box>
+                <Typography
+                  fontWeight={unread.includes(conversation.id) ? 600 : 400}
+                >
+                  {getConversationFirstName(conversation)}
+                </Typography>
+                <Typography
+                  level="body2"
+                  fontWeight={unread.includes(conversation.id) ? 500 : 300}
+                  sx={{ color: "#000000" }}
+                >
+                  {conversation.lease.city}
+                </Typography>
+                <Typography
+                  level="body2"
+                  fontSize="0.8rem"
+                  fontWeight={unread.includes(conversation.id) ? 500 : 300}
+                >
+                  {conversation.lease.pricePerMonth}€ &#8226;{" "}
+                  {conversation.lease.room}{" "}
+                  {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
+                  {conversation.lease.surface}m2
+                </Typography>
               </Box>
             </Box>
-          )
-        )}
+          </Box>
+        ))}
       </Box>
       <Box flex="1 1">
         {selectedConversation && (
