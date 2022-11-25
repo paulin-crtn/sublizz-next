@@ -12,8 +12,8 @@ import Card from "@mui/joy/Card";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import ModalLayout from "../../components/modal-layout";
-import ContactEditor from "../../components/contact-editor";
+import ModalLayout from "../../components/shared/modal-layout";
+import ContactEditor from "../../components/shared/contact-editor";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

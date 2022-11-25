@@ -5,11 +5,11 @@ import { NextPage } from "next";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
-import AccessDenied from "../../../components/access-denied";
-import AccountLayout from "../../../components/account-layout";
-import EditLease from "../../../components/edit-lease";
-import { useAuth } from "../../../context/auth.context";
-import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
+import AccessDenied from "../../../components/dashboard/access-denied";
+import DashboardLayout from "../../../components/dashboard/dashboard-layout";
+import EditLease from "../../../components/dashboard/edit-lease";
+import { useAuth } from "../../../utils/context/auth.context";
+import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Link from "next/link";
@@ -48,7 +48,7 @@ const EditLeasePage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (userLeases.length >= 2) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Publier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
@@ -74,12 +74,12 @@ const EditLeasePage: NextPage = () => {
             </Button>
           </Link>
         </Box>
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   return (
-    <AccountLayout
+    <DashboardLayout
       pageTitle="Publier une annonce"
       breadcrumbs={
         <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
@@ -93,7 +93,7 @@ const EditLeasePage: NextPage = () => {
           <EditLease lease={undefined} />
         </LocalizationProvider>
       </Box>
-    </AccountLayout>
+    </DashboardLayout>
   );
 };
 

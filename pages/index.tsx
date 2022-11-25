@@ -15,16 +15,16 @@ import { useState } from "react";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLeases } from "../utils/fetch/fetchLease";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../context/auth.context";
+import { useAuth } from "../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import InputCitySearch from "../components/input-city-search";
-import LeaseCard from "../components/lease-card";
-import ModalLayout from "../components/modal-layout";
-import Signin from "../components/signin";
-import PasswordReset from "../components/password-reset";
-import Signup from "../components/signup";
-import LeaseType from "../components/lease-type";
-import DetailsSummary from "../components/details-summary";
+import InputCitySearch from "../components/shared/input-city-search";
+import LeaseCard from "../components/public/lease-card";
+import ModalLayout from "../components/shared/modal-layout";
+import Signin from "../components/public/signin";
+import PasswordReset from "../components/public/password-reset";
+import Signup from "../components/public/signup";
+import LeaseType from "../components/public/lease-type";
+import DetailsSummary from "../components/public/details-summary";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";

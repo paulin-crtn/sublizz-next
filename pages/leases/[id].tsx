@@ -17,22 +17,25 @@ import toast from "react-hot-toast";
 import { getLease } from "../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../utils/convertLeaseType";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../utils/context/auth.context";
 /* -------------------------------- COMPONENT ------------------------------- */
-import LeaseChips from "../../components/lease-chips";
-import ModalLayout from "../../components/modal-layout";
-import LeaseMessage from "../../components/lease-message";
-import LeaseReport from "../../components/lease-report";
-import Signin from "../../components/signin";
-import SignAlert from "../../components/sign-alert";
-import Signup from "../../components/signup";
-import LeaseLightbox from "../../components/lease-lightbox";
-import FavoriteButton from "../../components/favorite-button";
-import LeaseDates from "../../components/lease-dates";
+import LeaseChips from "../../components/shared/lease-chips";
+import ModalLayout from "../../components/shared/modal-layout";
+import LeaseMessage from "../../components/public/lease-message";
+import LeaseReport from "../../components/public/lease-report";
+import Signin from "../../components/public/signin";
+import SignAlert from "../../components/public/sign-alert";
+import Signup from "../../components/public/signup";
+import LeaseLightbox from "../../components/public/lease-lightbox";
+import FavoriteButton from "../../components/public/favorite-button";
+import LeaseDates from "../../components/shared/lease-dates";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
-  ssr: false,
-});
+const LeaseMapWithNoSSR = dynamic(
+  () => import("../../components/public/lease-map"),
+  {
+    ssr: false,
+  }
+);
 /* -------------------------------- MUI ICONS ------------------------------- */
 import FlagIcon from "@mui/icons-material/Flag";
 /* --------------------------------- MUI JOY -------------------------------- */

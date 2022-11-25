@@ -10,15 +10,15 @@ import Button from "@mui/joy/Button";
 import Add from "@mui/icons-material/Add";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../../context/auth.context";
+import { useAuth } from "../../../utils/context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
-import AccessDenied from "../../../components/access-denied";
-import AccountLayout from "../../../components/account-layout";
-import MyLease from "../../../components/my-lease";
+import AccessDenied from "../../../components/dashboard/access-denied";
+import DashboardLayout from "../../../components/dashboard/dashboard-layout";
+import MyLease from "../../../components/dashboard/my-lease";
 import { ILeaseDetail } from "../../../interfaces/lease";
 import Divider from "@mui/joy/Divider";
-import CustomBreadcrumbs from "../../../components/custom-beadcrumbs";
-import LeaseSkeleton from "../../../components/lease-skeleton";
+import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
+import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -46,18 +46,18 @@ const UserLeasesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         <LeaseSkeleton />
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
@@ -72,13 +72,13 @@ const UserLeasesPage: NextPage = () => {
             {msg}
           </Alert>
         ))}
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   if (!userLeases.length) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
@@ -92,12 +92,12 @@ const UserLeasesPage: NextPage = () => {
             </Button>
           </Link>
         </Box>
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   return (
-    <AccountLayout
+    <DashboardLayout
       pageTitle="Gérer mes annonces"
       breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
     >
@@ -108,7 +108,7 @@ const UserLeasesPage: NextPage = () => {
           <Divider />
         </Box>
       ))}
-    </AccountLayout>
+    </DashboardLayout>
   );
 };
 

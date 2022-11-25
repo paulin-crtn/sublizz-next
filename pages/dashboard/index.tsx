@@ -2,15 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
-import Link from "next/link";
 import { useMemo } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import { useAuth } from "../../context/auth.context";
-import AccessDenied from "../../components/access-denied";
-import AccountLayout from "../../components/account-layout";
-import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
+import { useAuth } from "../../utils/context/auth.context";
+import AccessDenied from "../../components/dashboard/access-denied";
+import DashboardLayout from "../../components/dashboard/dashboard-layout";
+import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
+import DashboardCard from "../../components/dashboard/dashboard-card";
 /* ----------------------------------- MUI ---------------------------------- */
-import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
@@ -45,7 +44,7 @@ const DashboardPage: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <AccountLayout
+    <DashboardLayout
       pageTitle="Tableau de bord"
       breadcrumbs={<CustomBreadcrumbs currentPage="Tableau de bord" />}
     >
@@ -69,53 +68,8 @@ const DashboardPage: NextPage = () => {
           </Box>
         ))}
       </Box>
-    </AccountLayout>
+    </DashboardLayout>
   );
 };
 
 export default DashboardPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const DashboardCard = ({
-  icon,
-  title,
-  description,
-  href,
-}: {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-  href: string;
-}) => {
-  return (
-    <Link href={href}>
-      <Box
-        sx={{
-          display: "flex",
-          paddingX: 3,
-          paddingY: 2.5,
-          height: "100%",
-          border: "1px solid #dddddd",
-          borderRadius: "12px",
-          lineHeight: "1.4rem",
-          cursor: "pointer",
-        }}
-      >
-        <Box>
-          <Typography lineHeight="inherit" level="h6" startDecorator={icon}>
-            {title}
-          </Typography>
-          <Typography
-            lineHeight="inherit"
-            mt={1.5}
-            sx={{ color: "text.secondary" }}
-          >
-            {description}
-          </Typography>
-        </Box>
-      </Box>
-    </Link>
-  );
-};

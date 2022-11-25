@@ -14,15 +14,18 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import LeaseCard from "../../components/lease-card";
+import LeaseCard from "../../components/public/lease-card";
 import Divider from "@mui/joy/Divider";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 import Button from "@mui/joy/Button";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
-  ssr: false,
-});
+const LeaseMapWithNoSSR = dynamic(
+  () => import("../../components/public/lease-map"),
+  {
+    ssr: false,
+  }
+);
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLeases } from "../../utils/fetch/fetchLease";
 /* ----------------------------------- MUI ---------------------------------- */

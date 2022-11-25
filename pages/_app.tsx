@@ -10,10 +10,10 @@ import { Toaster } from "react-hot-toast";
 import setDefaultOptions from "date-fns/setDefaultOptions";
 import fr from "date-fns/locale/fr";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { AuthProvider } from "../context/auth.context";
+import { AuthProvider } from "../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AppLayout from "../components/app-layout";
-import CookieBanner from "../components/cookie-banner";
+import AppLayout from "../components/shared/app-layout";
+import CookiePreference from "../components/shared/cookie-preference";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import { CssVarsProvider } from "@mui/joy/styles";
 import Modal from "@mui/joy/Modal";
@@ -69,7 +69,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 aria-labelledby="cookie-modal"
                 sx={{ maxWidth: 550 }}
               >
-                <CookieBanner setOpenCookie={setOpenCookie} />
+                <CookiePreference setOpenCookie={setOpenCookie} />
               </ModalDialog>
             </Modal>
           </AppLayout>

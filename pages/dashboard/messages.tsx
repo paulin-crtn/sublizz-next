@@ -6,14 +6,14 @@ import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../components/access-denied";
-import AccountLayout from "../../components/account-layout";
-import Conversations from "../../components/conversations";
-import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
+import AccessDenied from "../../components/dashboard/access-denied";
+import DashboardLayout from "../../components/dashboard/dashboard-layout";
+import Conversations from "../../components/dashboard/conversations";
+import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -49,7 +49,7 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Messagerie"
         breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
       >
@@ -58,13 +58,13 @@ const UserMessagesPage: NextPage = () => {
             <CircularProgress size="lg" color="neutral" />
           </Box>
         </Box>
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Messagerie"
         breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
       >
@@ -78,13 +78,13 @@ const UserMessagesPage: NextPage = () => {
             {msg}
           </Alert>
         ))}
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   if (data && !data.length) {
     return (
-      <AccountLayout
+      <DashboardLayout
         pageTitle="Messagerie"
         breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
       >
@@ -98,17 +98,17 @@ const UserMessagesPage: NextPage = () => {
             </Button>
           </Link>
         </Box>
-      </AccountLayout>
+      </DashboardLayout>
     );
   }
 
   return (
-    <AccountLayout
+    <DashboardLayout
       pageTitle="Messagerie"
       breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
     >
       <Conversations conversations={data} />
-    </AccountLayout>
+    </DashboardLayout>
   );
 };
 

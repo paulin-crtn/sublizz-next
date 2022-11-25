@@ -3,11 +3,11 @@
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
 import Box from "@mui/joy/Box";
-import { useAuth } from "../../context/auth.context";
-import AccessDenied from "../../components/access-denied";
-import AccountLayout from "../../components/account-layout";
-import EditProfile from "../../components/edit-profile";
-import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
+import { useAuth } from "../../utils/context/auth.context";
+import AccessDenied from "../../components/dashboard/access-denied";
+import DashboardLayout from "../../components/dashboard/dashboard-layout";
+import EditProfile from "../../components/dashboard/edit-profile";
+import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,14 +23,14 @@ const UserProfilePage: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <AccountLayout
+    <DashboardLayout
       pageTitle="Profil"
       breadcrumbs={<CustomBreadcrumbs currentPage="Profil" />}
     >
       <Box width="65%">
         <EditProfile user={user} />
       </Box>
-    </AccountLayout>
+    </DashboardLayout>
   );
 };
 
