@@ -8,9 +8,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { customFetch } from "../utils/fetch/customFetch";
-import { IUser } from "../interfaces/IUser";
 import { useQueryClient } from "@tanstack/react-query";
+import { getAuthUser } from "../utils/fetch/fetchUser";
+import { IUser } from "../interfaces/IUser";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const jwt = localStorage.getItem("lacartesdeslogements_access_token");
     if (jwt) {
-      customFetch("users/me", "GET")
+      getAuthUser()
         .then((user) => setUser(user))
         .catch((error) => console.error(error));
     }

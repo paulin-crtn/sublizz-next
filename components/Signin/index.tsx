@@ -1,10 +1,17 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../context/auth.context";
+/* ---------------------------------- UTILS --------------------------------- */
+import { signin } from "../../utils/fetch/fetchAuth";
+import { getAuthUser } from "../../utils/fetch/fetchUser";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -14,10 +21,9 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../context/auth.context";
-import { customFetch } from "../../utils/fetch/customFetch";
-import { signin } from "../../utils/fetch/fetchAuth";
+/* ------------------------------- INTERFACES ------------------------------- */
 import ISignin from "../../interfaces/ISignin";
+/* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
@@ -48,7 +54,7 @@ const Signin = ({
           "lacartesdeslogements_access_token",
           data.access_token
         );
-        const user = await customFetch("users/me", "GET");
+        const user = await getAuthUser();
         setUser(user);
         toast.success(`Ravi de vous revoir ${user?.firstName}`, {
           style: TOAST_STYLE,
