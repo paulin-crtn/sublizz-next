@@ -3,9 +3,13 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useConversation } from "../../context/conversation.context";
+import { useUnreadConversationsId } from "../../react-query/unread-conversations";
+/* ---------------------------------- UTILS --------------------------------- */
+import { setConversationAsRead } from "../../utils/fetch/fetchConversation";
 /* -------------------------------- COMPONENT ------------------------------- */
 import ConversationMessages from "../conversation-messages";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -17,6 +21,7 @@ import { IConversation } from "../../interfaces/message/IConversation";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { primaryColor } from "../../theme";
+import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -26,9 +31,12 @@ const Conversations = ({
 }: {
   conversations: IConversation[];
 }) => {
+  /* ------------------------------ QUERY CLIENT ------------------------------ */
+  const queryClient = useQueryClient();
+
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { unread, markAsRead } = useConversation();
+  const { data: unreadConversationsId } = useUnreadConversationsId(user);
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [sortedConversations, setSortedConversations] = useState<
@@ -62,7 +70,23 @@ const Conversations = ({
 
   const handleSelectedConversation = (conversation: IConversation) => {
     setSelectedConversation(conversation);
-    setTimeout(() => markAsRead(conversation.id), 2000);
+    if (unreadConversationsId.includes(conversation.id)) {
+      setTimeout(
+        () =>
+          setConversationAsRead(conversation.id)
+            .then(() =>
+              queryClient.invalidateQueries({
+                queryKey: ["unread-conversations-id"],
+              })
+            )
+            .catch((error) => {
+              toast.error("Impossible de marquer la conversation comme lue.", {
+                style: TOAST_STYLE,
+              });
+            }),
+        2000
+      );
+    }
   };
 
   const getConversationAvatar = (conversation: IConversation) => {
@@ -126,13 +150,17 @@ const Conversations = ({
               {getConversationAvatar(conversation)}
               <Box>
                 <Typography
-                  fontWeight={unread.includes(conversation.id) ? 600 : 400}
+                  fontWeight={
+                    unreadConversationsId.includes(conversation.id) ? 600 : 400
+                  }
                 >
                   {getConversationFirstName(conversation)}
                 </Typography>
                 <Typography
                   level="body2"
-                  fontWeight={unread.includes(conversation.id) ? 500 : 300}
+                  fontWeight={
+                    unreadConversationsId.includes(conversation.id) ? 500 : 300
+                  }
                   sx={{ color: "#000000" }}
                 >
                   {conversation.lease.city}
@@ -140,7 +168,9 @@ const Conversations = ({
                 <Typography
                   level="body2"
                   fontSize="0.8rem"
-                  fontWeight={unread.includes(conversation.id) ? 500 : 300}
+                  fontWeight={
+                    unreadConversationsId.includes(conversation.id) ? 500 : 300
+                  }
                 >
                   {conversation.lease.pricePerMonth}€ &#8226;{" "}
                   {conversation.lease.room}{" "}

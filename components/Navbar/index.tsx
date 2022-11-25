@@ -9,7 +9,7 @@ import Image from "next/future/image";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useConversation } from "../../context/conversation.context";
+import { useUnreadConversationsId } from "../../react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Signin from "../signin";
 import Signup from "../signup";
@@ -54,7 +54,7 @@ import styles from "./navbar.module.css";
 const Navbar: FunctionComponent = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
-  const { unread } = useConversation();
+  const { data: unreadConversationsId } = useUnreadConversationsId(user);
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
@@ -333,11 +333,11 @@ const Navbar: FunctionComponent = () => {
                   <EmailIcon />
                 </ListItemDecorator>
                 Messages
-                {!!unread.length && (
+                {!!unreadConversationsId.length && (
                   <Badge
                     color="danger"
                     size="sm"
-                    badgeContent={unread.length}
+                    badgeContent={unreadConversationsId.length}
                     sx={{ marginLeft: 2 }}
                   />
                 )}

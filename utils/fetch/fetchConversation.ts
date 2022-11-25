@@ -12,7 +12,7 @@ export const storeConversation = async (payload: IConversationForm) => {
   return await customFetch("conversations", "POST", payload);
 };
 
-export const getUnreadConversations = async () => {
+export const getUnreadConversationsId = async () => {
   return await customFetch("conversations/unread", "GET");
 };
 

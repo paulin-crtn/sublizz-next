@@ -8,7 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useConversation } from "../../context/conversation.context";
+import { useUnreadConversationsId } from "../../react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ModalLayout from "../modal-layout";
 import HelpUs from "../help-us";
@@ -41,7 +41,7 @@ import { UserRoleEnum } from "../../enum/UserRoleEnum";
 const AccountNav = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
-  const { unread } = useConversation();
+  const { data: unreadConversationsId } = useUnreadConversationsId(user);
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openHelp, setOpenHelp] = useState<boolean>(false);
@@ -102,10 +102,10 @@ const AccountNav = () => {
           <Link href="/dashboard/messages">
             <Typography startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}>
               Messages
-              {!!unread.length && (
+              {!!unreadConversationsId.length && (
                 <Badge
                   color="danger"
-                  badgeContent={unread.length}
+                  badgeContent={unreadConversationsId.length}
                   sx={{ marginLeft: 2.5 }}
                 />
               )}
