@@ -29,11 +29,31 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SupportIcon from "@mui/icons-material/Support";
 import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-/* --------------------------------- STYLES --------------------------------- */
-import styles from "./account-nav.module.css";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../const/toastStyle";
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import { primaryColor } from "../../theme";
+
+/* -------------------------------------------------------------------------- */
+/*                                   STYLES                                   */
+/* -------------------------------------------------------------------------- */
+const navListStyle = {
+  margin: "5px 0",
+  borderRadius: "5px",
+  cursor: "pointer",
+  "& > *": {
+    padding: "10px 15px",
+  },
+  "&:hover": {
+    backgroundColor: "#f5f5f5",
+  },
+  "&.active": {
+    backgroundColor: primaryColor.main,
+    "& > *": {
+      color: "#ffffff",
+    },
+  },
+};
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -54,11 +74,11 @@ const AccountNav = () => {
     const pathArr = router.asPath.split("/");
     // Dashboard
     if (pathArr[1] === key && pathArr.length === 2) {
-      return styles.active;
+      return "active";
     }
     // Other Navigation
     if (pathArr[2] === key) {
-      return styles.active;
+      return "active";
     }
   };
 
@@ -66,16 +86,16 @@ const AccountNav = () => {
   return (
     <Box component="nav">
       <ul>
-        <li className={[styles.navButton, isActive("dashboard")].join(" ")}>
+        <Box component="li" sx={navListStyle} className={isActive("dashboard")}>
           <Link href="/dashboard">
             <Typography startDecorator={<HomeIcon sx={{ marginRight: 1 }} />}>
               Tableau de bord
             </Typography>
           </Link>
-        </li>
+        </Box>
 
         {user?.role === UserRoleEnum.OWNER && (
-          <li className={[styles.navButton, isActive("leases")].join(" ")}>
+          <Box component="li" sx={navListStyle} className={isActive("leases")}>
             <Link href="/dashboard/leases">
               <Typography
                 startDecorator={<StyleIcon sx={{ marginRight: 1 }} />}
@@ -83,11 +103,15 @@ const AccountNav = () => {
                 Gérer mes annonces
               </Typography>
             </Link>
-          </li>
+          </Box>
         )}
 
         {user?.role === UserRoleEnum.SEEKER && (
-          <li className={[styles.navButton, isActive("favorites")].join(" ")}>
+          <Box
+            component="li"
+            sx={navListStyle}
+            className={isActive("favorites")}
+          >
             <Link href="/dashboard/favorites">
               <Typography
                 startDecorator={<FavoriteIcon sx={{ marginRight: 1 }} />}
@@ -95,10 +119,10 @@ const AccountNav = () => {
                 Favoris
               </Typography>
             </Link>
-          </li>
+          </Box>
         )}
 
-        <li className={[styles.navButton, isActive("messages")].join(" ")}>
+        <Box component="li" sx={navListStyle} className={isActive("messages")}>
           <Link href="/dashboard/messages">
             <Typography startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}>
               Messages
@@ -111,9 +135,9 @@ const AccountNav = () => {
               )}
             </Typography>
           </Link>
-        </li>
+        </Box>
 
-        <li className={[styles.navButton, isActive("profile")].join(" ")}>
+        <Box component="li" sx={navListStyle} className={isActive("profile")}>
           <Link href="/dashboard/profile">
             <Typography
               startDecorator={<AccountCircleIcon sx={{ marginRight: 1 }} />}
@@ -121,9 +145,9 @@ const AccountNav = () => {
               Profil
             </Typography>
           </Link>
-        </li>
+        </Box>
 
-        <li className={[styles.navButton, isActive("account")].join(" ")}>
+        <Box component="li" sx={navListStyle} className={isActive("account")}>
           <Link href="/dashboard/account">
             <Typography
               startDecorator={<SettingsIcon sx={{ marginRight: 1 }} />}
@@ -131,12 +155,13 @@ const AccountNav = () => {
               Compte
             </Typography>
           </Link>
-        </li>
+        </Box>
 
         <Divider sx={{ marginY: 2 }} />
 
-        <li
-          className={styles.navButton}
+        <Box
+          component="li"
+          sx={navListStyle}
           onClick={() => {
             logout(() => {
               router.push("/");
@@ -152,15 +177,15 @@ const AccountNav = () => {
           >
             Déconnexion
           </Typography>
-        </li>
-        <li className={styles.navButton} onClick={() => setOpenHelp(true)}>
+        </Box>
+        <Box component="li" sx={navListStyle} onClick={() => setOpenHelp(true)}>
           <Typography
             margin={0}
             startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
           >
             Aidez-nous
           </Typography>
-        </li>
+        </Box>
       </ul>
 
       <Modal open={openHelp} onClose={() => setOpenHelp(false)}>

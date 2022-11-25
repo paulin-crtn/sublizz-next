@@ -12,7 +12,7 @@ import fr from "date-fns/locale/fr";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { AuthProvider } from "../context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Layout from "../components/layout";
+import AppLayout from "../components/app-layout";
 import CookieBanner from "../components/cookie-banner";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import { CssVarsProvider } from "@mui/joy/styles";
@@ -53,7 +53,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Layout>
+          <AppLayout>
             <Toaster position="bottom-right" />
             <Head>
               <meta
@@ -72,7 +72,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <CookieBanner setOpenCookie={setOpenCookie} />
               </ModalDialog>
             </Modal>
-          </Layout>
+          </AppLayout>
         </AuthProvider>
       </QueryClientProvider>
     </CssVarsProvider>

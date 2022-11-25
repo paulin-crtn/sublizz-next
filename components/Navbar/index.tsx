@@ -45,8 +45,6 @@ import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
 import { TOAST_STYLE } from "../../const/toastStyle";
 import logoImg from "../../public/img/logo.png";
-/* --------------------------------- STYLES --------------------------------- */
-import styles from "./navbar.module.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -99,7 +97,22 @@ const Navbar: FunctionComponent = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <nav className={styles.container}>
+    <Box
+      component="nav"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "sticky",
+        top: 0,
+        padding: "25px 35px",
+        color: "#000000",
+        backgroundColor: "#ffffff",
+        background: "rgba(255, 255, 255, 0.7)",
+        backdropFilter: "blur(5px)",
+        zIndex: 1000,
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -457,7 +470,7 @@ const Navbar: FunctionComponent = () => {
           </ModalLayout>
         </ModalDialog>
       </Modal>
-    </nav>
+    </Box>
   );
 };
 

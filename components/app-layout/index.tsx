@@ -10,7 +10,7 @@ import Box from "@mui/joy/Box";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   /* ------------------------------- NEXT ROUTER ------------------------------ */
   const router = useRouter();
 
@@ -52,4 +52,4 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default AppLayout;
