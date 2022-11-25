@@ -42,22 +42,16 @@ const Conversations = ({
   const [sortedConversations, setSortedConversations] = useState<
     IConversation[]
   >([]);
-  const [selectedConversation, setSelectedConversation] = useState<
-    IConversation | undefined
+  const [selectedConversationId, setSelectedConversationId] = useState<
+    string | undefined
   >();
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
     const sorted = sortConversations(conversations);
     setSortedConversations(sorted);
+    handleSelectedConversation(selectedConversationId ?? sorted[0].id);
   }, [conversations]);
-
-  useEffect(() => {
-    if (sortedConversations && !!sortedConversations.length) {
-      setSelectedConversation(sortedConversations[0]);
-      handleSelectedConversation(sortedConversations[0]);
-    }
-  }, [sortedConversations]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const sortConversations = (conversations: IConversation[]) => {
@@ -68,18 +62,18 @@ const Conversations = ({
     );
   };
 
-  const handleSelectedConversation = (conversation: IConversation) => {
-    setSelectedConversation(conversation);
-    if (unreadConversationsId.includes(conversation.id)) {
+  const handleSelectedConversation = (conversationId: string) => {
+    setSelectedConversationId(conversationId);
+    if (unreadConversationsId.includes(conversationId)) {
       setTimeout(
         () =>
-          setConversationAsRead(conversation.id)
+          setConversationAsRead(conversationId)
             .then(() =>
               queryClient.invalidateQueries({
                 queryKey: ["unread-conversations-id"],
               })
             )
-            .catch((error) => {
+            .catch(() => {
               toast.error("Impossible de marquer la conversation comme lue.", {
                 style: TOAST_STYLE,
               });
@@ -127,7 +121,7 @@ const Conversations = ({
         {sortedConversations.map((conversation: IConversation) => (
           <Box key={conversation.id}>
             <Box
-              onClick={() => handleSelectedConversation(conversation)}
+              onClick={() => handleSelectedConversation(conversation.id)}
               sx={{
                 display: "flex",
                 gap: 2,
@@ -139,7 +133,7 @@ const Conversations = ({
                   backgroundColor: "#f5f5f5",
                   borderRadius: "10px",
                 },
-                ...(selectedConversation?.id === conversation.id && {
+                ...(selectedConversationId === conversation.id && {
                   backgroundColor: primaryColor.soft,
                   "&:hover": {
                     backgroundColor: primaryColor.soft,
@@ -183,8 +177,14 @@ const Conversations = ({
         ))}
       </Box>
       <Box flex="1 1">
-        {selectedConversation && (
-          <ConversationMessages conversation={selectedConversation} />
+        {selectedConversationId && (
+          <ConversationMessages
+            conversation={
+              conversations.find(
+                (conv: IConversation) => conv.id === selectedConversationId
+              ) as IConversation
+            }
+          />
         )}
       </Box>
     </Box>

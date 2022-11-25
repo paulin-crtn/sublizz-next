@@ -5,6 +5,6 @@ import { getUnreadConversationsId } from "../utils/fetch/fetchConversation";
 export const useUnreadConversationsId = (user: IUser | null) =>
   useQuery<string[]>(["unread-conversations-id"], getUnreadConversationsId, {
     enabled: !!user,
-    staleTime: 1 * 60 * 1000, // 1 minute
+    refetchInterval: 1 * 60 * 1000, // 1 minute
     initialData: [],
   });

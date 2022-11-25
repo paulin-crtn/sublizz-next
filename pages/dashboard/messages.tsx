@@ -32,9 +32,13 @@ const UserMessagesPage: NextPage = () => {
 
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
-    ["userConversations"],
+    ["user-conversations"],
     getMessages,
-    { enabled: !!user }
+    {
+      enabled: !!user,
+      refetchInterval: 1 * 60 * 1000, // 1 minute
+      initialData: [],
+    }
   );
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */

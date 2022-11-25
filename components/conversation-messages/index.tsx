@@ -57,7 +57,7 @@ const ConversationMessages = ({
     {
       onSuccess: async () => {
         setNewMessage("");
-        queryClient.invalidateQueries({ queryKey: ["userConversations"] });
+        queryClient.invalidateQueries({ queryKey: ["user-conversations"] });
       },
       onError: async (error) => {
         error instanceof Error
@@ -116,12 +116,17 @@ const ConversationMessages = ({
             key={message.id}
             sx={{
               display: "flex",
-              marginBottom: index === conversation.messages.length - 1 ? 0 : 3,
+              marginBottom: index === conversation.messages.length - 1 ? 0 : 2,
             }}
           >
             <Box flex="0 0 55px">{getMessageAvatar(conversation, message)}</Box>
             <Box flex="1 1">
-              <Box display="flex" alignItems="center" gap={1} marginBottom={1}>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap={1}
+                marginBottom={0.5}
+              >
                 <Typography fontWeight={500}>
                   {getMessageFirstName(conversation, message)}
                 </Typography>
