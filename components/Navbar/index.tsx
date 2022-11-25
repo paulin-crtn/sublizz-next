@@ -9,7 +9,7 @@ import Image from "next/future/image";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useUnreadConversationsId } from "../../react-query/unread-conversations";
+import { useUnreadConversationsId } from "../../utils/react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Signin from "../signin";
 import Signup from "../signup";

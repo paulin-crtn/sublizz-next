@@ -1,22 +1,29 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useMemo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useFavorite } from "../../context/favorite.context";
+/* ---------------------------------- UTILS --------------------------------- */
+import { useDeleteFavorite } from "../../utils/react-query/lease-favorites";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LeaseChips from "../lease-chips";
+import LeaseDates from "../lease-dates";
+/* ----------------------------------- MUI ---------------------------------- */
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
-import LeaseChips from "../lease-chips";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import noLeaseImg from "../../public/img/no-lease-img.png";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { IFavorite } from "../../interfaces/IFavorite";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import noLeaseImg from "../../public/img/no-lease-img.png";
 import { LEASE_IMAGE_PATH } from "../../const/supabasePath";
-import LeaseDates from "../lease-dates";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -24,8 +31,8 @@ import LeaseDates from "../lease-dates";
 const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
   leaseFavorite,
 }) => {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { removeFavorite } = useFavorite();
+  /* ------------------------------ QUERY CLIENT ------------------------------ */
+  const queryClient = useQueryClient();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const image = useMemo(
@@ -73,7 +80,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
             color="neutral"
             fullWidth
             startDecorator={<DeleteIcon />}
-            onClick={() => removeFavorite(leaseFavorite.id)}
+            onClick={() => useDeleteFavorite(queryClient, leaseFavorite.id)}
           >
             Retirer des favoris
           </Button>

@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useUnreadConversationsId } from "../../react-query/unread-conversations";
+import { useUnreadConversationsId } from "../../utils/react-query/unread-conversations";
 /* ---------------------------------- UTILS --------------------------------- */
 import { setConversationAsRead } from "../../utils/fetch/fetchConversation";
 /* -------------------------------- COMPONENT ------------------------------- */

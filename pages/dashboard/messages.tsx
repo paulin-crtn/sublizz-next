@@ -8,7 +8,7 @@ import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getMessages } from "../../utils/fetch/fetchConversation";
+import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../components/access-denied";
 import AccountLayout from "../../components/account-layout";
@@ -33,7 +33,7 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
     ["user-conversations"],
-    getMessages,
+    getConversationMessages,
     {
       enabled: !!user,
       refetchInterval: 1 * 60 * 1000, // 1 minute

@@ -1,23 +1,26 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import type { AppProps } from "next/app";
-import { CssVarsProvider } from "@mui/joy/styles";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import setDefaultOptions from "date-fns/setDefaultOptions";
 import fr from "date-fns/locale/fr";
+/* --------------------------------- CONTEXT -------------------------------- */
 import { AuthProvider } from "../context/auth.context";
-import { FavoriteProvider } from "../context/favorite.context";
-import { theme } from "../theme";
+/* ------------------------------- COMPONENTS ------------------------------- */
 import Layout from "../components/layout";
-import "../styles/globals.css";
-import { useEffect, useState } from "react";
+import CookieBanner from "../components/cookie-banner";
+/* ------------------------------ MUI & STYLES ------------------------------ */
+import { CssVarsProvider } from "@mui/joy/styles";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
-import CookieBanner from "../components/cookie-banner";
 import CssBaseline from "@mui/joy/CssBaseline";
-import Head from "next/head";
+import { theme } from "../theme";
+import "../styles/globals.css";
 
 /* -------------------------------------------------------------------------- */
 /*                               DATE-FNS LOCALE                              */
@@ -58,9 +61,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 content="initial-scale=1, width=device-width"
               />
             </Head>
-            <FavoriteProvider>
-              <Component {...pageProps} />
-            </FavoriteProvider>
+            <Component {...pageProps} />
             {/** Cookie */}
             <Modal open={openCookie}>
               <ModalDialog

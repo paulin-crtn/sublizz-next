@@ -8,7 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";
-import { useUnreadConversationsId } from "../../react-query/unread-conversations";
+import { useUnreadConversationsId } from "../../utils/react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ModalLayout from "../modal-layout";
 import HelpUs from "../help-us";

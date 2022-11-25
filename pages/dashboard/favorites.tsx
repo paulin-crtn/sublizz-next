@@ -1,20 +1,27 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { NextPage } from "next";
 import Link from "next/link";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../context/auth.context";
+/* ---------------------------------- UTILS --------------------------------- */
+import { useLeaseFavorites } from "../../utils/react-query/lease-favorites";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import AccessDenied from "../../components/access-denied";
+import AccountLayout from "../../components/account-layout";
+import LeaseFavorite from "../../components/lease-favorite";
+import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
+import LeaseSkeleton from "../../components/lease-skeleton";
+/* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { useAuth } from "../../context/auth.context";
-import AccessDenied from "../../components/access-denied";
-import AccountLayout from "../../components/account-layout";
 import Divider from "@mui/joy/Divider";
-import { useFavorite } from "../../context/favorite.context";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { IFavorite } from "../../interfaces/IFavorite";
-import LeaseFavorite from "../../components/lease-favorite";
-import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -22,7 +29,7 @@ import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 const LeaseFavoritesPage: NextPage = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { favorites } = useFavorite();
+  const { data: favorites, isLoading } = useLeaseFavorites(user);
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {
@@ -30,6 +37,17 @@ const LeaseFavoritesPage: NextPage = () => {
   }
 
   /* -------------------------------- TEMPLATE -------------------------------- */
+  if (isLoading) {
+    return (
+      <AccountLayout
+        pageTitle="Favoris"
+        breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
+      >
+        <LeaseSkeleton />
+      </AccountLayout>
+    );
+  }
+
   if (!favorites.length) {
     return (
       <AccountLayout

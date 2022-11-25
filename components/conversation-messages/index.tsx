@@ -8,7 +8,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
 import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeMessage } from "../../utils/fetch/fetchConversation";
+import { storeConversationMessage } from "../../utils/fetch/fetchConversation";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -53,7 +53,7 @@ const ConversationMessages = ({
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(
-    (payload: IConversationMessageForm) => storeMessage(payload),
+    (payload: IConversationMessageForm) => storeConversationMessage(payload),
     {
       onSuccess: async () => {
         setNewMessage("");

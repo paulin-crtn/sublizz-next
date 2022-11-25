@@ -34,9 +34,7 @@ const LeaseMapWithNoSSR = dynamic(() => import("../../components/lease-map"), {
   ssr: false,
 });
 /* -------------------------------- MUI ICONS ------------------------------- */
-import EmailIcon from "@mui/icons-material/Email";
 import FlagIcon from "@mui/icons-material/Flag";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 /* --------------------------------- MUI JOY -------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";

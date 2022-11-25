@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
 import {
   storeConversation,
-  storeMessage,
+  storeConversationMessage,
 } from "../../utils/fetch/fetchConversation";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../context/auth.context";

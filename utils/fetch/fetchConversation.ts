@@ -23,10 +23,12 @@ export const setConversationAsRead = async (conversationId: string) => {
   );
 };
 
-export const getMessages = async () => {
+export const getConversationMessages = async () => {
   return await customFetch("conversation-messages", "GET");
 };
 
-export const storeMessage = async (payload: IConversationMessageForm) => {
+export const storeConversationMessage = async (
+  payload: IConversationMessageForm
+) => {
   return await customFetch("conversation-messages", "POST", payload);
 };
