@@ -65,7 +65,7 @@ const UserMessagesPage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <DashboardLayout
-        pageTitle="Messagerie"
+        pageTitle="Messages"
         breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
       >
         {error.message.split(",").map((msg, index) => (

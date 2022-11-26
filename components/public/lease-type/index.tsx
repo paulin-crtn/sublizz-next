@@ -29,7 +29,13 @@ const LeaseType = ({
   info: string | undefined;
 }) => {
   return (
-    <Card sx={(theme) => ({ height: "100%", boxShadow: theme.vars.shadow.lg })}>
+    <Card
+      sx={(theme) => ({
+        height: "100%",
+        boxShadow: theme.vars.shadow.md,
+        "&:hover": { boxShadow: theme.vars.shadow.lg },
+      })}
+    >
       <CardOverflow>
         <AspectRatio ratio="2">
           <Image

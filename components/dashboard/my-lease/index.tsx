@@ -8,12 +8,12 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
-import { deleteLease, updateLease } from "../../../utils/fetch/fetchLease";
-import { destroyLeaseImages } from "../../../utils/fetch/fetchLeaseImages";
+import { updateLease } from "../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseChips from "../../shared/lease-chips";
 import LeaseDates from "../../shared/lease-dates";
 import ModalLayout from "../../shared/modal-layout";
+import DeleteLease from "./delete-lease";
 /* ----------------------------------- MUI ---------------------------------- */
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
@@ -29,15 +29,13 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 /* ---------------------------------- ICONS --------------------------------- */
 import MoreVert from "@mui/icons-material/MoreVert";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
-import StopCircleIcon from "@mui/icons-material/StopCircle";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import MonitorIcon from "@mui/icons-material/Monitor";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
@@ -56,7 +54,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   /* ------------------------------ USE MUTATION ------------------------------ */
   const queryClient = useQueryClient();
 
-  const { mutate: mutatePublishedStatus, isLoading } = useMutation(
+  const { mutate: mutatePublishedStatus } = useMutation(
     () => {
       const isPublished = lease.isPublished === 0 ? "1" : "0";
       return updateLease(lease.id, {
@@ -79,35 +77,6 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           data.isPublished ? "Annonce activée" : "Annonce désactivée",
           { style: TOAST_STYLE }
         );
-      },
-      onError: async (error) => {
-        error instanceof Error
-          ? toast.error(error.message, { style: TOAST_STYLE })
-          : toast.error("Une erreur est survenue", {
-              style: TOAST_STYLE,
-            });
-      },
-    }
-  );
-
-  const { mutate: mutateDeleteLease } = useMutation(
-    () => deleteLease(lease.id),
-    {
-      onSuccess: async () => {
-        // Update React Query Cache
-        queryClient.setQueryData(
-          ["userLeases"],
-          (previousLeases: ILeaseDetail[] | undefined) =>
-            previousLeases?.filter(
-              (previousLease) => previousLease.id !== lease.id
-            )
-        );
-        // Toast
-        toast.success("Annonce supprimée", { style: TOAST_STYLE });
-        // Delete leaseImages from storage
-        if (lease.leaseImages && !!lease.leaseImages.length) {
-          await destroyLeaseImages(lease.leaseImages);
-        }
       },
       onError: async (error) => {
         error instanceof Error
@@ -198,18 +167,18 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
               {!!lease.isPublished && (
                 <Link href={`/leases/${lease.id}`}>
                   <MenuItem onClick={handleClose}>
-                    {/* <ListItemDecorator>
-                      <FilterVintageIcon />
-                    </ListItemDecorator> */}
+                    <ListItemDecorator>
+                      <MonitorIcon />
+                    </ListItemDecorator>
                     Voir
                   </MenuItem>
                 </Link>
               )}
               <Link href={`/dashboard/leases/${lease.id}`}>
                 <MenuItem onClick={handleClose}>
-                  {/* <ListItemDecorator>
-                    <DriveFileRenameOutlineIcon />
-                  </ListItemDecorator> */}
+                  <ListItemDecorator>
+                    <EditIcon />
+                  </ListItemDecorator>
                   Modifier
                 </MenuItem>
               </Link>
@@ -219,13 +188,9 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                   mutatePublishedStatus();
                 }}
               >
-                {/* <ListItemDecorator>
-                  {lease.isPublished ? (
-                    <StopCircleIcon />
-                  ) : (
-                    <PlayCircleFilledWhiteIcon />
-                  )}
-                </ListItemDecorator> */}
+                <ListItemDecorator>
+                  {lease.isPublished ? <PauseIcon /> : <PlayArrowIcon />}
+                </ListItemDecorator>
                 {lease.isPublished ? "Désactiver" : "Activer"}
               </MenuItem>
               <ListDivider />
@@ -235,9 +200,9 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                   setOpenConfirmDelete(true);
                 }}
               >
-                {/* <ListItemDecorator sx={{ color: "inherit" }}>
+                <ListItemDecorator sx={{ color: "inherit" }}>
                   <DeleteIcon />
-                </ListItemDecorator> */}
+                </ListItemDecorator>
                 Supprimer
               </MenuItem>
             </Menu>
@@ -258,49 +223,10 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
         <ModalDialog size="lg" aria-labelledby="confirm-delete-modal">
           <ModalClose />
           <ModalLayout title="Confirmer la suppression">
-            <Typography mb={3} textAlign="center" fontWeight={300}>
-              L'annonce suivante sera définitivement supprimée.
-            </Typography>
-            <Box
-              sx={{
-                marginBottom: 3,
-                padding: 2,
-                border: "1px solid #dddee0",
-                borderRadius: "12px",
-              }}
-            >
-              <Typography level="h5" fontWeight="600">
-                {lease.city}
-              </Typography>
-              <LeaseDates lease={lease} />
-              <LeaseChips lease={lease} size="sm" />
-              <Typography level="h6" fontWeight="300" marginTop={2}>
-                {lease.pricePerMonth}€ CC
-              </Typography>
-            </Box>
-            {!isLoading && (
-              <Button
-                color="danger"
-                fullWidth
-                onClick={() => mutateDeleteLease()}
-              >
-                Supprimer l'annonce
-              </Button>
-            )}
-            {isLoading && (
-              <Button variant="soft" color="danger" fullWidth disabled>
-                <CircularProgress color="danger" />
-              </Button>
-            )}
-            <Button
-              variant="soft"
-              color="neutral"
-              fullWidth
-              onClick={() => setOpenConfirmDelete(false)}
-              sx={{ mt: 1 }}
-            >
-              Annuler
-            </Button>
+            <DeleteLease
+              lease={lease}
+              setOpenConfirmDelete={setOpenConfirmDelete}
+            />
           </ModalLayout>
         </ModalDialog>
       </Modal>

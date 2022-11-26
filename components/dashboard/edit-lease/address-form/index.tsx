@@ -80,19 +80,22 @@ const AddressForm = ({
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  if (dataGouvAddresses && !!dataGouvAddresses.length) {
+  if (!!dataGouvAddresses?.length) {
     return (
       <>
         <FormLabel sx={{ marginBottom: 2 }}>Sélectionnez une adresse</FormLabel>
         {dataGouvAddresses.map((address) => (
           <Alert
             key={address.properties.id}
-            variant="soft"
-            sx={{
+            variant="solid"
+            color="warning"
+            sx={(theme) => ({
               marginTop: 1,
               cursor: "pointer",
-              ":hover": { backgroundColor: "#ceceff" },
-            }}
+              ":hover": {
+                backgroundColor: theme.palette.warning.solidHoverBg,
+              },
+            })}
             onClick={() => setDataGouvAddress(address)}
           >
             <Typography>
@@ -139,7 +142,7 @@ const AddressForm = ({
       )}
 
       <FormControl error={!!errors.street}>
-        <FormLabel>Numéro et nom de rue</FormLabel>
+        <FormLabel>Nom de rue</FormLabel>
         <FormHelperText
           sx={{
             marginTop: "-5px",
@@ -147,7 +150,7 @@ const AddressForm = ({
             color: "#646872",
           }}
         >
-          Le numéro n'est pas obligatoire.
+          Vous pouvez ajoutez le numéro pour davantage de précision.
         </FormHelperText>
         <Input
           type="text"

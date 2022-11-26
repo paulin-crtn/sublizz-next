@@ -111,7 +111,7 @@ const ConversationMessages = ({
           //   "linear-gradient(to top, rgba(255,255,255,1) 90%, rgba(255,255,255,0))",
         }}
       >
-        {conversation.messages.map((message, index) => (
+        {conversation?.messages.map((message, index) => (
           <Box
             key={message.id}
             sx={{
