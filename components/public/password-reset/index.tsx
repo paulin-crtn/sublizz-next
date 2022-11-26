@@ -107,11 +107,7 @@ const PasswordReset = ({
         </Button>
       )}
       {isLoading && (
-        <Button
-          fullWidth
-          disabled
-          startDecorator={<CircularProgress thickness={3} />}
-        />
+        <Button fullWidth disabled startDecorator={<CircularProgress />} />
       )}
     </form>
   );

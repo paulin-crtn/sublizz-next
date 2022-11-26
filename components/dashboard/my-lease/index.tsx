@@ -289,7 +289,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
             )}
             {isLoading && (
               <Button variant="soft" color="danger" fullWidth disabled>
-                <CircularProgress color="danger" thickness={3} />
+                <CircularProgress color="danger" />
               </Button>
             )}
             <Button

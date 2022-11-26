@@ -559,7 +559,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       )}
       {(isUploadingFile || isLoading) && (
         <Button disabled>
-          <CircularProgress thickness={3} />
+          <CircularProgress />
         </Button>
       )}
 

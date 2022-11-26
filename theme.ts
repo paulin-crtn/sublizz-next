@@ -36,6 +36,8 @@ export const joyTheme: Theme = extendTheme({
 
           outlinedBorder: primaryColor.main,
           outlinedColor: primaryColor.main,
+          outlinedHoverBg: primaryColor.soft,
+          outlinedHoverBorder: primaryColor.main,
 
           plainColor: primaryColor.main,
         },
@@ -49,40 +51,6 @@ export const joyTheme: Theme = extendTheme({
           softBg: "#e9f5ff",
           softHoverBg: "#e9f5ff",
         },
-        // primary: {
-        //   solidBorder: "crimson",
-        //   solidActiveBorder: "crimson",
-        //   solidActiveColor: "crimson",
-        //   solidActiveBg: "#E8153F",
-        //   solidBg: "crimson",
-        //   solidHoverBg: "#E8153F",
-        //   solidDisabledBg: "#B61B32",
-        //   solidDisabledBorder: "#B61B32",
-        //   solidDisabledColor: "#B61B32",
-
-        //   softColor: "crimson",
-        //   softBg: "#ffedee",
-        //   softHoverBg: "#ffdedf",
-        //   softActiveBg: "#ffdedf",
-
-        //   outlinedBorder: "crimson",
-        //   outlinedColor: "crimson",
-
-        //   plainColor: "crimson",
-        // },
-        // danger: {
-        //   plainColor: "crimson",
-        // },
-        // info: {
-        //   outlinedColor: "#0c68dc",
-        //   outlinedBorder: "#0c68dc",
-        //   outlinedHoverBorder: "#0c68dc",
-        //   outlinedHoverBg: "#e9f5ff",
-        //   plainColor: "#0c68dc",
-        //   softColor: "#0c68dc",
-        //   softBg: "#e9f5ff",
-        //   softHoverBg: "#e9f5ff",
-        // },
       },
     },
   },
@@ -165,17 +133,8 @@ export const joyTheme: Theme = extendTheme({
         root: { margin: 0 }, // JoyAvatar default icons
       },
     },
-    JoyMenu: {
-      styleOverrides: {
-        // root: { backgroundColor: "#262626" },
-      },
-    },
     JoyMenuItem: {
       styleOverrides: {
-        // root: {
-        //   color: "#ffffff",
-        //   "&:hover": { backgroundColor: "#474747", color: "#ffffff" },
-        // },
         root: {
           fontSize: "0.9rem",
           paddingLeft: "20px",
@@ -191,6 +150,11 @@ export const joyTheme: Theme = extendTheme({
     JoyAvatar: {
       defaultProps: {
         variant: "solid",
+      },
+    },
+    JoyCircularProgress: {
+      defaultProps: {
+        thickness: 3,
       },
     },
   },

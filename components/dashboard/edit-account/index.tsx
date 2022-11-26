@@ -200,7 +200,7 @@ const EditAccount = ({ user }: { user: IUser }) => {
       {!isLoading && <Button type="submit">Enregistrer</Button>}
       {isLoading && (
         <Button disabled>
-          <CircularProgress thickness={3} />
+          <CircularProgress />
         </Button>
       )}
 

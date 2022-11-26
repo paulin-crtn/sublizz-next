@@ -157,7 +157,7 @@ const LeaseMessage = ({
       )}
       {isLoading && (
         <Button fullWidth disabled>
-          <CircularProgress thickness={3} />
+          <CircularProgress />
         </Button>
       )}
     </form>

@@ -265,7 +265,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
             }}
           >
             {isDeletingFile ? (
-              <CircularProgress color="neutral" thickness={3} />
+              <CircularProgress color="neutral" />
             ) : (
               <DeleteIcon />
             )}
@@ -397,7 +397,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         )}
         {(isUploadingFile || isLoading) && (
           <Button disabled>
-            <CircularProgress thickness={3} />
+            <CircularProgress />
           </Button>
         )}
       </Box>

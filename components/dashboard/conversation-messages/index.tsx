@@ -167,7 +167,7 @@ const ConversationMessages = ({
           )}
           {isLoading && (
             <Button size="sm" fullWidth disabled>
-              <CircularProgress thickness={3} />
+              <CircularProgress />
             </Button>
           )}
         </Box>

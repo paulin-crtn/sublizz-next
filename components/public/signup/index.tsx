@@ -285,7 +285,7 @@ const Signup = ({
           )}
           {isLoading && (
             <Button fullWidth disabled>
-              <CircularProgress thickness={3} />
+              <CircularProgress />
             </Button>
           )}
         </Box>

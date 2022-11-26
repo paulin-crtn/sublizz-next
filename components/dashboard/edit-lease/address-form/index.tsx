@@ -194,7 +194,7 @@ const AddressForm = ({
       )}
       {isLoading && (
         <Button fullWidth disabled>
-          <CircularProgress thickness={3} />
+          <CircularProgress />
         </Button>
       )}
     </form>
