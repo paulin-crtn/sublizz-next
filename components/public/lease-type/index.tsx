@@ -29,7 +29,7 @@ const LeaseType = ({
   info: string | undefined;
 }) => {
   return (
-    <Card variant="outlined" sx={{ height: "100%", boxShadow: "none" }}>
+    <Card sx={{ height: "100%" }}>
       <CardOverflow>
         <AspectRatio ratio="2">
           <Image
@@ -41,10 +41,10 @@ const LeaseType = ({
         </AspectRatio>
       </CardOverflow>
       <Box sx={{ marginY: 3 }}>
-        <Typography component="h4" level="h5" fontWeight={600} marginBottom={1}>
+        <Typography component="h4" level="h5" fontWeight={600} marginBottom={2}>
           {title}
         </Typography>
-        <Typography sx={{ mb: 2 }}>{description}</Typography>
+        <Typography sx={{ mb: 3 }}>{description}</Typography>
         <Alert>{info}</Alert>
       </Box>
       <CardOverflow

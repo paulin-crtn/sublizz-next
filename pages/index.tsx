@@ -25,6 +25,7 @@ import PasswordReset from "../components/public/password-reset";
 import Signup from "../components/public/signup";
 import LeaseType from "../components/public/lease-type";
 import DetailsSummary from "../components/public/details-summary";
+import HowItWorks from "../components/public/how-it-works";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -45,7 +46,6 @@ import homeImg from "../public/img/home.jpg";
 import mapImg from "../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
-import HowItWorks from "../components/public/how-it-works";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -302,7 +302,7 @@ const Home: NextPage = ({
                 },
               }}
             >
-              Découvrir les annonces
+              Parcourir les annonces
             </Button>
           </Box>
         </Box>
@@ -472,15 +472,17 @@ const Home: NextPage = ({
           >
             {LEASE_TYPES.map(
               ({ title, description, duration, imgName, info }) => (
-                <Box key={title} flex="1 1">
-                  <LeaseType
-                    title={title}
-                    description={description}
-                    duration={duration}
-                    imgName={imgName}
-                    info={info}
-                  />
-                </Box>
+                <Link href="/leases" key={title}>
+                  <Box flex="1 1" sx={{ cursor: "pointer" }}>
+                    <LeaseType
+                      title={title}
+                      description={description}
+                      duration={duration}
+                      imgName={imgName}
+                      info={info}
+                    />
+                  </Box>
+                </Link>
               )
             )}
           </Box>

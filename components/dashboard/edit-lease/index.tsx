@@ -343,7 +343,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                   color={errors.street ? "danger" : "neutral"}
                   onClick={() => setOpenAddress(true)}
                 >
-                  Remplir l'adresse
+                  Renseigner l'adresse
                 </Button>
               )}
             />

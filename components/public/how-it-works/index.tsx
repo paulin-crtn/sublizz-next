@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { useState } from "react";
 import Image from "next/future/image";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
@@ -8,12 +9,11 @@ import Box from "@mui/joy/Box";
 import Alert from "@mui/joy/Alert";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-/* ---------------------------------- ICONS --------------------------------- */
+/* ----------------------------------- MUI ---------------------------------- */
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HourglassFullIcon from "@mui/icons-material/HourglassFull";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PauseIcon from "@mui/icons-material/Pause";
-import { useState } from "react";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 
