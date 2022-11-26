@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/future/image";
 import Link from "next/link";
 /* ---------------------------------- UTILS --------------------------------- */
-import { useDeleteFavorite } from "../../../utils/react-query/lease-favorites";
+import { deleteLeaseFavorite } from "../../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseChips from "../../shared/lease-chips";
 import LeaseDates from "../../shared/lease-dates";
@@ -82,7 +82,7 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
             color="neutral"
             fullWidth
             startDecorator={<DeleteIcon />}
-            onClick={() => useDeleteFavorite(queryClient, leaseFavorite.id)}
+            onClick={() => deleteLeaseFavorite(queryClient, leaseFavorite.id)}
           >
             Retirer des favoris
           </Button>

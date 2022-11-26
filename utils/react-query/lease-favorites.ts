@@ -21,7 +21,10 @@ export const useLeaseFavorites = (user: IUser | null) =>
     initialData: [],
   });
 
-export const useStoreFavorite = (queryClient: QueryClient, leaseId: number) => {
+export const storeLeaseFavorite = (
+  queryClient: QueryClient,
+  leaseId: number
+) => {
   storeFavorite(leaseId)
     .then((data: IFavorite) => {
       queryClient.setQueryData(
@@ -40,7 +43,7 @@ export const useStoreFavorite = (queryClient: QueryClient, leaseId: number) => {
     });
 };
 
-export const useDeleteFavorite = (
+export const deleteLeaseFavorite = (
   queryClient: QueryClient,
   leaseFavoriteId: number
 ) => {

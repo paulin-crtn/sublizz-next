@@ -9,9 +9,9 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import {
-  useDeleteFavorite,
+  deleteLeaseFavorite,
   useLeaseFavorites,
-  useStoreFavorite,
+  storeLeaseFavorite,
 } from "../../../utils/react-query/lease-favorites";
 /* ----------------------------------- MUI ---------------------------------- */
 import Button from "@mui/joy/Button";
@@ -49,11 +49,11 @@ const FavoriteButton: FunctionComponent<{
   /* -------------------------------- FUNCTION -------------------------------- */
   const handleClick = () => {
     if (leaseFavorite) {
-      useDeleteFavorite(queryClient, leaseFavorite.id);
+      deleteLeaseFavorite(queryClient, leaseFavorite.id);
     } else {
       if (user) {
         if (user.role === UserRoleEnum.SEEKER) {
-          useStoreFavorite(queryClient, leaseId);
+          storeLeaseFavorite(queryClient, leaseId);
         } else {
           toast.error(
             "Action reservée aux utilisateurs à la recherche d'un logement",
