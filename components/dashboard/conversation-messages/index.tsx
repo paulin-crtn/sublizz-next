@@ -2,7 +2,6 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
@@ -33,9 +32,6 @@ const ConversationMessages = ({
 }: {
   conversation: IConversation;
 }) => {
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-
   /* ------------------------------- REACT STATE ------------------------------ */
   const [newMessage, setNewMessage] = useState<string>("");
 
@@ -155,7 +151,9 @@ const ConversationMessages = ({
             color="neutral"
             variant="soft"
             fullWidth
-            onClick={() => router.push("/leases/" + conversation.lease.id)}
+            onClick={() =>
+              window.open("/leases/" + conversation.lease.id, "_blank")
+            }
             sx={{ whiteSpace: "nowrap" }}
           >
             Voir l'annonce
