@@ -255,7 +255,7 @@ const Home: NextPage = ({
         )}
 
         <Box
-          sx={{
+          sx={(theme) => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -264,10 +264,11 @@ const Home: NextPage = ({
             padding: 4,
             backgroundColor: "#262626",
             borderRadius: "16px",
+            boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
               display: "block",
             },
-          }}
+          })}
         >
           <Typography
             fontSize="1.5rem"
@@ -462,7 +463,7 @@ const Home: NextPage = ({
 
         {!user && (
           <Box
-            sx={{
+            sx={(theme) => ({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -471,10 +472,11 @@ const Home: NextPage = ({
               padding: 4,
               backgroundColor: "#262626",
               borderRadius: "16px",
+              boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {
                 display: "block",
               },
-            }}
+            })}
           >
             <Typography
               fontSize="1.5rem"
@@ -624,7 +626,7 @@ const Home: NextPage = ({
         </Box>
 
         <Box
-          sx={{
+          sx={(theme) => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -633,10 +635,11 @@ const Home: NextPage = ({
             padding: 4,
             backgroundColor: "#262626",
             borderRadius: "16px",
+            boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
               display: "block",
             },
-          }}
+          })}
         >
           <Typography
             fontSize="1.5rem"
