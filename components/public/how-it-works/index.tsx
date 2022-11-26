@@ -58,6 +58,7 @@ const HowItWorks = () => {
               alignItems: "center",
               fontSize: "1.1rem",
               fontWeight: 500,
+              "@media (max-width: 800px)": { fontSize: "1rem" },
             }}
             componentsProps={{
               action: ({ checked }) => ({
@@ -85,6 +86,8 @@ const HowItWorks = () => {
               gridColumnGap: "30px",
               gridRowGap: "20px",
               textAlign: "center",
+              "@media (max-width: 1150px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
             }}
           >
             <ListItem sx={{ display: "block" }}>
@@ -135,7 +138,14 @@ const HowItWorks = () => {
               </Typography>
             </ListItem>
           </List>
-          <Box display="flex" gap={3} marginTop={4}>
+          <Box
+            display="flex"
+            gap={3}
+            marginTop={4}
+            sx={{
+              "@media (max-width: 900px)": { display: "block" },
+            }}
+          >
             <Alert
               startDecorator={
                 <PauseIcon
@@ -149,6 +159,7 @@ const HowItWorks = () => {
               }
               sx={{
                 flex: "1 1",
+                marginTop: 1,
                 paddingX: 2,
                 background: "linear-gradient(to right, #4700cc, #652ba9)",
                 color: "#ffffff",
@@ -172,6 +183,7 @@ const HowItWorks = () => {
               }
               sx={{
                 flex: "1 1",
+                marginTop: 1,
                 paddingX: 2,
                 background: "linear-gradient(to right, #4700cc, #652ba9)",
                 color: "#ffffff",
@@ -195,6 +207,8 @@ const HowItWorks = () => {
               gridColumnGap: "30px",
               gridRowGap: "20px",
               textAlign: "center",
+              "@media (max-width: 1150px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
             }}
           >
             <ListItem sx={{ display: "block" }}>
@@ -245,7 +259,14 @@ const HowItWorks = () => {
               </Typography>
             </ListItem>
           </List>
-          <Box display="flex" gap={3} marginTop={4}>
+          <Box
+            display="flex"
+            gap={3}
+            marginTop={4}
+            sx={{
+              "@media (max-width: 900px)": { display: "block" },
+            }}
+          >
             <Alert
               startDecorator={
                 <FavoriteIcon
@@ -259,6 +280,7 @@ const HowItWorks = () => {
               }
               sx={{
                 flex: "1 1",
+                marginTop: 1,
                 paddingX: 2,
                 background: "linear-gradient(to right, #4700cc, #652ba9)",
                 color: "#ffffff",
@@ -282,6 +304,7 @@ const HowItWorks = () => {
               }
               sx={{
                 flex: "1 1",
+                marginTop: 1,
                 paddingX: 2,
                 background: "linear-gradient(to right, #4700cc, #652ba9)",
                 color: "#ffffff",
