@@ -7,7 +7,6 @@ import {
   ILeaseForm,
   ILeaseReportForm,
 } from "../../interfaces/lease";
-import { ILeaseMessageForm } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */

@@ -12,7 +12,9 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const signin = async (payload: ISignin) => {
+export const signin = async (
+  payload: ISignin
+): Promise<{ access_token: string }> => {
   const response = await fetch(`${API_URL}/auth/signin`, {
     method: "POST",
     headers: {
