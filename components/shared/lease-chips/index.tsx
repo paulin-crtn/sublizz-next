@@ -23,7 +23,6 @@ const LeaseChips = ({
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
-        flexWrap: "wrap",
         gap: 0.75,
       }}
     >

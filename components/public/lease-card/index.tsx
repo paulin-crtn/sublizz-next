@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseDates from "../../shared/lease-dates";
 import LeaseChips from "../../shared/lease-chips";
@@ -51,7 +51,9 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
                 ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
                 : noLeaseImg
             }
-            layout="fill"
+            alt="lease image"
+            fill={true}
+            style={{ objectFit: "cover" }}
             priority={true}
           />
         </AspectRatio>

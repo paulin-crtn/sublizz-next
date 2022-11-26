@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useState } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -140,7 +140,9 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
                 ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
                 : noLeaseImg
             }
-            layout="fill"
+            alt="lease image"
+            fill={true}
+            style={{ objectFit: "cover" }}
             priority={true}
           />
         </AspectRatio>

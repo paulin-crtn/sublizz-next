@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/future/image";
 import format from "date-fns/format";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -104,13 +104,13 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Popup className="popup" maxWidth={430}>
+    <Popup className="popup">
       <Card
         row
         onClick={() => {
           router.push(`/leases/${lease.id}`);
         }}
-        sx={{ maxWidth: 430, cursor: "pointer", boxShadow: "none" }}
+        sx={{ cursor: "pointer", boxShadow: "none" }}
       >
         <CardOverflow>
           <AspectRatio ratio="1" sx={{ width: 115 }}>
@@ -122,7 +122,8 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
               }
               loading="lazy"
               alt="Photo principale de l'annonce"
-              layout="fill"
+              fill={true}
+              style={{ objectFit: "cover" }}
             />
           </AspectRatio>
         </CardOverflow>

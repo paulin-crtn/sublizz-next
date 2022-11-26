@@ -11,7 +11,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/future/image";
 import { useEffect, useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/public/lease-card";
@@ -286,7 +286,12 @@ const LeasesPage: NextPage = ({
             }}
           >
             <Box margin="auto" textAlign="center">
-              <Image src="/img/no-result.svg" width="320" height="220" />
+              <Image
+                src="/img/no-result.svg"
+                alt="no result illustration"
+                width="320"
+                height="220"
+              />
               <Typography level="h5" fontWeight={400} textAlign="center">
                 Aucun résultat
               </Typography>

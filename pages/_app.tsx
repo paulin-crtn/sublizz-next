@@ -30,13 +30,7 @@ setDefaultOptions({ locale: fr });
 /* -------------------------------------------------------------------------- */
 /*                                 REACT QUERY                                */
 /* -------------------------------------------------------------------------- */
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1 * 60 * 1000, // 1 minute
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 /* -------------------------------------------------------------------------- */
 /*                                 CUSTOM APP                                 */

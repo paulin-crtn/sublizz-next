@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
+import Image from "next/future/image";
 import Link from "next/link";
 /* ---------------------------------- UTILS --------------------------------- */
 import { useDeleteFavorite } from "../../../utils/react-query/lease-favorites";
@@ -50,7 +50,9 @@ const LeaseFavorite: FunctionComponent<{ leaseFavorite: IFavorite }> = ({
         <AspectRatio ratio="16/12.1" sx={{ width: 200 }}>
           <Image
             src={image ? LEASE_IMAGE_PATH + "/" + image : noLeaseImg}
-            layout="fill"
+            alt="lease image"
+            fill={true}
+            style={{ objectFit: "cover" }}
             priority={true}
           />
         </AspectRatio>

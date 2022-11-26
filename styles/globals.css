@@ -35,6 +35,7 @@ li {
 
 .leaflet-popup-content {
   margin: 0px !important;
+  width: max-content !important;
 }
 
 .leaflet-popup-content p {
