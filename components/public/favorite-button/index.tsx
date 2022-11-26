@@ -44,7 +44,7 @@ const FavoriteButton: FunctionComponent<{
         (leaseFavorite: IFavorite) => leaseFavorite.lease.id === leaseId
       );
     }
-  }, [leaseId, favorites]);
+  }, [user, leaseId, favorites]);
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const handleClick = () => {

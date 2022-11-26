@@ -43,7 +43,7 @@ const DashboardLayout: FunctionComponent<Props> = ({
   const showAddLeaseButton = useMemo(() => {
     const pathArr = router.pathname.split("/");
     return user && user.role === UserRoleEnum.OWNER && pathArr.length < 4;
-  }, [user]);
+  }, [user, router.pathname]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

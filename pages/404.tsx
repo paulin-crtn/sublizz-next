@@ -28,7 +28,7 @@ const Custom404Page: NextPage = () => {
     pathArr[1] === "leases" && pathArr.length === 3
       ? setTitle("L'annonce a été supprimée ou n'existe pas")
       : setTitle("La page demandée n'existe pas");
-  }, []);
+  }, [router.asPath]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

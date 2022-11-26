@@ -35,7 +35,7 @@ const DashboardPage: NextPage = () => {
       );
     }
     return DASHBOARD_ITEMS;
-  }, [user, DASHBOARD_ITEMS]);
+  }, [user]);
 
   /* ------------------------------- MIDDLEWARE ------------------------------- */
   if (!user) {

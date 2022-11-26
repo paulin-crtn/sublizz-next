@@ -231,6 +231,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
                       src={
                         PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
                       }
+                      alt="supabase user image"
                     />
                   </CardCover>
                 </Card>
@@ -238,7 +239,10 @@ const EditProfile = ({ user }: { user: IUser }) => {
               {inputFile && (
                 <Card sx={{ width: 120, height: 120, boxShadow: "none" }}>
                   <CardCover>
-                    <img src={URL.createObjectURL(inputFile)} />
+                    <img
+                      src={URL.createObjectURL(inputFile)}
+                      alt="input user image"
+                    />
                   </CardCover>
                 </Card>
               )}

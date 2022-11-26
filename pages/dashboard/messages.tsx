@@ -68,8 +68,9 @@ const UserMessagesPage: NextPage = () => {
         pageTitle="Messagerie"
         breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
       >
-        {error.message.split(",").map((msg) => (
+        {error.message.split(",").map((msg, index) => (
           <Alert
+            key={index}
             startDecorator={<ErrorIcon />}
             variant="soft"
             color="danger"

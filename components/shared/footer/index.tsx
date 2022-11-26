@@ -116,7 +116,7 @@ const Footer: FunctionComponent = () => {
         </Box>{" "}
         par
         <Box component="span" marginLeft="6px" sx={{ cursor: "pointer" }}>
-          <a href="https://haftwald.com" target="_blank">
+          <a href="https://haftwald.com" target="_blank" rel="noreferrer">
             <Image
               src={haftwaldImg}
               alt="logo du site haftwald, développeur web freelance javascript et typescript react next nest node"

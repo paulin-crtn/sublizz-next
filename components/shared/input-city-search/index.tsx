@@ -49,7 +49,7 @@ const InputCitySearch = ({ isLarge = false }) => {
     // Close dropdown and lose input focus
     setShowDropdown(false);
     searchInput.current?.getElementsByTagName("input")[0].blur();
-  }, [router.query.city]);
+  }, [router.query]);
 
   /**
    * Fetch cities when query changes

@@ -57,7 +57,7 @@ const NoticePage: NextPage = () => {
           commercial « Haftwald », qui l’édite.
         </Typography>
         <Typography marginTop={2}>
-          <a href="https://haftwald.com" target="_blank">
+          <a href="https://haftwald.com" target="_blank" rel="noreferrer">
             Haftwald
           </a>{" "}
           est une micro-entreprise domiciliée au 10 rue Succursale 33000

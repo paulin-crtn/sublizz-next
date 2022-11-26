@@ -95,6 +95,7 @@ const LeaseInputFile = ({
                       ? LEASE_IMAGE_PATH + "/" + leaseImages[index]
                       : undefined
                   }
+                  alt="supabase lease image"
                 />
               </CardCover>
             </Card>
@@ -102,7 +103,10 @@ const LeaseInputFile = ({
           {inputFiles[index] && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
-                <img src={URL.createObjectURL(inputFiles[index])} />
+                <img
+                  src={URL.createObjectURL(inputFiles[index])}
+                  alt="input lease image"
+                />
               </CardCover>
             </Card>
           )}
