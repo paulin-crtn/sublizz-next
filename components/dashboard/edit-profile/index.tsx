@@ -227,6 +227,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
               {!inputFile && user.profilePictureName && (
                 <Card sx={{ width: 120, height: 120, boxShadow: "none" }}>
                   <CardCover>
+                    {/* eslint-disable @next/next/no-img-element */}
                     <img
                       src={
                         PROFILE_PICTURE_PATH + "/" + user?.profilePictureName
@@ -239,6 +240,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
               {inputFile && (
                 <Card sx={{ width: 120, height: 120, boxShadow: "none" }}>
                   <CardCover>
+                    {/* eslint-disable @next/next/no-img-element */}
                     <img
                       src={URL.createObjectURL(inputFile)}
                       alt="input user image"

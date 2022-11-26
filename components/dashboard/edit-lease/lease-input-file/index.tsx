@@ -89,6 +89,7 @@ const LeaseInputFile = ({
           {!inputFiles[index] && leaseImages[index] && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
+                {/* eslint-disable @next/next/no-img-element */}
                 <img
                   src={
                     leaseImages[index]
@@ -103,6 +104,7 @@ const LeaseInputFile = ({
           {inputFiles[index] && (
             <Card sx={{ width: 150, height: 150, boxShadow: "none" }}>
               <CardCover>
+                {/* eslint-disable @next/next/no-img-element */}
                 <img
                   src={URL.createObjectURL(inputFiles[index])}
                   alt="input lease image"
