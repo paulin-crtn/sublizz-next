@@ -54,7 +54,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             alt="lease image"
             fill={true}
             style={{ objectFit: "cover" }}
-            priority={true}
+            sizes={"600px"}
           />
         </AspectRatio>
       </CardOverflow>
