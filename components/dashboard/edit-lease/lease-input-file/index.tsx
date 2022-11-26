@@ -1,21 +1,20 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+/* ----------------------------------- NPM ---------------------------------- */
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+/* ---------------------------------- UTILS --------------------------------- */
+import compressFile from "../../../../utils/compressFile";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import Button from "@mui/joy/Button";
 import AddIcon from "@mui/icons-material/Add";
-import CircularProgress from "@mui/joy/CircularProgress";
-import { TOAST_STYLE } from "../../../../const/toastStyle";
-import toast from "react-hot-toast";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
-import DeleteIcon from "@mui/icons-material/Delete";
-import compressFile from "../../../../utils/compressFile";
+/* -------------------------------- CONSTANTS ------------------------------- */
 import { LEASE_IMAGE_PATH } from "../../../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
@@ -36,9 +35,6 @@ const LeaseInputFile = ({
   setInputFiles: Dispatch<SetStateAction<File[] | Blob[]>>;
   index: number;
 }) => {
-  /* ------------------------------- REACT STATE ------------------------------ */
-  const [isDeletingFile, setIsDeletingFile] = useState<boolean>(false);
-
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onAdd = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     setHasInputFileError(false);
@@ -69,8 +65,6 @@ const LeaseInputFile = ({
       ]);
     }
   };
-
-  const onDelete = () => {};
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -114,23 +108,6 @@ const LeaseInputFile = ({
           )}
         </Sheet>
       </FormLabel>
-      {/* {!isDeletingFile && (
-        <Button
-          variant="outlined"
-          color="neutral"
-          size="sm"
-          fullWidth
-          onClick={onDelete}
-          startDecorator={<DeleteIcon />}
-        >
-          Supprimer
-        </Button>
-      )}
-      {isDeletingFile && (
-        <Button variant="outlined" color="neutral" size="sm" fullWidth disabled>
-          <CircularProgress color="neutral" thickness={3} />
-        </Button>
-      )} */}
     </>
   );
 };

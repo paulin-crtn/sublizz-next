@@ -19,11 +19,11 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../interfaces/message/IConversation";
+import { IMessage } from "../../../interfaces/message/IMessage";
 import { IConversationMessageForm } from "../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
 import { TOAST_STYLE } from "../../../const/toastStyle";
-import { IMessage } from "../../../interfaces/message/IMessage";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

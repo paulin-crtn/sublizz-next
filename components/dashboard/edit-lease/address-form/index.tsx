@@ -1,9 +1,13 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+/* ---------------------------------- UTILS --------------------------------- */
+import { getDataGouvAddress } from "../../../../utils/fetch/fetchAddress";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -13,7 +17,6 @@ import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import { getDataGouvAddress } from "../../../../utils/fetch/fetchAddress";
 
 /* -------------------------------------------------------------------------- */
 /*                                 INTERFACES                                 */

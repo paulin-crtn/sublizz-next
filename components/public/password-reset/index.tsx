@@ -1,9 +1,15 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+/* ---------------------------------- UTILS --------------------------------- */
+import { resetPassword } from "../../../utils/fetch/fetchAuth";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import SuccessAnimation from "../../shared/success-animation";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -12,11 +18,10 @@ import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
-import ErrorIcon from "@mui/icons-material/Error";
-import { resetPassword } from "../../../utils/fetch/fetchAuth";
-import ISignin from "../../../interfaces/ISignin";
-import SuccessAnimation from "../../shared/success-animation";
 import Box from "@mui/joy/Box";
+import ErrorIcon from "@mui/icons-material/Error";
+/* ------------------------------- INTERFACES ------------------------------- */
+import ISignin from "../../../interfaces/ISignin";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

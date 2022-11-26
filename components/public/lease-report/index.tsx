@@ -1,9 +1,15 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+/* ---------------------------------- UTILS --------------------------------- */
+import { storeLeaseReport } from "../../../utils/fetch/fetchLease";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import SuccessAnimation from "../../shared/success-animation";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
@@ -13,8 +19,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
-import { storeLeaseReport } from "../../../utils/fetch/fetchLease";
-import SuccessAnimation from "../../shared/success-animation";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseReportForm } from "../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */

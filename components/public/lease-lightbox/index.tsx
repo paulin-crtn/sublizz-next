@@ -1,8 +1,10 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction, useEffect } from "react";
 import Lightbox, { ImagesListType } from "react-spring-lightbox";
+/* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";

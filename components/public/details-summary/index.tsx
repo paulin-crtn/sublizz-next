@@ -1,11 +1,14 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { useState } from "react";
+/* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+/* ------------------------------- INTERFACES ------------------------------- */
 import { IDetailsSummary } from "../../../interfaces/IDetailsSummary";
 
 /* -------------------------------------------------------------------------- */

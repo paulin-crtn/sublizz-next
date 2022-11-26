@@ -1,9 +1,12 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+/* ---------------------------------- UTILS --------------------------------- */
 import { getDataGouvCity } from "../../../utils/fetch/fetchCity";
+/* ----------------------------------- MUI ---------------------------------- */
 import TextField from "@mui/joy/TextField";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";

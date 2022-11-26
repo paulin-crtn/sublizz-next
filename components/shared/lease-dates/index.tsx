@@ -4,8 +4,8 @@
 import format from "date-fns/format";
 import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
-import { ILease, ILeaseDetail } from "../../../interfaces/lease";
 import Typography from "@mui/joy/Typography";
+import { ILease, ILeaseDetail } from "../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */

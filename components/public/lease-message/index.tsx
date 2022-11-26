@@ -6,10 +6,7 @@ import { useState, FormEvent, Dispatch, SetStateAction } from "react";
 import Image from "next/future/image";
 import { useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
-import {
-  storeConversation,
-  storeConversationMessage,
-} from "../../../utils/fetch/fetchConversation";
+import { storeConversation } from "../../../utils/fetch/fetchConversation";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */

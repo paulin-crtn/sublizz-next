@@ -1,7 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import Image from "next/future/image";
+/* ----------------------------------- MUI ---------------------------------- */
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";

@@ -1,10 +1,15 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import Link from "next/link";
+/* ---------------------------------- UTILS --------------------------------- */
+import { signup } from "../../../utils/fetch/fetchAuth";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import SuccessAnimation from "../../shared/success-animation";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -12,15 +17,15 @@ import Typography from "@mui/joy/Typography";
 import Switch from "@mui/joy/Switch";
 import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
-import ErrorIcon from "@mui/icons-material/Error";
 import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
-import SuccessAnimation from "../../shared/success-animation";
-import { signup } from "../../../utils/fetch/fetchAuth";
+import ErrorIcon from "@mui/icons-material/Error";
+/* ------------------------------- INTERFACES ------------------------------- */
 import ISignup from "../../../interfaces/ISignup";
+/* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */

@@ -1,9 +1,15 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+/* ---------------------------------- UTILS --------------------------------- */
+import { storeHelpUsMessage } from "../../../utils/fetch/fetchHelpUs";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import SuccessAnimation from "../../shared/success-animation";
+/* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
@@ -12,10 +18,9 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
-import SuccessAnimation from "../../shared/success-animation";
-import { IHelpUsForm } from "../../../interfaces/IHelpUsForm";
-import { storeHelpUsMessage } from "../../../utils/fetch/fetchHelpUs";
 import FormHelperText from "@mui/joy/FormHelperText";
+/* ------------------------------- INTERFACES ------------------------------- */
+import { IHelpUsForm } from "../../../interfaces/IHelpUsForm";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
