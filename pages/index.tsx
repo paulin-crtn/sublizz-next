@@ -37,15 +37,6 @@ import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import Alert from "@mui/joy/Alert";
-import List from "@mui/joy/List";
-import ListItem from "@mui/joy/ListItem";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
-/* ---------------------------------- ICONS --------------------------------- */
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PowerIcon from "@mui/icons-material/Power";
-import HourglassFullIcon from "@mui/icons-material/HourglassFull";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
@@ -54,6 +45,7 @@ import homeImg from "../public/img/home.jpg";
 import mapImg from "../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
+import HowItWorks from "../components/public/how-it-works";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -181,8 +173,8 @@ const Home: NextPage = ({
           marginTop="60px"
           marginBottom="30px"
           fontFamily="Bitter"
-          fontSize="2.2rem"
-          fontWeight={700}
+          fontSize="2.3rem"
+          fontWeight={800}
           sx={{
             "@media (max-width: 800px)": {
               fontSize: "1.8rem",
@@ -320,10 +312,10 @@ const Home: NextPage = ({
           <Typography
             level="h3"
             marginTop="60px"
-            marginBottom="20px"
+            marginBottom="30px"
             fontFamily="Bitter"
-            fontSize="2.2rem"
-            fontWeight={700}
+            fontSize="2.3rem"
+            fontWeight={800}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
@@ -333,131 +325,23 @@ const Home: NextPage = ({
             Comment ça marche ?
           </Typography>
           <Typography
-            maxWidth="820px"
-            marginBottom="30px"
-            fontSize="1.1rem"
+            width="80%"
+            marginBottom="40px"
+            fontSize="1.3rem"
+            lineHeight="1.8rem"
             fontWeight={300}
+            sx={{
+              "@media (max-width: 800px)": {
+                width: "100%",
+              },
+            }}
           >
             La carte des logements vous propose un fonctionnement simple afin de
             vous offrir une mise en relation rapide de particulier à
             particulier.
           </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gridColumnGap: "30px",
-              gridRowGap: "20px",
-              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr" },
-            }}
-          >
-            {/** OWNER */}
-            <Box sx={{ flex: "1 1" }}>
-              <Typography
-                component="h4"
-                level="h5"
-                sx={{
-                  paddingX: 3,
-                  paddingY: 2,
-                  // @ts-ignore
-                  background: "linear-gradient(to right, #4700cc, #652ba9)",
-                  color: "#ffffff",
-                  borderRadius: "12px",
-                }}
-              >
-                Je propose un logement
-              </Typography>
-              <Box sx={{ marginY: 2 }}>
-                <List>
-                  <ListItem>
-                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
-                    gratuitement en 2 minutes
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>2️⃣</ListItemDecorator>Cliquez sur
-                    « Publier une annonce » puis remplissez le formulaire
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>3️⃣</ListItemDecorator>
-                    Ajoutez jusqu'à 4 photos
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>4️⃣</ListItemDecorator>
-                    Echangez avec de futurs locataires via la messagerie
-                    intégrée
-                  </ListItem>
-                </List>
-                <Alert
-                  color="info"
-                  startDecorator={<PowerIcon />}
-                  sx={{ mt: 1 }}
-                >
-                  Vous pouvez suspendre la publication de votre annonce sans la
-                  supprimer.
-                </Alert>
-                <Alert
-                  color="info"
-                  startDecorator={<PhoneAndroidIcon />}
-                  sx={{ mt: 1 }}
-                >
-                  Renseignez votre numéro de téléphone pour être contacté
-                  directement.
-                </Alert>
-              </Box>
-            </Box>
-
-            {/** SEEKER */}
-            <Box sx={{ flex: "1 1" }}>
-              <Typography
-                component="h4"
-                level="h5"
-                sx={{
-                  paddingX: 3,
-                  paddingY: 2,
-                  // @ts-ignore
-                  background: "linear-gradient(to right, #4700cc, #652ba9)",
-                  color: "#ffffff",
-                  borderRadius: "12px",
-                }}
-              >
-                Je cherche un logement
-              </Typography>
-              <Box sx={{ marginY: 2 }}>
-                <List>
-                  <ListItem>
-                    <ListItemDecorator>1️⃣</ListItemDecorator>Créez un compte
-                    gratuitement en 2 minutes
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>2️⃣</ListItemDecorator>Contactez l'auteur
-                    d'une annonce via la messagerie intégrée
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>3️⃣</ListItemDecorator>
-                    Posez vos questions et échangez sur votre situation
-                  </ListItem>
-                  <ListItem>
-                    <ListItemDecorator>4️⃣</ListItemDecorator>
-                    Visitez le logement et positionnez vous 🤞
-                  </ListItem>
-                </List>
-                <Alert
-                  color="info"
-                  startDecorator={<FavoriteIcon />}
-                  sx={{ mt: 1 }}
-                >
-                  Vous pouvez enregistrer une annonce en favoris et la retrouver
-                  plus tard.
-                </Alert>
-                <Alert
-                  color="info"
-                  startDecorator={<HourglassFullIcon />}
-                  sx={{ mt: 1 }}
-                >
-                  Gagnez du temps en enregistrant une réponse type.
-                </Alert>
-              </Box>
-            </Box>
+          <Box marginBottom="60px">
+            <HowItWorks />
           </Box>
         </Box>
 
@@ -548,10 +432,10 @@ const Home: NextPage = ({
           <Typography
             level="h3"
             marginTop="60px"
-            marginBottom="20px"
+            marginBottom="30px"
             fontFamily="Bitter"
-            fontSize="2.2rem"
-            fontWeight={700}
+            fontSize="2.3rem"
+            fontWeight={800}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
@@ -561,10 +445,16 @@ const Home: NextPage = ({
             Trouvez le logement qui convient à votre situation
           </Typography>
           <Typography
-            maxWidth="820px"
-            marginBottom="30px"
-            fontSize="1.1rem"
+            width="80%"
+            marginBottom="40px"
+            fontSize="1.3rem"
+            lineHeight="1.8rem"
             fontWeight={300}
+            sx={{
+              "@media (max-width: 800px)": {
+                width: "100%",
+              },
+            }}
           >
             La carte des logements est un service de mise en relation entre
             particuliers permettant de louer ou de sous-louer facilement un
@@ -602,8 +492,8 @@ const Home: NextPage = ({
             marginTop="60px"
             marginBottom="30px"
             fontFamily="Bitter"
-            fontSize="2.2rem"
-            fontWeight={700}
+            fontSize="2.3rem"
+            fontWeight={800}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
