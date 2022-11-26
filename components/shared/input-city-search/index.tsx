@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getDataGouvCity } from "../../../utils/fetch/fetchCity";
@@ -38,6 +38,20 @@ const InputCitySearch = ({ isLarge = false }) => {
   /* -------------------------------- REACT REF ------------------------------- */
   const dropdown = useRef<HTMLUListElement>(null);
   const searchInput = useRef<HTMLDivElement>(null);
+
+  /* ----------------------------- REACT CALLBACK ----------------------------- */
+  const handleSearch = useCallback(
+    (city: string) => {
+      const cityTrimmed = city.trim();
+      cityTrimmed
+        ? router.push("/leases?city=" + cityTrimmed)
+        : router.push("/leases");
+      setQuery(cityTrimmed);
+      setShowDropdown(false);
+      searchInput.current?.getElementsByTagName("input")[0].blur();
+    },
+    [router]
+  );
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
@@ -79,7 +93,7 @@ const InputCitySearch = ({ isLarge = false }) => {
     window.addEventListener("keydown", handleEnterKey);
     // Clean up
     return () => window.removeEventListener("keydown", handleEnterKey);
-  }, [query, showDropdown]);
+  }, [query, showDropdown, handleSearch]);
 
   /**
    * Close dropdown when user click outside the list
@@ -96,17 +110,6 @@ const InputCitySearch = ({ isLarge = false }) => {
     // Clean up
     return () => window.removeEventListener("click", handleClick);
   }, [showDropdown]);
-
-  /* -------------------------------- FUNCTIONS ------------------------------- */
-  const handleSearch = (city: string) => {
-    const cityTrimmed = city.trim();
-    cityTrimmed
-      ? router.push("/leases?city=" + cityTrimmed)
-      : router.push("/leases");
-    setQuery(cityTrimmed);
-    setShowDropdown(false);
-    searchInput.current?.getElementsByTagName("input")[0].blur();
-  };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

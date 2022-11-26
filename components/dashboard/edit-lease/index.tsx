@@ -65,33 +65,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
   const [hasInputFileError, setHasInputFileError] = useState<boolean>(false);
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(false);
 
-  /* ------------------------------ REACT EFFECT ------------------------------ */
-  useEffect(() => {
-    if (dataGouvAddress) {
-      setValue("street", dataGouvAddress.properties.name);
-      setValue("postCode", dataGouvAddress.properties.postcode);
-      setValue("city", dataGouvAddress.properties.city);
-      setValue("gpsLongitude", dataGouvAddress.geometry.coordinates[0]);
-      setValue("gpsLatitude", dataGouvAddress.geometry.coordinates[1]);
-      clearErrors("street");
-      setOpenAddress(false);
-    }
-  }, [dataGouvAddress]);
-
-  /* ------------------------------ USE MUTATION ------------------------------ */
-  const { mutate, isLoading, isError, error } = useMutation(
-    (payload: ILeaseForm) =>
-      lease ? updateLease(lease.id, payload) : storeLease(payload),
-    {
-      onSuccess: async () => {
-        toast.success(lease ? "Annonce modifiée" : "Annonce enregistrée", {
-          style: TOAST_STYLE,
-        });
-        router.push("/dashboard/leases");
-      },
-    }
-  );
-
   /* -------------------------------- USE FORM -------------------------------- */
   const {
     register,
@@ -107,6 +80,33 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
     mode: "onTouched",
   });
   const { errors } = formState;
+
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  useEffect(() => {
+    if (dataGouvAddress) {
+      setValue("street", dataGouvAddress.properties.name);
+      setValue("postCode", dataGouvAddress.properties.postcode);
+      setValue("city", dataGouvAddress.properties.city);
+      setValue("gpsLongitude", dataGouvAddress.geometry.coordinates[0]);
+      setValue("gpsLatitude", dataGouvAddress.geometry.coordinates[1]);
+      clearErrors("street");
+      setOpenAddress(false);
+    }
+  }, [dataGouvAddress, clearErrors, setValue]);
+
+  /* ------------------------------ USE MUTATION ------------------------------ */
+  const { mutate, isLoading, isError, error } = useMutation(
+    (payload: ILeaseForm) =>
+      lease ? updateLease(lease.id, payload) : storeLease(payload),
+    {
+      onSuccess: async () => {
+        toast.success(lease ? "Annonce modifiée" : "Annonce enregistrée", {
+          style: TOAST_STYLE,
+        });
+        router.push("/dashboard/leases");
+      },
+    }
+  );
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const buildFormData = (inputFiles: File[] | Blob[]): FormData => {

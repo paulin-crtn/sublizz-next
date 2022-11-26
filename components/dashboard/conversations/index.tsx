@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
@@ -46,12 +46,40 @@ const Conversations = ({
     string | undefined
   >();
 
+  /* ----------------------------- REACT CALLBACK ----------------------------- */
+  const handleSelectedConversation = useCallback(
+    (conversationId: string) => {
+      setSelectedConversationId(conversationId);
+      if (unreadConversationsId.includes(conversationId)) {
+        setTimeout(
+          () =>
+            setConversationAsRead(conversationId)
+              .then(() =>
+                queryClient.invalidateQueries({
+                  queryKey: ["unread-conversations-id"],
+                })
+              )
+              .catch(() => {
+                toast.error(
+                  "Impossible de marquer la conversation comme lue.",
+                  {
+                    style: TOAST_STYLE,
+                  }
+                );
+              }),
+          2000
+        );
+      }
+    },
+    [queryClient, unreadConversationsId]
+  );
+
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
     const sorted = sortConversations(conversations);
     setSortedConversations(sorted);
     handleSelectedConversation(selectedConversationId ?? sorted[0].id);
-  }, [conversations]);
+  }, [conversations, selectedConversationId, handleSelectedConversation]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const sortConversations = (conversations: IConversation[]) => {
@@ -60,27 +88,6 @@ const Conversations = ({
         new Date(b.messages[b.messages.length - 1].createdAt).getTime() -
         new Date(a.messages[a.messages.length - 1].createdAt).getTime()
     );
-  };
-
-  const handleSelectedConversation = (conversationId: string) => {
-    setSelectedConversationId(conversationId);
-    if (unreadConversationsId.includes(conversationId)) {
-      setTimeout(
-        () =>
-          setConversationAsRead(conversationId)
-            .then(() =>
-              queryClient.invalidateQueries({
-                queryKey: ["unread-conversations-id"],
-              })
-            )
-            .catch(() => {
-              toast.error("Impossible de marquer la conversation comme lue.", {
-                style: TOAST_STYLE,
-              });
-            }),
-        2000
-      );
-    }
   };
 
   const getConversationAvatar = (conversation: IConversation) => {

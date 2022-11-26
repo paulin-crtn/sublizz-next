@@ -34,7 +34,7 @@ const LeaseLightbox = ({
         setOpen(false);
       }
     });
-  }, []);
+  }, [setOpen]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const gotoPrevious = () =>
