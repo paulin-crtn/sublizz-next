@@ -18,12 +18,20 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 /* -------------------------------------------------------------------------- */
 export const getLeases = async (options?: {
   city: string;
+  lat: string;
+  lng: string;
   page: string;
 }): Promise<{ totalCount: number; leases: ILeaseDetail[] }> => {
   // Build URL with query params
   const queryParamsArr = [];
   if (options?.city) {
     queryParamsArr.push("city=" + options.city);
+  }
+  if (options?.lat) {
+    queryParamsArr.push("lat=" + options.lat);
+  }
+  if (options?.lng) {
+    queryParamsArr.push("lng=" + options.lng);
   }
   if (options?.page) {
     queryParamsArr.push("page=" + options.page);

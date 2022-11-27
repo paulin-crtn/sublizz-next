@@ -2,25 +2,14 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useRouter } from "next/router";
-import Image from "next/future/image";
-import format from "date-fns/format";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import LeaseChips from "../../shared/lease-chips";
-/* ----------------------------------- MUI ---------------------------------- */
-import Typography from "@mui/joy/Typography";
-import Card from "@mui/joy/Card";
-import CardOverflow from "@mui/joy/CardOverflow";
-import AspectRatio from "@mui/joy/AspectRatio";
-import CardContent from "@mui/joy/CardContent";
+import CustomPopup from "./custom-popup";
+import CustomBounds from "./custom-bounds";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../../interfaces/lease";
-/* -------------------------------- CONSTANTS ------------------------------- */
-import { LEASE_IMAGE_PATH } from "../../../const/supabasePath";
-import noLeaseImg from "../../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -64,7 +53,7 @@ const LeaseMap = ({
          */
         url="https://api.mapbox.com/styles/v1/paulin-crtn/cla9yw4j6006d14ptbi3jtoou/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGF1bGluLWNydG4iLCJhIjoiY2xhOXlmMTY1MDJudzN2bGZ1YWhwZ3V3biJ9.MLYpFVzGbIR3q0t6tsibxQ"
       />
-      {isMultiple && <Bounds leases={leases} />}
+      {isMultiple && <CustomBounds leases={leases} />}
       {leases.map((lease: ILeaseDetail) => (
         <Marker
           key={lease.id}
@@ -79,77 +68,3 @@ const LeaseMap = ({
 };
 
 export default LeaseMap;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const Bounds = ({ leases }: { leases: ILeaseDetail[] }) => {
-  const map = useMap();
-  map.fitBounds(
-    leases.map((lease: ILeaseDetail) => [
-      lease.gpsLatitude,
-      lease.gpsLongitude,
-    ]),
-    { maxZoom: 11 }
-  );
-  return null;
-};
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-
-  /* -------------------------------- TEMPLATE -------------------------------- */
-  return (
-    <Popup className="popup">
-      <Card
-        row
-        onClick={() => {
-          router.push(`/leases/${lease.id}`);
-        }}
-        sx={{ cursor: "pointer", boxShadow: "none" }}
-      >
-        <CardOverflow>
-          <AspectRatio ratio="1" sx={{ width: 115 }}>
-            <Image
-              src={
-                lease.leaseImages && lease.leaseImages[0]
-                  ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
-                  : noLeaseImg
-              }
-              loading="lazy"
-              alt="Photo principale de l'annonce"
-              fill={true}
-              style={{ objectFit: "cover" }}
-            />
-          </AspectRatio>
-        </CardOverflow>
-        <CardContent sx={{ px: 2 }}>
-          <Typography
-            level="h6"
-            fontSize="1rem"
-            fontWeight={400}
-            sx={{ marginBottom: 0.5 }}
-          >
-            {lease.pricePerMonth}€ CC
-          </Typography>
-          {!lease.endDate && (
-            <Typography level="body2" fontWeight={300}>
-              À partir du {format(new Date(lease.startDate), "dd MMM uuuu")}
-            </Typography>
-          )}
-          {lease.endDate && (
-            <Typography level="body2" fontWeight={300}>
-              Du {format(new Date(lease.startDate), "dd MMM uuuu")} au{" "}
-              {format(new Date(lease.endDate), "dd MMM uuuu")}
-            </Typography>
-          )}
-          <LeaseChips lease={lease} size="sm" />
-        </CardContent>
-      </Card>
-    </Popup>
-  );
-};

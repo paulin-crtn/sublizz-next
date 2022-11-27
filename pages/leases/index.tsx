@@ -316,7 +316,9 @@ export default LeasesPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const city = context?.query.city as string;
   const page = context?.query.page as string;
-  const data = await getLeases({ city, page });
+  const lat = context?.query.lat as string;
+  const lng = context?.query.lng as string;
+  const data = await getLeases({ city, lat, lng, page });
   return {
     props: { data },
   };
