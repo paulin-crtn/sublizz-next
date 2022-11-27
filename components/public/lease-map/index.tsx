@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { useRouter } from "next/router";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -31,11 +32,32 @@ const LeaseMap = ({
   leases: ILeaseDetail[];
   isMultiple: boolean;
 }) => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const getCenter = () => {
+    if (isMultiple) {
+      // Compute the average lat and lng based on query params (URL)
+      if (!leases.length && router.query.lat && router.query.lng) {
+        const latitudes = (router.query.lat as string).split(",");
+        const longitudes = (router.query.lng as string).split(",");
+        const lat = (+latitudes[0] + +latitudes[1]) / 2;
+        const lng = (+longitudes[0] + +longitudes[1]) / 2;
+        return { lat, lng };
+      }
+      // No need to center as fitBounds will take over in CustomBounds
+      return undefined;
+    }
+    // Use to display a static single lease on a map (leases/:id)
+    return { lat: leases[0].gpsLatitude, lng: leases[0].gpsLongitude };
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   // https://leafletjs.com/reference.html#map-option
   return (
     <MapContainer
-      center={[leases[0].gpsLatitude, leases[0].gpsLongitude]}
+      center={getCenter()}
       zoom={13}
       scrollWheelZoom={false}
       style={{

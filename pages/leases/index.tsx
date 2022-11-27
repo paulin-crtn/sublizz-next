@@ -111,94 +111,91 @@ const LeasesPage: NextPage = ({
           },
         }}
       >
-        {!!data.totalCount && (
-          <Box
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 2,
+            mb: 3,
+            "@media (max-width: 800px)": { display: "inline-block" },
+          }}
+        >
+          <Box>
+            <Typography fontWeight={500}>
+              {query ? query + " : " : ""}
+              {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
+            </Typography>
+            {query && (
+              <Typography
+                level="body2"
+                mt={0.5}
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => router.push("/leases")}
+              >
+                Effacer la recherche
+              </Typography>
+            )}
+          </Box>
+          <RadioGroup
+            row
+            name="mapOrList"
+            size="sm"
+            value={showMapOrList}
+            onChange={(event) => setShowMapOrList(event.target.value)}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 2,
-              mb: 3,
-              "@media (max-width: 800px)": { display: "inline-block" },
+              minHeight: 48,
+              padding: "4px",
+              borderRadius: "md",
+              bgcolor: "#262626",
+              "--RadioGroup-gap": "4px",
+              "@media (min-width: 1400px)": { display: "none" },
+              "@media (max-width: 800px)": { marginTop: 3 },
             }}
           >
-            <Box>
-              <Typography fontWeight={500}>
-                {query ? query + " : " : ""}
-                {data.totalCount}{" "}
-                {data.totalCount > 1 ? "logements" : "logement"}
-              </Typography>
-              {query && (
-                <Typography
-                  level="body2"
-                  mt={0.5}
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                  onClick={() => router.push("/leases")}
-                >
-                  Effacer la recherche
-                </Typography>
-              )}
-            </Box>
-            <RadioGroup
-              row
-              name="mapOrList"
-              size="sm"
-              value={showMapOrList}
-              onChange={(event) => setShowMapOrList(event.target.value)}
-              sx={{
-                minHeight: 48,
-                padding: "4px",
-                borderRadius: "md",
-                bgcolor: "#262626",
-                "--RadioGroup-gap": "4px",
-                "@media (min-width: 1400px)": { display: "none" },
-                "@media (max-width: 800px)": { marginTop: 3 },
-              }}
-            >
-              {["Afficher la carte", "Afficher la liste"].map((item) => (
-                <Radio
-                  key={item}
-                  color="neutral"
-                  value={item}
-                  disableIcon
-                  label={item}
-                  variant="plain"
-                  sx={{
-                    px: 2,
-                    alignItems: "center",
-                    color: "#ffffff",
-                  }}
-                  componentsProps={{
-                    action: ({ checked }) => ({
-                      sx: {
+            {["Afficher la carte", "Afficher la liste"].map((item) => (
+              <Radio
+                key={item}
+                color="neutral"
+                value={item}
+                disableIcon
+                label={item}
+                variant="plain"
+                sx={{
+                  px: 2,
+                  alignItems: "center",
+                  color: "#ffffff",
+                }}
+                componentsProps={{
+                  action: ({ checked }) => ({
+                    sx: {
+                      "&:hover": {
+                        bgcolor: "#474747",
+                        borderRadius: "md",
+                      },
+                      "&:active": {
+                        bgcolor: "#474747",
+                        borderRadius: "md",
+                      },
+                      ...(checked && {
+                        bgcolor: "#474747",
+                        borderRadius: "md",
                         "&:hover": {
                           bgcolor: "#474747",
-                          borderRadius: "md",
                         },
-                        "&:active": {
-                          bgcolor: "#474747",
-                          borderRadius: "md",
-                        },
-                        ...(checked && {
-                          bgcolor: "#474747",
-                          borderRadius: "md",
-                          "&:hover": {
-                            bgcolor: "#474747",
-                          },
-                        }),
-                      },
-                    }),
-                  }}
-                />
-              ))}
-            </RadioGroup>
-          </Box>
-        )}
+                      }),
+                    },
+                  }),
+                }}
+              />
+            ))}
+          </RadioGroup>
+        </Box>
 
         {/** LIST & MAP DESKTOP */}
         {/** List */}
-        {!!data.totalCount && showDesktopMap && (
+        {showDesktopMap && (
           <Box display="flex" gap={6} sx={{ position: "relative" }}>
             <Box flex="1 1 52%">
               {data.leases.map((lease: ILease, index: number) => (
@@ -254,17 +251,15 @@ const LeasesPage: NextPage = ({
             </Box>
           )}
         {/** Map */}
-        {showMapOrList === "Afficher la carte" &&
-          !!data.totalCount &&
-          !showDesktopMap && (
-            <Box
-              sx={{
-                height: "calc(100vh - 300px)",
-              }}
-            >
-              <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
-            </Box>
-          )}
+        {showMapOrList === "Afficher la carte" && !showDesktopMap && (
+          <Box
+            sx={{
+              height: "calc(100vh - 300px)",
+            }}
+          >
+            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+          </Box>
+        )}
 
         {/** Pagination */}
         {data.totalCount > RESULTS_PER_PAGE && (

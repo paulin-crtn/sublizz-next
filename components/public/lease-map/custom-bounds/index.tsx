@@ -22,18 +22,21 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
-   * Fit bounds except when querying by coordinates
+   * Fit bounds and add event listener on first render
    */
   useEffect(() => {
     if (!map) return;
-    map.fitBounds(
-      leases.map((lease: ILeaseDetail) => [
-        lease.gpsLatitude,
-        lease.gpsLongitude,
-      ]),
-      { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
-    );
-    map.on("zoomanim dragend", function () {
+    if (!!leases.length) {
+      map.fitBounds(
+        leases.map((lease: ILeaseDetail) => [
+          lease.gpsLatitude,
+          lease.gpsLongitude,
+        ]),
+        { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
+      );
+    }
+    map.on("zoomend dragend", function () {
+      // Get new bounds to fetch new leases based on coordinates
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
       router.push(`leases?${urlBoundsCoordinates}`);
@@ -41,7 +44,7 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   }, []);
 
   /**
-   * Fit bounds except when querying by coordinates
+   * Fit bounds on new city search
    */
   useEffect(() => {
     if (!map) return;
@@ -54,7 +57,7 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
         { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
       );
     }
-  }, [router.query, leases]);
+  }, [map, router.query, leases]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return null;
