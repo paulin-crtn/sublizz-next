@@ -52,8 +52,8 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   useEffect(() => {
     if (!map) return;
     if (!!leases.length && router.query.lat && router.query.lng) {
-      fitBounds(leases);
-      setTimeout(() => addEventListener(), 500);
+      fitBounds(leases); // Will trigger a zoom for 0.25s
+      setTimeout(() => addEventListener(), 500); // So we set a timeout for the zoom event listener
     }
   }, []);
 
@@ -75,8 +75,8 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
       ) {
         map.off("zoomend dragend");
       }
-      fitBounds(leases);
-      setTimeout(() => addEventListener(), 500);
+      fitBounds(leases); // Will trigger a zoom for 0.25s
+      setTimeout(() => addEventListener(), 500); // So we set a timeout for the zoom event listener
     }
   }, [map, router.query, leases]);
 
