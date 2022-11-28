@@ -50,7 +50,7 @@ const LeasesPage: NextPage = ({
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isDesktop, setIsDesktop] = useState<boolean>(true);
-  const [showMobileMap, setShowMobileMap] = useState<boolean>(true);
+  const [showMap, setShowMap] = useState<boolean>(true);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -83,7 +83,7 @@ const LeasesPage: NextPage = ({
   const setInnerWidth = () => {
     if (window.innerWidth >= 1350) {
       setIsDesktop(true);
-      setShowMobileMap(true);
+      setShowMap(true);
     } else {
       setIsDesktop(false);
     }
@@ -106,7 +106,7 @@ const LeasesPage: NextPage = ({
         <Box display="flex" sx={{ position: "relative" }}>
           <Box
             flex="1 0 55%"
-            display={isDesktop || !showMobileMap ? "block" : "none"}
+            display={isDesktop || !showMap ? "block" : "none"}
             sx={{
               marginTop: 3,
               marginBottom: 5,
@@ -172,7 +172,7 @@ const LeasesPage: NextPage = ({
             )}
 
             {/** No result */}
-            {!data.totalCount && (!showMobileMap || isDesktop) && (
+            {!data.totalCount && (!showMap || isDesktop) && (
               <Box
                 sx={{
                   display: "flex",
@@ -202,7 +202,7 @@ const LeasesPage: NextPage = ({
           {/** Map */}
           <Box
             flex={isDesktop ? "0 1 45%" : "1 1 100%"}
-            display={showMobileMap ? "block" : "none"}
+            display={showMap ? "block" : "none"}
             sx={{
               position: "sticky",
               top: 91,
@@ -218,9 +218,9 @@ const LeasesPage: NextPage = ({
 
           {!isDesktop && (
             <Box sx={{ position: "absolute", top: 18, right: 48 }}>
-              {showMobileMap && (
+              {showMap && (
                 <Button
-                  onClick={() => setShowMobileMap(false)}
+                  onClick={() => setShowMap(false)}
                   startDecorator={<SubjectIcon />}
                   sx={{
                     backgroundColor: "#262626",
@@ -235,9 +235,9 @@ const LeasesPage: NextPage = ({
                   Afficher la liste
                 </Button>
               )}
-              {!showMobileMap && (
+              {!showMap && (
                 <Button
-                  onClick={() => setShowMobileMap(true)}
+                  onClick={() => setShowMap(true)}
                   startDecorator={<MapIcon />}
                   sx={{
                     backgroundColor: "#262626",

@@ -27,7 +27,7 @@ const CustomBounds = ({
   const map = useMap();
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
-  const addEventListener = () => {
+  const addEventListeners = () => {
     map.on("zoomend dragend", function () {
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
@@ -36,9 +36,12 @@ const CustomBounds = ({
     });
   };
 
-  const removeEventListener = () => {
-    if (map.hasEventListeners("zoomend") && map.hasEventListeners("dragend")) {
-      map.off("zoomend dragend");
+  const removeEventListeners = () => {
+    if (map.hasEventListeners("zoomend")) {
+      map.off("zoomend");
+    }
+    if (map.hasEventListeners("dragend")) {
+      map.off("dragend");
     }
   };
 
@@ -64,7 +67,7 @@ const CustomBounds = ({
     if (!map) return;
     if (!!leases.length && router.query.lat && router.query.lng) {
       fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
-      setTimeout(() => addEventListener(), 350); // So we set a timeout for the zoom event listener
+      setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
   }, []);
 
@@ -80,7 +83,7 @@ const CustomBounds = ({
        * otherwise it will trigger "zoomend" event (fitBounds set
        * a new view which set a new zoom during 0.25s)
        */
-      removeEventListener();
+      removeEventListeners();
       if (!!leases.length) {
         fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
       } else {
@@ -91,7 +94,7 @@ const CustomBounds = ({
           });
         }
       }
-      setTimeout(() => addEventListener(), 350); // So we set a timeout for the zoom event listener
+      setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
   }, [map, router.query, leases]);
 
