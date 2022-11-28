@@ -35,7 +35,7 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
         { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
       );
     }
-    map.on("zoomend dragend", function () {
+    map.on("zoomanim dragend", function () {
       // Get new bounds to fetch new leases based on coordinates
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
@@ -48,7 +48,7 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
    */
   useEffect(() => {
     if (!map) return;
-    if (!router.query.lat && !router.query.lng) {
+    if (!!leases.length && !router.query.lat && !router.query.lng) {
       map.fitBounds(
         leases.map((lease: ILeaseDetail) => [
           lease.gpsLatitude,

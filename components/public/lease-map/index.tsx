@@ -60,11 +60,7 @@ const LeaseMap = ({
       center={getCenter()}
       zoom={13}
       scrollWheelZoom={false}
-      style={{
-        height: "100%",
-        borderRadius: "16px",
-        zIndex: 1, // Safari : fix borderRadius
-      }}
+      style={{ height: "100%" }}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'

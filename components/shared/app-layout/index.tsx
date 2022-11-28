@@ -50,7 +50,8 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
           {children}
         </Box>
       </Box>
-      <Footer />
+      {/** Remove footer on /leases page */}
+      {router.pathname.split("/")[1] !== "leases" && <Footer />}
     </Box>
   );
 };

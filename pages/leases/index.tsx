@@ -16,8 +16,6 @@ import { useEffect, useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/public/lease-card";
 import Divider from "@mui/joy/Divider";
-import RadioGroup from "@mui/joy/RadioGroup";
-import Radio from "@mui/joy/Radio";
 import Button from "@mui/joy/Button";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(
@@ -32,6 +30,8 @@ import { getLeases } from "../../utils/fetch/fetchLease";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Pagination from "@mui/material/Pagination";
+import MapIcon from "@mui/icons-material/Map";
+import SubjectIcon from "@mui/icons-material/Subject";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../interfaces/lease";
 
@@ -50,8 +50,7 @@ const LeasesPage: NextPage = ({
   const router = useRouter();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [showMapOrList, setShowMapOrList] =
-    useState<string>("Afficher la carte");
+  const [showMap, setShowMap] = useState<boolean>(true);
   const [showDesktopMap, setShowDesktopMap] = useState<boolean>(false);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
@@ -83,7 +82,12 @@ const LeasesPage: NextPage = ({
   };
 
   const setInnerWidth = () => {
-    setShowDesktopMap(window.innerWidth >= 1400);
+    if (window.innerWidth >= 1350) {
+      setShowDesktopMap(true);
+      setShowMap(true);
+    } else {
+      setShowDesktopMap(false);
+    }
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -98,206 +102,157 @@ const LeasesPage: NextPage = ({
           content="⭐⭐⭐ Découvrez la liste de nos offres immobilières entre particuliers et trouvez un logement à louer ou à sous-louer rapidement et sans frais d'agence"
         />
       </Head>
-      <Box
-        component="main"
-        sx={{
-          paddingX: 6,
-          paddingTop: 4,
-          marginBottom: "90px",
-          "@media (max-width: 800px)": {
-            paddingX: 4,
-            paddingTop: 2,
-            marginBottom: "60px",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: 2,
-            mb: 3,
-            "@media (max-width: 800px)": { display: "inline-block" },
-          }}
-        >
-          <Box>
-            <Typography fontWeight={500}>
-              {query ? query + " : " : ""}
-              {data.totalCount} {data.totalCount > 1 ? "logements" : "logement"}
-            </Typography>
-            {query && (
-              <Typography
-                level="body2"
-                mt={0.5}
-                sx={{
-                  cursor: "pointer",
-                }}
-                onClick={() => router.push("/leases")}
-              >
-                Effacer la recherche
-              </Typography>
-            )}
-          </Box>
-          <RadioGroup
-            row
-            name="mapOrList"
-            size="sm"
-            value={showMapOrList}
-            onChange={(event) => setShowMapOrList(event.target.value)}
+      <Box component="main">
+        <Divider sx={{ position: "sticky", top: 90 }} />
+        <Box display="flex" sx={{ position: "relative" }}>
+          <Box
+            flex="1 0 55%"
+            display={showDesktopMap || !showMap ? "block" : "none"}
             sx={{
-              minHeight: 48,
-              padding: "4px",
-              borderRadius: "md",
-              bgcolor: "#262626",
-              "--RadioGroup-gap": "4px",
-              "@media (min-width: 1400px)": { display: "none" },
-              "@media (max-width: 800px)": { marginTop: 3 },
+              marginTop: 3,
+              marginBottom: 5,
+              paddingX: 6,
+              "@media (max-width: 800px)": {
+                paddingX: 4,
+              },
             }}
           >
-            {["Afficher la carte", "Afficher la liste"].map((item) => (
-              <Radio
-                key={item}
-                color="neutral"
-                value={item}
-                disableIcon
-                label={item}
-                variant="plain"
-                sx={{
-                  px: 2,
-                  alignItems: "center",
-                  color: "#ffffff",
-                }}
-                componentsProps={{
-                  action: ({ checked }) => ({
-                    sx: {
-                      "&:hover": {
-                        bgcolor: "#474747",
-                        borderRadius: "md",
-                      },
-                      "&:active": {
-                        bgcolor: "#474747",
-                        borderRadius: "md",
-                      },
-                      ...(checked && {
-                        bgcolor: "#474747",
-                        borderRadius: "md",
-                        "&:hover": {
-                          bgcolor: "#474747",
-                        },
-                      }),
-                    },
-                  }),
-                }}
-              />
-            ))}
-          </RadioGroup>
-        </Box>
+            {/** Results count */}
+            {!!data.leases.length && (
+              <Box mb={3}>
+                <Typography fontWeight={500}>
+                  {query ? query + " : " : ""}
+                  {data.totalCount}{" "}
+                  {data.totalCount > 1 ? "logements" : "logement"}
+                </Typography>
+                {query && (
+                  <Typography
+                    level="body2"
+                    mt={0.5}
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => router.push("/leases")}
+                  >
+                    Effacer la recherche
+                  </Typography>
+                )}
+              </Box>
+            )}
 
-        {/** LIST & MAP DESKTOP */}
-        {/** List */}
-        {showDesktopMap && (
-          <Box display="flex" gap={6} sx={{ position: "relative" }}>
-            <Box flex="1 1 52%">
-              {data.leases.map((lease: ILease, index: number) => (
-                <Link href={`/leases/${lease.id}`} key={lease.id}>
-                  <Box sx={{ cursor: "pointer" }}>
-                    {index === 0 && <Divider />}
-                    <LeaseCard lease={lease} />
-                    <Divider />
-                  </Box>
-                </Link>
-              ))}
-            </Box>
-            {/** Map */}
-            <Box
-              flex="0 1 48%"
-              sx={{
-                position: "sticky",
-                top: 148,
-                alignSelf: "flex-start",
-                height: "calc(100vh - 200px)",
-              }}
-            >
-              <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
-            </Box>
-          </Box>
-        )}
-
-        {/** LIST & MAP MOBILE */}
-        {/** List */}
-        {showMapOrList === "Afficher la liste" &&
-          !!data.totalCount &&
-          !showDesktopMap && (
-            <Box>
-              {data.leases.map((lease: ILease, index: number) => (
-                <Link href={`/leases/${lease.id}`} key={lease.id}>
-                  <Box sx={{ cursor: "pointer" }}>
-                    {index === 0 && (
-                      <Divider
-                        sx={{
-                          "@media (max-width: 760px)": { display: "none" },
-                        }}
-                      />
-                    )}
-                    <LeaseCard lease={lease} />
+            {/** Lease cards */}
+            {data.leases.map((lease: ILease, index: number) => (
+              <Link href={`/leases/${lease.id}`} key={lease.id}>
+                <Box sx={{ cursor: "pointer" }}>
+                  {index === 0 && (
                     <Divider
                       sx={{
                         "@media (max-width: 760px)": { display: "none" },
                       }}
                     />
-                  </Box>
-                </Link>
-              ))}
-            </Box>
-          )}
-        {/** Map */}
-        {showMapOrList === "Afficher la carte" && !showDesktopMap && (
+                  )}
+                  <LeaseCard lease={lease} />
+                  <Divider
+                    sx={{
+                      "@media (max-width: 760px)": { display: "none" },
+                    }}
+                  />
+                </Box>
+              </Link>
+            ))}
+
+            {/** Pagination */}
+            {!router.query.lat && data.totalCount > RESULTS_PER_PAGE && (
+              <Pagination
+                count={pageCount}
+                size="large"
+                sx={{ width: "fit-content", mt: 4 }}
+                onChange={onDataPageChange}
+                page={currentPage}
+              />
+            )}
+
+            {/** No result */}
+            {!data.totalCount && (!showMap || showDesktopMap) && (
+              <Box
+                sx={{
+                  display: "flex",
+                  height: "calc(100vh - 210px)",
+                }}
+              >
+                <Box margin="auto" textAlign="center">
+                  <Image
+                    src="/img/no-result.svg"
+                    alt="no result illustration"
+                    width="320"
+                    height="220"
+                  />
+                  <Typography level="h5" fontWeight={400} textAlign="center">
+                    {router.query.city &&
+                      `Aucun résultat pour ${router.query.city}`}
+                    {router.query.lat && `Aucun résultat dans cette zone`}
+                  </Typography>
+                  <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
+                    Effacer la recherche
+                  </Button>
+                </Box>
+              </Box>
+            )}
+          </Box>
+
+          {/** Map */}
           <Box
+            flex={showDesktopMap ? "0 1 45%" : "1 1 100%"}
+            display={showMap ? "block" : "none"}
             sx={{
-              height: "calc(100vh - 300px)",
+              position: "sticky",
+              top: 91,
+              alignSelf: "flex-start",
+              height: "calc(100vh - 91px)",
             }}
           >
             <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
           </Box>
-        )}
 
-        {/** Pagination */}
-        {data.totalCount > RESULTS_PER_PAGE && (
-          <Pagination
-            count={pageCount}
-            size="large"
-            sx={{ width: "fit-content", mt: 4 }}
-            onChange={onDataPageChange}
-            page={currentPage}
-          />
-        )}
-
-        {/** No result */}
-        {!data.totalCount && (
-          <Box
-            sx={{
-              display: "flex",
-              height: "calc(100vh - 300px)",
-            }}
-          >
-            <Box margin="auto" textAlign="center">
-              <Image
-                src="/img/no-result.svg"
-                alt="no result illustration"
-                width="320"
-                height="220"
-              />
-              <Typography level="h5" fontWeight={400} textAlign="center">
-                Aucun résultat
-              </Typography>
-              {query && (
-                <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
-                  Effacer la recherche
+          {!showDesktopMap && (
+            <Box sx={{ position: "absolute", top: 18, right: 48 }}>
+              {showMap && (
+                <Button
+                  onClick={() => setShowMap(false)}
+                  startDecorator={<SubjectIcon />}
+                  sx={{
+                    backgroundColor: "#262626",
+                    "&:hover": { backgroundColor: "#000000" },
+                    "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
+                    "&:active": {
+                      backgroundColor: "#000000",
+                      color: "#ffffff",
+                    },
+                  }}
+                >
+                  Afficher la liste
+                </Button>
+              )}
+              {!showMap && (
+                <Button
+                  onClick={() => setShowMap(true)}
+                  startDecorator={<MapIcon />}
+                  sx={{
+                    backgroundColor: "#262626",
+                    "&:hover": { backgroundColor: "#000000" },
+                    "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
+                    "&:active": {
+                      backgroundColor: "#000000",
+                      color: "#ffffff",
+                    },
+                  }}
+                >
+                  Afficher la carte
                 </Button>
               )}
             </Box>
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
     </>
   );

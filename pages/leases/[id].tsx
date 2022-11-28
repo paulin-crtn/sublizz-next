@@ -343,7 +343,15 @@ const LeasePage: NextPage = ({
         <Typography level="h4" marginBottom={3}>
           Emplacement du logement
         </Typography>
-        <Box height="360px">
+        <Box
+          height="360px"
+          sx={{
+            position: "relative", // Safari borderRadius hack
+            borderRadius: "16px",
+            overflow: "hidden",
+            zIndex: 1, // Safari borderRadius hack
+          }}
+        >
           <LeaseMapWithNoSSR leases={[lease]} isMultiple={false} />
         </Box>
       </main>
