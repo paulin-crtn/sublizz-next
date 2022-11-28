@@ -39,12 +39,25 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
         }
       );
     }
-    map.on("zoomanim dragend", function () {
-      // Get new bounds to fetch new leases based on coordinates
-      const bounds = map.getBounds();
-      const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
-      router.push(`leases?${urlBoundsCoordinates}`);
-    });
+    /**
+     * Because fitBounds set a new view (including a zoom) we need to wait
+     * the end of its execution (0.25s) before setting the event listener
+     * (otherwise it will trigger the event and push a new URL)
+     */
+    setTimeout(
+      () =>
+        /**
+         * Event "zoomanim" isn't triggered by fitBounds
+         * but doesn't work well when zooming out
+         */
+        map.on("zoomend dragend", function () {
+          const bounds = map.getBounds();
+          const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
+          // Fetch new leases based on bounds coordinates
+          router.push(`leases?${urlBoundsCoordinates}`);
+        }),
+      500
+    );
   }, []);
 
   /**
