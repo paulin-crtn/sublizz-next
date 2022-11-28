@@ -224,6 +224,7 @@ const LeasesPage: NextPage = ({
                   startDecorator={<SubjectIcon />}
                   sx={{
                     backgroundColor: "#262626",
+                    borderColor: "#262626",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {
@@ -241,6 +242,7 @@ const LeasesPage: NextPage = ({
                   startDecorator={<MapIcon />}
                   sx={{
                     backgroundColor: "#262626",
+                    borderColor: "#262626",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {

@@ -3,10 +3,13 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
+/* ----------------------------------- MUI ---------------------------------- */
+import CircularProgress from "@mui/joy/CircularProgress";
+import Button from "@mui/joy/Button";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ICityCoordinates, ILeaseDetail } from "../../../../interfaces/lease";
 
@@ -26,13 +29,17 @@ const CustomBounds = ({
   /* --------------------------------- USE MAP -------------------------------- */
   const map = useMap();
 
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const addEventListeners = () => {
     map.on("zoomend dragend", function () {
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
       // Fetch new leases based on bounds coordinates
-      router.push(`leases?${urlBoundsCoordinates}`);
+      setIsLoading(true);
+      router.replace(`leases?${urlBoundsCoordinates}`);
     });
   };
 
@@ -98,8 +105,43 @@ const CustomBounds = ({
     }
   }, [map, router.query, leases]);
 
+  /**
+   * Set isLoading to false when new data is fetched
+   */
+  useEffect(() => setIsLoading(false), [leases]);
+
   /* -------------------------------- TEMPLATE -------------------------------- */
-  return null;
+  return (
+    <>
+      {isLoading && (
+        <Button
+          variant="soft"
+          color="neutral"
+          startDecorator={
+            <CircularProgress
+              size="sm"
+              thickness={4}
+              sx={{
+                marginRight: 1,
+                "--CircularProgress-progress-color": "#000000",
+              }}
+            />
+          }
+          sx={{
+            position: "absolute",
+            top: 18,
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            zIndex: 1000,
+            backgroundColor: "#ffffff",
+            fontWeight: "500",
+          }}
+        >
+          Chargement
+        </Button>
+      )}
+    </>
+  );
 };
 
 /* -------------------------------------------------------------------------- */

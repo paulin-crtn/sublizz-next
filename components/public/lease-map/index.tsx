@@ -11,7 +11,6 @@ import CustomPopup from "./custom-popup";
 import CustomBounds from "./custom-bounds";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ICityCoordinates, ILeaseDetail } from "../../../interfaces/lease";
-import { useEffect } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
