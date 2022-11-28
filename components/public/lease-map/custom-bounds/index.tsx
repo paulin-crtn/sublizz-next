@@ -39,16 +39,12 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
         }
       );
     }
-    setTimeout(
-      () =>
-        map.on("zoomanim dragend", function () {
-          const bounds = map.getBounds();
-          const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
-          // Fetch new leases based on bounds coordinates
-          router.push(`leases?${urlBoundsCoordinates}`);
-        }),
-      500
-    );
+    map.on("zoomanim dragend", function () {
+      const bounds = map.getBounds();
+      const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
+      // Fetch new leases based on bounds coordinates
+      router.push(`leases?${urlBoundsCoordinates}`);
+    });
   }, []);
 
   /**
