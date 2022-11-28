@@ -20,50 +20,63 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   /* --------------------------------- USE MAP -------------------------------- */
   const map = useMap();
 
-  /* ------------------------------ REACT EFFECT ------------------------------ */
-  /**
-   * Fit bounds and add event listener on first render
-   */
-  useEffect(() => {
-    if (!map) return;
-    if (!!leases.length) {
-      map.fitBounds(
-        leases.map((lease: ILeaseDetail) => [
-          lease.gpsLatitude,
-          lease.gpsLongitude,
-        ]),
-        {
-          maxZoom: leases.length === 1 ? 11 : undefined,
-          animate: false,
-          padding: [50, 50],
-        }
-      );
-    }
-    map.on("zoomanim dragend", function () {
+  /* -------------------------------- FUNCTIONS ------------------------------- */
+  const addEventListener = () => {
+    map.on("zoomend dragend", function () {
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
       // Fetch new leases based on bounds coordinates
       router.push(`leases?${urlBoundsCoordinates}`);
     });
+  };
+
+  const fitBounds = (leases: ILeaseDetail[]) => {
+    map.fitBounds(
+      leases.map((lease: ILeaseDetail) => [
+        lease.gpsLatitude,
+        lease.gpsLongitude,
+      ]),
+      {
+        maxZoom: leases.length === 1 ? 11 : undefined,
+        animate: false,
+        padding: [50, 50],
+      }
+    );
+  };
+
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  /**
+   * Fit bounds and add event listener on first render
+   * FOR LAT AND LNG SEARCH
+   */
+  useEffect(() => {
+    if (!map) return;
+    if (!!leases.length && router.query.lat && router.query.lng) {
+      fitBounds(leases);
+      setTimeout(() => addEventListener(), 500);
+    }
   }, []);
 
   /**
-   * Fit bounds on new city search
+   * Fit bounds and add event listener on every render
+   * FOR CITY SEARCH
    */
   useEffect(() => {
     if (!map) return;
     if (!!leases.length && !router.query.lat && !router.query.lng) {
-      map.fitBounds(
-        leases.map((lease: ILeaseDetail) => [
-          lease.gpsLatitude,
-          lease.gpsLongitude,
-        ]),
-        {
-          maxZoom: leases.length === 1 ? 11 : undefined,
-          animate: false,
-          padding: [50, 50],
-        }
-      );
+      /**
+       * Remove previous event listener before calling fitBounds
+       * otherwise it will trigger "zoomend" event (fitBounds set
+       * a new view which set a new zoom during 0.25s)
+       */
+      if (
+        map.hasEventListeners("zoomend") &&
+        map.hasEventListeners("dragend")
+      ) {
+        map.off("zoomend dragend");
+      }
+      fitBounds(leases);
+      setTimeout(() => addEventListener(), 500);
     }
   }, [map, router.query, leases]);
 
