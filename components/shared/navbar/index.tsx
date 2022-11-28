@@ -181,7 +181,7 @@ const Navbar: FunctionComponent = () => {
       {/** SEARCH */}
       <Box
         sx={{
-          flex: "0 1 100%",
+          flex: "1 1 100%",
           marginX: "50px",
           "@media (max-width: 850px)": { marginX: "20px" },
         }}

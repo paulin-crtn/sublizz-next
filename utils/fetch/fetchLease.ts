@@ -6,6 +6,7 @@ import {
   ILeaseDetail,
   ILeaseForm,
   ILeaseReportForm,
+  ILeasesWithCount,
 } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
@@ -21,7 +22,7 @@ export const getLeases = async (options?: {
   lat: string;
   lng: string;
   page: string;
-}): Promise<{ totalCount: number; leases: ILeaseDetail[] }> => {
+}): Promise<ILeasesWithCount> => {
   // Build URL with query params
   const queryParamsArr = [];
   if (options?.city) {

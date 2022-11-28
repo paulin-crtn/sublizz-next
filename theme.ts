@@ -69,6 +69,15 @@ export const joyTheme: Theme = extendTheme({
         },
       },
     },
+    JoyInput: {
+      styleOverrides: {
+        root: {
+          "& > input": {
+            width: "100%", // Fix input not shrinking in flex
+          },
+        },
+      },
+    },
     JoyChip: {
       styleOverrides: {
         root: {},

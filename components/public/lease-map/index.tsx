@@ -10,7 +10,8 @@ import "leaflet/dist/leaflet.css";
 import CustomPopup from "./custom-popup";
 import CustomBounds from "./custom-bounds";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILeaseDetail } from "../../../interfaces/lease";
+import { ICityCoordinates, ILeaseDetail } from "../../../interfaces/lease";
+import { useEffect } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -28,9 +29,11 @@ const icon = new Icon({
 const LeaseMap = ({
   leases,
   isMultiple,
+  cityCoordinates,
 }: {
   leases: ILeaseDetail[];
   isMultiple: boolean;
+  cityCoordinates?: ICityCoordinates;
 }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
@@ -77,7 +80,9 @@ const LeaseMap = ({
          */
         url="https://api.mapbox.com/styles/v1/paulin-crtn/cla9yw4j6006d14ptbi3jtoou/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGF1bGluLWNydG4iLCJhIjoiY2xhOXlmMTY1MDJudzN2bGZ1YWhwZ3V3biJ9.MLYpFVzGbIR3q0t6tsibxQ"
       />
-      {isMultiple && <CustomBounds leases={leases} />}
+      {isMultiple && (
+        <CustomBounds leases={leases} cityCoordinates={cityCoordinates} />
+      )}
       {leases.map((lease: ILeaseDetail) => (
         <Marker
           key={lease.id}

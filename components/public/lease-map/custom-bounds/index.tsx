@@ -8,12 +8,18 @@ import { useMap } from "react-leaflet";
 import { LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILeaseDetail } from "../../../../interfaces/lease";
+import { ICityCoordinates, ILeaseDetail } from "../../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
+const CustomBounds = ({
+  leases,
+  cityCoordinates,
+}: {
+  leases: ILeaseDetail[];
+  cityCoordinates: ICityCoordinates | undefined;
+}) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -30,7 +36,13 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
     });
   };
 
-  const fitBounds = (leases: ILeaseDetail[]) => {
+  const removeEventListener = () => {
+    if (map.hasEventListeners("zoomend") && map.hasEventListeners("dragend")) {
+      map.off("zoomend dragend");
+    }
+  };
+
+  const fitLeasesBounds = (leases: ILeaseDetail[]) => {
     map.fitBounds(
       leases.map((lease: ILeaseDetail) => [
         lease.gpsLatitude,
@@ -38,7 +50,6 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
       ]),
       {
         maxZoom: leases.length === 1 ? 11 : undefined,
-        animate: false,
         padding: [50, 50],
       }
     );
@@ -52,8 +63,8 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
   useEffect(() => {
     if (!map) return;
     if (!!leases.length && router.query.lat && router.query.lng) {
-      fitBounds(leases); // Will trigger a zoom for 0.25s
-      setTimeout(() => addEventListener(), 500); // So we set a timeout for the zoom event listener
+      fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
+      setTimeout(() => addEventListener(), 350); // So we set a timeout for the zoom event listener
     }
   }, []);
 
@@ -63,20 +74,24 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
    */
   useEffect(() => {
     if (!map) return;
-    if (!!leases.length && !router.query.lat && !router.query.lng) {
+    if (!router.query.lat && !router.query.lng) {
       /**
        * Remove previous event listener before calling fitBounds
        * otherwise it will trigger "zoomend" event (fitBounds set
        * a new view which set a new zoom during 0.25s)
        */
-      if (
-        map.hasEventListeners("zoomend") &&
-        map.hasEventListeners("dragend")
-      ) {
-        map.off("zoomend dragend");
+      removeEventListener();
+      if (!!leases.length) {
+        fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
+      } else {
+        if (cityCoordinates) {
+          // Will trigger a zoom for 0.25s
+          map.fitBounds([[cityCoordinates.lat, cityCoordinates.lng]], {
+            maxZoom: 11,
+          });
+        }
       }
-      fitBounds(leases); // Will trigger a zoom for 0.25s
-      setTimeout(() => addEventListener(), 500); // So we set a timeout for the zoom event listener
+      setTimeout(() => addEventListener(), 350); // So we set a timeout for the zoom event listener
     }
   }, [map, router.query, leases]);
 

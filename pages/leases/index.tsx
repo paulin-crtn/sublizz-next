@@ -9,7 +9,6 @@ import {
 } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/future/image";
 import { useEffect, useMemo, useState } from "react";
@@ -50,8 +49,8 @@ const LeasesPage: NextPage = ({
   const router = useRouter();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [showMap, setShowMap] = useState<boolean>(true);
-  const [showDesktopMap, setShowDesktopMap] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(true);
+  const [showMobileMap, setShowMobileMap] = useState<boolean>(true);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -83,10 +82,10 @@ const LeasesPage: NextPage = ({
 
   const setInnerWidth = () => {
     if (window.innerWidth >= 1350) {
-      setShowDesktopMap(true);
-      setShowMap(true);
+      setIsDesktop(true);
+      setShowMobileMap(true);
     } else {
-      setShowDesktopMap(false);
+      setIsDesktop(false);
     }
   };
 
@@ -107,7 +106,7 @@ const LeasesPage: NextPage = ({
         <Box display="flex" sx={{ position: "relative" }}>
           <Box
             flex="1 0 55%"
-            display={showDesktopMap || !showMap ? "block" : "none"}
+            display={isDesktop || !showMobileMap ? "block" : "none"}
             sx={{
               marginTop: 3,
               marginBottom: 5,
@@ -173,7 +172,7 @@ const LeasesPage: NextPage = ({
             )}
 
             {/** No result */}
-            {!data.totalCount && (!showMap || showDesktopMap) && (
+            {!data.totalCount && (!showMobileMap || isDesktop) && (
               <Box
                 sx={{
                   display: "flex",
@@ -202,23 +201,26 @@ const LeasesPage: NextPage = ({
 
           {/** Map */}
           <Box
-            flex={showDesktopMap ? "0 1 45%" : "1 1 100%"}
-            display={showMap ? "block" : "none"}
+            flex={isDesktop ? "0 1 45%" : "1 1 100%"}
+            display={showMobileMap ? "block" : "none"}
             sx={{
               position: "sticky",
               top: 91,
-              alignSelf: "flex-start",
               height: "calc(100vh - 91px)",
             }}
           >
-            <LeaseMapWithNoSSR leases={data.leases} isMultiple={true} />
+            <LeaseMapWithNoSSR
+              leases={data.leases}
+              isMultiple={true}
+              cityCoordinates={data.cityCoordinates}
+            />
           </Box>
 
-          {!showDesktopMap && (
+          {!isDesktop && (
             <Box sx={{ position: "absolute", top: 18, right: 48 }}>
-              {showMap && (
+              {showMobileMap && (
                 <Button
-                  onClick={() => setShowMap(false)}
+                  onClick={() => setShowMobileMap(false)}
                   startDecorator={<SubjectIcon />}
                   sx={{
                     backgroundColor: "#262626",
@@ -233,9 +235,9 @@ const LeasesPage: NextPage = ({
                   Afficher la liste
                 </Button>
               )}
-              {!showMap && (
+              {!showMobileMap && (
                 <Button
-                  onClick={() => setShowMap(true)}
+                  onClick={() => setShowMobileMap(true)}
                   startDecorator={<MapIcon />}
                   sx={{
                     backgroundColor: "#262626",
