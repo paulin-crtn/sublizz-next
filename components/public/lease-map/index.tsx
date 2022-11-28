@@ -59,7 +59,13 @@ const LeaseMap = ({
     <MapContainer
       center={getCenter()}
       zoom={13}
+      minZoom={6}
+      maxZoom={16}
       scrollWheelZoom={false}
+      maxBounds={[
+        [41.934977, -4.965461],
+        [51.165567, 9.119012],
+      ]}
       style={{ height: "100%" }}
     >
       <TileLayer

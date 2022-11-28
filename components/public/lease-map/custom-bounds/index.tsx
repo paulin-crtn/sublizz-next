@@ -32,7 +32,11 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
           lease.gpsLatitude,
           lease.gpsLongitude,
         ]),
-        { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
+        {
+          maxZoom: leases.length === 1 ? 11 : undefined,
+          animate: false,
+          padding: [50, 50],
+        }
       );
     }
     map.on("zoomanim dragend", function () {
@@ -54,7 +58,11 @@ const CustomBounds = ({ leases }: { leases: ILeaseDetail[] }) => {
           lease.gpsLatitude,
           lease.gpsLongitude,
         ]),
-        { maxZoom: leases.length === 1 ? 11 : undefined, animate: false }
+        {
+          maxZoom: leases.length === 1 ? 11 : undefined,
+          animate: false,
+          padding: [50, 50],
+        }
       );
     }
   }, [map, router.query, leases]);
