@@ -2,7 +2,6 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useRouter } from "next/router";
 import Image from "next/future/image";
 import format from "date-fns/format";
 import { Popup } from "react-leaflet";
@@ -25,16 +24,13 @@ import noLeaseImg from "../../../../public/img/no-lease-img.png";
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Popup className="popup">
       <Card
         row
         onClick={() => {
-          router.push(`/leases/${lease.id}`);
+          window.open(`/leases/${lease.id}`, "_blank");
         }}
         sx={{ cursor: "pointer", boxShadow: "none" }}
       >

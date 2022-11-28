@@ -63,8 +63,8 @@ const LeaseMap = ({
       maxZoom={16}
       scrollWheelZoom={false}
       maxBounds={[
-        [41.934977, -4.965461],
-        [51.165567, 9.119012],
+        [24.766785, -30.935821],
+        [61.93895, 25.40207],
       ]}
       style={{ height: "100%" }}
     >
