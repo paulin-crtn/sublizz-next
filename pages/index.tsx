@@ -88,7 +88,11 @@ const Home: NextPage = ({
         />
       </Head>
       <header>
-        <Card>
+        <Card
+          sx={(theme) => ({
+            boxShadow: theme.vars.shadow.lg,
+          })}
+        >
           <CardCover>
             <Image
               src={homeImg}
