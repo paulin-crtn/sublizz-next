@@ -72,7 +72,7 @@ const CustomBounds = ({
    */
   useEffect(() => {
     if (!map) return;
-    if (!!leases.length && router.query.lat && router.query.lng) {
+    if (!!leases.length && router.query.latitudes && router.query.longitudes) {
       fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
       setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
@@ -84,7 +84,7 @@ const CustomBounds = ({
    */
   useEffect(() => {
     if (!map) return;
-    if (!router.query.lat && !router.query.lng) {
+    if (!router.query.latitudes && !router.query.longitudes) {
       /**
        * Remove previous event listener before calling fitBounds
        * otherwise it will trigger "zoomend" event (fitBounds set
@@ -150,9 +150,9 @@ const CustomBounds = ({
 const _getUrlBoundCoordinates = (bounds: LatLngBounds) => {
   const southWest = bounds.getSouthWest();
   const northEast = bounds.getNorthEast();
-  return `lat=${southWest.lat.toFixed(6)},${northEast.lat.toFixed(
+  return `latitudes=${southWest.lat.toFixed(6)},${northEast.lat.toFixed(
     6
-  )}&lng=${southWest.lng.toFixed(6)},${northEast.lng.toFixed(6)}`;
+  )}&longitudes=${southWest.lng.toFixed(6)},${northEast.lng.toFixed(6)}`;
 };
 
 export default CustomBounds;

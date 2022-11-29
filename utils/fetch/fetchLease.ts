@@ -19,8 +19,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 /* -------------------------------------------------------------------------- */
 export const getLeases = async (options?: {
   city?: string;
-  lat?: string;
-  lng?: string;
+  latitudes?: string;
+  longitudes?: string;
   page?: string;
 }): Promise<ILeasesWithCount> => {
   // Build URL with query params
@@ -28,11 +28,11 @@ export const getLeases = async (options?: {
   if (options?.city) {
     queryParamsArr.push("city=" + options.city);
   }
-  if (options?.lat) {
-    queryParamsArr.push("lat=" + options.lat);
+  if (options?.latitudes) {
+    queryParamsArr.push("latitudes=" + options.latitudes);
   }
-  if (options?.lng) {
-    queryParamsArr.push("lng=" + options.lng);
+  if (options?.longitudes) {
+    queryParamsArr.push("longitudes=" + options.longitudes);
   }
   if (options?.page) {
     queryParamsArr.push("page=" + options.page);

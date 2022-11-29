@@ -194,7 +194,7 @@ const LeasesPage: NextPage = ({
                   <Typography level="h5" fontWeight={400} textAlign="center">
                     {router.query.city &&
                       `Aucun résultat pour ${router.query.city}`}
-                    {router.query.lat && `Aucun résultat dans cette zone`}
+                    {router.query.latitudes && `Aucun résultat dans cette zone`}
                   </Typography>
                   <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
                     Effacer la recherche
@@ -275,9 +275,9 @@ export default LeasesPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const city = context?.query.city as string;
   const page = context?.query.page as string;
-  const lat = context?.query.lat as string;
-  const lng = context?.query.lng as string;
-  const data = await getLeases({ city, lat, lng, page });
+  const latitudes = context?.query.latitudes as string;
+  const longitudes = context?.query.longitudes as string;
+  const data = await getLeases({ city, latitudes, longitudes, page });
   return {
     props: { data },
   };

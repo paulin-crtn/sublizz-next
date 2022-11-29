@@ -41,11 +41,11 @@ const LeaseMap = ({
   const getCenter = () => {
     if (isMultiple) {
       // Compute the average lat and lng based on query params (URL)
-      if (!leases.length && router.query.lat && router.query.lng) {
-        const latitudes = (router.query.lat as string).split(",");
-        const longitudes = (router.query.lng as string).split(",");
-        const lat = (+latitudes[0] + +latitudes[1]) / 2;
-        const lng = (+longitudes[0] + +longitudes[1]) / 2;
+      if (!leases.length && router.query.latitudes && router.query.longitudes) {
+        const latitudesArr = (router.query.latitudes as string).split(",");
+        const longitudesArr = (router.query.longitudes as string).split(",");
+        const lat = (Number(latitudesArr[0]) + Number(latitudesArr[1])) / 2;
+        const lng = (Number(longitudesArr[0]) + Number(longitudesArr[1])) / 2;
         return { lat, lng };
       }
       // No need to center as fitBounds will take over in CustomBounds
