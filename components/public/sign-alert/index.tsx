@@ -4,6 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction } from "react";
 /* ----------------------------------- MUI ---------------------------------- */
+import { Theme } from "@mui/joy";
 import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
@@ -14,28 +15,25 @@ import MessageIcon from "@mui/icons-material/Message";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PaymentIcon from "@mui/icons-material/Payment";
 import Chip from "@mui/joy/Chip";
-/* -------------------------------- CONSTANT -------------------------------- */
-import { primaryColor } from "../../../theme";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
-const listStyle = {
+const listStyle = (theme: Theme) => ({
   marginBottom: 1,
   minBlockSize: 0,
   paddingBlockStart: 0,
   paddingBlockEnd: 0,
   fontSize: "1.1rem",
-};
-
-const iconStyle = {
-  marginRight: 2,
-  fontSize: "2.4rem",
-  color: primaryColor.main,
-  backgroundColor: primaryColor.soft,
-  padding: 1,
-  borderRadius: "9999px",
-};
+  "& > span > svg": {
+    marginRight: 2,
+    padding: 1,
+    fontSize: "2.4rem",
+    color: theme.palette.primary.plainColor,
+    backgroundColor: theme.palette.primary.softBg,
+    borderRadius: "9999px",
+  },
+});
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -62,25 +60,25 @@ const SignAlert = ({
       >
         <ListItem sx={listStyle}>
           <ListItemDecorator>
-            <StyleIcon sx={iconStyle} />
+            <StyleIcon />
           </ListItemDecorator>
           Publiez plusieurs annonces
         </ListItem>
         <ListItem sx={listStyle}>
           <ListItemDecorator>
-            <MessageIcon sx={iconStyle} />
+            <MessageIcon />
           </ListItemDecorator>
           Répondez à toutes les annonces
         </ListItem>
         <ListItem sx={listStyle}>
           <ListItemDecorator>
-            <FavoriteIcon sx={iconStyle} />
+            <FavoriteIcon />
           </ListItemDecorator>
           Sauvegardez vos favoris
         </ListItem>
         <ListItem sx={listStyle}>
           <ListItemDecorator>
-            <PaymentIcon sx={iconStyle} />
+            <PaymentIcon />
           </ListItemDecorator>
           Gratuit et sans spam
           <Chip size="sm" variant="soft" color="neutral" sx={{ marginLeft: 1 }}>

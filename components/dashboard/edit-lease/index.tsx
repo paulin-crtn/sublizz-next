@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import LeaseInputFile from "./lease-input-file";
 import ModalLayout from "../../shared/modal-layout";
 import AddressForm from "./address-form";
+import Optional from "../../shared/optional";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeLease, updateLease } from "../../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../../utils/convertLeaseType";
@@ -30,7 +31,6 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import Chip from "@mui/joy/Chip";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 import Textarea from "@mui/joy/Textarea";
@@ -234,15 +234,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
         <FormControl sx={{ flex: "1 1", marginRight: 0.5 }}>
           <FormLabel>
-            Jusqu'au
-            <Chip
-              size="sm"
-              color="info"
-              variant="soft"
-              sx={{ marginLeft: 1, fontWeight: 400 }}
-            >
-              Optionnel
-            </Chip>
+            Jusqu'au <Optional />
           </FormLabel>
           <Controller
             name="endDate"
@@ -457,16 +449,17 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
       <FormControl>
         <FormLabel>
-          Description
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
+          Description <Optional />
         </FormLabel>
+        <FormHelperText
+          sx={{
+            marginTop: "-5px",
+            marginBottom: "10px",
+            color: "#646872",
+          }}
+        >
+          Dites en un peu plus sur le logement mis en location
+        </FormHelperText>
         <Textarea
           variant="soft"
           defaultValue={lease ? lease.description : ""}
@@ -478,15 +471,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
 
       <Box sx={{ flex: "0 0" }}>
         <FormLabel>
-          Photos
-          <Chip
-            size="sm"
-            color="info"
-            variant="soft"
-            sx={{ marginLeft: 1, fontWeight: 400 }}
-          >
-            Optionnel
-          </Chip>
+          Photos <Optional />
         </FormLabel>
         <FormHelperText
           sx={{

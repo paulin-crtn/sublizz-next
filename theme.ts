@@ -1,14 +1,28 @@
+/* -------------------------------------------------------------------------- */
+/*                                   IMPORTS                                  */
+/* -------------------------------------------------------------------------- */
 import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
 
-export const primaryColor = {
+/* -------------------------------------------------------------------------- */
+/*                                  CONSTANT                                  */
+/* -------------------------------------------------------------------------- */
+const PRIMARY_COLORS = {
   main: "#4700CC",
   lighter: "#5600F5",
   darker: "#3E00B3",
   soft: "#eeeeff",
 };
 
+const INFO_COLORS = {
+  main: "#2435ff",
+  soft: "#e9f8ff",
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                    THEME                                   */
+/* -------------------------------------------------------------------------- */
 export const joyTheme: Theme = extendTheme({
   fontFamily: {
     body: "Poppins",
@@ -19,37 +33,38 @@ export const joyTheme: Theme = extendTheme({
     light: {
       palette: {
         primary: {
-          solidBorder: primaryColor.main,
-          solidActiveBorder: primaryColor.main,
-          solidActiveColor: primaryColor.main,
-          solidActiveBg: primaryColor.lighter,
-          solidBg: primaryColor.main,
-          solidHoverBg: primaryColor.lighter,
-          solidDisabledBg: primaryColor.darker,
-          solidDisabledBorder: primaryColor.darker,
-          solidDisabledColor: primaryColor.darker,
+          solidBorder: PRIMARY_COLORS.main,
+          solidActiveBorder: PRIMARY_COLORS.main,
+          solidActiveColor: PRIMARY_COLORS.main,
+          solidActiveBg: PRIMARY_COLORS.lighter,
+          solidBg: PRIMARY_COLORS.main,
+          solidHoverBg: PRIMARY_COLORS.lighter,
+          solidDisabledBg: PRIMARY_COLORS.darker,
+          solidDisabledBorder: PRIMARY_COLORS.darker,
+          solidDisabledColor: PRIMARY_COLORS.darker,
 
-          softColor: primaryColor.main,
-          softBg: "#eeeeff",
+          softColor: PRIMARY_COLORS.main,
+          softBg: PRIMARY_COLORS.soft,
           softHoverBg: "#f5f5ff",
           softActiveBg: "#f5f5ff",
 
-          outlinedBorder: primaryColor.main,
-          outlinedColor: primaryColor.main,
-          outlinedHoverBg: primaryColor.soft,
-          outlinedHoverBorder: primaryColor.main,
+          outlinedBorder: PRIMARY_COLORS.main,
+          outlinedColor: PRIMARY_COLORS.main,
+          outlinedHoverBg: PRIMARY_COLORS.soft,
+          outlinedHoverBorder: PRIMARY_COLORS.main,
 
-          plainColor: primaryColor.main,
+          plainColor: PRIMARY_COLORS.main,
+          plainBg: PRIMARY_COLORS.main,
         },
         info: {
-          outlinedColor: "#0c68dc",
-          outlinedBorder: "#0c68dc",
-          outlinedHoverBorder: "#0c68dc",
-          outlinedHoverBg: "#e9f5ff",
-          plainColor: "#0c68dc",
-          softColor: "#0c68dc",
-          softBg: "#e9f5ff",
-          softHoverBg: "#e9f5ff",
+          outlinedColor: INFO_COLORS.main,
+          outlinedBorder: INFO_COLORS.main,
+          outlinedHoverBorder: INFO_COLORS.main,
+          outlinedHoverBg: INFO_COLORS.soft,
+          plainColor: INFO_COLORS.main,
+          softColor: INFO_COLORS.main,
+          softBg: INFO_COLORS.soft,
+          softHoverBg: INFO_COLORS.soft,
         },
       },
     },

@@ -20,7 +20,6 @@ import Avatar from "@mui/joy/Avatar";
 import { IConversation } from "../../../interfaces/message/IConversation";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
-import { primaryColor } from "../../../theme";
 import { TOAST_STYLE } from "../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
@@ -129,7 +128,7 @@ const Conversations = ({
           <Box key={conversation.id}>
             <Box
               onClick={() => handleSelectedConversation(conversation.id)}
-              sx={{
+              sx={(theme) => ({
                 display: "flex",
                 gap: 2,
                 marginY: 0.5,
@@ -141,12 +140,12 @@ const Conversations = ({
                   borderRadius: "10px",
                 },
                 ...(selectedConversationId === conversation.id && {
-                  backgroundColor: primaryColor.soft,
+                  backgroundColor: theme.palette.primary.softBg,
                   "&:hover": {
-                    backgroundColor: primaryColor.soft,
+                    backgroundColor: theme.palette.primary.softBg,
                   },
                 }),
-              }}
+              })}
             >
               {getConversationAvatar(conversation)}
               <Box>

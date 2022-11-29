@@ -13,6 +13,7 @@ import { useUnreadConversationsId } from "../../../utils/react-query/unread-conv
 import ModalLayout from "../../shared/modal-layout";
 import HelpUs from "../help-us";
 /* ----------------------------------- MUI ---------------------------------- */
+import { Theme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
@@ -32,12 +33,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../../const/toastStyle";
 import { UserRoleEnum } from "../../../enum/UserRoleEnum";
-import { primaryColor } from "../../../theme";
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */
 /* -------------------------------------------------------------------------- */
-const navListStyle = {
+const navListStyle = (theme: Theme) => ({
   margin: "5px 0",
   borderRadius: "5px",
   cursor: "pointer",
@@ -48,12 +48,12 @@ const navListStyle = {
     backgroundColor: "#f5f5f5",
   },
   "&.active": {
-    backgroundColor: primaryColor.main,
+    backgroundColor: theme.palette.primary.plainBg,
     "& > *": {
       color: "#ffffff",
     },
   },
-};
+});
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

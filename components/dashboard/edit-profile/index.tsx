@@ -17,6 +17,8 @@ import {
 import parseUserForm from "../../../utils/parseUserForm";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import Optional from "../../shared/optional";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -26,7 +28,6 @@ import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
-import Chip from "@mui/joy/Chip";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -184,15 +185,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
       <Box>
         <FormControl sx={{ flex: "0 0" }}>
           <FormLabel>
-            Photo
-            <Chip
-              size="sm"
-              color="info"
-              variant="soft"
-              sx={{ marginLeft: 1, fontWeight: 400 }}
-            >
-              Optionnel
-            </Chip>
+            Photo <Optional />
           </FormLabel>
           <FormHelperText
             sx={{
@@ -298,15 +291,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
 
           <FormControl error={!!errors.lastName} sx={{ flex: "1 1" }}>
             <FormLabel>
-              Nom
-              <Chip
-                size="sm"
-                color="info"
-                variant="soft"
-                sx={{ marginLeft: 1, fontWeight: 400 }}
-              >
-                Optionnel
-              </Chip>
+              Nom <Optional />
             </FormLabel>
             <Input
               type="text"
@@ -332,15 +317,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         {user.role === UserRoleEnum.OWNER && (
           <FormControl error={!!errors.phoneNumber}>
             <FormLabel>
-              Numéro de téléphone
-              <Chip
-                size="sm"
-                color="info"
-                variant="soft"
-                sx={{ marginLeft: 1, fontWeight: 400 }}
-              >
-                Optionnel
-              </Chip>
+              Numéro de téléphone <Optional />
             </FormLabel>
             <FormHelperText
               sx={{ marginTop: "-5px", marginBottom: "10px", color: "#646872" }}
@@ -368,15 +345,7 @@ const EditProfile = ({ user }: { user: IUser }) => {
         {user.role === UserRoleEnum.SEEKER && (
           <FormControl>
             <FormLabel>
-              Message type
-              <Chip
-                size="sm"
-                color="info"
-                variant="soft"
-                sx={{ marginLeft: 1, fontWeight: 400 }}
-              >
-                Optionnel
-              </Chip>
+              Message type <Optional />
             </FormLabel>
             <FormHelperText sx={{ marginTop: "-5px", marginBottom: "10px" }}>
               Répondez aux annonces plus rapidement en rédigeant un modèle
