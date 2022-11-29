@@ -80,7 +80,7 @@ const Home: NextPage = ({
     <>
       <Head>
         <title>
-          Location et sous-location entre particuliers | lacartedeslogements
+          Locations et sous-locations entre particuliers | lacartedeslogements
         </title>
         <meta
           name="description"
@@ -148,8 +148,8 @@ const Home: NextPage = ({
                   },
                 }}
               >
-                Annonces immobilières sans frais d’agence : location meublée,
-                colocation et sous-location.
+                Annonces immobilières sans frais d’agence : bail étudiant, bail
+                mobilité, colocation et sous-location.
               </Typography>
             </Box>
             <Box sx={{ maxWidth: "420px" }}>
