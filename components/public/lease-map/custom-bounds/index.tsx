@@ -72,8 +72,18 @@ const CustomBounds = ({
    */
   useEffect(() => {
     if (!map) return;
-    if (!!leases.length && router.query.latitudes && router.query.longitudes) {
-      fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
+    if (router.query.latitudes && router.query.longitudes) {
+      if (!!leases.length) {
+        fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
+      } else {
+        const latitudesArr = (router.query.latitudes as string).split(",");
+        const longitudesArr = (router.query.longitudes as string).split(",");
+        // Will trigger a zoom for 0.25s
+        map.fitBounds([
+          [+latitudesArr[0], +longitudesArr[0]],
+          [+latitudesArr[1], +longitudesArr[1]],
+        ]);
+      }
       setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
   }, []);

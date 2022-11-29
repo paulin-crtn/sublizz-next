@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import { useRouter } from "next/router";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ------------------------------- COMPONENTS ------------------------------- */
@@ -34,20 +33,9 @@ const LeaseMap = ({
   isMultiple: boolean;
   cityCoordinates?: ICityCoordinates;
 }) => {
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const getCenter = () => {
     if (isMultiple) {
-      // Compute the average lat and lng based on query params (URL)
-      if (!leases.length && router.query.latitudes && router.query.longitudes) {
-        const latitudesArr = (router.query.latitudes as string).split(",");
-        const longitudesArr = (router.query.longitudes as string).split(",");
-        const lat = (Number(latitudesArr[0]) + Number(latitudesArr[1])) / 2;
-        const lng = (Number(longitudesArr[0]) + Number(longitudesArr[1])) / 2;
-        return { lat, lng };
-      }
       // No need to center as fitBounds will take over in CustomBounds
       return undefined;
     }
