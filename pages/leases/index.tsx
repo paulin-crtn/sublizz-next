@@ -77,7 +77,12 @@ const LeasesPage: NextPage = ({
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
-    router.push("leases?page=" + page);
+    const queryParams = router.query;
+    queryParams["page"] = String(page);
+    const newUrl = Object.entries(queryParams)
+      .map((param) => param.join("="))
+      .join("&");
+    router.push(`/leases?${newUrl}`);
   };
 
   const setInnerWidth = () => {
