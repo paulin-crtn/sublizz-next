@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 /* ---------------------------------- UTILS --------------------------------- */
-import { resetPassword } from "../../../utils/fetch/fetchAuth";
+import { askResetPassword } from "../../../utils/fetch/fetchAuth";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import SuccessAnimation from "../../shared/success-animation";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -33,7 +33,7 @@ const PasswordReset = ({
 }) => {
   /* ------------------------------ USE MUTATION ------------------------------ */
   const { mutate, isLoading, isError, error, isSuccess } = useMutation(
-    (payload: { email: string }) => resetPassword(payload)
+    (payload: { email: string }) => askResetPassword(payload)
   );
 
   /* -------------------------------- USE FORM -------------------------------- */
