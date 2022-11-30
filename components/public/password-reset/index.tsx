@@ -54,7 +54,7 @@ const PasswordReset = ({
         <SuccessAnimation />
         <Box textAlign="center" marginBottom={4}>
           <Typography level="h5" marginBottom={2}>
-            Confirmez votre adresse email
+            Demande envoyée
           </Typography>
           <Typography>
             Nous vous avons envoyé un email afin de changer votre mot de passe.
