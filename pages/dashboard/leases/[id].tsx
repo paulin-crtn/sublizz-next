@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
-import AccessDenied from "../../../components/dashboard/access-denied";
+import AccessDenied from "../../../components/public/access-denied";
 import ErrorIcon from "@mui/icons-material/Error";
 import DashboardLayout from "../../../components/dashboard/dashboard-layout";
 import EditLease from "../../../components/dashboard/edit-lease";

@@ -36,7 +36,7 @@ const Signup = ({
   switchSignModal,
 }: {
   setOpenSignup: Dispatch<SetStateAction<boolean>>;
-  switchSignModal: () => void;
+  switchSignModal?: () => void;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [stepIndex, setStepIndex] = useState<number>(0);

@@ -12,7 +12,7 @@ import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useAuth } from "../../../utils/context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
-import AccessDenied from "../../../components/dashboard/access-denied";
+import AccessDenied from "../../../components/public/access-denied";
 import DashboardLayout from "../../../components/dashboard/dashboard-layout";
 import MyLease from "../../../components/dashboard/my-lease";
 import { ILeaseDetail } from "../../../interfaces/lease";

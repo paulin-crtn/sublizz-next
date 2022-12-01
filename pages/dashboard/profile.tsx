@@ -4,7 +4,7 @@
 import { NextPage } from "next";
 import Box from "@mui/joy/Box";
 import { useAuth } from "../../utils/context/auth.context";
-import AccessDenied from "../../components/dashboard/access-denied";
+import AccessDenied from "../../components/public/access-denied";
 import DashboardLayout from "../../components/dashboard/dashboard-layout";
 import EditProfile from "../../components/dashboard/edit-profile";
 import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";

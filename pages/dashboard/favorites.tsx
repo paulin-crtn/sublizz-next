@@ -9,7 +9,7 @@ import { useAuth } from "../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { useLeaseFavorites } from "../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../components/dashboard/access-denied";
+import AccessDenied from "../../components/public/access-denied";
 import DashboardLayout from "../../components/dashboard/dashboard-layout";
 import LeaseFavorite from "../../components/dashboard/lease-favorite";
 import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";

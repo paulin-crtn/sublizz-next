@@ -36,9 +36,9 @@ const Signin = ({
   signCallback,
   setSignCallback,
 }: {
-  setOpenSignin: Dispatch<SetStateAction<boolean>>;
   switchSignModal: () => void;
   switchToPasswordReset: () => void;
+  setOpenSignin?: Dispatch<SetStateAction<boolean>>;
   signCallback?: (() => any) | undefined;
   setSignCallback?: Dispatch<SetStateAction<(() => any) | undefined>>;
 }) => {
@@ -61,7 +61,9 @@ const Signin = ({
         });
         signCallback?.();
         setSignCallback ? setSignCallback(undefined) : null;
-        setOpenSignin(false);
+        if (setOpenSignin) {
+          setOpenSignin(false);
+        }
       },
     }
   );

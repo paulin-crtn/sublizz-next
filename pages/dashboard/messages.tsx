@@ -12,7 +12,7 @@ import { useAuth } from "../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../components/dashboard/access-denied";
+import AccessDenied from "../../components/public/access-denied";
 import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
 import Conversations from "../../components/dashboard/conversations";
 /* ----------------------------------- MUI ---------------------------------- */
