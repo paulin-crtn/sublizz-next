@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
+import { FunctionComponent, PropsWithChildren } from "react";
 import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -22,7 +23,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-import { FunctionComponent, PropsWithChildren } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
