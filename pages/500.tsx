@@ -29,10 +29,10 @@ const Custom500Page: NextPage = () => {
         justifyContent="center"
         alignItems="center"
         gap={22}
-        minHeight="calc(100vh - 225px)"
+        minHeight="calc(100vh - 90px)"
         padding={4}
         sx={{
-          "@media (max-width: 1100px)": {
+          "@media (max-width: 950px)": {
             display: "block",
             minHeight: "auto",
             marginY: "50px",
@@ -41,7 +41,7 @@ const Custom500Page: NextPage = () => {
       >
         <Box
           flex="0 0"
-          sx={{ "@media (max-width: 1100px)": { display: "none" } }}
+          sx={{ "@media (max-width: 950px)": { display: "none" } }}
         >
           <Image
             src={serverErrorImg}
