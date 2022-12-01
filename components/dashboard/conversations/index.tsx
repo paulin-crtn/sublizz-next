@@ -11,8 +11,9 @@ import { useAuth } from "../../../utils/context/auth.context";
 import { useUnreadConversationsId } from "../../../utils/react-query/unread-conversations";
 /* ---------------------------------- UTILS --------------------------------- */
 import { setConversationAsRead } from "../../../utils/fetch/fetchConversation";
+import { getConversationParticipantName } from "../../../utils/getConversationParticipantName";
 /* -------------------------------- COMPONENT ------------------------------- */
-import ConversationMessages from "../conversation-messages";
+import ConversationMessages from "./conversation-messages";
 import LeaseDates from "../../shared/lease-dates";
 import LeaseChips from "../../shared/lease-chips";
 import CustomBreadcrumbs from "../custom-beadcrumbs";
@@ -116,7 +117,9 @@ const Conversations = ({
     const otherParticipants = conversation.participants.filter(
       (participant) => participant.id !== user?.id
     );
-    return otherParticipants[0].firstName;
+    if (otherParticipants[0]) {
+      return getConversationParticipantName(otherParticipants[0]);
+    }
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */

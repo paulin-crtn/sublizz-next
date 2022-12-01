@@ -7,7 +7,8 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
 import toast from "react-hot-toast";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeConversationMessage } from "../../../utils/fetch/fetchConversation";
+import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
+import { getConversationParticipantName } from "../../../../utils/getConversationParticipantName";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -17,12 +18,12 @@ import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../../interfaces/message/IConversation";
-import { IMessage } from "../../../interfaces/message/IMessage";
-import { IConversationMessageForm } from "../../../interfaces/message/IConversationMessageForm";
+import { IConversation } from "../../../../interfaces/message/IConversation";
+import { IMessage } from "../../../../interfaces/message/IMessage";
+import { IConversationMessageForm } from "../../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
-import { TOAST_STYLE } from "../../../const/toastStyle";
+import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -89,9 +90,12 @@ const ConversationMessages = ({
     conversation: IConversation,
     message: IMessage
   ) => {
-    return conversation.participants.find(
+    const participant = conversation.participants.find(
       (participant) => participant.id === message.fromUserId
-    )?.firstName;
+    );
+    if (participant) {
+      return getConversationParticipantName(participant);
+    }
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -101,18 +105,16 @@ const ConversationMessages = ({
       flexDirection="column"
       height="100%"
       sx={{
-        paddingX: 2,
-        paddingY: 2,
         backgroundColor: "#ffffff",
         borderRadius: "12px",
       }}
     >
       <Box
         sx={{
-          height: "calc(100vh - 370px)",
+          height: "calc(100vh - 340px)",
           overflowY: "auto",
-          maskImage:
-            "linear-gradient(to top, rgba(255,255,255,1) 95%, rgba(255,255,255,0))",
+          paddingX: 2,
+          paddingY: 2,
         }}
       >
         {conversation?.messages.map((message, index) => (
@@ -144,9 +146,18 @@ const ConversationMessages = ({
         ))}
         <Box ref={conversationBottomRef}></Box>
       </Box>
-      <Box marginTop="auto" display="flex" gap={2} alignItems="flex-end">
+      <Box
+        marginTop="auto"
+        display="flex"
+        gap={2}
+        alignItems="flex-end"
+        sx={{
+          paddingX: 2,
+          paddingY: 2,
+        }}
+      >
         <Textarea
-          minRows={1}
+          minRows={3}
           maxRows={3}
           // variant="plain"
           placeholder="Saisissez un message..."
@@ -155,16 +166,12 @@ const ConversationMessages = ({
           sx={{ flex: "1 1" }}
         ></Textarea>
         {!isLoading && (
-          <Button
-            fullWidth
-            onClick={handleStoreMessage}
-            sx={{ flex: "0 0 50px" }}
-          >
+          <Button onClick={handleStoreMessage} sx={{ flex: "0 0 50px" }}>
             <SendIcon />
           </Button>
         )}
         {isLoading && (
-          <Button fullWidth disabled>
+          <Button disabled>
             <CircularProgress />
           </Button>
         )}
