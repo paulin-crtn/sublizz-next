@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
-import { getConversationParticipantName } from "../../../../utils/getConversationParticipantName";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -91,18 +90,6 @@ const ConversationMessages = ({
     );
   };
 
-  const getMessageFirstName = (
-    conversation: IConversation,
-    message: IMessage
-  ) => {
-    const participant = conversation.participants.find(
-      (participant) => participant.id === message.fromUserId
-    );
-    if (participant) {
-      return getConversationParticipantName(participant);
-    }
-  };
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box display="flex" flexDirection="column" height="100%">
@@ -132,16 +119,14 @@ const ConversationMessages = ({
               {getMessageAvatar(conversation, message)}
             </Box>
             <Box
-              sx={(theme) => ({
+              sx={{
                 width: "fit-content",
                 paddingX: 2,
                 paddingY: 1,
                 backgroundColor:
-                  message.fromUserId === user?.id
-                    ? theme.palette.primary.softBg
-                    : "#eeeeee",
+                  message.fromUserId === user?.id ? "#eff0ff" : "#f5f5f5",
                 borderRadius: "8px",
-              })}
+              }}
             >
               <Typography fontWeight={300}>{message.content}</Typography>
               <Typography level="body2" mt={0.5}>
@@ -165,7 +150,6 @@ const ConversationMessages = ({
         <Textarea
           minRows={3}
           maxRows={3}
-          // variant="plain"
           placeholder="Saisissez un message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
