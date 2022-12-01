@@ -4,6 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/future/image";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
@@ -12,15 +13,22 @@ import { useUnreadConversationsId } from "../../../utils/react-query/unread-conv
 import { setConversationAsRead } from "../../../utils/fetch/fetchConversation";
 /* -------------------------------- COMPONENT ------------------------------- */
 import ConversationMessages from "../conversation-messages";
+import LeaseDates from "../../shared/lease-dates";
+import LeaseChips from "../../shared/lease-chips";
+import CustomBreadcrumbs from "../custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
+import Button from "@mui/joy/Button";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../interfaces/message/IConversation";
+import { ILease } from "../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../const/supabasePath";
 import { TOAST_STYLE } from "../../../const/toastStyle";
+import noLeaseImg from "../../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -115,13 +123,14 @@ const Conversations = ({
   return (
     <Box display="flex" gap={3}>
       <Box
-        flex="0 0 260px"
+        flex="0 0 300px"
         sx={{
           border: "1px solid #dddddd",
           paddingX: 0.5,
           borderRadius: "12px",
-          maxHeight: "calc(100vh - 293px)",
+          maxHeight: "calc(100vh - 220px)",
           overflowY: "auto",
+          backgroundColor: "#ffffff",
         }}
       >
         {sortedConversations.map((conversation: IConversation) => (
@@ -137,7 +146,7 @@ const Conversations = ({
                 borderRadius: "10px",
                 "&:hover": {
                   backgroundColor: "#f5f5f5",
-                  borderRadius: "10px",
+                  borderRadius: "12px",
                 },
                 ...(selectedConversationId === conversation.id && {
                   backgroundColor: theme.palette.primary.softBg,
@@ -193,8 +202,67 @@ const Conversations = ({
           />
         )}
       </Box>
+      <Box flex="0 0 300px">
+        {selectedConversationId && (
+          <LeasePreview
+            lease={
+              conversations.find(
+                (conv: IConversation) => conv.id === selectedConversationId
+              )?.lease as ILease
+            }
+          />
+        )}
+      </Box>
     </Box>
   );
 };
 
 export default Conversations;
+
+const LeasePreview = ({ lease }: { lease: ILease }) => {
+  return (
+    <Box sx={{ backgroundColor: "#ffffff", borderRadius: "12px" }}>
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: 160,
+          borderRadius: "12px",
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          src={
+            lease.leaseImages && lease.leaseImages[0]
+              ? LEASE_IMAGE_PATH + "/" + lease.leaseImages[0]
+              : noLeaseImg
+          }
+          alt="lease image"
+          fill={true}
+          style={{ objectFit: "cover" }}
+          sizes={"600px"}
+        />
+      </Box>
+
+      <Box padding={2}>
+        <Typography level="h5" fontWeight="600">
+          {lease.city}
+        </Typography>
+        <LeaseDates lease={lease} />
+        <LeaseChips lease={lease} size="sm" />
+        <Typography level="h6" fontWeight="300" marginTop={2}>
+          {lease.pricePerMonth}€ CC
+        </Typography>
+        <Button
+          size="sm"
+          variant="soft"
+          fullWidth
+          onClick={() => window.open("/leases/" + lease.id, "_blank")}
+          sx={{ marginTop: 2 }}
+        >
+          Voir l'annonce
+        </Button>
+      </Box>
+    </Box>
+  );
+};

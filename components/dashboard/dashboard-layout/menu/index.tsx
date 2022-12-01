@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../utils/context/auth.context";
-import { useUnreadConversationsId } from "../../../utils/react-query/unread-conversations";
+import { useAuth } from "../../../../utils/context/auth.context";
+import { useUnreadConversationsId } from "../../../../utils/react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import ModalLayout from "../../shared/modal-layout";
-import HelpUs from "../help-us";
+import ModalLayout from "../../../shared/modal-layout";
+import HelpUs from "../../help-us";
 /* ----------------------------------- MUI ---------------------------------- */
 import { Theme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
@@ -31,8 +31,8 @@ import SupportIcon from "@mui/icons-material/Support";
 import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { TOAST_STYLE } from "../../../const/toastStyle";
-import { UserRoleEnum } from "../../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
+import { UserRoleEnum } from "../../../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */
@@ -121,21 +121,6 @@ const Menu = () => {
             </Link>
           </Box>
         )}
-
-        <Box component="li" sx={navListStyle} className={isActive("messages")}>
-          <Link href="/dashboard/messages">
-            <Typography startDecorator={<EmailIcon sx={{ marginRight: 1 }} />}>
-              Messages
-              {!!unreadConversationsId.length && (
-                <Badge
-                  color="danger"
-                  badgeContent={unreadConversationsId.length}
-                  sx={{ marginLeft: 2.5 }}
-                />
-              )}
-            </Typography>
-          </Link>
-        </Box>
 
         <Box component="li" sx={navListStyle} className={isActive("profile")}>
           <Link href="/dashboard/profile">

@@ -26,6 +26,17 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
     return isDashboard || isLeasesPage;
   }, [router.pathname]);
 
+  const withFooter: boolean = useMemo(() => {
+    const pathnameArr = router.pathname.split("/");
+    const isMessagesPage =
+      pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
+    const isLeasesPage = pathnameArr[1] === "leases";
+    if (isMessagesPage || isLeasesPage) {
+      return false;
+    }
+    return true;
+  }, [router.pathname]);
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box
@@ -51,7 +62,7 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
         </Box>
       </Box>
       {/** Remove footer on /leases page */}
-      {router.pathname.split("/")[1] !== "leases" && <Footer />}
+      {withFooter && <Footer />}
     </Box>
   );
 };

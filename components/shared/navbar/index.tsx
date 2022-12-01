@@ -30,10 +30,12 @@ import MenuItem from "@mui/joy/MenuItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Typography from "@mui/joy/Typography";
 import Badge from "@mui/joy/Badge";
+import IconButton from "@mui/joy/IconButton";
 /* ---------------------------------- ICONS --------------------------------- */
 import Add from "@mui/icons-material/Add";
 import StyleIcon from "@mui/icons-material/Style";
 import EmailIcon from "@mui/icons-material/Email";
+import MailIcon from "@mui/icons-material/Mail";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -289,7 +291,31 @@ const Navbar: FunctionComponent = () => {
 
       {user && (
         <>
-          <Button
+          <Link href="/dashboard/messages">
+            <IconButton
+              color="neutral"
+              variant="outlined"
+              sx={{
+                marginRight: 2,
+                backgroundColor: "#ffffff",
+                borderRadius: "9999px",
+              }}
+            >
+              {!!unreadConversationsId.length && (
+                <Badge
+                  color="danger"
+                  size="sm"
+                  badgeInset="-10%"
+                  badgeContent={unreadConversationsId.length}
+                >
+                  <EmailIcon />
+                </Badge>
+              )}
+              {!unreadConversationsId.length && <MailIcon />}
+            </IconButton>
+          </Link>
+
+          <IconButton
             id="user-menu-button"
             aria-controls={openUser ? "user-menu" : undefined}
             aria-haspopup="true"
@@ -297,30 +323,17 @@ const Navbar: FunctionComponent = () => {
             variant="plain"
             color="neutral"
             onClick={handleUserClick}
-            startDecorator={
-              user.profilePictureName ? (
-                <Avatar
-                  src={PROFILE_PICTURE_PATH + "/" + user?.profilePictureName}
-                  sx={{ marginRight: 0.5 }}
-                  size="md"
-                />
-              ) : (
-                <Avatar sx={{ marginRight: 0.5 }} size="md">
-                  {user?.firstName.at(0)?.toUpperCase()}
-                </Avatar>
-              )
-            }
-            sx={{
-              paddingX: 0,
-              paddingY: 0,
-              fontSize: "1rem",
-              fontWeight: 400,
-              "&:hover": { backgroundColor: "#ffffff" },
-              "&:active": { backgroundColor: "#ffffff" },
-            }}
           >
-            {user.firstName}
-          </Button>
+            {!!user.profilePictureName && (
+              <Avatar
+                src={PROFILE_PICTURE_PATH + "/" + user?.profilePictureName}
+              />
+            )}
+            {!user.profilePictureName && (
+              <Avatar>{user?.firstName.at(0)?.toUpperCase()}</Avatar>
+            )}
+          </IconButton>
+
           <Menu
             id="user-menu"
             anchorEl={userAnchorEl}
@@ -340,23 +353,7 @@ const Navbar: FunctionComponent = () => {
                 </MenuItem>
               </Link>
             )}
-            <Link href="/dashboard/messages">
-              <MenuItem onClick={handleUserClose}>
-                <ListItemDecorator>
-                  <EmailIcon />
-                </ListItemDecorator>
-                Messages
-                {!!unreadConversationsId.length && (
-                  <Badge
-                    color="danger"
-                    size="sm"
-                    badgeContent={unreadConversationsId.length}
-                    sx={{ marginLeft: 2 }}
-                  />
-                )}
-              </MenuItem>
-            </Link>
-            <ListDivider />
+
             {user.role === UserRoleEnum.OWNER && (
               <>
                 <Link href="/dashboard/leases">
@@ -375,9 +372,10 @@ const Navbar: FunctionComponent = () => {
                     Publier une annonce
                   </MenuItem>
                 </Link>
-                <ListDivider />
               </>
             )}
+
+            <ListDivider />
             <Link href="/dashboard/profile">
               <MenuItem onClick={handleUserClose}>
                 <ListItemDecorator>

@@ -5,15 +5,15 @@
 import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import Head from "next/head";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../components/dashboard/access-denied";
-import DashboardLayout from "../../components/dashboard/dashboard-layout";
-import Conversations from "../../components/dashboard/conversations";
 import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
+import Conversations from "../../components/dashboard/conversations";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -22,6 +22,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
+import { FunctionComponent, PropsWithChildren } from "react";
+
+/* -------------------------------------------------------------------------- */
+/*                                  CONSTANTS                                 */
+/* -------------------------------------------------------------------------- */
+const prevPages = [
+  {
+    key: "dashboard",
+    name: "Tableau de bord",
+    href: "/dashboard",
+  },
+];
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -49,25 +61,19 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <DashboardLayout
-        pageTitle="Messagerie"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
-      >
+      <ConversationsLayout>
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
           </Box>
         </Box>
-      </DashboardLayout>
+      </ConversationsLayout>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <DashboardLayout
-        pageTitle="Messages"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
-      >
+      <ConversationsLayout>
         {error.message.split(",").map((msg, index) => (
           <Alert
             key={index}
@@ -79,16 +85,13 @@ const UserMessagesPage: NextPage = () => {
             {msg}
           </Alert>
         ))}
-      </DashboardLayout>
+      </ConversationsLayout>
     );
   }
 
   if (data && !data.length) {
     return (
-      <DashboardLayout
-        pageTitle="Messagerie"
-        breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
-      >
+      <ConversationsLayout>
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez envoyé aucun message.
@@ -99,18 +102,38 @@ const UserMessagesPage: NextPage = () => {
             </Button>
           </Link>
         </Box>
-      </DashboardLayout>
+      </ConversationsLayout>
     );
   }
 
   return (
-    <DashboardLayout
-      pageTitle="Messagerie"
-      breadcrumbs={<CustomBreadcrumbs currentPage="Messages" />}
-    >
+    <ConversationsLayout>
       <Conversations conversations={data} />
-    </DashboardLayout>
+    </ConversationsLayout>
   );
 };
 
 export default UserMessagesPage;
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const ConversationsLayout: FunctionComponent<PropsWithChildren> = ({
+  children,
+}) => {
+  return (
+    <>
+      <Head>
+        <title>Messages | lacartedeslogements</title>
+      </Head>
+      <Box sx={{ backgroundColor: "#eeeeee" }}>
+        <Box marginX={6} sx={{ minHeight: "calc(100vh - 90px)" }}>
+          <Box paddingY={2}>
+            <CustomBreadcrumbs currentPage="Messages" prevPages={prevPages} />
+          </Box>
+          {children}
+        </Box>
+      </Box>
+    </>
+  );
+};

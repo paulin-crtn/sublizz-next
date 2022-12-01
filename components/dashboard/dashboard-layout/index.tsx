@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Menu from "../menu";
+import Menu from "./menu";
 /* ----------------------------------- MUI ---------------------------------- */
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";

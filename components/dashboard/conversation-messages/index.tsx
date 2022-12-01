@@ -96,15 +96,23 @@ const ConversationMessages = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box display="flex" flexDirection="column" height="100%">
+    <Box
+      display="flex"
+      flexDirection="column"
+      height="100%"
+      sx={{
+        paddingX: 2,
+        paddingY: 2,
+        backgroundColor: "#ffffff",
+        borderRadius: "12px",
+      }}
+    >
       <Box
         sx={{
-          height: "calc(100vh - 438px)",
+          height: "calc(100vh - 370px)",
           overflowY: "auto",
-          marginBottom: 2,
-          paddingTop: 1,
-          // maskImage:
-          //   "linear-gradient(to top, rgba(255,255,255,1) 90%, rgba(255,255,255,0))",
+          maskImage:
+            "linear-gradient(to top, rgba(255,255,255,1) 95%, rgba(255,255,255,0))",
         }}
       >
         {conversation?.messages.map((message, index) => (
@@ -136,39 +144,30 @@ const ConversationMessages = ({
         ))}
         <Box ref={conversationBottomRef}></Box>
       </Box>
-      <Box marginTop="auto">
+      <Box marginTop="auto" display="flex" gap={2} alignItems="flex-end">
         <Textarea
-          minRows={3}
+          minRows={1}
           maxRows={3}
+          // variant="plain"
           placeholder="Saisissez un message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           sx={{ flex: "1 1" }}
         ></Textarea>
-        <Box display="flex" gap={1} marginTop={1}>
+        {!isLoading && (
           <Button
-            size="sm"
-            color="neutral"
-            variant="soft"
             fullWidth
-            onClick={() =>
-              window.open("/leases/" + conversation.lease.id, "_blank")
-            }
-            sx={{ whiteSpace: "nowrap" }}
+            onClick={handleStoreMessage}
+            sx={{ flex: "0 0 50px" }}
           >
-            Voir l'annonce
+            <SendIcon />
           </Button>
-          {!isLoading && (
-            <Button size="sm" fullWidth onClick={handleStoreMessage}>
-              <SendIcon />
-            </Button>
-          )}
-          {isLoading && (
-            <Button size="sm" fullWidth disabled>
-              <CircularProgress />
-            </Button>
-          )}
-        </Box>
+        )}
+        {isLoading && (
+          <Button fullWidth disabled>
+            <CircularProgress />
+          </Button>
+        )}
       </Box>
     </Box>
   );
