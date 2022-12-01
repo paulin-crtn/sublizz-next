@@ -5,12 +5,16 @@
 import { useEffect, useState } from "react";
 import { NextPage } from "next/types";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import Image from "next/future/image";
 import Link from "next/link";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import notFoundImg from "../public/img/not-found.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -32,21 +36,54 @@ const Custom404Page: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box display="flex" alignItems="stretch" minHeight="calc(100vh - 320px)">
-      <Box margin="auto">
-        <Typography component="h1" level="h2" marginBottom={1}>
-          {title}
-        </Typography>
-        <Typography component="h2" level="h4" marginBottom={2} fontWeight={300}>
-          Retrouvez le droit chemin en parcourant nos annonces
-        </Typography>
-        <Link href="/leases">
-          <Button variant="soft" size="lg" startDecorator={<SearchIcon />}>
-            Parcourir les annonces
-          </Button>
-        </Link>
+    <>
+      <Head>
+        <title>Erreur 404 | lacartedeslogements</title>
+      </Head>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={22}
+        minHeight="calc(100vh - 225px)"
+        padding={4}
+        sx={{
+          "@media (max-width: 1100px)": {
+            display: "block",
+            minHeight: "auto",
+            marginY: "50px",
+          },
+        }}
+      >
+        <Box
+          flex="0 0"
+          sx={{ "@media (max-width: 1100px)": { display: "none" } }}
+        >
+          <Image
+            src={notFoundImg}
+            alt="page not found illustration"
+            loading="lazy"
+            width={300}
+            height={300}
+          />
+        </Box>
+        <Box flex="0 1 500px">
+          <Typography
+            component="h1"
+            level="h3"
+            marginBottom={4}
+            lineHeight={1.4}
+          >
+            {title}
+          </Typography>
+          <Link href="/leases">
+            <Button variant="soft" size="lg" startDecorator={<SearchIcon />}>
+              Parcourir les annonces
+            </Button>
+          </Link>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
