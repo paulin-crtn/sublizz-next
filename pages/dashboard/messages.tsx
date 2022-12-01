@@ -23,6 +23,9 @@ import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import Divider from "@mui/joy/Divider";
+import Add from "@mui/icons-material/Add";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -51,9 +54,12 @@ const UserMessagesPage: NextPage = () => {
   if (isLoading) {
     return (
       <ConversationsLayout>
-        <Box sx={{ height: "100%", display: "flex" }}>
-          <Box sx={{ margin: "auto", textAlign: "center" }}>
-            <CircularProgress size="lg" color="neutral" />
+        <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
+          <Box margin="auto" padding={2} textAlign="center">
+            <CircularProgress size="lg" thickness={6} color="neutral" />
+            <Typography level="h4" marginTop={4} fontWeight={400}>
+              Chargement des messages
+            </Typography>
           </Box>
         </Box>
       </ConversationsLayout>
@@ -63,17 +69,21 @@ const UserMessagesPage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <ConversationsLayout>
-        {error.message.split(",").map((msg, index) => (
-          <Alert
-            key={index}
-            startDecorator={<ErrorIcon />}
-            variant="soft"
-            color="danger"
-            sx={{ mb: 2 }}
-          >
-            {msg}
-          </Alert>
-        ))}
+        <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
+          <Box margin="auto" padding={2} textAlign="center">
+            {error.message.split(",").map((msg, index) => (
+              <Alert
+                key={index}
+                startDecorator={<ErrorIcon />}
+                variant="soft"
+                color="danger"
+                sx={{ mb: 2 }}
+              >
+                {msg}
+              </Alert>
+            ))}
+          </Box>
+        </Box>
       </ConversationsLayout>
     );
   }
@@ -81,15 +91,33 @@ const UserMessagesPage: NextPage = () => {
   if (data && !data.length) {
     return (
       <ConversationsLayout>
-        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
-          <Typography level="h6" fontWeight={400} marginBottom={3}>
-            Vous n'avez envoyé aucun message.
-          </Typography>
-          <Link href="/leases">
-            <Button variant="soft" startDecorator={<SearchIcon />}>
-              Parcourir les annonces
-            </Button>
-          </Link>
+        <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
+          <Box margin="auto" padding={2} textAlign="center">
+            <Typography level="h2" fontWeight={500} marginBottom={3}>
+              Bienvenue sur votre messagerie {user.firstName}
+            </Typography>
+            <Typography level="h4" fontWeight={400} marginBottom={3}>
+              Vous n'avez aucun message.
+            </Typography>
+            {user.role === UserRoleEnum.SEEKER && (
+              <Link href="/leases">
+                <Button
+                  size="lg"
+                  variant="soft"
+                  startDecorator={<SearchIcon />}
+                >
+                  Parcourir les annonces
+                </Button>
+              </Link>
+            )}
+            {user.role === UserRoleEnum.OWNER && (
+              <Link href="/dashboard/leases/new">
+                <Button size="lg" variant="soft" startDecorator={<Add />}>
+                  Publier une annonce
+                </Button>
+              </Link>
+            )}
+          </Box>
         </Box>
       </ConversationsLayout>
     );
