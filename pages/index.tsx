@@ -21,7 +21,7 @@ import InputCitySearch from "../components/shared/input-city-search";
 import LeaseCard from "../components/public/lease-card";
 import ModalLayout from "../components/shared/modal-layout";
 import Signin from "../components/public/signin";
-import PasswordReset from "../components/public/password-reset";
+import ResetPasswordAsk from "../components/public/reset-password-ask";
 import Signup from "../components/public/signup";
 import LeaseType from "../components/public/lease-type";
 import DetailsSummary from "../components/public/details-summary";
@@ -640,7 +640,7 @@ const Home: NextPage = ({
         <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
           <ModalClose />
           <ModalLayout title="Réinitialiser le mot de passe">
-            <PasswordReset setOpenPasswordReset={setOpenPasswordReset} />
+            <ResetPasswordAsk setOpenPasswordReset={setOpenPasswordReset} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

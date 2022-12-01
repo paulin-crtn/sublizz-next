@@ -15,7 +15,7 @@ import Signin from "../../public/signin";
 import Signup from "../../public/signup";
 import SignAlert from "../../public/sign-alert";
 import ModalLayout from "../modal-layout";
-import PasswordReset from "../../public/password-reset";
+import ResetPasswordAsk from "../../public/reset-password-ask";
 import InputCitySearch from "../input-city-search";
 /* ----------------------------------- MUI ---------------------------------- */
 import Button from "@mui/joy/Button";
@@ -464,7 +464,7 @@ const Navbar: FunctionComponent = () => {
         <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
           <ModalClose />
           <ModalLayout title="Réinitialiser le mot de passe">
-            <PasswordReset setOpenPasswordReset={setOpenPasswordReset} />
+            <ResetPasswordAsk setOpenPasswordReset={setOpenPasswordReset} />
           </ModalLayout>
         </ModalDialog>
       </Modal>

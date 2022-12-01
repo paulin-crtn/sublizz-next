@@ -26,7 +26,7 @@ import ISignin from "../../../interfaces/ISignin";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const PasswordReset = ({
+const ResetPasswordAsk = ({
   setOpenPasswordReset,
 }: {
   setOpenPasswordReset: Dispatch<SetStateAction<boolean>>;
@@ -113,4 +113,4 @@ const PasswordReset = ({
   );
 };
 
-export default PasswordReset;
+export default ResetPasswordAsk;

@@ -9,7 +9,7 @@ import Image from "next/future/image";
 import Signin from "../signin";
 import Signup from "../signup";
 import ModalLayout from "../../shared/modal-layout";
-import PasswordReset from "../password-reset";
+import ResetPasswordAsk from "../reset-password-ask";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -103,7 +103,7 @@ const AccessDenied = () => {
         <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
           <ModalClose />
           <ModalLayout title="Réinitialiser le mot de passe">
-            <PasswordReset setOpenPasswordReset={setOpenPasswordReset} />
+            <ResetPasswordAsk setOpenPasswordReset={setOpenPasswordReset} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
