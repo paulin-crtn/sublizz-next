@@ -63,7 +63,7 @@ const AccessDenied = () => {
         >
           <Image
             src={accessDeniedImg}
-            alt="reset password illustration"
+            alt="authentication required illustration"
             loading="lazy"
             width={300}
             height={300}

@@ -68,11 +68,13 @@ const ResetPassword: NextPage = () => {
 
       <Box
         display="flex"
+        justifyContent="center"
         alignItems="center"
-        gap={10}
-        minHeight="calc(100vh - 240px)"
+        gap={22}
+        minHeight="calc(100vh - 225px)"
+        padding={4}
         sx={{
-          "@media (max-width: 900px)": {
+          "@media (max-width: 1100px)": {
             display: "block",
             minHeight: "auto",
             marginY: "50px",
@@ -80,23 +82,19 @@ const ResetPassword: NextPage = () => {
         }}
       >
         <Box
-          flex="1 1 600px"
-          sx={{ "@media (max-width: 900px)": { display: "none" } }}
+          flex="0 0"
+          sx={{ "@media (max-width: 1100px)": { display: "none" } }}
         >
-          <Box sx={{ position: "relative", width: "100%", height: "300px" }}>
-            <Image
-              src={resetPasswordImg}
-              alt="reset password illustration"
-              loading="lazy"
-              fill={true}
-              sizes={"800px"}
-              style={{ objectFit: "contain" }}
-            />
-          </Box>
+          <Image
+            src={resetPasswordImg}
+            alt="reset password illustration"
+            loading="lazy"
+            width={320}
+          />
         </Box>
-        <Box flex="0 1 600px">
-          <Typography level="h3" marginBottom={4}>
-            Choisir un nouveau mot de passe
+        <Box flex="0 1 500px">
+          <Typography level="h4" marginBottom={4}>
+            Choisissez un nouveau mot de passe
           </Typography>
           {isSuccess && (
             <Alert color="success" startDecorator={<CheckCircleIcon />}>
