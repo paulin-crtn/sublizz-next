@@ -16,12 +16,13 @@ import { getConversationParticipantName } from "../../../utils/getConversationPa
 import ConversationMessages from "./conversation-messages";
 import LeaseDates from "../../shared/lease-dates";
 import LeaseChips from "../../shared/lease-chips";
-import CustomBreadcrumbs from "../custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Button from "@mui/joy/Button";
+import Badge from "@mui/joy/Badge";
+import Divider from "@mui/joy/Divider";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../interfaces/message/IConversation";
 import { ILease } from "../../../interfaces/lease";
@@ -104,12 +105,15 @@ const Conversations = ({
     );
     return otherParticipants[0].profilePictureName ? (
       <Avatar
+        size="lg"
         src={
           PROFILE_PICTURE_PATH + "/" + otherParticipants[0].profilePictureName
         }
       />
     ) : (
-      <Avatar>{otherParticipants[0].firstName.at(0)?.toUpperCase()}</Avatar>
+      <Avatar size="lg">
+        {otherParticipants[0].firstName.at(0)?.toUpperCase()}
+      </Avatar>
     );
   };
 
@@ -124,77 +128,95 @@ const Conversations = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box display="flex" gap={3}>
-      <Box
-        flex="0 0 300px"
-        sx={{
-          border: "1px solid #dddddd",
-          paddingX: 0.5,
-          borderRadius: "12px",
-          maxHeight: "calc(100vh - 220px)",
-          overflowY: "auto",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        {sortedConversations.map((conversation: IConversation) => (
-          <Box key={conversation.id}>
-            <Box
-              onClick={() => handleSelectedConversation(conversation.id)}
-              sx={(theme) => ({
-                display: "flex",
-                gap: 2,
-                marginY: 0.5,
-                padding: 1,
-                cursor: "pointer",
-                borderRadius: "10px",
-                "&:hover": {
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: "12px",
-                },
-                ...(selectedConversationId === conversation.id && {
-                  backgroundColor: theme.palette.primary.softBg,
+    <Box display="flex">
+      <Box flex="0 0 320px">
+        <Box margin={2.5}>
+          <Typography level="h5" fontWeight={600}>
+            Messages
+          </Typography>
+          <Typography level="body2" mt={0.5}>
+            Lorsqu'une annonce est supprimée, les messages associés le sont
+            aussi.
+          </Typography>
+        </Box>
+
+        <Divider />
+        <Box
+          sx={{
+            paddingX: 0.5,
+            maxHeight: "calc(100vh - 210px)",
+            overflowY: "auto",
+          }}
+        >
+          {sortedConversations.map((conversation: IConversation) => (
+            <Box key={conversation.id}>
+              <Box
+                onClick={() => handleSelectedConversation(conversation.id)}
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  margin: 1,
+                  padding: 1.5,
+                  cursor: "pointer",
+                  borderRadius: "10px",
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.softBg,
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: "12px",
                   },
-                }),
-              })}
-            >
-              {getConversationAvatar(conversation)}
-              <Box>
-                <Typography
-                  fontWeight={
-                    unreadConversationsId.includes(conversation.id) ? 600 : 400
-                  }
-                >
-                  {getConversationFirstName(conversation)}
-                </Typography>
-                <Typography
-                  level="body2"
-                  fontWeight={
-                    unreadConversationsId.includes(conversation.id) ? 500 : 300
-                  }
-                  sx={{ color: "#000000" }}
-                >
-                  {conversation.lease.city}
-                </Typography>
-                <Typography
-                  level="body2"
-                  fontSize="0.8rem"
-                  fontWeight={
-                    unreadConversationsId.includes(conversation.id) ? 500 : 300
-                  }
-                >
-                  {conversation.lease.pricePerMonth}€ &#8226;{" "}
-                  {conversation.lease.room}{" "}
-                  {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
-                  {conversation.lease.surface}m2
-                </Typography>
+                  ...(selectedConversationId === conversation.id && {
+                    backgroundColor: "#262626",
+                    color: "#ffffff",
+                    "&:hover": {
+                      backgroundColor: "#262626",
+                      color: "#ffffff",
+                    },
+                  }),
+                }}
+              >
+                {unreadConversationsId.includes(conversation.id) ? (
+                  <Badge
+                    size="sm"
+                    color="danger"
+                    badgeInset="5%"
+                    badgeContent={unreadConversationsId.reduce(
+                      (prev, curr) =>
+                        curr === conversation.id ? 1 + prev : prev,
+                      0
+                    )}
+                  >
+                    {getConversationAvatar(conversation)}
+                  </Badge>
+                ) : (
+                  getConversationAvatar(conversation)
+                )}
+                <Box>
+                  <Box display="flex">
+                    <Typography fontSize="1.05rem" sx={{ color: "inherit" }}>
+                      {getConversationFirstName(conversation)}
+                    </Typography>
+                  </Box>
+                  <Typography fontSize="0.95rem" sx={{ color: "inherit" }}>
+                    {conversation.lease.city}
+                  </Typography>
+                  <Typography level="body2" sx={{ color: "inherit" }}>
+                    {conversation.lease.pricePerMonth}€ &#8226;{" "}
+                    {conversation.lease.room}{" "}
+                    {conversation.lease.room > 1 ? "pièces" : "pièce"} &#8226;{" "}
+                    {conversation.lease.surface}m2
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
+        </Box>
       </Box>
-      <Box flex="1 1">
+      <Box
+        flex="1 1"
+        sx={{
+          borderLeft: "1px solid #dddddd",
+          borderRight: "1px solid #dddddd",
+        }}
+      >
         {selectedConversationId && (
           <ConversationMessages
             conversation={
@@ -224,13 +246,11 @@ export default Conversations;
 
 const LeasePreview = ({ lease }: { lease: ILease }) => {
   return (
-    <Box sx={{ backgroundColor: "#ffffff", borderRadius: "12px" }}>
+    <Box>
       <Box
         sx={{
           position: "relative",
-          width: "100%",
-          height: 160,
-          borderRadius: "12px",
+          height: 220,
           overflow: "hidden",
         }}
       >
@@ -247,7 +267,7 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
         />
       </Box>
 
-      <Box padding={2}>
+      <Box padding={3}>
         <Typography level="h5" fontWeight="600">
           {lease.city}
         </Typography>
@@ -259,6 +279,7 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
         <Button
           size="sm"
           variant="soft"
+          color="neutral"
           fullWidth
           onClick={() => window.open("/leases/" + lease.id, "_blank")}
           sx={{ marginTop: 2 }}

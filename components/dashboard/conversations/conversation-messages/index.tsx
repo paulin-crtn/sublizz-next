@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
 import toast from "react-hot-toast";
+/* --------------------------------- CONTEXT -------------------------------- */
+import { useAuth } from "../../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
 import { getConversationParticipantName } from "../../../../utils/getConversationParticipantName";
@@ -33,6 +35,9 @@ const ConversationMessages = ({
 }: {
   conversation: IConversation;
 }) => {
+  /* --------------------------------- CONTEXT -------------------------------- */
+  const { user } = useAuth();
+
   /* ------------------------------- REACT STATE ------------------------------ */
   const [newMessage, setNewMessage] = useState<string>("");
 
@@ -100,18 +105,10 @@ const ConversationMessages = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      height="100%"
-      sx={{
-        backgroundColor: "#ffffff",
-        borderRadius: "12px",
-      }}
-    >
+    <Box display="flex" flexDirection="column" height="100%">
       <Box
         sx={{
-          height: "calc(100vh - 340px)",
+          height: "calc(100vh - 215px)",
           overflowY: "auto",
           paddingX: 2,
           paddingY: 2,
@@ -122,25 +119,34 @@ const ConversationMessages = ({
             key={message.id}
             sx={{
               display: "flex",
-              marginBottom: index === conversation.messages.length - 1 ? 0 : 2,
+              gap: 1.5,
+              maxWidth: "70%",
+              marginBottom: index === conversation.messages.length - 1 ? 0 : 3,
+              marginLeft: message.fromUserId === user?.id ? "auto" : 0,
             }}
           >
-            <Box flex="0 0 55px">{getMessageAvatar(conversation, message)}</Box>
-            <Box flex="1 1">
-              <Box
-                display="flex"
-                alignItems="center"
-                gap={1}
-                marginBottom={0.5}
-              >
-                <Typography fontWeight={500}>
-                  {getMessageFirstName(conversation, message)}
-                </Typography>
-                <Typography level="body2">
-                  {format(new Date(message.createdAt), "dd MMM uuuu p")}
-                </Typography>
-              </Box>
+            <Box
+              flex="0 0"
+              marginLeft={message.fromUserId === user?.id ? "auto" : 0}
+            >
+              {getMessageAvatar(conversation, message)}
+            </Box>
+            <Box
+              sx={(theme) => ({
+                width: "fit-content",
+                paddingX: 2,
+                paddingY: 1,
+                backgroundColor:
+                  message.fromUserId === user?.id
+                    ? theme.palette.primary.softBg
+                    : "#eeeeee",
+                borderRadius: "8px",
+              })}
+            >
               <Typography fontWeight={300}>{message.content}</Typography>
+              <Typography level="body2" mt={0.5}>
+                {format(new Date(message.createdAt), "dd MMM uuuu p")}
+              </Typography>
             </Box>
           </Box>
         ))}

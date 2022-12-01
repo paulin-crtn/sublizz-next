@@ -13,7 +13,6 @@ import { useAuth } from "../../utils/context/auth.context";
 import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../components/public/access-denied";
-import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
 import Conversations from "../../components/dashboard/conversations";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
@@ -23,17 +22,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Alert from "@mui/joy/Alert";
 import CircularProgress from "@mui/joy/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-
-/* -------------------------------------------------------------------------- */
-/*                                  CONSTANTS                                 */
-/* -------------------------------------------------------------------------- */
-const prevPages = [
-  {
-    key: "dashboard",
-    name: "Tableau de bord",
-    href: "/dashboard",
-  },
-];
+import Divider from "@mui/joy/Divider";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -48,7 +37,7 @@ const UserMessagesPage: NextPage = () => {
     getConversationMessages,
     {
       enabled: !!user,
-      refetchInterval: 1 * 60 * 1000, // 1 minute
+      refetchInterval: 5 * 60 * 1000, // 5 minutes
       initialData: [],
     }
   );
@@ -126,14 +115,8 @@ const ConversationsLayout: FunctionComponent<PropsWithChildren> = ({
       <Head>
         <title>Messages | lacartedeslogements</title>
       </Head>
-      <Box sx={{ backgroundColor: "#eeeeee" }}>
-        <Box marginX={6} sx={{ minHeight: "calc(100vh - 90px)" }}>
-          <Box paddingY={2}>
-            <CustomBreadcrumbs currentPage="Messages" prevPages={prevPages} />
-          </Box>
-          {children}
-        </Box>
-      </Box>
+      <Divider />
+      <Box sx={{ minHeight: "calc(100vh - 91px)" }}>{children}</Box>
     </>
   );
 };
