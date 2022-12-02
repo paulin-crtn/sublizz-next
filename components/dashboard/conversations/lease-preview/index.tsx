@@ -53,7 +53,7 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
         </Typography>
         <Button
           size="sm"
-          variant="soft"
+          variant="outlined"
           color="neutral"
           fullWidth
           onClick={() => window.open("/leases/" + lease.id, "_blank")}

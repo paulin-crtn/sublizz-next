@@ -98,7 +98,7 @@ const ResetPassword: NextPage = () => {
           </Typography>
           {isSuccess && (
             <Alert color="success" startDecorator={<CheckCircleIcon />}>
-              C'est tout bon ! Votre nouveau mot de passe est désormais défini.
+              Votre nouveau mot de passe est défini.
             </Alert>
           )}
           {!isSuccess && (

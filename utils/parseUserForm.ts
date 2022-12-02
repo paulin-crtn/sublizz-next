@@ -1,6 +1,12 @@
 import { IUpdateUser } from "../interfaces/IUserUpdate";
 
-const parseUserForm = (obj: IUpdateUser) => {
+/**
+ * Replace empty strings by null
+ *
+ * @param obj
+ * @returns
+ */
+const parseUserForm = (obj: IUpdateUser): IUpdateUser => {
   const data = { ...obj } as any; // TS workaround
   for (const key in data) {
     if (data[key] === "") {

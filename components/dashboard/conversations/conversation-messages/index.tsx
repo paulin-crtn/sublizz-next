@@ -25,6 +25,7 @@ import { IConversationMessageForm } from "../../../../interfaces/message/IConver
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
 import { TOAST_STYLE } from "../../../../const/toastStyle";
+import IconButton from "@mui/joy/IconButton";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -95,7 +96,7 @@ const ConversationMessages = ({
     <Box display="flex" flexDirection="column" height="100%">
       <Box
         sx={{
-          height: "calc(100vh - 215px)",
+          height: "calc(100vh - 185px)",
           overflowY: "auto",
           paddingX: 2,
           paddingY: 2,
@@ -140,30 +141,47 @@ const ConversationMessages = ({
       <Box
         marginTop="auto"
         display="flex"
-        gap={2}
         alignItems="flex-end"
         sx={{
-          paddingX: 2,
-          paddingY: 2,
+          borderTop: "1px solid #dddddd",
         }}
       >
         <Textarea
           minRows={3}
           maxRows={3}
           placeholder="Saisissez un message..."
+          variant="plain"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          sx={{ flex: "1 1" }}
+          sx={{ flex: "1 1", borderRadius: 0 }}
         ></Textarea>
         {!isLoading && (
-          <Button onClick={handleStoreMessage} sx={{ flex: "0 0 50px" }}>
+          <IconButton
+            variant="solid"
+            onClick={handleStoreMessage}
+            sx={{
+              marginY: "auto",
+              marginX: 2,
+              padding: 1.5,
+              borderRadius: "9999px",
+            }}
+          >
             <SendIcon />
-          </Button>
+          </IconButton>
         )}
         {isLoading && (
-          <Button disabled>
+          <IconButton
+            variant="solid"
+            disabled
+            sx={{
+              marginY: "auto",
+              marginX: 2,
+              padding: 1.5,
+              borderRadius: "9999px",
+            }}
+          >
             <CircularProgress />
-          </Button>
+          </IconButton>
         )}
       </Box>
     </Box>
