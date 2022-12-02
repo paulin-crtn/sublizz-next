@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -32,8 +32,8 @@ const CustomBounds = ({
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  /* -------------------------------- FUNCTIONS ------------------------------- */
-  const addEventListeners = () => {
+  /* ----------------------------- REACT CALLBACK ----------------------------- */
+  const addEventListeners = useCallback(() => {
     map.on("zoomend dragend", function () {
       const bounds = map.getBounds();
       const urlBoundsCoordinates = _getUrlBoundCoordinates(bounds);
@@ -41,29 +41,32 @@ const CustomBounds = ({
       setIsLoading(true);
       router.replace(`leases?${urlBoundsCoordinates}`);
     });
-  };
+  }, [map, router]);
 
-  const removeEventListeners = () => {
+  const removeEventListeners = useCallback(() => {
     if (map.hasEventListeners("zoomend")) {
       map.off("zoomend");
     }
     if (map.hasEventListeners("dragend")) {
       map.off("dragend");
     }
-  };
+  }, [map]);
 
-  const fitLeasesBounds = (leases: ILeaseDetail[]) => {
-    map.fitBounds(
-      leases.map((lease: ILeaseDetail) => [
-        lease.gpsLatitude,
-        lease.gpsLongitude,
-      ]),
-      {
-        maxZoom: leases.length === 1 ? 11 : undefined,
-        padding: [50, 50],
-      }
-    );
-  };
+  const fitLeasesBounds = useCallback(
+    (leases: ILeaseDetail[]) => {
+      map.fitBounds(
+        leases.map((lease: ILeaseDetail) => [
+          lease.gpsLatitude,
+          lease.gpsLongitude,
+        ]),
+        {
+          maxZoom: leases.length === 1 ? 11 : undefined,
+          padding: [50, 50],
+        }
+      );
+    },
+    [map]
+  );
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
@@ -86,6 +89,7 @@ const CustomBounds = ({
       }
       setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -113,7 +117,15 @@ const CustomBounds = ({
       }
       setTimeout(() => addEventListeners(), 350); // So we set a timeout for the zoom event listener
     }
-  }, [map, router.query, leases]);
+  }, [
+    map,
+    router.query,
+    leases,
+    cityCoordinates,
+    addEventListeners,
+    removeEventListeners,
+    fitLeasesBounds,
+  ]);
 
   /**
    * Set isLoading to false when new data is fetched

@@ -198,7 +198,12 @@ const Home: NextPage = ({
           >
             <Box flex="1 1">
               {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
-                <a href={`/leases/${lease.id}`} target="_blank" key={lease.id}>
+                <a
+                  key={lease.id}
+                  href={`/leases/${lease.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Box sx={{ cursor: "pointer" }}>
                     {index !== 0 && (
                       <Divider

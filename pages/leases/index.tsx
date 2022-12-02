@@ -146,7 +146,12 @@ const LeasesPage: NextPage = ({
 
             {/** Lease cards */}
             {data.leases.map((lease: ILease, index: number) => (
-              <a href={`/leases/${lease.id}`} target="_blank" key={lease.id}>
+              <a
+                key={lease.id}
+                href={`/leases/${lease.id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Box sx={{ cursor: "pointer" }}>
                   {index === 0 && (
                     <Divider
