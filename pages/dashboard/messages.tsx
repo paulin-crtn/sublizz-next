@@ -40,7 +40,8 @@ const UserMessagesPage: NextPage = () => {
     getConversationMessages,
     {
       enabled: !!user,
-      refetchInterval: 5 * 60 * 1000, // 5 minutes
+      staleTime: Infinity,
+      refetchInterval: 3 * 60 * 1000, // 5 minutes
       initialData: [],
     }
   );
