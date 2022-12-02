@@ -1,6 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { IBasicApiResponse } from "../../interfaces/IBasicApiResponse";
 import { IResetPaswwordForm } from "../../interfaces/IResetPasswordForm";
 import ISignin from "../../interfaces/ISignin";
 import ISignup from "../../interfaces/ISignup";
@@ -32,12 +33,7 @@ export const signin = async (
   throw new Error(data.message);
 };
 
-export const signup = async (
-  payload: ISignup
-): Promise<{
-  statusCode: number;
-  message: string;
-}> => {
+export const signup = async (payload: ISignup): Promise<IBasicApiResponse> => {
   const response = await fetch(`${API_URL}/auth/signup`, {
     method: "POST",
     headers: {
@@ -55,10 +51,7 @@ export const signup = async (
 
 export const askResetPassword = async (payload: {
   email: string;
-}): Promise<{
-  statusCode: number;
-  message: string;
-}> => {
+}): Promise<IBasicApiResponse> => {
   const response = await fetch(
     `${API_URL}/auth/reset-password/send-token?email=${payload.email}`,
     {
@@ -78,10 +71,7 @@ export const askResetPassword = async (payload: {
 
 export const resetPassword = async (
   payload: IResetPaswwordForm
-): Promise<{
-  statusCode: number;
-  message: string;
-}> => {
+): Promise<IBasicApiResponse> => {
   const response = await fetch(`${API_URL}/auth/reset-password`, {
     method: "POST",
     headers: {

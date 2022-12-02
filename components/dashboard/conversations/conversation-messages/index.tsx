@@ -20,7 +20,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../../interfaces/message/IConversation";
-import { IMessage } from "../../../../interfaces/message/IMessage";
+import { IConversationMessage } from "../../../../interfaces/message/IConversationMessage";
 import { IConversationMessageForm } from "../../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
@@ -78,7 +78,10 @@ const ConversationMessages = ({
     }
   };
 
-  const getMessageAvatar = (conversation: IConversation, message: IMessage) => {
+  const getMessageAvatar = (
+    conversation: IConversation,
+    message: IConversationMessage
+  ) => {
     const participant = conversation.participants.find(
       (participant) => participant.id === message.fromUserId
     );
