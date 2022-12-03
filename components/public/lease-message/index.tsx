@@ -27,7 +27,7 @@ import FormLabel from "@mui/joy/FormLabel";
 import { Divider } from "@mui/joy";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../../interfaces/lease";
-import { IAuthor } from "../../../interfaces/IAuthor";
+import { IUser } from "../../../interfaces/IUser";
 import { IConversationForm } from "../../../interfaces/message/IConversationForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { LEASE_IMAGE_PATH } from "../../../const/supabasePath";
@@ -40,7 +40,7 @@ const LeaseMessage = ({
   lease,
   setOpenMessage,
 }: {
-  lease: ILease & { user: IAuthor };
+  lease: ILease & { user: IUser };
   setOpenMessage: Dispatch<SetStateAction<boolean>>;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */

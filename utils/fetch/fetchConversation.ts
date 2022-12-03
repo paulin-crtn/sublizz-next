@@ -10,7 +10,9 @@ import { customFetch } from "./customFetch";
 /* -------------------------------------------------------------------------- */
 /*                              PUBLIC FUNCTIONS                              */
 /* -------------------------------------------------------------------------- */
-export const storeConversation = async (payload: IConversationForm) => {
+export const storeConversation = async (
+  payload: IConversationForm
+): Promise<IBasicApiResponse> => {
   return await customFetch("conversations", "POST", payload);
 };
 
@@ -33,6 +35,6 @@ export const getConversationMessages = async (): Promise<IConversation[]> => {
 
 export const storeConversationMessage = async (
   payload: IConversationMessageForm
-) => {
+): Promise<IBasicApiResponse> => {
   return await customFetch("conversation-messages", "POST", payload);
 };

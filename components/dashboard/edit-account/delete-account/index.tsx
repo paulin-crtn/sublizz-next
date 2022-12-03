@@ -22,7 +22,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IUser } from "../../../../interfaces/IUser";
+import { IUserDetail } from "../../../../interfaces/IUserDetail";
 import { ILeaseDetail } from "../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../../../const/toastStyle";
@@ -35,7 +35,7 @@ const DeleteAccount = ({
   user,
 }: {
   setOpenDeleteAccount: Dispatch<SetStateAction<boolean>>;
-  user: IUser;
+  user: IUserDetail;
 }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { logout } = useAuth();

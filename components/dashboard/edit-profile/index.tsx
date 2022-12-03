@@ -39,7 +39,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IUser } from "../../../interfaces/IUser";
+import { IUserDetail } from "../../../interfaces/IUserDetail";
 import { IUpdateUser } from "../../../interfaces/IUserUpdate";
 /* ---------------------------------- CONST --------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
@@ -49,7 +49,7 @@ import { UserRoleEnum } from "../../../enum/UserRoleEnum";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditProfile = ({ user }: { user: IUser }) => {
+const EditProfile = ({ user }: { user: IUserDetail }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { setUser } = useAuth();
 

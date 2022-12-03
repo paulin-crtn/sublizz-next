@@ -8,14 +8,14 @@ import {
   getFavorites,
   storeFavorite,
 } from "../fetch/fetchFavorite";
-import { IUser } from "../../interfaces/IUser";
+import { IUserDetail } from "../../interfaces/IUserDetail";
 import { IFavorite } from "../../interfaces/IFavorite";
 import { TOAST_STYLE } from "../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */
 /* -------------------------------------------------------------------------- */
-export const useLeaseFavorites = (user: IUser | null) =>
+export const useLeaseFavorites = (user: IUserDetail | null) =>
   useQuery<IFavorite[]>(["lease-favorites"], getFavorites, {
     enabled: !!user,
     initialData: [],

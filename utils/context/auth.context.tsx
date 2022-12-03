@@ -10,14 +10,14 @@ import {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getAuthUser } from "../fetch/fetchUser";
-import { IUser } from "../../interfaces/IUser";
+import { IUserDetail } from "../../interfaces/IUserDetail";
 
 /* -------------------------------------------------------------------------- */
 /*                                  INTERFACE                                 */
 /* -------------------------------------------------------------------------- */
 interface IAuthContext {
-  user: IUser | null;
-  setUser: (arg: IUser | null) => void;
+  user: IUserDetail | null;
+  setUser: (arg: IUserDetail | null) => void;
   logout: (arg?: () => void) => void;
 }
 
@@ -35,7 +35,7 @@ const AuthContext = createContext<IAuthContext>({
 /* -------------------------------------------------------------------------- */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUserDetail | null>(null);
 
   /* ------------------------------- REACT QUERY ------------------------------ */
   const queryClient = useQueryClient();

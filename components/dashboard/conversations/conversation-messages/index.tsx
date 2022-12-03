@@ -127,13 +127,14 @@ const ConversationMessages = ({
                 width: "fit-content",
                 paddingX: 2,
                 paddingY: 1,
+                whiteSpace: "pre-wrap",
                 backgroundColor:
                   message.fromUserId === user?.id ? "#eff0ff" : "#f5f5f5",
                 borderRadius: "8px",
               }}
             >
               <Typography fontWeight={300}>{message.content}</Typography>
-              <Typography level="body2" mt={0.5}>
+              <Typography level="body2" mt={1}>
                 {format(new Date(message.createdAt), "dd MMM uuuu p")}
               </Typography>
             </Box>

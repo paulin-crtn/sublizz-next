@@ -111,7 +111,11 @@ const ConversationPreview = ({
         )}
         <Box>
           <Box display="flex">
-            <Typography fontSize="1.05rem" sx={{ color: "inherit" }}>
+            <Typography
+              fontSize="1.05rem"
+              fontWeight={500}
+              sx={{ color: "inherit" }}
+            >
               {getParticipantName(conversation)}
             </Typography>
           </Box>

@@ -1,4 +1,4 @@
-import { IAuthor } from "../IAuthor";
+import { IUser } from "../IUser";
 import { ILease } from ".";
 
 export interface ILeaseDetail extends ILease {
@@ -6,5 +6,5 @@ export interface ILeaseDetail extends ILease {
   houseNumber?: string;
   description?: string;
   isPublished: number;
-  user: IAuthor;
+  user: IUser;
 }

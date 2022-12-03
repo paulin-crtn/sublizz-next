@@ -8,6 +8,7 @@ import {
   ILeaseReportForm,
   ILeasesWithCount,
 } from "../../interfaces/lease";
+import { IBasicApiResponse } from "../../interfaces/IBasicApiResponse";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -75,18 +76,25 @@ export const getUserLeases = async (): Promise<ILeaseDetail[]> => {
   return await customFetch("leases/user", "GET");
 };
 
-export const storeLease = async (payload: ILeaseForm) => {
+export const storeLease = async (
+  payload: ILeaseForm
+): Promise<ILeaseDetail> => {
   return await customFetch("leases", "POST", payload);
 };
 
-export const updateLease = async (id: number, payload: ILeaseForm) => {
+export const updateLease = async (
+  id: number,
+  payload: ILeaseForm
+): Promise<ILeaseDetail> => {
   return await customFetch(`leases/${id}`, "PUT", payload);
 };
 
-export const deleteLease = async (id: number) => {
+export const deleteLease = async (id: number): Promise<IBasicApiResponse> => {
   return await customFetch(`leases/${id}`, "DELETE");
 };
 
-export const storeLeaseReport = async (payload: ILeaseReportForm) => {
+export const storeLeaseReport = async (
+  payload: ILeaseReportForm
+): Promise<IBasicApiResponse> => {
   return await customFetch("lease-reports", "POST", payload);
 };
