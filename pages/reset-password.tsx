@@ -30,7 +30,7 @@ import resetPasswordImg from "../public/img/reset-password.png";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const ResetPassword: NextPage = () => {
+const ResetPasswordPage: NextPage = () => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
 
@@ -108,7 +108,7 @@ const ResetPassword: NextPage = () => {
                   startDecorator={<ErrorIcon />}
                   variant="soft"
                   color="danger"
-                  sx={{ mb: 2 }}
+                  sx={{ mb: 4 }}
                 >
                   {error.message}
                 </Alert>
@@ -154,4 +154,4 @@ const ResetPassword: NextPage = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordPage;

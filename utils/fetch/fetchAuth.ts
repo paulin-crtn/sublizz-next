@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { IBasicApiResponse } from "../../interfaces/IBasicApiResponse";
+import { IConfirmEmail } from "../../interfaces/IConfirmEmail";
 import { IResetPaswwordForm } from "../../interfaces/IResetPasswordForm";
 import ISignin from "../../interfaces/ISignin";
 import ISignup from "../../interfaces/ISignup";
@@ -54,6 +55,27 @@ export const askResetPassword = async (payload: {
 }): Promise<IBasicApiResponse> => {
   const response = await fetch(
     `${API_URL}/auth/reset-password/send-token?email=${payload.email}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  }
+  throw new Error(data.message);
+};
+
+export const confirmEmail = async (
+  payload: IConfirmEmail
+): Promise<{ email: string }> => {
+  const { emailVerificationId, token } = payload;
+  const response = await fetch(
+    `${API_URL}/auth/confirm-email?emailVerificationId=${emailVerificationId}&token=${token}`,
     {
       method: "GET",
       headers: {

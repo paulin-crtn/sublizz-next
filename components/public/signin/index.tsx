@@ -36,9 +36,9 @@ const Signin = ({
   signCallback,
   setSignCallback,
 }: {
-  switchSignModal: () => void;
-  switchToPasswordReset: () => void;
   setOpenSignin?: Dispatch<SetStateAction<boolean>>;
+  switchSignModal?: () => void;
+  switchToPasswordReset?: () => void;
   signCallback?: (() => any) | undefined;
   setSignCallback?: Dispatch<SetStateAction<(() => any) | undefined>>;
 }) => {
@@ -56,7 +56,7 @@ const Signin = ({
         );
         const user = await getAuthUser();
         setUser(user);
-        toast.success(`Ravi de vous revoir ${user?.firstName}`, {
+        toast.success(`Bon retour parmi nous ${user?.firstName}`, {
           style: TOAST_STYLE,
         });
         signCallback?.();
