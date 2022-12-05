@@ -144,6 +144,34 @@ const NoticePage: NextPage = () => {
             </a>
           </Card>
         </Box>
+
+        <Typography component="h2" level="h4" marginTop={4}>
+          Crédits
+        </Typography>
+        <Typography marginTop={2}>Photos et illustrations.</Typography>
+        <Box marginTop={2}>
+          <a
+            href="https://www.pexels.com/fr-fr/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button sx={{ mr: 1 }}>Pexels</Button>
+          </a>
+          <a
+            href="https://undraw.co/illustrations"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button sx={{ mr: 1 }}>unDraw</Button>
+          </a>
+          <a
+            href="https://fr.freepik.com/auteur/vectorjuice"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button sx={{ mr: 1 }}>vectorjuice</Button>
+          </a>
+        </Box>
       </Box>
 
       {/** Contact Editor */}
