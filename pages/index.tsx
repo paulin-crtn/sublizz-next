@@ -38,6 +38,8 @@ import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
+import Avatar from "@mui/joy/Avatar";
+import StarIcon from "@mui/icons-material/Star";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
@@ -316,7 +318,7 @@ const Home: NextPage = ({
           </Box>
         </Box>
 
-        {/** How it works */}
+        {/** Lease types */}
         <Box>
           <Typography
             level="h3"
@@ -331,7 +333,7 @@ const Home: NextPage = ({
               },
             }}
           >
-            Comment ça marche ?
+            Trouvez le logement qui convient à votre situation
           </Typography>
           <Typography
             width="80%"
@@ -345,12 +347,35 @@ const Home: NextPage = ({
               },
             }}
           >
-            La carte des logements vous propose un fonctionnement simple afin de
-            vous offrir une mise en relation rapide de particulier à
-            particulier.
+            La carte des logements est un service de mise en relation entre
+            particuliers permettant de louer ou de sous-louer facilement un
+            appartement ou une maison.
           </Typography>
-          <Box marginBottom="60px">
-            <HowItWorks />
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridColumnGap: "20px",
+              gridRowGap: "20px",
+              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
+            }}
+          >
+            {LEASE_TYPES.map(
+              ({ title, description, duration, imgName, info }) => (
+                <Link href="/leases" key={title}>
+                  <Box flex="1 1" sx={{ cursor: "pointer" }}>
+                    <LeaseType
+                      title={title}
+                      description={description}
+                      duration={duration}
+                      imgName={imgName}
+                      info={info}
+                    />
+                  </Box>
+                </Link>
+              )
+            )}
           </Box>
         </Box>
 
@@ -437,6 +462,7 @@ const Home: NextPage = ({
           </Box>
         )}
 
+        {/** How it works */}
         <Box>
           <Typography
             level="h3"
@@ -451,7 +477,7 @@ const Home: NextPage = ({
               },
             }}
           >
-            Trouvez le logement qui convient à votre situation
+            Comment ça marche ?
           </Typography>
           <Typography
             width="80%"
@@ -465,35 +491,12 @@ const Home: NextPage = ({
               },
             }}
           >
-            La carte des logements est un service de mise en relation entre
-            particuliers permettant de louer ou de sous-louer facilement un
-            appartement ou une maison.
+            La carte des logements vous propose un fonctionnement simple afin de
+            vous offrir une mise en relation rapide de particulier à
+            particulier.
           </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              gridColumnGap: "20px",
-              gridRowGap: "20px",
-              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
-              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
-            }}
-          >
-            {LEASE_TYPES.map(
-              ({ title, description, duration, imgName, info }) => (
-                <Link href="/leases" key={title}>
-                  <Box flex="1 1" sx={{ cursor: "pointer" }}>
-                    <LeaseType
-                      title={title}
-                      description={description}
-                      duration={duration}
-                      imgName={imgName}
-                      info={info}
-                    />
-                  </Box>
-                </Link>
-              )
-            )}
+          <Box marginBottom="60px">
+            <HowItWorks />
           </Box>
         </Box>
 
@@ -607,6 +610,79 @@ const Home: NextPage = ({
               Découvrir les annonces
             </Button>
           </Box>
+        </Box>
+
+        {/** Review */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gridColumnGap: "30px",
+            gridRowGap: "30px",
+            marginTop: "40px",
+            padding: 5,
+            background: "linear-gradient(to right, #4700cc, #652ba9)",
+            borderRadius: "16px",
+            "@media (max-width: 1100px)": { gridTemplateColumns: "1fr" },
+          }}
+        >
+          {[
+            {
+              avatarSrc: "/img/review-isabelle.jpg",
+              fullName: "Isabelle L.",
+              review:
+                "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
+            },
+            {
+              avatarSrc: "/img/review-victor.jpg",
+              fullName: "Victor H.",
+              review: "Une bonne alternative à lacartedescolocs ou leboncoin.",
+            },
+            {
+              avatarSrc: "/img/review-mathieu.jpg",
+              fullName: "Mathieu R.",
+              review:
+                "Un bon site pour les locations meublées de moins d'un an.",
+            },
+          ].map(({ avatarSrc, fullName, review }, index) => (
+            <Box
+              key={index}
+              sx={{
+                paddingX: 2,
+                paddingY: 3,
+                backgroundColor: "#ffffff",
+                borderRadius: "12px",
+              }}
+            >
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                gap={2}
+                mb={2}
+              >
+                <Avatar size="lg" src={avatarSrc} />
+                <Typography level="h6" component="p">
+                  {fullName}
+                </Typography>
+              </Box>
+              <Typography
+                level="body2"
+                fontSize="1.05rem"
+                fontStyle="italic"
+                textAlign="center"
+              >
+                &laquo; {review} &raquo;
+              </Typography>
+              <Box mt={2} textAlign="center">
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: index === 2 ? "initial" : "orange" }} />
+              </Box>
+            </Box>
+          ))}
         </Box>
       </main>
 
