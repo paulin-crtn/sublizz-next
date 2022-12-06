@@ -40,6 +40,7 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
+import Chip from "@mui/joy/Chip";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
@@ -104,33 +105,30 @@ const Home: NextPage = ({
           </CardCover>
           <CardCover
             sx={{
-              "@media (max-width: 1100px)": {
-                background:
-                  "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 320px)",
-              },
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3) 450px)",
             }}
           />
           <CardContent
             sx={{
-              marginX: 4,
-              marginY: 6,
-              "@media (max-width: 1100px)": { marginX: 2, marginY: 4 },
+              marginY: 8,
+              marginX: "auto",
+              textAlign: "center",
+              "@media (max-width: 1100px)": { marginY: 4 },
             }}
           >
-            <Box sx={{ marginBottom: 4 }}>
+            <Box>
               <Typography
                 component="h1"
                 level="h1"
-                width="55%"
                 fontFamily="Bitter"
-                fontSize={42}
+                fontSize={38}
                 fontWeight={800}
                 lineHeight={1.2}
                 sx={{
+                  color: "#ffffff",
                   "@media (max-width: 1100px)": {
-                    width: "100%",
                     fontSize: "2rem",
-                    color: "#ffffff",
                   },
                 }}
               >
@@ -138,38 +136,67 @@ const Home: NextPage = ({
               </Typography>
               <Typography
                 component="h2"
-                level="h5"
-                width="40%"
+                level="h4"
                 marginTop={2}
+                marginX="auto"
                 fontWeight={400}
                 sx={{
+                  color: "#ffffff",
                   "@media (max-width: 1100px)": {
-                    width: "100%",
                     fontSize: "1.1rem",
-                    color: "#ffffff",
                   },
                 }}
               >
-                Annonces immobilières sans frais d’agence : bail étudiant, bail
-                mobilité, colocation et sous-location.
+                Annonces immobilières sans frais d’agence
+                <Box
+                  display="flex"
+                  gap={1}
+                  width="fit-content"
+                  marginX="auto"
+                  marginTop={1}
+                >
+                  <Chip variant="soft" color="neutral">
+                    Bail étudiant
+                  </Chip>
+                  <Chip variant="soft" color="neutral">
+                    Bail mobilité
+                  </Chip>
+                  <Chip variant="soft" color="neutral">
+                    Colocation
+                  </Chip>
+                  <Chip variant="soft" color="neutral">
+                    Sous-location
+                  </Chip>
+                </Box>
               </Typography>
             </Box>
-            <Box sx={{ maxWidth: "420px" }}>
+            <Box
+              sx={{
+                width: "600px",
+                marginX: "auto",
+                marginTop: 8,
+                "@media (max-width: 900px)": {
+                  width: "100%",
+                  paddingX: 3,
+                },
+              }}
+            >
               <InputCitySearch isLarge={true} />
-            </Box>
-            <Link href="/leases">
-              <FormHelperText
-                sx={{
-                  mt: 2,
-                  cursor: "pointer",
-                  "@media (max-width: 1100px)": {
+              <Link href="/leases">
+                <FormHelperText
+                  sx={{
+                    justifyContent: "flex-end",
+                    mt: 2,
+                    cursor: "pointer",
                     color: "#ffffff",
-                  },
-                }}
-              >
-                Voir toutes les annonces
-              </FormHelperText>
-            </Link>
+                    fontWeight: 500,
+                    "@media (max-width: 1100px)": {},
+                  }}
+                >
+                  Voir toutes les annonces
+                </FormHelperText>
+              </Link>
+            </Box>
           </CardContent>
         </Card>
       </header>
