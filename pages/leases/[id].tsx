@@ -8,7 +8,7 @@ import {
   NextPage,
 } from "next";
 import Head from "next/head";
-import Image from "next/future/image";
+import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
 import { ImagesListType } from "react-spring-lightbox";

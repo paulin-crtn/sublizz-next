@@ -6,7 +6,7 @@ import { NextPage } from "next/types";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 import Head from "next/head";
 /* ---------------------------------- UTILS --------------------------------- */
 import { confirmEmail } from "../utils/fetch/fetchAuth";

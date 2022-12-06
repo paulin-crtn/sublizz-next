@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import Image from "next/future/image";
+import Image from "next/image";
 import format from "date-fns/format";
 import { Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";

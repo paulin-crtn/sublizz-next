@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import Image from "next/future/image";
+import Image from "next/image";
 /* -------------------------------- COMPONENT ------------------------------- */
 import LeaseDates from "../../../shared/lease-dates";
 import LeaseChips from "../../../shared/lease-chips";

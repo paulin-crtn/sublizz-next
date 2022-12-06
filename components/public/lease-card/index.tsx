@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseDates from "../../shared/lease-dates";
 import LeaseChips from "../../shared/lease-chips";

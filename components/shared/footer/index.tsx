@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent } from "react";
 import Link from "next/link";
-import Image from "next/future/image";
+import Image from "next/image";
 /* ----------------------------------- MUI ---------------------------------- */
 import { Box, List, ListItem, Typography } from "@mui/joy";
 /* -------------------------------- CONSTANTS ------------------------------- */

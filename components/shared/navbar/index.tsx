@@ -5,7 +5,7 @@
 import { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/future/image";
+import Image from "next/image";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";

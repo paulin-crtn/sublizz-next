@@ -8,7 +8,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../../utils/context/auth.context";
-import { useUnreadConversationsId } from "../../../../utils/react-query/unread-conversations";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ModalLayout from "../../../shared/modal-layout";
 import HelpUs from "../../help-us";
@@ -20,7 +19,6 @@ import Divider from "@mui/joy/Divider";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import Badge from "@mui/joy/Badge";
 /* ---------------------------------- ICONS --------------------------------- */
 import HomeIcon from "@mui/icons-material/Home";
 import StyleIcon from "@mui/icons-material/Style";
@@ -28,7 +26,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SupportIcon from "@mui/icons-material/Support";
-import EmailIcon from "@mui/icons-material/Email";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../../../const/toastStyle";
@@ -41,7 +38,7 @@ const navListStyle = (theme: Theme) => ({
   margin: "5px 0",
   borderRadius: "5px",
   cursor: "pointer",
-  "& > p": {
+  "& p": {
     padding: "10px 15px",
   },
   "&:hover": {
@@ -49,7 +46,7 @@ const navListStyle = (theme: Theme) => ({
   },
   "&.active": {
     backgroundColor: theme.palette.primary.plainBg,
-    "& > *": {
+    "& p": {
       color: "#ffffff",
     },
   },
@@ -61,7 +58,6 @@ const navListStyle = (theme: Theme) => ({
 const Menu = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
-  const { data: unreadConversationsId } = useUnreadConversationsId(user);
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openHelp, setOpenHelp] = useState<boolean>(false);

@@ -10,7 +10,7 @@ import {
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/public/lease-card";

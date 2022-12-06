@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 /* ---------------------------------- UTILS --------------------------------- */
 import { deleteLeaseFavorite } from "../../../utils/react-query/lease-favorites";

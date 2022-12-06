@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useState, FormEvent, Dispatch, SetStateAction } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeConversation } from "../../../utils/fetch/fetchConversation";

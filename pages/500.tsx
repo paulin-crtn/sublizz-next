@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { NextPage } from "next/types";
 import Head from "next/head";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";

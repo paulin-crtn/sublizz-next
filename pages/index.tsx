@@ -10,7 +10,7 @@ import type {
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useState } from "react";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getLeases } from "../utils/fetch/fetchLease";

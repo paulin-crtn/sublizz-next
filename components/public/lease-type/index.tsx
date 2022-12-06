@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import Image from "next/future/image";
+import Image from "next/image";
 /* ----------------------------------- MUI ---------------------------------- */
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Card from "@mui/joy/Card";

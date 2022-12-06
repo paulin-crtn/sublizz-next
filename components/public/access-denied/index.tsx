@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { useState } from "react";
 import Head from "next/head";
-import Image from "next/future/image";
+import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Signin from "../signin";
 import Signup from "../signup";

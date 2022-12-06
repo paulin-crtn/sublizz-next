@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useState } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "@tanstack/react-query";

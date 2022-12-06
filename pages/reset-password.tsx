@@ -6,7 +6,7 @@ import { NextPage } from "next/types";
 import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Image from "next/future/image";
+import Image from "next/image";
 import Head from "next/head";
 /* ---------------------------------- UTILS --------------------------------- */
 import { resetPassword } from "../utils/fetch/fetchAuth";
