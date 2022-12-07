@@ -1,9 +1,11 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { PropsWithChildren, useMemo } from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Navbar from "../navbar";
 import Footer from "../footer";
@@ -15,27 +17,33 @@ import Box from "@mui/joy/Box";
 /* -------------------------------------------------------------------------- */
 const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   /* ------------------------------- NEXT ROUTER ------------------------------ */
-  const router = useRouter();
+  const pathname = usePathname();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const isFullwidth: boolean = useMemo(() => {
-    const pathnameArr = router.pathname.split("/");
-    const isHomePage = pathnameArr[1] === "";
-    const isLeasePage = pathnameArr[1] === "leases" && pathnameArr.length === 3;
-    const isLegalPages = pathnameArr[1] === "legal";
-    return isHomePage || isLeasePage || isLegalPages;
-  }, [router.pathname]);
-
-  const withFooter: boolean = useMemo(() => {
-    const pathnameArr = router.pathname.split("/");
-    const isMessagesPage =
-      pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
-    const isLeasesPage = pathnameArr[1] === "leases";
-    if (isMessagesPage || isLeasesPage) {
-      return false;
+    if (pathname) {
+      const pathnameArr = pathname.split("/");
+      const isHomePage = pathnameArr[1] === "";
+      const isLeasePage =
+        pathnameArr[1] === "leases" && pathnameArr.length === 3;
+      const isLegalPages = pathnameArr[1] === "legal";
+      return isHomePage || isLeasePage || isLegalPages;
     }
     return true;
-  }, [router.pathname]);
+  }, [pathname]);
+
+  const withFooter: boolean = useMemo(() => {
+    if (pathname) {
+      const pathnameArr = pathname.split("/");
+      const isMessagesPage =
+        pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
+      const isLeasesPage = pathnameArr[1] === "leases";
+      if (isMessagesPage || isLeasesPage) {
+        return false;
+      }
+    }
+    return true;
+  }, [pathname]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
@@ -46,6 +48,7 @@ const HowItWorks = () => {
       >
         {["Je propose un logement", "Je cherche un logement"].map((item) => (
           <Radio
+            id={item}
             key={item}
             color="neutral"
             value={item}

@@ -1,9 +1,11 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FunctionComponent, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -58,6 +60,7 @@ const Navbar: FunctionComponent = () => {
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const pathname = usePathname();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openSignin, setOpenSignin] = useState<boolean>(false);
@@ -396,7 +399,7 @@ const Navbar: FunctionComponent = () => {
             <MenuItem
               onClick={() => {
                 handleUserClose();
-                router.asPath.split("/")[1] === "dashboard"
+                pathname?.split("/")[1] === "dashboard"
                   ? logout(() => router.push("/"))
                   : logout();
                 toast.success(`À bientôt ${user?.firstName}`, {

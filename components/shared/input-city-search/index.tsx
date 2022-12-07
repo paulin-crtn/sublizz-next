@@ -1,9 +1,11 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getDataGouvCity } from "../../../utils/fetch/fetchCity";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -29,6 +31,7 @@ interface IResponse {
 const InputCitySearch = ({ isLarge = false }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [query, setQuery] = useState<string>("");
@@ -58,12 +61,12 @@ const InputCitySearch = ({ isLarge = false }) => {
    * Fill search input with query (if any) when page first render
    */
   useEffect(() => {
-    const { city } = router.query;
+    const city = searchParams.get("city");
     city && typeof city === "string" ? setQuery(city) : setQuery("");
     // Close dropdown and lose input focus
     setShowDropdown(false);
     searchInput.current?.getElementsByTagName("input")[0].blur();
-  }, [router.query]);
+  }, [searchParams]);
 
   /**
    * Fetch cities when query changes

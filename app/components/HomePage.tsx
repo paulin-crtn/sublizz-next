@@ -1,31 +1,25 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import type {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
-import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
-/* ---------------------------------- UTILS --------------------------------- */
-import { getLeases } from "../utils/fetch/fetchLease";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../utils/context/auth.context";
+import { useAuth } from "../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import InputCitySearch from "../components/shared/input-city-search";
-import LeaseCard from "../components/public/lease-card";
-import ModalLayout from "../components/shared/modal-layout";
-import Signin from "../components/public/signin";
-import ResetPasswordAsk from "../components/public/reset-password-ask";
-import Signup from "../components/public/signup";
-import LeaseType from "../components/public/lease-type";
-import DetailsSummary from "../components/public/details-summary";
-import HowItWorks from "../components/public/how-it-works";
+import InputCitySearch from "../../components/shared/input-city-search";
+import LeaseCard from "../../components/public/lease-card";
+import ModalLayout from "../../components/shared/modal-layout";
+import Signin from "../../components/public/signin";
+import ResetPasswordAsk from "../../components/public/reset-password-ask";
+import Signup from "../../components/public/signup";
+import LeaseType from "./lease-type";
+import DetailsSummary from "./details-summary";
+import HowItWorks from "./how-it-works";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
@@ -42,20 +36,19 @@ import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
 import Chip from "@mui/joy/Chip";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease } from "../interfaces/lease";
-import { IDetailsSummary } from "../interfaces/IDetailsSummary";
+import { ILease, ILeasesWithCount } from "../../interfaces/lease";
+import { IDetailsSummary } from "../../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import homeImg from "../public/img/home.jpg";
-import mapImg from "../public/img/map.jpg";
-import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
-import { LEASE_TYPES } from "../data/leaseTypes";
+import homeImg from "../../public/img/home.jpg";
+import mapImg from "../../public/img/map.jpg";
+import { FREQUENTLY_ASKED_QUESTIONS } from "../../data/frequentlyAskedQuestions";
+import { LEASE_TYPES } from "../../data/leaseTypes";
+import { bitter } from "../layout";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Home: NextPage = ({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const HomePage = ({ data }: { data: ILeasesWithCount }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -81,15 +74,6 @@ const Home: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <Head>
-        <title>
-          Locations et sous-locations entre particuliers | lacartedeslogements
-        </title>
-        <meta
-          name="description"
-          content="⭐⭐⭐ Louer ou sous-louer de particulier à particulier grâce à nos annonces immobilières pas chères et sans frais d'agence"
-        />
-      </Head>
       <header>
         <Card
           sx={(theme) => ({
@@ -121,7 +105,7 @@ const Home: NextPage = ({
               <Typography
                 component="h1"
                 level="h1"
-                fontFamily="Bitter"
+                fontFamily={bitter.style.fontFamily}
                 fontSize={38}
                 fontWeight={800}
                 lineHeight={1.2}
@@ -205,7 +189,7 @@ const Home: NextPage = ({
           level="h3"
           marginTop="60px"
           marginBottom="30px"
-          fontFamily="Bitter"
+          fontFamily={bitter.style.fontFamily}
           fontSize="2.3rem"
           fontWeight={800}
           sx={{
@@ -351,7 +335,7 @@ const Home: NextPage = ({
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily="Bitter"
+            fontFamily={bitter.style.fontFamily}
             fontSize="2.3rem"
             fontWeight={800}
             sx={{
@@ -495,7 +479,7 @@ const Home: NextPage = ({
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily="Bitter"
+            fontFamily={bitter.style.fontFamily}
             fontSize="2.3rem"
             fontWeight={800}
             sx={{
@@ -532,7 +516,7 @@ const Home: NextPage = ({
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily="Bitter"
+            fontFamily={bitter.style.fontFamily}
             fontSize="2.3rem"
             fontWeight={800}
             sx={{
@@ -756,14 +740,4 @@ const Home: NextPage = ({
   );
 };
 
-export default Home;
-
-/* -------------------------------------------------------------------------- */
-/*                              SERVER SIDE PROPS                             */
-/* -------------------------------------------------------------------------- */
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getLeases();
-  return {
-    props: { data },
-  };
-};
+export default HomePage;
