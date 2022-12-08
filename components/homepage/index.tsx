@@ -11,12 +11,12 @@ import { useState } from "react";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import InputCitySearch from "../../components/shared/input-city-search";
-import LeaseCard from "../../components/public/lease-card";
-import ModalLayout from "../../components/shared/modal-layout";
-import Signin from "../../components/public/signin";
-import ResetPasswordAsk from "../../components/public/reset-password-ask";
-import Signup from "../../components/public/signup";
+import InputCitySearch from "../shared/input-city-search";
+import LeaseCard from "../public/lease-card";
+import ModalLayout from "../shared/modal-layout";
+import Signin from "../public/signin";
+import ResetPasswordAsk from "../public/reset-password-ask";
+import Signup from "../public/signup";
 import LeaseType from "./lease-type";
 import DetailsSummary from "./details-summary";
 import HowItWorks from "./how-it-works";
@@ -43,7 +43,7 @@ import homeImg from "../../public/img/home.jpg";
 import mapImg from "../../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../data/leaseTypes";
-import { bitter } from "../providers";
+import { bitter } from "../../app/providers";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
