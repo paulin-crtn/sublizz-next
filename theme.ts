@@ -4,7 +4,7 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
-import { poppins } from "./app/layout";
+import { poppins } from "./app/providers";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */

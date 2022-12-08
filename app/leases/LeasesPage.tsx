@@ -1,17 +1,13 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
-import Head from "next/head";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../components/public/lease-card";
 import Divider from "@mui/joy/Divider";
@@ -19,12 +15,8 @@ import Button from "@mui/joy/Button";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(
   () => import("../../components/public/lease-map"),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
-/* ---------------------------------- UTILS --------------------------------- */
-import { getLeases } from "../../utils/fetch/fetchLease";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -32,7 +24,7 @@ import Pagination from "@mui/material/Pagination";
 import MapIcon from "@mui/icons-material/Map";
 import SubjectIcon from "@mui/icons-material/Subject";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease } from "../../interfaces/lease";
+import { ILease, ILeasesWithCount } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -42,11 +34,10 @@ const RESULTS_PER_PAGE = 5;
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const LeasesPage: NextPage = ({
-  data,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isDesktop, setIsDesktop] = useState<boolean>(true);
@@ -58,12 +49,17 @@ const LeasesPage: NextPage = ({
     [data.totalCount]
   );
 
-  const currentPage = useMemo(
-    () => (router.query.page ? +router.query.page : 1),
-    [router.query.page]
-  );
+  const currentPage = useMemo(() => {
+    const page = searchParams.get("page");
+    return page ? +page : 1;
+  }, [searchParams]);
 
-  const query = useMemo(() => router.query.city, [router.query.city]);
+  const city = useMemo(() => searchParams.get("city"), [searchParams]);
+
+  const latitudes = useMemo(
+    () => searchParams.get("latitudes"),
+    [searchParams]
+  );
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
@@ -77,12 +73,8 @@ const LeasesPage: NextPage = ({
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
-    const queryParams = router.query;
-    queryParams["page"] = String(page);
-    const newUrl = Object.entries(queryParams)
-      .map((param) => param.join("="))
-      .join("&");
-    router.push(`/leases?${newUrl}`);
+    let url = city ? `city=${city}&page=${page}` : `page=${page}`;
+    router.push(`/leases?${url}`);
   };
 
   const setInnerWidth = () => {
@@ -97,15 +89,6 @@ const LeasesPage: NextPage = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <Head>
-        <title>
-          Annonces de locations et de sous-locations | lacartedeslogements
-        </title>
-        <meta
-          name="description"
-          content="⭐⭐⭐ Découvrez la liste de nos offres immobilières entre particuliers et trouvez un logement à louer ou à sous-louer rapidement et sans frais d'agence"
-        />
-      </Head>
       <Box component="main">
         <Divider sx={{ position: "sticky", top: 90 }} />
         <Box display="flex" sx={{ position: "relative" }}>
@@ -125,11 +108,11 @@ const LeasesPage: NextPage = ({
             {!!data.leases.length && (
               <Box mb={3}>
                 <Typography fontWeight={500}>
-                  {query ? query + " : " : ""}
+                  {city ? city + " : " : ""}
                   {data.totalCount}{" "}
                   {data.totalCount > 1 ? "logements" : "logement"}
                 </Typography>
-                {query && (
+                {city && (
                   <Typography
                     level="body2"
                     mt={0.5}
@@ -171,7 +154,7 @@ const LeasesPage: NextPage = ({
             ))}
 
             {/** Pagination */}
-            {!router.query.lat && data.totalCount > RESULTS_PER_PAGE && (
+            {!latitudes && data.totalCount > RESULTS_PER_PAGE && (
               <Pagination
                 count={pageCount}
                 size="large"
@@ -197,9 +180,8 @@ const LeasesPage: NextPage = ({
                     height="220"
                   />
                   <Typography level="h5" fontWeight={400} textAlign="center">
-                    {router.query.city &&
-                      `Aucun résultat pour ${router.query.city}`}
-                    {router.query.latitudes && `Aucun résultat dans cette zone`}
+                    {city && `Aucun résultat pour ${city}`}
+                    {latitudes && `Aucun résultat dans cette zone`}
                   </Typography>
                   <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
                     Effacer la recherche
@@ -273,17 +255,3 @@ const LeasesPage: NextPage = ({
 };
 
 export default LeasesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                              SERVER SIDE PROPS                             */
-/* -------------------------------------------------------------------------- */
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const city = context?.query.city as string;
-  const page = context?.query.page as string;
-  const latitudes = context?.query.latitudes as string;
-  const longitudes = context?.query.longitudes as string;
-  const data = await getLeases({ city, latitudes, longitudes, page });
-  return {
-    props: { data },
-  };
-};

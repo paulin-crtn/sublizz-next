@@ -1,16 +1,24 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { getLeases } from "../utils/fetch/fetchLease";
-import HomePage from "./components";
+import { getLeases } from "../../utils/fetch/fetchLease";
+import LeasesPage from "./LeasesPage";
 
 /* -------------------------------------------------------------------------- */
 /*                            SERVER SIDE COMPONENT                           */
 /* -------------------------------------------------------------------------- */
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   /* ---------------------------------- DATA ---------------------------------- */
-  const leases = await getLeases();
+  const city = searchParams?.city as string;
+  const page = searchParams?.page as string;
+  const latitudes = searchParams?.latitudes as string;
+  const longitudes = searchParams?.longitudes as string;
+  const leases = await getLeases({ city, latitudes, longitudes, page });
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  return <HomePage data={leases} />;
+  return <LeasesPage data={leases} />;
 }

@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { LatLngBounds } from "leaflet";
@@ -25,6 +25,7 @@ const CustomBounds = ({
 }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   /* --------------------------------- USE MAP -------------------------------- */
   const map = useMap();
@@ -75,12 +76,14 @@ const CustomBounds = ({
    */
   useEffect(() => {
     if (!map) return;
-    if (router.query.latitudes && router.query.longitudes) {
+    const latitudes = searchParams.get("latitudes");
+    const longitudes = searchParams.get("longitudes");
+    if (latitudes && longitudes) {
       if (!!leases.length) {
         fitLeasesBounds(leases); // Will trigger a zoom for 0.25s
       } else {
-        const latitudesArr = (router.query.latitudes as string).split(",");
-        const longitudesArr = (router.query.longitudes as string).split(",");
+        const latitudesArr = (latitudes as string).split(",");
+        const longitudesArr = (longitudes as string).split(",");
         // Will trigger a zoom for 0.25s
         map.fitBounds([
           [+latitudesArr[0], +longitudesArr[0]],
@@ -98,7 +101,9 @@ const CustomBounds = ({
    */
   useEffect(() => {
     if (!map) return;
-    if (!router.query.latitudes && !router.query.longitudes) {
+    const latitudes = searchParams.get("latitudes");
+    const longitudes = searchParams.get("longitudes");
+    if (!latitudes && !longitudes) {
       /**
        * Remove previous event listener before calling fitBounds
        * otherwise it will trigger "zoomend" event (fitBounds set
@@ -119,7 +124,7 @@ const CustomBounds = ({
     }
   }, [
     map,
-    router.query,
+    searchParams,
     leases,
     cityCoordinates,
     addEventListeners,

@@ -43,7 +43,7 @@ import homeImg from "../../public/img/home.jpg";
 import mapImg from "../../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../data/leaseTypes";
-import { bitter } from "../layout";
+import { bitter } from "../providers";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

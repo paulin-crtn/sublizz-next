@@ -49,6 +49,7 @@ export const getLeases = async (options?: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    cache: "no-store",
   });
   const data = await response.json();
   if (response.ok) {

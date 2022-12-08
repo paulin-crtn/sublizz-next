@@ -6,5 +6,5 @@ export interface ILeasesWithCount {
   leases: (Lease & {
     leaseImages: ILeaseImage[];
   })[];
-  closeCoordinates?: ICityCoordinates;
+  cityCoordinates?: ICityCoordinates;
 }
