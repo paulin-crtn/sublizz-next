@@ -1,41 +1,31 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMemo, useState } from "react";
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
-import Head from "next/head";
 import Image from "next/image";
 import format from "date-fns/format";
 import dynamic from "next/dynamic";
 import { ImagesListType } from "react-spring-lightbox";
 import toast from "react-hot-toast";
-/* ---------------------------------- UTILS --------------------------------- */
-import { getLease } from "../../utils/fetch/fetchLease";
-import { convertLeaseType } from "../../utils/convertLeaseType";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
 /* -------------------------------- COMPONENT ------------------------------- */
-import LeaseChips from "../../components/shared/lease-chips";
-import ModalLayout from "../../components/shared/modal-layout";
-import LeaseMessage from "../../components/public/lease-message";
-import LeaseReport from "../../components/public/lease-report";
-import Signin from "../../components/public/signin";
-import SignAlert from "../../components/public/sign-alert";
-import Signup from "../../components/public/signup";
-import LeaseLightbox from "../../components/public/lease-lightbox";
-import FavoriteButton from "../../components/public/favorite-button";
-import LeaseDates from "../../components/shared/lease-dates";
+import LeaseChips from "../shared/lease-chips";
+import ModalLayout from "../shared/modal-layout";
+import LeaseMessage from "../public/lease-message";
+import LeaseReport from "../public/lease-report";
+import Signin from "../public/signin";
+import SignAlert from "../public/sign-alert";
+import Signup from "../public/signup";
+import LeaseLightbox from "../public/lease-lightbox";
+import FavoriteButton from "../public/favorite-button";
+import LeaseDates from "../shared/lease-dates";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(
-  () => import("../../components/public/lease-map"),
-  {
-    ssr: false,
-  }
-);
+const LeaseMapWithNoSSR = dynamic(() => import("../public/lease-map"), {
+  ssr: false,
+});
 /* -------------------------------- MUI ICONS ------------------------------- */
 import FlagIcon from "@mui/icons-material/Flag";
 /* --------------------------------- MUI JOY -------------------------------- */
@@ -56,13 +46,12 @@ import {
   LEASE_IMAGE_PATH,
   PROFILE_PICTURE_PATH,
 } from "../../const/supabasePath";
+import { ILeaseDetail } from "../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const LeasePage: NextPage = ({
-  lease,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -79,10 +68,13 @@ const LeasePage: NextPage = ({
   /* ------------------------------- REACT MEMO ------------------------------- */
   const lightboxImages: ImagesListType = useMemo(
     () =>
-      lease.leaseImages.map((name: string) => ({
-        src: LEASE_IMAGE_PATH + "/" + name,
-        loading: "lazy",
-      })),
+      lease.leaseImages
+        ? lease.leaseImages.map((name: string) => ({
+            src: LEASE_IMAGE_PATH + "/" + name,
+            alt: "lease picture",
+            loading: "lazy",
+          }))
+        : [],
     [lease]
   );
 
@@ -123,16 +115,7 @@ const LeasePage: NextPage = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <>
-      <Head>
-        <title>
-          {convertLeaseType(lease.type)} à {lease.city} | lacartedeslogements
-        </title>
-        <meta
-          name="description"
-          content={`⭐⭐⭐ Emménagez à ${lease.city} via notre réseau d'annonces de locations et de sous locations. Particuliers uniquement, pas de frais d'agence.`}
-        />
-      </Head>
+    <Box className="container">
       <Box
         component="header"
         display="flex"
@@ -224,6 +207,7 @@ const LeasePage: NextPage = ({
                     fill={true}
                     style={{ objectFit: "cover" }}
                     priority={true}
+                    sizes={"1000px"}
                   />
                 </CardCover>
               </Card>
@@ -431,28 +415,11 @@ const LeasePage: NextPage = ({
           </ModalLayout>
         </ModalDialog>
       </Modal>
-    </>
+    </Box>
   );
 };
 
 export default LeasePage;
-
-/* -------------------------------------------------------------------------- */
-/*                              SERVER SIDE PROPS                             */
-/* -------------------------------------------------------------------------- */
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context?.params?.id;
-  try {
-    const lease = await getLease(id);
-    return {
-      props: { lease },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-};
 
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */

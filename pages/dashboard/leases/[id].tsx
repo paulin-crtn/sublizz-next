@@ -27,7 +27,7 @@ const EditLeasePage: NextPage = () => {
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query.id as string;
 
   /* -------------------------------- CONSTANTS ------------------------------- */
   const prevPages = [
@@ -41,7 +41,7 @@ const EditLeasePage: NextPage = () => {
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
     ["userLease"],
-    () => getLease(id),
+    () => getLease(+id),
     {
       enabled: !!id,
       cacheTime: 0,

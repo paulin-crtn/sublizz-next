@@ -20,24 +20,13 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const pathname = usePathname();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
-  const isFullwidth: boolean = useMemo(() => {
-    if (pathname) {
-      const pathnameArr = pathname.split("/");
-      const isHomePage = pathnameArr[1] === "";
-      const isLeasePage =
-        pathnameArr[1] === "leases" && pathnameArr.length === 3;
-      const isLegalPages = pathnameArr[1] === "legal";
-      return isHomePage || isLeasePage || isLegalPages;
-    }
-    return true;
-  }, [pathname]);
-
   const withFooter: boolean = useMemo(() => {
     if (pathname) {
       const pathnameArr = pathname.split("/");
       const isMessagesPage =
         pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
-      const isLeasesPage = pathnameArr[1] === "leases";
+      const isLeasesPage =
+        pathnameArr[1] === "leases" && pathnameArr.length === 2;
       if (isMessagesPage || isLeasesPage) {
         return false;
       }
@@ -55,20 +44,7 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
       }}
     >
       <Navbar />
-      <Box sx={{ flex: "1 0 auto" }}>
-        <Box
-          sx={{
-            maxWidth: isFullwidth ? "1600px" : "auto",
-            margin: "0 auto",
-            padding: isFullwidth ? "45px 90px 90px 90px" : 0,
-            "@media (max-width: 840px)": {
-              padding: isFullwidth ? "30px 50px 70px 50px" : 0,
-            },
-          }}
-        >
-          {children}
-        </Box>
-      </Box>
+      <Box sx={{ flex: "1 0 auto" }}>{children}</Box>
       {/** Remove footer on /leases and /messages page */}
       {withFooter && <Footer />}
     </Box>

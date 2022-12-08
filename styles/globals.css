@@ -28,6 +28,18 @@ li {
   list-style-type: none;
 }
 
+/* CONTAINER */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 45px 90px 90px 90px;
+}
+@media (max-width: 840px) {
+  .container {
+    padding: 30px 50px 70px 50px;
+  }
+}
+
 /* LEAFLET */
 .leaflet-popup-content-wrapper {
   padding: 0px !important;

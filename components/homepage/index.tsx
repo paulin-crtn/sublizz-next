@@ -73,7 +73,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <>
+    <Box className="container">
       <header>
         <Card
           sx={(theme) => ({
@@ -736,7 +736,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           </ModalLayout>
         </ModalDialog>
       </Modal>
-    </>
+    </Box>
   );
 };
 
