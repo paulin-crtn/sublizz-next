@@ -9,17 +9,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import LeaseCard from "../../components/public/lease-card";
-import Divider from "@mui/joy/Divider";
-import Button from "@mui/joy/Button";
+import LeaseCard from "../public/lease-card";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
-const LeaseMapWithNoSSR = dynamic(
-  () => import("../../components/public/lease-map"),
-  { ssr: false }
-);
+const LeaseMapWithNoSSR = dynamic(() => import("../public/lease-map"), {
+  ssr: false,
+});
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
+import Divider from "@mui/joy/Divider";
+import Button from "@mui/joy/Button";
 import Pagination from "@mui/material/Pagination";
 import MapIcon from "@mui/icons-material/Map";
 import SubjectIcon from "@mui/icons-material/Subject";
