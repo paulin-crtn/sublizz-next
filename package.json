@@ -30,7 +30,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
     "react-hot-toast": "^2.4.0",
-    "react-leaflet": "^4.1.0",
+    "react-leaflet": "^4.2.0",
     "react-spring-lightbox": "^1.7.1"
   },
   "devDependencies": {
