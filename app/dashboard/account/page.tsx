@@ -3,7 +3,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
 import { useAuth } from "../../../utils/context/auth.context";
 import DashboardLayout from "../components/dashboard-layout";
 import AccessDenied from "../../shared/access-denied";
@@ -14,7 +13,7 @@ import Box from "@mui/joy/Box";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserAccountPage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -31,6 +30,4 @@ const UserAccountPage: NextPage = () => {
       </Box>
     </DashboardLayout>
   );
-};
-
-export default UserAccountPage;
+}

@@ -4,7 +4,6 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { NextPage } from "next";
 import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
@@ -28,7 +27,7 @@ import { IFavorite } from "../../../interfaces/IFavorite";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const LeaseFavoritesPage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
   const { data: favorites, isLoading } = useLeaseFavorites(user);
@@ -79,6 +78,4 @@ const LeaseFavoritesPage: NextPage = () => {
       ))}
     </DashboardLayout>
   );
-};
-
-export default LeaseFavoritesPage;
+}
