@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import randomToken from "rand-token";

@@ -1,33 +1,38 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
-import { useRouter } from "next/router";
+/* ----------------------------------- NPM ---------------------------------- */
+import { useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
-import AccessDenied from "../../../components/public/access-denied";
+/* ---------------------------------- UTILS --------------------------------- */
+import { useAuth } from "../../../../utils/context/auth.context";
+import { getLease } from "../../../../utils/fetch/fetchLease";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import AccessDenied from "../../../../components/public/access-denied";
+import DashboardLayout from "../../../../components/dashboard/dashboard-layout";
+import EditLease from "../../../../components/dashboard/edit-lease";
+import CustomBreadcrumbs from "../../../../components/dashboard/custom-beadcrumbs";
+/* ----------------------------------- MUI ---------------------------------- */
 import ErrorIcon from "@mui/icons-material/Error";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import EditLease from "../../../components/dashboard/edit-lease";
-import { useAuth } from "../../../utils/context/auth.context";
-import { getLease } from "../../../utils/fetch/fetchLease";
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditLeasePage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
   /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-  const id = router.query.id as string;
+  const pathname = usePathname();
 
   /* -------------------------------- CONSTANTS ------------------------------- */
   const prevPages = [
@@ -38,10 +43,19 @@ const EditLeasePage: NextPage = () => {
     },
   ];
 
+  /* ------------------------------- REACT MEMO ------------------------------- */
+  const id = useMemo(() => {
+    if (pathname) {
+      const pathnameArr = pathname.split("/");
+      return pathnameArr[pathnameArr.length - 1];
+    }
+    return null;
+  }, [pathname]);
+
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
-    ["userLease"],
-    () => getLease(+id),
+    ["userLease", id],
+    () => getLease(Number(id) as number),
     {
       enabled: !!id,
       cacheTime: 0,
@@ -58,7 +72,6 @@ const EditLeasePage: NextPage = () => {
   if (isLoading) {
     return (
       <DashboardLayout
-        pageTitle="Modifier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
@@ -75,7 +88,6 @@ const EditLeasePage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <DashboardLayout
-        pageTitle="Modifier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
         }
@@ -97,7 +109,6 @@ const EditLeasePage: NextPage = () => {
 
   return (
     <DashboardLayout
-      pageTitle="Modifier une annonce"
       breadcrumbs={
         <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
       }
@@ -112,6 +123,4 @@ const EditLeasePage: NextPage = () => {
       </Box>
     </DashboardLayout>
   );
-};
-
-export default EditLeasePage;
+}

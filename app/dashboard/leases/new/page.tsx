@@ -1,27 +1,32 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
+/* ----------------------------------- NPM ---------------------------------- */
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useQuery } from "@tanstack/react-query";
 import frLocale from "date-fns/locale/fr";
-import AccessDenied from "../../../components/public/access-denied";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import EditLease from "../../../components/dashboard/edit-lease";
-import { useAuth } from "../../../utils/context/auth.context";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
+/* ---------------------------------- UTILS --------------------------------- */
+import { useAuth } from "../../../../utils/context/auth.context";
+import { getUserLeases } from "../../../../utils/fetch/fetchLease";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import AccessDenied from "../../../../components/public/access-denied";
+import DashboardLayout from "../../../../components/dashboard/dashboard-layout";
+import EditLease from "../../../../components/dashboard/edit-lease";
+import CustomBreadcrumbs from "../../../../components/dashboard/custom-beadcrumbs";
+/* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Link from "next/link";
 import Button from "@mui/joy/Button";
 import StyleIcon from "@mui/icons-material/Style";
-import { useQuery } from "@tanstack/react-query";
-import { getUserLeases } from "../../../utils/fetch/fetchLease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditLeasePage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -49,7 +54,6 @@ const EditLeasePage: NextPage = () => {
   if (userLeases.length >= 2) {
     return (
       <DashboardLayout
-        pageTitle="Publier une annonce"
         breadcrumbs={
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
         }
@@ -80,7 +84,6 @@ const EditLeasePage: NextPage = () => {
 
   return (
     <DashboardLayout
-      pageTitle="Publier une annonce"
       breadcrumbs={
         <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
       }
@@ -95,6 +98,4 @@ const EditLeasePage: NextPage = () => {
       </Box>
     </DashboardLayout>
   );
-};
-
-export default EditLeasePage;
+}

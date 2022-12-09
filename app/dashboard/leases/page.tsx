@@ -1,29 +1,35 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
+/* ----------------------------------- NPM ---------------------------------- */
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+/* ---------------------------------- UTILS --------------------------------- */
+import { useAuth } from "../../../utils/context/auth.context";
+import { getUserLeases } from "../../../utils/fetch/fetchLease";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import AccessDenied from "../../../components/public/access-denied";
+import DashboardLayout from "../../../components/dashboard/dashboard-layout";
+import MyLease from "../../../components/dashboard/my-lease";
+import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
+import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
+/* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Add from "@mui/icons-material/Add";
 import Alert from "@mui/joy/Alert";
-import ErrorIcon from "@mui/icons-material/Error";
-import { useAuth } from "../../../utils/context/auth.context";
-import { getUserLeases } from "../../../utils/fetch/fetchLease";
-import AccessDenied from "../../../components/public/access-denied";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import MyLease from "../../../components/dashboard/my-lease";
-import { ILeaseDetail } from "../../../interfaces/lease";
 import Divider from "@mui/joy/Divider";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
-import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
+import ErrorIcon from "@mui/icons-material/Error";
+/* ------------------------------- INTERFACES ------------------------------- */
+import { ILeaseDetail } from "../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserLeasesPage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -47,7 +53,6 @@ const UserLeasesPage: NextPage = () => {
   if (isLoading) {
     return (
       <DashboardLayout
-        pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         <LeaseSkeleton />
@@ -58,7 +63,6 @@ const UserLeasesPage: NextPage = () => {
   if (isError && error instanceof Error) {
     return (
       <DashboardLayout
-        pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         {error.message.split(",").map((msg, index) => (
@@ -79,7 +83,6 @@ const UserLeasesPage: NextPage = () => {
   if (!userLeases.length) {
     return (
       <DashboardLayout
-        pageTitle="Gérer mes annonces"
         breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
       >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
@@ -98,7 +101,6 @@ const UserLeasesPage: NextPage = () => {
 
   return (
     <DashboardLayout
-      pageTitle="Gérer mes annonces"
       breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
     >
       {userLeases.map((lease: ILeaseDetail, index: number) => (
@@ -110,6 +112,4 @@ const UserLeasesPage: NextPage = () => {
       ))}
     </DashboardLayout>
   );
-};
-
-export default UserLeasesPage;
+}
