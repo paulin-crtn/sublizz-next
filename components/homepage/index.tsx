@@ -73,7 +73,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box className="container">
+    <Box className="container" marginX="auto">
       <header>
         <Card
           sx={(theme) => ({

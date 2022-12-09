@@ -31,7 +31,6 @@ li {
 /* CONTAINER */
 .container {
   max-width: 1600px;
-  margin: 0 auto;
   padding: 45px 90px 90px 90px;
 }
 @media (max-width: 840px) {

@@ -1,10 +1,10 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useState } from "react";
-import { NextPage } from "next/types";
-import Head from "next/head";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
@@ -12,28 +12,21 @@ import Card from "@mui/joy/Card";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
-import ModalLayout from "../../components/shared/modal-layout";
-import ContactEditor from "../../components/shared/contact-editor";
+import ModalLayout from "../../../components/shared/modal-layout";
+import ContactEditor from "../../../components/shared/contact-editor";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const NoticePage: NextPage = () => {
+export default function Page() {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [openContactEditor, setOpenContactEditor] = useState<boolean>(false);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <Head>
-        <title>Mentions légales | lacartedeslogements</title>
-        <meta
-          name="description"
-          content="Mentions légales du site la carte des logements. Annonces de location et de sous-locations immobilières entre particuliers."
-        />
-      </Head>
-
       <Box
+        className="container"
         component="main"
         width="85%"
         sx={{ "@media (max-width: 900px)": { width: "100%" } }}
@@ -188,6 +181,4 @@ const NoticePage: NextPage = () => {
       </Modal>
     </>
   );
-};
-
-export default NoticePage;
+}
