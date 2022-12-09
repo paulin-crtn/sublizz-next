@@ -2,9 +2,9 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../../utils/context/auth.context";
@@ -64,10 +64,11 @@ const Menu = () => {
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const pathname = usePathname();
 
   /* -------------------------------- FUNCTION -------------------------------- */
   const isActive = (key: string) => {
-    const pathArr = router.asPath.split("/");
+    const pathArr = pathname ? pathname.split("/") : [];
     // Dashboard
     if (pathArr[1] === key && pathArr.length === 2) {
       return "active";

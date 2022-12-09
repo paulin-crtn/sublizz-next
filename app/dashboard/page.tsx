@@ -1,7 +1,8 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { NextPage } from "next";
 import { useMemo } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
@@ -18,7 +19,7 @@ import { DASHBOARD_ITEMS } from "../../data/dashboardItems";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const DashboardPage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -45,7 +46,6 @@ const DashboardPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <DashboardLayout
-      pageTitle="Tableau de bord"
       breadcrumbs={<CustomBreadcrumbs currentPage="Tableau de bord" />}
     >
       <Box
@@ -70,6 +70,4 @@ const DashboardPage: NextPage = () => {
       </Box>
     </DashboardLayout>
   );
-};
-
-export default DashboardPage;
+}
