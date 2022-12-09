@@ -22,7 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IFavorite } from "../../../../../interfaces/IFavorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import noLeaseImg from "../../../public/img/no-lease-img.png";
+import noLeaseImg from "../../../../../public/img/no-lease-img.png";
 import { LEASE_IMAGE_PATH } from "../../../../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */

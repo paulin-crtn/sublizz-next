@@ -49,7 +49,7 @@ const DashboardLayout: FunctionComponent<Props> = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ backgroundColor: "#eeeeee" }}>
+    <Box sx={{ minHeight: "calc(100vh - 90px)", backgroundColor: "#eeeeee" }}>
       <Box
         sx={{
           display: "flex",

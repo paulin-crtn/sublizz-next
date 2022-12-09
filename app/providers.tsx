@@ -94,13 +94,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
             sx={{
               display: "flex",
               flexDirection: "column",
-              minHeight: "100vh",
             }}
           >
             {/** NAVBAR */}
             <Navbar />
             {/** CONTENT */}
-            <Box sx={{ flex: "1 0 auto" }}>{children}</Box>
+            <Box
+              sx={{
+                flexGrow: 1,
+                flexShrink: 0,
+                flexBasis: "calc(100vh - 90px)",
+              }}
+            >
+              {children}
+            </Box>
             {/** FOOTER - except on /leases and /messages pages */}
             {withFooter && <Footer />}
           </Box>
