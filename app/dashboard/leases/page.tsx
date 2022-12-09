@@ -10,11 +10,11 @@ import Link from "next/link";
 import { useAuth } from "../../../utils/context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../components/public/access-denied";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import MyLease from "../../../components/dashboard/my-lease";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
-import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
+import AccessDenied from "../../shared/access-denied";
+import DashboardLayout from "../components/dashboard-layout";
+import MyLease from "./components/my-lease";
+import CustomBreadcrumbs from "../components/custom-beadcrumbs";
+import LeaseSkeleton from "../components/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";

@@ -5,10 +5,10 @@
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
 import { useAuth } from "../../../utils/context/auth.context";
-import AccessDenied from "../../../components/public/access-denied";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import EditProfile from "../../../components/dashboard/edit-profile";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
+import AccessDenied from "../../shared/access-denied";
+import DashboardLayout from "../components/dashboard-layout";
+import EditProfile from "./components/edit-profile";
+import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import Box from "@mui/joy/Box";
 
 /* -------------------------------------------------------------------------- */

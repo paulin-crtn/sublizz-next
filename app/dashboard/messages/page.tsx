@@ -11,7 +11,7 @@ import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getConversationMessages } from "../../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../components/public/access-denied";
+import AccessDenied from "../../shared/access-denied";
 import Conversations from "./components";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";

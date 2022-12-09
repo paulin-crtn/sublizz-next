@@ -6,10 +6,10 @@
 import { useMemo } from "react";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
-import AccessDenied from "../../components/public/access-denied";
-import DashboardLayout from "../../components/dashboard/dashboard-layout";
-import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
-import DashboardCard from "../../components/dashboard/dashboard-card";
+import AccessDenied from "../shared/access-denied";
+import DashboardLayout from "./components/dashboard-layout";
+import CustomBreadcrumbs from "./components/custom-beadcrumbs";
+import DashboardCard from "./components/dashboard-card";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 /* -------------------------------- CONSTANTS ------------------------------- */

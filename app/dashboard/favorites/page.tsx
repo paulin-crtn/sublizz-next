@@ -11,11 +11,11 @@ import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { useLeaseFavorites } from "../../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../components/public/access-denied";
-import DashboardLayout from "../../../components/dashboard/dashboard-layout";
-import LeaseFavorite from "../../../components/dashboard/lease-favorite";
-import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
-import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
+import AccessDenied from "../../shared/access-denied";
+import DashboardLayout from "../components/dashboard-layout";
+import LeaseFavorite from "./components/lease-favorite";
+import CustomBreadcrumbs from "../components/custom-beadcrumbs";
+import LeaseSkeleton from "../components/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";

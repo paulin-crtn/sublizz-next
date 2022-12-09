@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { getLeases } from "../../utils/fetch/fetchLease";
-import LeasesPage from "../../components/leases";
+import LeasesPage from "./components/leases-page";
 
 /* -------------------------------------------------------------------------- */
 /*                            SERVER SIDE COMPONENT                           */

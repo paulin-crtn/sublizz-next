@@ -4,8 +4,8 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import Image from "next/image";
 /* -------------------------------- COMPONENT ------------------------------- */
-import LeaseDates from "../../../../../components/shared/lease-dates";
-import LeaseChips from "../../../../../components/shared/lease-chips";
+import LeaseDates from "../../../../shared/lease-dates";
+import LeaseChips from "../../../../shared/lease-chips";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";

@@ -15,9 +15,9 @@ import fr from "date-fns/locale/fr";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { AuthProvider } from "../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Navbar from "../components/shared/navbar";
-import Footer from "../components/shared/footer";
-import CookiePreference from "../components/shared/cookie-preference";
+import Navbar from "./shared/navbar";
+import Footer from "./shared/footer";
+import CookiePreference from "./shared/cookie-preference";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import { CssVarsProvider } from "@mui/joy/styles";
 import Modal from "@mui/joy/Modal";

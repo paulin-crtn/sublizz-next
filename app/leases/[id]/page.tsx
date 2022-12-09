@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 import { notFound } from "next/navigation";
 import { getLease } from "../../../utils/fetch/fetchLease";
-import LeasePage from "../../../components/lease";
+import LeasePage from "./components/lease-page";
 
 /* -------------------------------------------------------------------------- */
 /*                            SERVER SIDE COMPONENT                           */

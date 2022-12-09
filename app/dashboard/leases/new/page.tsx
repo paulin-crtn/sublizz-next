@@ -12,10 +12,10 @@ import frLocale from "date-fns/locale/fr";
 import { useAuth } from "../../../../utils/context/auth.context";
 import { getUserLeases } from "../../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../../components/public/access-denied";
-import DashboardLayout from "../../../../components/dashboard/dashboard-layout";
-import EditLease from "../../../../components/dashboard/edit-lease";
-import CustomBreadcrumbs from "../../../../components/dashboard/custom-beadcrumbs";
+import AccessDenied from "../../../shared/access-denied";
+import DashboardLayout from "../../components/dashboard-layout";
+import EditLease from "../components/edit-lease";
+import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
