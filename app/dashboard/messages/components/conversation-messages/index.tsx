@@ -7,9 +7,9 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../utils/context/auth.context";
+import { useAuth } from "../../../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
+import { storeConversationMessage } from "../../../../../utils/fetch/fetchConversation";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -19,12 +19,12 @@ import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../../../interfaces/message/IConversation";
-import { IConversationMessage } from "../../../../interfaces/message/IConversationMessage";
-import { IConversationMessageForm } from "../../../../interfaces/message/IConversationMessageForm";
+import { IConversation } from "../../../../../interfaces/message/IConversation";
+import { IConversationMessage } from "../../../../../interfaces/message/IConversationMessage";
+import { IConversationMessageForm } from "../../../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
-import { TOAST_STYLE } from "../../../../const/toastStyle";
+import { PROFILE_PICTURE_PATH } from "../../../../../const/supabasePath";
+import { TOAST_STYLE } from "../../../../../const/toastStyle";
 import IconButton from "@mui/joy/IconButton";
 
 /* -------------------------------------------------------------------------- */

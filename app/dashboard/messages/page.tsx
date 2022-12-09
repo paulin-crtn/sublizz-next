@@ -1,19 +1,18 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
-import { FunctionComponent, PropsWithChildren } from "react";
-import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import Head from "next/head";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../utils/context/auth.context";
+import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getConversationMessages } from "../../utils/fetch/fetchConversation";
+import { getConversationMessages } from "../../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../components/public/access-denied";
-import Conversations from "../../components/dashboard/conversations";
+import AccessDenied from "../../../components/public/access-denied";
+import Conversations from "./components";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -25,12 +24,12 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Divider from "@mui/joy/Divider";
 import Add from "@mui/icons-material/Add";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { UserRoleEnum } from "../../enum/UserRoleEnum";
+import { UserRoleEnum } from "../../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const UserMessagesPage: NextPage = () => {
+export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
@@ -54,7 +53,8 @@ const UserMessagesPage: NextPage = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <ConversationsLayout>
+      <>
+        <Divider />
         <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
           <Box margin="auto" padding={2} textAlign="center">
             <CircularProgress size="lg" thickness={6} color="neutral" />
@@ -63,13 +63,14 @@ const UserMessagesPage: NextPage = () => {
             </Typography>
           </Box>
         </Box>
-      </ConversationsLayout>
+      </>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <ConversationsLayout>
+      <>
+        <Divider />
         <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
           <Box margin="auto" padding={2} textAlign="center">
             {error.message.split(",").map((msg, index) => (
@@ -85,13 +86,14 @@ const UserMessagesPage: NextPage = () => {
             ))}
           </Box>
         </Box>
-      </ConversationsLayout>
+      </>
     );
   }
 
   if (data && !data.length) {
     return (
-      <ConversationsLayout>
+      <>
+        <Divider />
         <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
           <Box margin="auto" padding={2} textAlign="center">
             <Typography level="h2" fontWeight={500} marginBottom={3}>
@@ -120,32 +122,14 @@ const UserMessagesPage: NextPage = () => {
             )}
           </Box>
         </Box>
-      </ConversationsLayout>
+      </>
     );
   }
 
   return (
-    <ConversationsLayout>
-      <Conversations conversations={data} />
-    </ConversationsLayout>
-  );
-};
-
-export default UserMessagesPage;
-
-/* -------------------------------------------------------------------------- */
-/*                               REACT COMPONENT                              */
-/* -------------------------------------------------------------------------- */
-const ConversationsLayout: FunctionComponent<PropsWithChildren> = ({
-  children,
-}) => {
-  return (
-    <>
-      <Head>
-        <title>Messages | lacartedeslogements</title>
-      </Head>
+    <Box sx={{ minHeight: "calc(100vh - 91px)" }}>
       <Divider />
-      <Box sx={{ minHeight: "calc(100vh - 91px)" }}>{children}</Box>
-    </>
+      <Conversations conversations={data} />
+    </Box>
   );
-};
+}

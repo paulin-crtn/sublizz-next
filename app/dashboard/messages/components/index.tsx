@@ -6,10 +6,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../utils/context/auth.context";
-import { useUnreadConversationsId } from "../../../utils/react-query/unread-conversations";
+import { useAuth } from "../../../../utils/context/auth.context";
+import { useUnreadConversationsId } from "../../../../utils/react-query/unread-conversations";
 /* ---------------------------------- UTILS --------------------------------- */
-import { setConversationAsRead } from "../../../utils/fetch/fetchConversation";
+import { setConversationAsRead } from "../../../../utils/fetch/fetchConversation";
 /* -------------------------------- COMPONENT ------------------------------- */
 import ConversationPreview from "./conversation-preview";
 import ConversationMessages from "./conversation-messages";
@@ -19,10 +19,10 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../../interfaces/message/IConversation";
-import { ILease } from "../../../interfaces/lease";
+import { IConversation } from "../../../../interfaces/message/IConversation";
+import { ILease } from "../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { TOAST_STYLE } from "../../../const/toastStyle";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

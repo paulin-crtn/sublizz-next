@@ -4,17 +4,17 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import Image from "next/image";
 /* -------------------------------- COMPONENT ------------------------------- */
-import LeaseDates from "../../../shared/lease-dates";
-import LeaseChips from "../../../shared/lease-chips";
+import LeaseDates from "../../../../../components/shared/lease-dates";
+import LeaseChips from "../../../../../components/shared/lease-chips";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { ILease } from "../../../../interfaces/lease";
+import { ILease } from "../../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { LEASE_IMAGE_PATH } from "../../../../const/supabasePath";
-import noLeaseImg from "../../../../public/img/no-lease-img.png";
+import { LEASE_IMAGE_PATH } from "../../../../../const/supabasePath";
+import noLeaseImg from "../../../../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
