@@ -1,3 +1,5 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
@@ -5,15 +7,15 @@
 import { NextPage } from "next";
 import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../utils/context/auth.context";
+import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { useLeaseFavorites } from "../../utils/react-query/lease-favorites";
+import { useLeaseFavorites } from "../../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../components/public/access-denied";
-import DashboardLayout from "../../components/dashboard/dashboard-layout";
-import LeaseFavorite from "../../components/dashboard/lease-favorite";
-import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
-import LeaseSkeleton from "../../components/dashboard/lease-skeleton";
+import AccessDenied from "../../../components/public/access-denied";
+import DashboardLayout from "../../../components/dashboard/dashboard-layout";
+import LeaseFavorite from "../../../components/dashboard/lease-favorite";
+import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
+import LeaseSkeleton from "../../../components/dashboard/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -21,7 +23,7 @@ import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/joy/Divider";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IFavorite } from "../../interfaces/IFavorite";
+import { IFavorite } from "../../../interfaces/IFavorite";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -40,7 +42,6 @@ const LeaseFavoritesPage: NextPage = () => {
   if (isLoading) {
     return (
       <DashboardLayout
-        pageTitle="Favoris"
         breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
       >
         <LeaseSkeleton />
@@ -51,7 +52,6 @@ const LeaseFavoritesPage: NextPage = () => {
   if (!favorites.length) {
     return (
       <DashboardLayout
-        pageTitle="Favoris"
         breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
       >
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
@@ -69,10 +69,7 @@ const LeaseFavoritesPage: NextPage = () => {
   }
 
   return (
-    <DashboardLayout
-      pageTitle="Favoris"
-      breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
-    >
+    <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}>
       {favorites.map((leaseFavorite: IFavorite, index: number) => (
         <Box key={leaseFavorite.id}>
           {index === 0 && <Divider />}

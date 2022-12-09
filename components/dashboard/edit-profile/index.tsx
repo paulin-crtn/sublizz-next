@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";

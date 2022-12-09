@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { Dispatch, SetStateAction, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../../utils/context/auth.context";

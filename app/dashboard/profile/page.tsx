@@ -1,13 +1,15 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextPage } from "next";
+import { useAuth } from "../../../utils/context/auth.context";
+import AccessDenied from "../../../components/public/access-denied";
+import DashboardLayout from "../../../components/dashboard/dashboard-layout";
+import EditProfile from "../../../components/dashboard/edit-profile";
+import CustomBreadcrumbs from "../../../components/dashboard/custom-beadcrumbs";
 import Box from "@mui/joy/Box";
-import { useAuth } from "../../utils/context/auth.context";
-import AccessDenied from "../../components/public/access-denied";
-import DashboardLayout from "../../components/dashboard/dashboard-layout";
-import EditProfile from "../../components/dashboard/edit-profile";
-import CustomBreadcrumbs from "../../components/dashboard/custom-beadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -23,10 +25,7 @@ const UserProfilePage: NextPage = () => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <DashboardLayout
-      pageTitle="Profil"
-      breadcrumbs={<CustomBreadcrumbs currentPage="Profil" />}
-    >
+    <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Profil" />}>
       <Box width="65%">
         <EditProfile user={user} />
       </Box>
