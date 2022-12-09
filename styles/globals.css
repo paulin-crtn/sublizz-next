@@ -40,11 +40,6 @@ li {
   }
 }
 
-/** FONT */
-.fontFamily-bitter {
-  font-family: "Bitter";
-}
-
 /* LEAFLET */
 .leaflet-popup-content-wrapper {
   padding: 0px !important;

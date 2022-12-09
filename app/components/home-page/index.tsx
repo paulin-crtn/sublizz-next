@@ -43,6 +43,7 @@ import homeImg from "../../../public/img/home.jpg";
 import mapImg from "../../../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../../data/leaseTypes";
+import { bitter } from "../../../utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -102,12 +103,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           >
             <Box>
               <Typography
-                className="fontFamily-bitter"
                 component="h1"
                 level="h1"
                 fontSize={38}
                 fontWeight={800}
                 lineHeight={1.2}
+                fontFamily={bitter.style.fontFamily}
                 sx={{
                   color: "#ffffff",
                   "@media (max-width: 1100px)": {
@@ -147,7 +148,11 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                   <Chip variant="soft" color="neutral">
                     Colocation
                   </Chip>
-                  <Chip variant="soft" color="neutral">
+                  <Chip
+                    variant="soft"
+                    color="neutral"
+                    sx={{ userSelect: "none" }}
+                  >
                     Sous-location
                   </Chip>
                 </Box>
@@ -185,12 +190,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
       </header>
       <main>
         <Typography
-          className="fontFamily-bitter"
           level="h3"
           marginTop="60px"
           marginBottom="30px"
           fontSize="2.3rem"
           fontWeight={800}
+          fontFamily={bitter.style.fontFamily}
           sx={{
             "@media (max-width: 800px)": {
               fontSize: "1.8rem",
@@ -331,12 +336,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         {/** Lease types */}
         <Box>
           <Typography
-            className="fontFamily-bitter"
             level="h3"
             marginTop="60px"
             marginBottom="30px"
             fontSize="2.3rem"
             fontWeight={800}
+            fontFamily={bitter.style.fontFamily}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
@@ -478,9 +483,9 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            className="fontFamily-bitter"
             fontSize="2.3rem"
             fontWeight={800}
+            fontFamily={bitter.style.fontFamily}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
@@ -512,12 +517,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         <Box>
           <Typography
-            className="fontFamily-bitter"
             level="h3"
             marginTop="60px"
             marginBottom="30px"
             fontSize="2.3rem"
             fontWeight={800}
+            fontFamily={bitter.style.fontFamily}
             sx={{
               "@media (max-width: 800px)": {
                 fontSize: "1.8rem",
