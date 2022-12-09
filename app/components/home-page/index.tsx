@@ -43,7 +43,6 @@ import homeImg from "../../../public/img/home.jpg";
 import mapImg from "../../../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../../data/leaseTypes";
-import { bitter } from "../../providers";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -103,9 +102,9 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           >
             <Box>
               <Typography
+                className="fontFamily-bitter"
                 component="h1"
                 level="h1"
-                fontFamily={bitter.style.fontFamily}
                 fontSize={38}
                 fontWeight={800}
                 lineHeight={1.2}
@@ -186,10 +185,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
       </header>
       <main>
         <Typography
+          className="fontFamily-bitter"
           level="h3"
           marginTop="60px"
           marginBottom="30px"
-          fontFamily={bitter.style.fontFamily}
           fontSize="2.3rem"
           fontWeight={800}
           sx={{
@@ -332,10 +331,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         {/** Lease types */}
         <Box>
           <Typography
+            className="fontFamily-bitter"
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily={bitter.style.fontFamily}
             fontSize="2.3rem"
             fontWeight={800}
             sx={{
@@ -479,7 +478,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily={bitter.style.fontFamily}
+            className="fontFamily-bitter"
             fontSize="2.3rem"
             fontWeight={800}
             sx={{
@@ -513,10 +512,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         <Box>
           <Typography
+            className="fontFamily-bitter"
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontFamily={bitter.style.fontFamily}
             fontSize="2.3rem"
             fontWeight={800}
             sx={{

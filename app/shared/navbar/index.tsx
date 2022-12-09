@@ -345,6 +345,7 @@ const Navbar: FunctionComponent = () => {
             size="md"
             aria-labelledby="user-menu-button"
             placement="bottom-end"
+            sx={{ "& li": { outline: "none" } }} // Safari
           >
             {user.role === UserRoleEnum.SEEKER && (
               <Link href="/dashboard/favorites">

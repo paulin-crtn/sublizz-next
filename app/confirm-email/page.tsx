@@ -11,7 +11,7 @@ import Image from "next/image";
 /* ---------------------------------- UTILS --------------------------------- */
 import { confirmEmail } from "../../utils/fetch/fetchAuth";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Signin from "../components/public/signin";
+import Signin from "../shared/signin";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";

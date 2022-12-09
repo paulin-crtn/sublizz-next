@@ -5,6 +5,7 @@
 html,
 body {
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -37,6 +38,11 @@ li {
   .container {
     padding: 30px 50px 70px 50px;
   }
+}
+
+/** FONT */
+.fontFamily-bitter {
+  font-family: "Bitter";
 }
 
 /* LEAFLET */

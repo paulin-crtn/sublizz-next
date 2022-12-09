@@ -4,7 +4,6 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
-import { poppins } from "./app/providers";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
@@ -26,8 +25,8 @@ const INFO_COLORS = {
 /* -------------------------------------------------------------------------- */
 export const joyTheme: Theme = extendTheme({
   fontFamily: {
-    body: poppins.style.fontFamily,
-    display: poppins.style.fontFamily,
+    body: "Poppins",
+    display: "Poppins",
     fallback: "sans-serif",
   },
   colorSchemes: {

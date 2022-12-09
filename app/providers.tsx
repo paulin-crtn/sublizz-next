@@ -28,18 +28,6 @@ import { theme } from "../theme";
 import "../styles/globals.css";
 
 /* -------------------------------------------------------------------------- */
-/*                                    FONTS                                   */
-/* -------------------------------------------------------------------------- */
-export const bitter: NextFont = Bitter({
-  subsets: ["latin"],
-});
-
-export const poppins: NextFont = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-});
-
-/* -------------------------------------------------------------------------- */
 /*                               DATE-FNS LOCALE                              */
 /* -------------------------------------------------------------------------- */
 setDefaultOptions({ locale: fr });
@@ -66,6 +54,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
     );
     if (!cookiePreferences) setOpenCookie(true);
   }, []);
+
+  /**
+   * TEMPORARY FIX since update to NextJS 13 :
+   * - Page is already scrolled by 90px (navbar height) when navigating
+   * - Previous scroll position is applied to next page
+   */
+  useEffect(() => window.scrollTo(0, 0), [pathname]);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const withFooter: boolean = useMemo(() => {

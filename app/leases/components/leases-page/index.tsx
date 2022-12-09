@@ -70,10 +70,17 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
     return () => window.removeEventListener("resize", setInnerWidth);
   }, []);
 
+  /**
+   * Restart pagination from 1 (in case user left page with another pagination)
+   * This is because NextJS keep state between navigation
+   */
+  useEffect(() => router.refresh(), []);
+
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
     let url = city ? `city=${city}&page=${page}` : `page=${page}`;
     router.push(`/leases?${url}`);
+    window.scrollTo(0, 0);
   };
 
   const setInnerWidth = () => {

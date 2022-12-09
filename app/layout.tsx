@@ -1,10 +1,25 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+/* ----------------------------------- NPM ---------------------------------- */
+import { Poppins, Bitter } from "@next/font/google";
+import { NextFont } from "@next/font/dist/types";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { Providers } from "./providers";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import "../styles/globals.css";
+
+/* -------------------------------------------------------------------------- */
+/*                                    FONTS                                   */
+/* -------------------------------------------------------------------------- */
+const bitter: NextFont = Bitter({
+  subsets: ["latin"],
+});
+
+const poppins: NextFont = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                 CUSTOM APP                                 */
@@ -53,7 +68,7 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body>
+      <body className={[poppins.className, bitter.className].join(" ")}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -34,7 +34,7 @@ const Footer: FunctionComponent = () => {
       >
         <Box sx={{ flex: "1 1" }}>
           <Typography
-            fontWeight={200}
+            fontWeight={300}
             fontSize="0.9rem"
             lineHeight="1.6rem"
             marginBottom={4}
@@ -69,13 +69,13 @@ const Footer: FunctionComponent = () => {
               Location et sous-location
             </Typography>
             <List size="sm" aria-labelledby="decorated-list-demo">
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/leases">Rechercher une annonce</Link>
               </ListItem>
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/leases">Annonces de location</Link>
               </ListItem>
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/leases">Annonces de sous-location</Link>
               </ListItem>
             </List>
@@ -92,15 +92,15 @@ const Footer: FunctionComponent = () => {
               Documents légaux
             </Typography>
             <List size="sm" aria-labelledby="decorated-list-demo">
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/legal/notice">Mentions légales</Link>
               </ListItem>
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/legal/terms-of-service">
                   Conditions générales d'utilisation
                 </Link>
               </ListItem>
-              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 200 }}>
+              <ListItem sx={{ padding: 0, color: "#ffffff", fontWeight: 300 }}>
                 <Link href="/legal/privacy-and-cookies">
                   Politique de confidentialité &#x26; Cookies
                 </Link>
