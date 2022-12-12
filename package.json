@@ -31,7 +31,8 @@
     "react-hook-form": "^7.37.0",
     "react-hot-toast": "^2.4.0",
     "react-leaflet": "^4.2.0",
-    "react-spring-lightbox": "^1.7.1"
+    "react-spring-lightbox": "^1.7.1",
+    "sharp": "^0.31.2"
   },
   "devDependencies": {
     "@types/formidable": "^2.0.5",
