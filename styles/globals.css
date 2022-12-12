@@ -5,6 +5,7 @@
 html,
 body {
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -26,6 +27,17 @@ a:hover {
 
 li {
   list-style-type: none;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1600px;
+  padding: 45px 90px 90px 90px;
+}
+@media (max-width: 840px) {
+  .container {
+    padding: 30px 50px 70px 50px;
+  }
 }
 
 /* LEAFLET */

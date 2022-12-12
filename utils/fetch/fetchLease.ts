@@ -49,6 +49,7 @@ export const getLeases = async (options?: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    cache: "no-store",
   });
   const data = await response.json();
   if (response.ok) {
@@ -57,7 +58,9 @@ export const getLeases = async (options?: {
   throw new Error(data.message);
 };
 
-export const getLease = async (id: any): Promise<ILeaseDetail> => {
+export const getLease = async (
+  id: number
+): Promise<ILeaseDetail | undefined> => {
   const response = await fetch(`${API_URL}/leases/${id}`, {
     method: "GET",
     headers: {
@@ -65,11 +68,8 @@ export const getLease = async (id: any): Promise<ILeaseDetail> => {
       "Content-Type": "application/json",
     },
   });
-  const data = await response.json();
-  if (response.ok) {
-    return data;
-  }
-  throw new Error(data.message);
+  if (!response.ok) return undefined;
+  return await response.json();
 };
 
 export const getUserLeases = async (): Promise<ILeaseDetail[]> => {

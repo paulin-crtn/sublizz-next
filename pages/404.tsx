@@ -4,7 +4,7 @@
 /* ----------------------------------- NPM ---------------------------------- */
 import { useEffect, useState } from "react";
 import { NextPage } from "next/types";
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,17 +22,22 @@ import notFoundImg from "../public/img/not-found.png";
 const Custom404Page: NextPage = () => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
+  const pathname = usePathname();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [title, setTitle] = useState<string>("La page demandée n'existe pas");
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
-    const pathArr: string[] = router.asPath.split("/");
-    pathArr[1] === "leases" && pathArr.length === 3
-      ? setTitle("L'annonce a été supprimée ou n'existe pas")
-      : setTitle("La page demandée n'existe pas");
-  }, [router.asPath]);
+    if (pathname) {
+      const pathArr: string[] = pathname.split("/");
+      pathArr[1] === "leases" && pathArr.length === 3
+        ? setTitle("L'annonce a été supprimée ou n'existe pas")
+        : setTitle("La page demandée n'existe pas");
+    } else {
+      setTitle("La page demandée n'existe pas");
+    }
+  }, [pathname]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (

@@ -16,6 +16,7 @@
     "@mui/joy": "^5.0.0-alpha.48",
     "@mui/material": "^5.10.10",
     "@mui/x-date-pickers": "^5.0.4",
+    "@next/font": "^13.0.6",
     "@supabase/supabase-js": "^2.0.4",
     "@tanstack/react-query": "^4.12.0",
     "compressorjs": "^1.1.1",
@@ -29,8 +30,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
     "react-hot-toast": "^2.4.0",
-    "react-leaflet": "^4.1.0",
-    "react-spring-lightbox": "^1.7.1"
+    "react-leaflet": "^4.2.0",
+    "react-spring-lightbox": "^1.7.1",
+    "sharp": "^0.31.2"
   },
   "devDependencies": {
     "@types/formidable": "^2.0.5",

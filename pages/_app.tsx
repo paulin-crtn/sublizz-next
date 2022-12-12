@@ -12,8 +12,8 @@ import fr from "date-fns/locale/fr";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { AuthProvider } from "../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AppLayout from "../components/shared/app-layout";
-import CookiePreference from "../components/shared/cookie-preference";
+import AppLayout from "../app/shared/app-layout";
+import CookiePreference from "../app/shared/cookie-preference";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import { CssVarsProvider } from "@mui/joy/styles";
 import Modal from "@mui/joy/Modal";
