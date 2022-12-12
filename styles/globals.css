@@ -5,6 +5,7 @@
 html,
 body {
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -28,6 +29,17 @@ li {
   list-style-type: none;
 }
 
+/* CONTAINER */
+.container {
+  max-width: 1600px;
+  padding: 45px 90px 90px 90px;
+}
+@media (max-width: 840px) {
+  .container {
+    padding: 30px 50px 70px 50px;
+  }
+}
+
 /* LEAFLET */
 .leaflet-popup-content-wrapper {
   padding: 0px !important;
@@ -35,10 +47,11 @@ li {
 
 .leaflet-popup-content {
   margin: 0px !important;
+  width: max-content !important;
 }
 
 .leaflet-popup-content p {
-  margin: 0 0 15px 0 !important;
+  margin: 0 0 10px 0 !important;
 }
 
 .leaflet-popup-close-button {

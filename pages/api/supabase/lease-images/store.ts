@@ -28,7 +28,7 @@ const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 /* -------------------------------------------------------------------------- */
 /*                                API ENDPOINT                                */
 /* -------------------------------------------------------------------------- */
-export default async function (
+export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<string[]> {

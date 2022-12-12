@@ -26,12 +26,17 @@ export const customFetch = async (
   method: string,
   payload?: any
 ) => {
-  let jwt = localStorage.getItem("sublizz");
+  let jwt = localStorage.getItem("lacartesdeslogements_access_token");
   if (!jwt) return;
   const jwtDecoded: { sub: number; iat: number; exp: number } = jwtDecode(jwt);
   const isExpired = isAfter(Date.now(), jwtDecoded.exp * 1000);
-  if (isExpired) jwt = await _refreshToken();
-  if (jwt) return await _originalRequest(endPoint, method, payload);
+  if (isExpired) {
+    const data = await _refreshToken();
+    jwt = data.access_token;
+  }
+  if (jwt) {
+    return await _originalRequest(endPoint, method, payload);
+  }
   throw new Error("An error happened while using customFetch");
 };
 
@@ -43,7 +48,7 @@ const _originalRequest = async (
   method: string,
   payload?: any
 ) => {
-  const jwt = localStorage.getItem("sublizz");
+  const jwt = localStorage.getItem("lacartesdeslogements_access_token");
   const response = await fetch(`${API_URL}/${endPoint}`, {
     method,
     headers: {
@@ -60,7 +65,7 @@ const _originalRequest = async (
   throw new Error(data.message);
 };
 
-const _refreshToken = async () => {
+const _refreshToken = async (): Promise<{ access_token: string }> => {
   const response = await fetch(`${API_URL}/auth/refresh`, {
     method: "POST",
     headers: {
@@ -71,7 +76,10 @@ const _refreshToken = async () => {
   });
   const data = await response.json();
   if (response.ok) {
-    localStorage.setItem("sublizz", data.access_token);
+    localStorage.setItem(
+      "lacartesdeslogements_access_token",
+      data.access_token
+    );
     return data.access_token;
   }
   throw new Error(data.message);
