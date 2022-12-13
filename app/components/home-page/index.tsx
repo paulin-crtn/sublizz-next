@@ -510,9 +510,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             vous offrir une mise en relation rapide de particulier à
             particulier.
           </Typography>
-          <Box marginBottom="60px">
-            <HowItWorks />
-          </Box>
+          <Box marginBottom="60px">{/* <HowItWorks /> */}</Box>
         </Box>
 
         <Box>
