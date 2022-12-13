@@ -48,6 +48,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { UserRoleEnum } from "../../../enum/UserRoleEnum";
 import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
 import { TOAST_STYLE } from "../../../const/toastStyle";
+import { poppins } from "../../../utils/nextFont";
 import logoImg from "../../../public/img/logo.png";
 
 /* -------------------------------------------------------------------------- */
@@ -208,6 +209,7 @@ const Navbar: FunctionComponent = () => {
             component="li"
             onClick={() => setOpenSignin(true)}
             sx={{
+              fontFamily: poppins.style.fontFamily, // Safari
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -220,6 +222,7 @@ const Navbar: FunctionComponent = () => {
             onClick={() => setOpenSignup(true)}
             sx={{
               marginLeft: "25px",
+              fontFamily: poppins.style.fontFamily, // Safari
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -263,7 +266,7 @@ const Navbar: FunctionComponent = () => {
                 setOpenSignin(true);
               }}
             >
-              Connexion
+              Se connecter
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -271,7 +274,7 @@ const Navbar: FunctionComponent = () => {
                 setOpenSignup(true);
               }}
             >
-              Inscription
+              Créer un compte
             </MenuItem>
             <ListDivider />
             <MenuItem
