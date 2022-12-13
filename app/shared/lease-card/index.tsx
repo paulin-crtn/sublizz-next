@@ -71,7 +71,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
         <Typography level="h6" fontWeight="600">
           {lease.city}
         </Typography>
-        {/* <LeaseDates lease={lease} /> */}
+        <LeaseDates lease={lease} />
         <LeaseChips lease={lease} size="sm" />
         <Typography level="h6" fontWeight="300" marginTop={2}>
           {lease.pricePerMonth}€ CC
