@@ -531,7 +531,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           >
             Questions fréquentes
           </Typography>
-          {/* <Box display="flex" flexDirection="column" gap={1.5}>
+          <Box display="flex" flexDirection="column" gap={1.5}>
             {FREQUENTLY_ASKED_QUESTIONS.map(
               ({ summary, details }: IDetailsSummary, index: number) => (
                 <DetailsSummary
@@ -541,7 +541,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                 />
               )
             )}
-          </Box> */}
+          </Box>
         </Box>
 
         <Box
