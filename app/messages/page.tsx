@@ -7,11 +7,11 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../utils/context/auth.context";
+import { useAuth } from "../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getConversationMessages } from "../../../utils/fetch/fetchConversation";
+import { getConversationMessages } from "../../utils/fetch/fetchConversation";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../shared/access-denied";
+import AccessDenied from "../shared/access-denied";
 import Conversations from "./components";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
@@ -24,7 +24,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Divider from "@mui/joy/Divider";
 import Add from "@mui/icons-material/Add";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { UserRoleEnum } from "../../../enum/UserRoleEnum";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

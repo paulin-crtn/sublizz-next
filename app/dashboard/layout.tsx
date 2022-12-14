@@ -1,54 +1,37 @@
+"use client";
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-/* ----------------------------------- NPM ---------------------------------- */
-import { FunctionComponent, PropsWithChildren, useMemo } from "react";
-import { useRouter, usePathname } from "next/navigation";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../utils/context/auth.context";
+import { useAuth } from "../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import Menu from "./menu";
+import DashboardNav from "./components/dashboard-nav";
+import AccessDenied from "../shared/access-denied";
 /* ----------------------------------- MUI ---------------------------------- */
 import Avatar from "@mui/joy/Avatar";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
-import Add from "@mui/icons-material/Add";
-import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 /* -------------------------------- CONSTANT -------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
-import { UserRoleEnum } from "../../../../enum/UserRoleEnum";
-
-/* -------------------------------------------------------------------------- */
-/*                                    PROPS                                   */
-/* -------------------------------------------------------------------------- */
-type Props = PropsWithChildren<{ breadcrumbs: JSX.Element }>;
+import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const DashboardLayout: FunctionComponent<Props> = ({
+export default function RootLayout({
   children,
-  breadcrumbs,
-}) => {
+}: {
+  children: React.ReactNode;
+}) {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
 
-  /* --------------------------------- ROUTER --------------------------------- */
-  const router = useRouter();
-  const pathname = usePathname();
-
-  /* ------------------------------- REACT MEMO ------------------------------- */
-  const showAddLeaseButton = useMemo(() => {
-    if (pathname) {
-      return (
-        user &&
-        user.role === UserRoleEnum.OWNER &&
-        (pathname === "/dashboard" || pathname === "/dashboard/leases")
-      );
-    }
-    return false;
-  }, [user, pathname]);
+  /* ------------------------------- MIDDLEWARE ------------------------------- */
+  if (!user) {
+    return <AccessDenied />;
+  }
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -111,48 +94,20 @@ const DashboardLayout: FunctionComponent<Props> = ({
             </Box>
           </Box>
           {/** NAVIGATION */}
-          <Box marginTop="40px">
-            <Menu />
+          <Box marginTop={5}>
+            <DashboardNav />
           </Box>
         </Box>
         <Box
           component="section"
           sx={{
             flex: "1 1",
-            marginTop: 4,
+            marginTop: 6,
           }}
         >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={4}
-          >
-            <Box sx={{ "& nav": { padding: 0 } }}>{breadcrumbs}</Box>
-            {showAddLeaseButton && (
-              <Button
-                startDecorator={<Add />}
-                onClick={() => {
-                  router.push("/dashboard/leases/new");
-                }}
-                sx={{ backgroundColor: "#ffffff", color: "#000000" }}
-              >
-                Publier une annonce
-              </Button>
-            )}
-          </Box>
-          <Box
-            sx={(theme) => ({
-              marginBottom: 6,
-              borderRadius: "8px",
-            })}
-          >
-            {children}
-          </Box>
+          {children}
         </Box>
       </Box>
     </Box>
   );
-};
-
-export default DashboardLayout;
+}

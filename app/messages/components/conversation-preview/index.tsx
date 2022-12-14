@@ -2,8 +2,8 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../../utils/context/auth.context";
-import { useUnreadConversationsId } from "../../../../../utils/react-query/unread-conversations";
+import { useAuth } from "../../../../utils/context/auth.context";
+import { useUnreadConversationsId } from "../../../../utils/react-query/unread-conversations";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -11,9 +11,9 @@ import Avatar from "@mui/joy/Avatar";
 import Badge from "@mui/joy/Badge";
 import Divider from "@mui/joy/Divider";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../../../../interfaces/message/IConversation";
+import { IConversation } from "../../../../interfaces/message/IConversation";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

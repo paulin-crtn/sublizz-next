@@ -5,13 +5,12 @@
 /* -------------------------------------------------------------------------- */
 /* ----------------------------------- NPM ---------------------------------- */
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 /* ---------------------------------- UTILS --------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
 import { getUserLeases } from "../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../shared/access-denied";
-import DashboardLayout from "../components/dashboard-layout";
 import DashboardLeaseCard from "./components/dashboard-lease-card";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import LeaseSkeleton from "../components/lease-skeleton";
@@ -44,27 +43,20 @@ export default function Page() {
     initialData: [],
   });
 
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <DashboardLayout
-        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
-      >
+      <>
+        <CustomBreadcrumbsWithCTA />
         <LeaseSkeleton />
-      </DashboardLayout>
+      </>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <DashboardLayout
-        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
-      >
+      <>
+        <CustomBreadcrumbsWithCTA />
         {error.message.split(",").map((msg, index) => (
           <Alert
             key={index}
@@ -76,15 +68,14 @@ export default function Page() {
             {msg}
           </Alert>
         ))}
-      </DashboardLayout>
+      </>
     );
   }
 
   if (!userLeases.length) {
     return (
-      <DashboardLayout
-        breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
-      >
+      <>
+        <CustomBreadcrumbsWithCTA />
         <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez publié aucune annonce.
@@ -95,14 +86,13 @@ export default function Page() {
             </Button>
           </Link>
         </Box>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout
-      breadcrumbs={<CustomBreadcrumbs currentPage="Gérer mes annonces" />}
-    >
+    <>
+      <CustomBreadcrumbsWithCTA />
       {userLeases.map((lease: ILeaseDetail, index: number) => (
         <Box key={lease.id}>
           {index === 0 && <Divider />}
@@ -110,6 +100,35 @@ export default function Page() {
           <Divider />
         </Box>
       ))}
-    </DashboardLayout>
+    </>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                               REACT COMPONENT                              */
+/* -------------------------------------------------------------------------- */
+const CustomBreadcrumbsWithCTA = () => {
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
+
+  /* -------------------------------- TEMPLATE -------------------------------- */
+  return (
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      marginBottom={4}
+    >
+      <CustomBreadcrumbs currentPage="Tableau de bord" />
+      <Button
+        variant="soft"
+        startDecorator={<Add />}
+        onClick={() => {
+          router.push("/dashboard/leases/new");
+        }}
+      >
+        Publier une annonce
+      </Button>
+    </Box>
+  );
+};

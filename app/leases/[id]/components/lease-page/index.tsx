@@ -147,6 +147,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           <LeaseDates
             lease={lease}
             size="lg"
+            level="h5"
             fullDate={true}
             showFlexible={true}
           />

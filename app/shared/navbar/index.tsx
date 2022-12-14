@@ -297,7 +297,7 @@ const Navbar: FunctionComponent = () => {
 
       {user && (
         <Box display="flex" alignItems="center" gap={1.5}>
-          <Link href="/dashboard/messages">
+          <Link href="/messages">
             <IconButton color="neutral" sx={{ borderRadius: "9999px" }}>
               {!!unreadConversationsId.length && (
                 <Badge

@@ -64,8 +64,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const withFooter: boolean = useMemo(() => {
     if (pathname) {
       const pathnameArr = pathname.split("/");
-      const isMessagesPage =
-        pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
+      const isMessagesPage = pathnameArr[1] === "messages";
       const isLeasesPage =
         pathnameArr[1] === "leases" && pathnameArr.length === 2;
       if (isMessagesPage || isLeasesPage) {

@@ -3,9 +3,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
-import { useAuth } from "../../../utils/context/auth.context";
-import DashboardLayout from "../components/dashboard-layout";
-import AccessDenied from "../../shared/access-denied";
 import EditAccount from "./components/edit-account";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import Box from "@mui/joy/Box";
@@ -14,17 +11,12 @@ import Box from "@mui/joy/Box";
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export default function Page() {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { user } = useAuth();
-
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Compte" />}>
+    <>
+      <Box marginBottom={4}>
+        <CustomBreadcrumbs currentPage="Compte" />
+      </Box>
       <Box
         width="65%"
         sx={{
@@ -32,8 +24,8 @@ export default function Page() {
           "@media (max-width: 900px)": { width: "100%" },
         }}
       >
-        <EditAccount user={user} />
+        <EditAccount />
       </Box>
-    </DashboardLayout>
+    </>
   );
 }

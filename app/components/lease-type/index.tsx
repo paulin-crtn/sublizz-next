@@ -60,7 +60,7 @@ const LeaseType = ({
           fontWeight={300}
           level="body2"
           startDecorator={<ScheduleIcon />}
-          sx={{ color: "text.secondary" }}
+          sx={{ color: "text.secondary", "--Typography-gap": "8px" }}
         >
           {duration}
         </Typography>

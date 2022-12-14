@@ -12,8 +12,6 @@ import frLocale from "date-fns/locale/fr";
 import { useAuth } from "../../../../utils/context/auth.context";
 import { getUserLeases } from "../../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../shared/access-denied";
-import DashboardLayout from "../../components/dashboard-layout";
 import EditLease from "../components/edit-lease";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -22,6 +20,9 @@ import Typography from "@mui/joy/Typography";
 import Link from "next/link";
 import Button from "@mui/joy/Button";
 import StyleIcon from "@mui/icons-material/Style";
+import CircularProgress from "@mui/joy/CircularProgress";
+import Alert from "@mui/joy/Alert";
+import ErrorIcon from "@mui/icons-material/Error";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -31,7 +32,12 @@ export default function Page() {
   const { user } = useAuth();
 
   /* -------------------------------- USE QUERY ------------------------------- */
-  const { data: userLeases } = useQuery(["userLeases"], getUserLeases, {
+  const {
+    data: userLeases,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(["userLeases"], getUserLeases, {
     enabled: !!user,
     initialData: [],
   });
@@ -45,20 +51,57 @@ export default function Page() {
     },
   ];
 
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
+  /* -------------------------------- TEMPLATE -------------------------------- */
+  if (isLoading) {
+    return (
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
+        </Box>
+        <Box sx={{ height: "100%", display: "flex" }}>
+          <Box sx={{ margin: "auto", textAlign: "center" }}>
+            <CircularProgress size="lg" color="neutral" />
+          </Box>
+        </Box>
+      </>
+    );
   }
 
-  /* -------------------------------- TEMPLATE -------------------------------- */
+  if (isError && error instanceof Error) {
+    return (
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
+        </Box>
+        {error.message.split(",").map((msg, index) => (
+          <Alert
+            key={index}
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {msg}
+          </Alert>
+        ))}
+      </>
+    );
+  }
+
   if (userLeases.length >= 2) {
     return (
-      <DashboardLayout
-        breadcrumbs={
+      <>
+        <Box marginBottom={4}>
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
-        }
-      >
-        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+        </Box>
+        <Box
+          sx={{
+            padding: 3,
+            textAlign: "center",
+            border: "1px solid #272930", // JoyUI
+            borderRadius: "12px",
+          }}
+        >
           <Typography level="h6" fontWeight={400} marginBottom={1}>
             Vous avez atteint la limite de 2 annonces publiées par compte.
           </Typography>
@@ -78,17 +121,22 @@ export default function Page() {
             </Button>
           </Link>
         </Box>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout
-      breadcrumbs={
+    <>
+      <Box marginBottom={4}>
         <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
-      }
-    >
-      <Box width="65%">
+      </Box>
+      <Box
+        width="65%"
+        sx={{
+          "@media (max-width: 1200px)": { width: "85%" },
+          "@media (max-width: 900px)": { width: "100%" },
+        }}
+      >
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
           adapterLocale={frLocale}
@@ -96,6 +144,6 @@ export default function Page() {
           <EditLease lease={undefined} />
         </LocalizationProvider>
       </Box>
-    </DashboardLayout>
+    </>
   );
 }

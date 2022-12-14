@@ -7,10 +7,10 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../../utils/context/auth.context";
+import { useAuth } from "../../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import ModalLayout from "../../../../shared/modal-layout";
-import HelpUs from "../../help-us";
+import ModalLayout from "../../../shared/modal-layout";
+import HelpUs from "../help-us";
 /* ----------------------------------- MUI ---------------------------------- */
 import { Theme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
@@ -28,8 +28,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoodIcon from "@mui/icons-material/Mood";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { TOAST_STYLE } from "../../../../../const/toastStyle";
-import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
+import { UserRoleEnum } from "../../../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */
@@ -55,7 +55,7 @@ const navListStyle = (theme: Theme) => ({
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Menu = () => {
+const DashboardNav = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
 
@@ -182,4 +182,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default DashboardNav;

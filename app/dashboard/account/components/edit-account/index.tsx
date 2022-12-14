@@ -31,7 +31,6 @@ import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 import Box from "@mui/joy/Box";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IUserDetail } from "../../../../../interfaces/IUserDetail";
 import { IUpdateUser } from "../../../../../interfaces/IUserUpdate";
 import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
 /* -------------------------------- CONSTANTS ------------------------------- */
@@ -40,9 +39,10 @@ import { TOAST_STYLE } from "../../../../../const/toastStyle";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditAccount = ({ user }: { user: IUserDetail }) => {
+const EditAccount = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
+  if (!user) throw new Error("user cannot be null");
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();

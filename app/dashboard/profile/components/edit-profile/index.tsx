@@ -50,9 +50,10 @@ import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const EditProfile = ({ user }: { user: IUserDetail }) => {
+const EditProfile = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
+  if (!user) throw new Error("user cannot be null");
 
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();

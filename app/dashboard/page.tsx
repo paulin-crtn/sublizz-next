@@ -4,14 +4,15 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { useAuth } from "../../utils/context/auth.context";
-import AccessDenied from "../shared/access-denied";
-import DashboardLayout from "./components/dashboard-layout";
 import CustomBreadcrumbs from "./components/custom-beadcrumbs";
 import DashboardCard from "./components/dashboard-card";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import { Add } from "@mui/icons-material";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
 import { DASHBOARD_ITEMS } from "../../data/dashboardItems";
@@ -22,6 +23,9 @@ import { DASHBOARD_ITEMS } from "../../data/dashboardItems";
 export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
+
+  /* --------------------------------- ROUTER --------------------------------- */
+  const router = useRouter();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const data = useMemo(() => {
@@ -38,16 +42,26 @@ export default function Page() {
     return DASHBOARD_ITEMS;
   }, [user]);
 
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <DashboardLayout
-      breadcrumbs={<CustomBreadcrumbs currentPage="Tableau de bord" />}
-    >
+    <>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom={4}
+      >
+        <CustomBreadcrumbs currentPage="Tableau de bord" />
+        <Button
+          variant="soft"
+          startDecorator={<Add />}
+          onClick={() => {
+            router.push("/dashboard/leases/new");
+          }}
+        >
+          Publier une annonce
+        </Button>
+      </Box>
       <Box
         sx={{
           display: "grid",
@@ -68,6 +82,6 @@ export default function Page() {
           </Box>
         ))}
       </Box>
-    </DashboardLayout>
+    </>
   );
 }

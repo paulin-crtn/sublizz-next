@@ -7,7 +7,7 @@ import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import { ILease, ILeaseDetail } from "../../../interfaces/lease";
-import ScheduleIcon from "@mui/icons-material/Schedule";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */
@@ -15,12 +15,14 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 const LeaseDates = ({
   lease,
   size = "sm",
+  level = "body2",
   fullDate = false,
   withDecorator = false,
   showFlexible = false,
 }: {
   lease: ILease | ILeaseDetail;
   size?: "sm" | "md" | "lg";
+  level?: "body2" | "body1" | "h6" | "h5";
   fullDate?: boolean;
   withDecorator?: boolean;
   showFlexible?: boolean;
@@ -48,9 +50,12 @@ const LeaseDates = ({
         {!lease.endDate && (
           <Typography
             fontWeight={300}
-            level={size === "sm" ? "body2" : "h5"}
-            startDecorator={<ScheduleIcon />}
-            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
+            level={level}
+            startDecorator={<EventAvailableIcon />}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
           >
             À partir du{" "}
             {isClient &&
@@ -60,54 +65,53 @@ const LeaseDates = ({
               )}
           </Typography>
         )}
+
         {lease.endDate && fullDate && (
           <Typography
             fontWeight={300}
-            marginRight={1}
-            level={size === "sm" ? "body2" : "h5"}
-            startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
-            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
+            level={level}
+            startDecorator={withDecorator ? <EventAvailableIcon /> : undefined}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
           >
-            Du{" "}
-            {isClient &&
-              format(
-                new Date(lease.startDate),
-                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
-              )}{" "}
-            au{" "}
-            {isClient &&
-              format(
-                new Date(lease.endDate),
-                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
-              )}
+            Du {isClient && format(new Date(lease.startDate), "dd MMMM uuuu")}{" "}
+            au {isClient && format(new Date(lease.endDate), "dd MMMM uuuu")}
             {!!lease.isDateFlexible && showFlexible && (
-              <Chip component="span" color="neutral" variant="soft" size={size}>
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
                 Dates flexibles
               </Chip>
             )}
           </Typography>
         )}
+
         {lease.endDate && !fullDate && (
           <Typography
             fontWeight={300}
-            marginRight={1}
             level={size === "sm" ? "body2" : "h5"}
-            startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
-            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
+            startDecorator={withDecorator ? <EventAvailableIcon /> : undefined}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
           >
-            {isClient &&
-              format(
-                new Date(lease.startDate),
-                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
-              )}{" "}
-            -{" "}
-            {isClient &&
-              format(
-                new Date(lease.endDate),
-                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
-              )}
+            {isClient && format(new Date(lease.startDate), "dd MMM uuuu")} -{" "}
+            {isClient && format(new Date(lease.endDate), "dd MMM uuuu")}
             {!!lease.isDateFlexible && showFlexible && (
-              <Chip component="span" color="neutral" variant="soft" size={size}>
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
                 Dates flexibles
               </Chip>
             )}
