@@ -17,7 +17,7 @@ import ModalLayout from "../../../../shared/modal-layout";
 import LeaseMessage from "../lease-message";
 import LeaseReport from "../lease-report";
 import LeaseLightbox from "../lease-lightbox";
-import FavoriteButton from "../favorite-button";
+import FavoriteButton from "../../../../shared/favorite-button";
 import LeaseDates from "../../../../shared/lease-dates";
 import SignAlert from "../../../../shared/sign-alert";
 import Signin from "../../../../shared/signin";
@@ -162,6 +162,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           </Typography>
           {/** Favorite */}
           <FavoriteButton
+            size="lg"
             leaseId={lease.id}
             setOpenSignAlert={setOpenSignAlert}
           />

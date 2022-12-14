@@ -101,15 +101,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             }}
           >
             {data.leases.slice(0, 4).map((lease: ILease) => (
-              <Box key={lease.id} sx={{ cursor: "pointer" }}>
-                <a
-                  href={`/leases/${lease.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <LeaseCard lease={lease} />
-                </a>
-              </Box>
+              <LeaseCard key={lease.id} lease={lease} />
             ))}
           </Box>
         )}
