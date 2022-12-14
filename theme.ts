@@ -46,6 +46,7 @@ export const joyTheme: Theme = extendTheme({
 
           softColor: "#000000",
           softBg: PRIMARY_COLORS.soft,
+          softDisabledBg: "#ffffff",
           softHoverBg: "#f5f5ff",
           softActiveBg: "#f5f5ff",
 

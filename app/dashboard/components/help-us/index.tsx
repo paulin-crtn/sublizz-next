@@ -13,7 +13,6 @@ import SuccessAnimation from "../../../shared/success-animation";
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -95,14 +94,10 @@ const HelpUs = ({
           <FormHelperText>{errors.message.message}</FormHelperText>
         )}
       </FormControl>
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Envoyer votre suggestion
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled startDecorator={<CircularProgress />} />
-      )}
+
+      <Button loading={isLoading} fullWidth type="submit">
+        Envoyer votre suggestion
+      </Button>
     </form>
   );
 };

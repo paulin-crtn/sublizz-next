@@ -17,7 +17,6 @@ import Typography from "@mui/joy/Typography";
 import Switch from "@mui/joy/Switch";
 import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
-import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Box from "@mui/joy/Box";
 import RadioGroup from "@mui/joy/RadioGroup";
@@ -278,16 +277,9 @@ const Signup = ({
             </Box>
           </FormControl>
 
-          {!isLoading && (
-            <Button fullWidth type="submit">
-              Créer un compte
-            </Button>
-          )}
-          {isLoading && (
-            <Button fullWidth disabled>
-              <CircularProgress />
-            </Button>
-          )}
+          <Button loading={isLoading} fullWidth type="submit">
+            Créer un compte
+          </Button>
         </Box>
       )}
     </form>

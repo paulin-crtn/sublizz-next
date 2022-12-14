@@ -18,7 +18,6 @@ import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 /* ------------------------------- INTERFACES ------------------------------- */
@@ -141,16 +140,9 @@ const Signin = ({
         </Typography>
       </FormControl>
 
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Se connecter
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled>
-          <CircularProgress />
-        </Button>
-      )}
+      <Button loading={isLoading} fullWidth type="submit">
+        Se connecter
+      </Button>
 
       <Typography
         level="body2"

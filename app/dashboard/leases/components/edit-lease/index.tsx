@@ -27,7 +27,6 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
@@ -553,16 +552,13 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         </Alert>
       )}
 
-      {!isLoading && !isUploadingFile && (
-        <Button type="submit" sx={{ mt: 2 }}>
-          {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
-        </Button>
-      )}
-      {(isUploadingFile || isLoading) && (
-        <Button disabled sx={{ mt: 2 }}>
-          <CircularProgress />
-        </Button>
-      )}
+      <Button
+        loading={isUploadingFile || isLoading}
+        type="submit"
+        sx={{ mt: 2 }}
+      >
+        {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
+      </Button>
 
       {/** Address */}
       <Modal open={openAddress} onClose={() => setOpenAddress(false)}>

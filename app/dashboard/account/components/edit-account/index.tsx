@@ -22,7 +22,6 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
-import CircularProgress from "@mui/joy/CircularProgress";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
@@ -186,12 +185,9 @@ const EditAccount = () => {
       </FormControl>
 
       <Box display="flex" gap={2} sx={{ mt: 4 }}>
-        {!isLoading && <Button type="submit">Enregistrer</Button>}
-        {isLoading && (
-          <Button disabled>
-            <CircularProgress />
-          </Button>
-        )}
+        <Button loading={isLoading} type="submit">
+          Enregistrer
+        </Button>
         <Button
           color="danger"
           variant="solid"

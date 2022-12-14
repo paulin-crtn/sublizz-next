@@ -14,7 +14,6 @@ import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -97,14 +96,10 @@ const LeaseReport = ({
           <FormHelperText>{errors.reason.message}</FormHelperText>
         )}
       </FormControl>
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Signaler l'annonce
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled startDecorator={<CircularProgress />} />
-      )}
+
+      <Button loading={isLoading} fullWidth type="submit">
+        Signaler l'annonce
+      </Button>
     </form>
   );
 };

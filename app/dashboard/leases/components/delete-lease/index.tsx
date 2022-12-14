@@ -13,7 +13,6 @@ import LeaseChips from "../../../../shared/lease-chips";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../../../../interfaces/lease";
@@ -86,16 +85,14 @@ const DeleteLease: FunctionComponent<{
         </Typography>
       </Box>
 
-      {!isLoading && (
-        <Button color="danger" fullWidth onClick={() => mutateDeleteLease()}>
-          Supprimer l'annonce
-        </Button>
-      )}
-      {isLoading && (
-        <Button variant="soft" color="danger" fullWidth disabled>
-          <CircularProgress color="danger" />
-        </Button>
-      )}
+      <Button
+        loading={isLoading}
+        color="danger"
+        fullWidth
+        onClick={() => mutateDeleteLease()}
+      >
+        Supprimer l'annonce
+      </Button>
       <Button
         variant="soft"
         color="neutral"

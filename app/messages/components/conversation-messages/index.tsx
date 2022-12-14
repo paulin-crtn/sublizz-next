@@ -15,8 +15,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Textarea from "@mui/joy/Textarea";
-import CircularProgress from "@mui/joy/CircularProgress";
-import IconButton from "@mui/joy/IconButton";
+import Button from "@mui/joy/Button";
 import Divider from "@mui/joy/Divider";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
@@ -159,34 +158,20 @@ const ConversationMessages = ({
             borderRadius: 0,
           })}
         ></Textarea>
-        {!isLoading && (
-          <IconButton
-            variant="soft"
-            onClick={handleStoreMessage}
-            sx={{
-              marginY: "auto",
-              marginX: 2,
-              padding: 1.5,
-              borderRadius: "9999px",
-            }}
-          >
-            <SendIcon />
-          </IconButton>
-        )}
-        {isLoading && (
-          <IconButton
-            variant="soft"
-            disabled
-            sx={{
-              marginY: "auto",
-              marginX: 2,
-              padding: 1.5,
-              borderRadius: "9999px",
-            }}
-          >
-            <CircularProgress />
-          </IconButton>
-        )}
+
+        <Button
+          loading={isLoading}
+          variant="soft"
+          onClick={handleStoreMessage}
+          sx={{
+            marginY: "auto",
+            marginX: 2,
+            padding: 1.5,
+            borderRadius: "9999px",
+          }}
+        >
+          <SendIcon />
+        </Button>
       </Box>
     </Box>
   );

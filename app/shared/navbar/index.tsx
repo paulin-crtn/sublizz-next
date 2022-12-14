@@ -101,6 +101,16 @@ const Navbar: FunctionComponent = () => {
     setGuestAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    const path = pathname?.split("/")[1];
+    path === "dashboard" || path === "messages"
+      ? logout(() => router.push("/"))
+      : logout();
+    toast.success(`À bientôt ${user?.firstName}`, {
+      style: TOAST_STYLE,
+    });
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box
@@ -395,12 +405,7 @@ const Navbar: FunctionComponent = () => {
             <MenuItem
               onClick={() => {
                 handleUserClose();
-                pathname?.split("/")[1] === "dashboard"
-                  ? logout(() => router.push("/"))
-                  : logout();
-                toast.success(`À bientôt ${user?.firstName}`, {
-                  style: TOAST_STYLE,
-                });
+                handleLogout();
               }}
             >
               <ListItemDecorator>

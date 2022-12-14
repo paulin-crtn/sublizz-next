@@ -16,7 +16,6 @@ import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -101,14 +100,9 @@ const ResetPasswordAsk = ({
         )}
       </FormControl>
 
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Réinitialiser le mot de passe
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled startDecorator={<CircularProgress />} />
-      )}
+      <Button loading={isLoading} fullWidth type="submit">
+        Réinitialiser le mot de passe
+      </Button>
     </form>
   );
 };
