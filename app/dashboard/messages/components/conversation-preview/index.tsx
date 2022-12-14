@@ -85,7 +85,7 @@ const ConversationPreview = ({
           cursor: "pointer",
           borderRadius: "12px",
           "&:hover": {
-            backgroundColor: "#eeeeee",
+            backgroundColor: "#262626",
           },
           ...(selectedConversationId === conversation.id && {
             backgroundColor: "#262626",

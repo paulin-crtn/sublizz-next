@@ -20,18 +20,15 @@ import Chip from "@mui/joy/Chip";
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
 const listStyle = (theme: Theme) => ({
-  marginBottom: 1,
+  marginY: 1,
   minBlockSize: 0,
   paddingBlockStart: 0,
   paddingBlockEnd: 0,
   fontSize: "1.1rem",
   "& > span > svg": {
     marginRight: 2,
-    padding: 1,
-    fontSize: "2.4rem",
-    color: theme.palette.primary.plainColor,
-    backgroundColor: theme.palette.primary.softBg,
-    borderRadius: "9999px",
+    fontSize: "1.6rem",
+    color: "#ffffff",
   },
 });
 
@@ -56,6 +53,7 @@ const SignAlert = ({
           width: "fit-content",
           marginTop: 2,
           marginBottom: 3,
+          marginX: "auto",
         }}
       >
         <ListItem sx={listStyle}>

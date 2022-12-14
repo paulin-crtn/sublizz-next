@@ -15,8 +15,9 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Textarea from "@mui/joy/Textarea";
-import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
+import IconButton from "@mui/joy/IconButton";
+import Divider from "@mui/joy/Divider";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../../../interfaces/message/IConversation";
@@ -25,7 +26,6 @@ import { IConversationMessageForm } from "../../../../../interfaces/message/ICon
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../../../const/supabasePath";
 import { TOAST_STYLE } from "../../../../../const/toastStyle";
-import IconButton from "@mui/joy/IconButton";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -47,7 +47,7 @@ const ConversationMessages = ({
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
     conversationBottomRef.current?.scrollIntoView({
-      block: "end",
+      // block: "end",
     });
   }, [conversation]);
 
@@ -123,15 +123,17 @@ const ConversationMessages = ({
               {getMessageAvatar(conversation, message)}
             </Box>
             <Box
-              sx={{
+              sx={(theme) => ({
                 width: "fit-content",
                 paddingX: 2,
                 paddingY: 1,
                 whiteSpace: "pre-wrap",
                 backgroundColor:
-                  message.fromUserId === user?.id ? "#eff0ff" : "#f5f5f5",
+                  message.fromUserId === user?.id
+                    ? theme.colorSchemes.dark.palette.primary.plainColor
+                    : "#474747",
                 borderRadius: "8px",
-              }}
+              })}
             >
               <Typography fontWeight={300}>{message.content}</Typography>
               <Typography level="body2" mt={1}>
@@ -142,14 +144,8 @@ const ConversationMessages = ({
         ))}
         <Box ref={conversationBottomRef}></Box>
       </Box>
-      <Box
-        marginTop="auto"
-        display="flex"
-        alignItems="flex-end"
-        sx={{
-          borderTop: "1px solid #dddddd",
-        }}
-      >
+      <Divider />
+      <Box marginTop="auto" display="flex" alignItems="flex-end">
         <Textarea
           minRows={3}
           maxRows={3}
@@ -162,6 +158,7 @@ const ConversationMessages = ({
         {!isLoading && (
           <IconButton
             variant="solid"
+            color="neutral"
             onClick={handleStoreMessage}
             sx={{
               marginY: "auto",
@@ -176,6 +173,7 @@ const ConversationMessages = ({
         {isLoading && (
           <IconButton
             variant="solid"
+            color="neutral"
             disabled
             sx={{
               marginY: "auto",

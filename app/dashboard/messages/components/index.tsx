@@ -126,8 +126,8 @@ const Conversations = ({
       <Box
         flex="1 1"
         sx={{
-          borderLeft: "1px solid #dddddd",
-          borderRight: "1px solid #dddddd",
+          borderLeft: "1px solid #272930", // JoyUI
+          borderRight: "1px solid #272930", // JoyUI
         }}
       >
         {selectedConversationId && (
@@ -140,7 +140,7 @@ const Conversations = ({
           />
         )}
       </Box>
-      <Box flex="0 0 300px">
+      <Box flex="0 0 320px">
         {selectedConversationId && (
           <LeasePreview
             lease={
