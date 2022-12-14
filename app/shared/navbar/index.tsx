@@ -188,7 +188,7 @@ const Navbar: FunctionComponent = () => {
       {/** SEARCH */}
       <Box
         sx={{
-          flex: "1 1 100%",
+          flex: "0 1 500px",
           marginX: "50px",
           "@media (max-width: 850px)": { marginX: "20px" },
         }}
@@ -298,15 +298,9 @@ const Navbar: FunctionComponent = () => {
       )}
 
       {user && (
-        <>
+        <Box display="flex" alignItems="center" gap={1.5}>
           <Link href="/dashboard/messages">
-            <IconButton
-              color="neutral"
-              sx={{
-                marginRight: 2,
-                borderRadius: "9999px",
-              }}
-            >
+            <IconButton color="neutral" sx={{ borderRadius: "9999px" }}>
               {!!unreadConversationsId.length && (
                 <Badge
                   color="danger"
@@ -417,7 +411,7 @@ const Navbar: FunctionComponent = () => {
               Déconnexion
             </MenuItem>
           </Menu>
-        </>
+        </Box>
       )}
 
       {/** Signin */}
