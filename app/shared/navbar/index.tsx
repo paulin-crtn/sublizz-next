@@ -112,9 +112,7 @@ const Navbar: FunctionComponent = () => {
         position: "sticky",
         top: 0,
         padding: "25px 35px",
-        color: "#000000",
-        backgroundColor: "#ffffff",
-        background: "rgba(9, 9, 13, 0.9)", // #09090D (JoyUI)
+        background: "rgba(19, 20, 24, 0.9)", // #131418 (JoyUI)
         backdropFilter: "blur(5px)",
         zIndex: 1000,
       }}

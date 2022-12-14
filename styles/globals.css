@@ -6,7 +6,6 @@ html,
 body {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  background-color: #09090d; /* JoyUI default dark theme color */
 }
 
 html,

@@ -28,7 +28,7 @@ import { ILease, ILeasesWithCount } from "../../../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
-const RESULTS_PER_PAGE = 5;
+const RESULTS_PER_PAGE = 6;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -134,30 +134,36 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
             )}
 
             {/** Lease cards */}
-            {data.leases.map((lease: ILease, index: number) => (
-              <a
-                key={lease.id}
-                href={`/leases/${lease.id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Box sx={{ cursor: "pointer" }}>
-                  {index === 0 && (
-                    <Divider
-                      sx={{
-                        "@media (max-width: 760px)": { display: "none" },
-                      }}
-                    />
-                  )}
-                  <LeaseCard lease={lease} />
-                  <Divider
-                    sx={{
-                      "@media (max-width: 760px)": { display: "none" },
-                    }}
-                  />
-                </Box>
-              </a>
-            ))}
+            <Box
+              sx={
+                isDesktop
+                  ? {
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gridColumnGap: "20px",
+                      gridRowGap: "20px",
+                      "@media (max-width: 1300px)": {
+                        gridTemplateColumns: "1fr",
+                      },
+                    }
+                  : {
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                      gridColumnGap: "20px",
+                      gridRowGap: "20px",
+                      "@media (max-width: 1250px)": {
+                        gridTemplateColumns: "1fr 1fr",
+                      },
+                      "@media (max-width: 750px)": {
+                        gridTemplateColumns: "1fr",
+                      },
+                    }
+              }
+            >
+              {data.leases.map((lease: ILease) => (
+                <LeaseCard key={lease.id} lease={lease} />
+              ))}
+            </Box>
 
             {/** Pagination */}
             {!latitudes && data.totalCount > RESULTS_PER_PAGE && (
