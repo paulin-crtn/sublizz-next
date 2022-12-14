@@ -147,12 +147,10 @@ const CustomBounds = ({
     <>
       {isLoading && (
         <Button
-          variant="soft"
-          color="neutral"
           startDecorator={
             <CircularProgress
               size="sm"
-              thickness={4}
+              thickness={3}
               sx={{
                 marginRight: 1,
                 "--CircularProgress-progress-color": "#000000",
@@ -165,8 +163,9 @@ const CustomBounds = ({
             left: "50%",
             transform: "translate(-50%, 0)",
             zIndex: 1000,
-            backgroundColor: "#ffffff",
             fontWeight: "500",
+            backgroundColor: "#000000",
+            color: "#ffffff",
           }}
         >
           Chargement

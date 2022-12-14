@@ -227,8 +227,8 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                   onClick={() => setShowMap(false)}
                   startDecorator={<SubjectIcon />}
                   sx={{
-                    backgroundColor: "#262626",
-                    borderColor: "#262626",
+                    backgroundColor: "#000000",
+                    borderColor: "#000000",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {
@@ -245,8 +245,8 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                   onClick={() => setShowMap(true)}
                   startDecorator={<MapIcon />}
                   sx={{
-                    backgroundColor: "#262626",
-                    borderColor: "#262626",
+                    backgroundColor: "#000000",
+                    borderColor: "#000000",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {
