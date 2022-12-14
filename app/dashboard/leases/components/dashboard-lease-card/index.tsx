@@ -46,7 +46,9 @@ import { TOAST_STYLE } from "../../../../../const/toastStyle";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
+const DashboardLeaseCard: FunctionComponent<{ lease: ILeaseDetail }> = ({
+  lease,
+}) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [anchorEl, setAnchorEl] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState<boolean>(false);
@@ -239,4 +241,4 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   );
 };
 
-export default MyLease;
+export default DashboardLeaseCard;

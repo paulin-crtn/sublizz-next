@@ -25,7 +25,13 @@ export default function Page() {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Compte" />}>
-      <Box width="65%">
+      <Box
+        width="65%"
+        sx={{
+          "@media (max-width: 1200px)": { width: "85%" },
+          "@media (max-width: 900px)": { width: "100%" },
+        }}
+      >
         <EditAccount user={user} />
       </Box>
     </DashboardLayout>

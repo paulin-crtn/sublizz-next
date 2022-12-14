@@ -28,7 +28,7 @@ const DashboardCard = ({
           paddingX: 3,
           paddingY: 2.5,
           height: "100%",
-          border: "1px solid #dddddd",
+          border: "1px solid #272930", // JoyUI
           borderRadius: "12px",
           lineHeight: "1.4rem",
           cursor: "pointer",

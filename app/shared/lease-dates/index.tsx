@@ -63,6 +63,7 @@ const LeaseDates = ({
         {lease.endDate && fullDate && (
           <Typography
             fontWeight={300}
+            marginRight={1}
             level={size === "sm" ? "body2" : "h5"}
             startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
             sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
@@ -80,13 +81,7 @@ const LeaseDates = ({
                 fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
             {!!lease.isDateFlexible && showFlexible && (
-              <Chip
-                component="span"
-                color="neutral"
-                variant="soft"
-                size={size}
-                sx={{ marginLeft: 1 }}
-              >
+              <Chip component="span" color="neutral" variant="soft" size={size}>
                 Dates flexibles
               </Chip>
             )}
@@ -95,6 +90,7 @@ const LeaseDates = ({
         {lease.endDate && !fullDate && (
           <Typography
             fontWeight={300}
+            marginRight={1}
             level={size === "sm" ? "body2" : "h5"}
             startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
             sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
@@ -111,13 +107,7 @@ const LeaseDates = ({
                 fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
             {!!lease.isDateFlexible && showFlexible && (
-              <Chip
-                component="span"
-                color="neutral"
-                variant="soft"
-                size={size}
-                sx={{ marginLeft: 1 }}
-              >
+              <Chip component="span" color="neutral" variant="soft" size={size}>
                 Dates flexibles
               </Chip>
             )}

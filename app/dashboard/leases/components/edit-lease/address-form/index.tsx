@@ -83,17 +83,20 @@ const AddressForm = ({
   if (!!dataGouvAddresses?.length) {
     return (
       <>
-        <FormLabel sx={{ marginBottom: 2 }}>Sélectionnez une adresse</FormLabel>
+        <FormLabel sx={{ marginBottom: 2, textAlign: "center" }}>
+          Sélectionnez une adresse
+        </FormLabel>
         {dataGouvAddresses.map((address) => (
           <Alert
             key={address.properties.id}
             variant="solid"
-            color="warning"
+            color="primary"
             sx={(theme) => ({
               marginTop: 1,
               cursor: "pointer",
               ":hover": {
-                backgroundColor: theme.palette.warning.solidHoverBg,
+                backgroundColor:
+                  theme.colorSchemes.dark.palette.primary.solidHoverBg,
               },
             })}
             onClick={() => setDataGouvAddress(address)}

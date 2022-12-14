@@ -64,10 +64,10 @@ const DashboardLayout: FunctionComponent<Props> = ({
         <Box
           component="section"
           sx={{
+            flex: "0 0 310px",
             position: "sticky",
             top: 138,
             marginY: 6,
-            flex: "0 0 310px",
             alignSelf: "flex-start",
           }}
         >
@@ -97,7 +97,12 @@ const DashboardLayout: FunctionComponent<Props> = ({
               </Typography>
               <Chip
                 size="sm"
-                sx={{ backgroundColor: "#ffffff", color: "#000000" }}
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  borderRadius: "4px",
+                  userSelect: "none",
+                }}
               >
                 {user?.role === UserRoleEnum.SEEKER
                   ? "Je cherche un logement"

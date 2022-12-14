@@ -62,26 +62,30 @@ const DeleteLease: FunctionComponent<{
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <Typography mb={3} textAlign="center">
+      <Typography textAlign="center">
         Cette annonce et les messages associés seront définitivement supprimés.
       </Typography>
+
       <Box
         sx={{
-          marginBottom: 3,
+          marginY: 3,
           padding: 2,
-          border: "1px solid #dddee0",
+          border: "1px solid #272930", // JoyUI
           borderRadius: "12px",
         }}
       >
         <Typography level="h5" fontWeight="600">
           {lease.city}
         </Typography>
-        <LeaseDates lease={lease} />
-        <LeaseChips lease={lease} size="sm" />
-        <Typography level="h6" fontWeight="300" marginTop={2}>
+        <Box marginY={2}>
+          <LeaseChips lease={lease} size="sm" />
+        </Box>
+        <LeaseDates lease={lease} fullDate={true} />
+        <Typography level="h5" fontWeight="300" marginTop={2}>
           {lease.pricePerMonth}€ CC
         </Typography>
       </Box>
+
       {!isLoading && (
         <Button color="danger" fullWidth onClick={() => mutateDeleteLease()}>
           Supprimer l'annonce

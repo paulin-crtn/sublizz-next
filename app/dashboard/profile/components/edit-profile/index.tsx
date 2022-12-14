@@ -360,10 +360,12 @@ const EditProfile = ({ user }: { user: IUserDetail }) => {
         )}
 
         {!isUploadingFile && !isLoading && (
-          <Button type="submit">Enregistrer</Button>
+          <Button type="submit" sx={{ mt: 2 }}>
+            Enregistrer
+          </Button>
         )}
         {(isUploadingFile || isLoading) && (
-          <Button disabled>
+          <Button disabled sx={{ mt: 2 }}>
             <CircularProgress />
           </Button>
         )}

@@ -12,7 +12,7 @@ import { getUserLeases } from "../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../shared/access-denied";
 import DashboardLayout from "../components/dashboard-layout";
-import MyLease from "./components/my-lease";
+import DashboardLeaseCard from "./components/dashboard-lease-card";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import LeaseSkeleton from "../components/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -106,7 +106,7 @@ export default function Page() {
       {userLeases.map((lease: ILeaseDetail, index: number) => (
         <Box key={lease.id}>
           {index === 0 && <Divider />}
-          <MyLease lease={lease} />
+          <DashboardLeaseCard lease={lease} />
           <Divider />
         </Box>
       ))}

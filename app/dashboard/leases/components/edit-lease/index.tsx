@@ -538,12 +538,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       )}
 
       {!isLoading && !isUploadingFile && (
-        <Button type="submit">
+        <Button type="submit" sx={{ mt: 2 }}>
           {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
         </Button>
       )}
       {(isUploadingFile || isLoading) && (
-        <Button disabled>
+        <Button disabled sx={{ mt: 2 }}>
           <CircularProgress />
         </Button>
       )}

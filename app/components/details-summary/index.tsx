@@ -25,7 +25,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
       sx={{
         position: "relative",
         padding: 3,
-        border: "1px solid #272930",
+        border: "1px solid #272930", // JoyUI
         borderRadius: "12px",
       }}
     >

@@ -185,24 +185,22 @@ const EditAccount = ({ user }: { user: IUserDetail }) => {
         )}
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Suppression du compte</FormLabel>
+      <Box display="flex" gap={2} sx={{ mt: 4 }}>
+        {!isLoading && <Button type="submit">Enregistrer</Button>}
+        {isLoading && (
+          <Button disabled>
+            <CircularProgress />
+          </Button>
+        )}
         <Button
           color="danger"
-          variant="soft"
+          variant="solid"
           onClick={() => setOpenDeleteAccount(true)}
           sx={{ maxWidth: "max-content" }}
         >
           Supprimer mon compte
         </Button>
-      </FormControl>
-
-      {!isLoading && <Button type="submit">Enregistrer</Button>}
-      {isLoading && (
-        <Button disabled>
-          <CircularProgress />
-        </Button>
-      )}
+      </Box>
 
       {/** Delete Account */}
       <Modal
