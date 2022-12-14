@@ -25,8 +25,8 @@ import StyleIcon from "@mui/icons-material/Style";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SupportIcon from "@mui/icons-material/Support";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoodIcon from "@mui/icons-material/Mood";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../../../../const/toastStyle";
 import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
@@ -163,9 +163,9 @@ const Menu = () => {
         <Box component="li" sx={navListStyle} onClick={() => setOpenHelp(true)}>
           <Typography
             margin={0}
-            startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
+            startDecorator={<MoodIcon sx={{ marginRight: 1 }} />}
           >
-            Aidez-nous
+            Donnez votre avis
           </Typography>
         </Box>
       </ul>
@@ -173,7 +173,7 @@ const Menu = () => {
       <Modal open={openHelp} onClose={() => setOpenHelp(false)}>
         <ModalDialog size="lg" aria-labelledby="help-modal">
           <ModalClose />
-          <ModalLayout title="Aidez-nous">
+          <ModalLayout title="Donnez votre avis">
             <HelpUs setOpenHelp={setOpenHelp} />
           </ModalLayout>
         </ModalDialog>

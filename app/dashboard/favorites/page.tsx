@@ -11,8 +11,8 @@ import { useAuth } from "../../../utils/context/auth.context";
 import { useLeaseFavorites } from "../../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import AccessDenied from "../../shared/access-denied";
+import LeaseCard from "../../shared/lease-card";
 import DashboardLayout from "../components/dashboard-layout";
-import LeaseFavorite from "./components/lease-favorite";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import LeaseSkeleton from "../components/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -69,13 +69,24 @@ export default function Page() {
 
   return (
     <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}>
-      {favorites.map((leaseFavorite: IFavorite, index: number) => (
-        <Box key={leaseFavorite.id}>
-          {index === 0 && <Divider />}
-          <LeaseFavorite leaseFavorite={leaseFavorite} />
-          <Divider />
-        </Box>
-      ))}
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridColumnGap: "20px",
+          gridRowGap: "20px",
+          "@media (max-width: 1420px)": {
+            gridTemplateColumns: "1fr 1fr",
+          },
+          "@media (max-width: 1150px)": {
+            gridTemplateColumns: "1fr",
+          },
+        }}
+      >
+        {favorites.map((leaseFavorite: IFavorite) => (
+          <LeaseCard key={leaseFavorite.id} lease={leaseFavorite.lease} />
+        ))}
+      </Box>
     </DashboardLayout>
   );
 }
