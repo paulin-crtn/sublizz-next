@@ -18,6 +18,8 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
+import Alert from "@mui/joy/Alert";
+import ErrorIcon from "@mui/icons-material/Error";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IFavorite } from "../../../interfaces/IFavorite";
 
@@ -27,7 +29,12 @@ import { IFavorite } from "../../../interfaces/IFavorite";
 export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { data: favorites, isLoading } = useLeaseFavorites(user);
+  const {
+    data: favorites,
+    isLoading,
+    isError,
+    error,
+  } = useLeaseFavorites(user);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
@@ -41,13 +48,42 @@ export default function Page() {
     );
   }
 
+  if (isError && error instanceof Error) {
+    return (
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Favoris" />
+        </Box>
+        {error.message.split(",").map((msg, index) => (
+          <Alert
+            key={index}
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {msg}
+          </Alert>
+        ))}
+      </>
+    );
+  }
+
   if (!favorites.length) {
     return (
       <>
         <Box marginBottom={4}>
           <CustomBreadcrumbs currentPage="Favoris" />
         </Box>
-        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+        <Box
+          sx={{
+            paddingX: 2,
+            paddingY: 6,
+            textAlign: "center",
+            border: "1px solid #272930", // JoyUI
+            borderRadius: "12px",
+          }}
+        >
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez aucune annonce dans vos favoris.
           </Typography>

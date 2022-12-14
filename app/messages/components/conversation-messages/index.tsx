@@ -131,7 +131,7 @@ const ConversationMessages = ({
                 backgroundColor:
                   message.fromUserId === user?.id
                     ? theme.colorSchemes.dark.palette.primary.plainColor
-                    : "#4f2593",
+                    : "#474747",
                 borderRadius: "8px",
               })}
             >

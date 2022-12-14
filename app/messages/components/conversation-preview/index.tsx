@@ -76,7 +76,7 @@ const ConversationPreview = ({
     <Box key={conversation.id}>
       <Box
         onClick={() => handleSelectedConversation(conversation.id)}
-        sx={{
+        sx={(theme) => ({
           display: "flex",
           gap: 2,
           margin: 0.5,
@@ -85,17 +85,18 @@ const ConversationPreview = ({
           cursor: "pointer",
           borderRadius: "12px",
           "&:hover": {
-            backgroundColor: "#32313c",
+            backgroundColor: theme.colorSchemes.dark.palette.primary.plainColor,
           },
           ...(selectedConversationId === conversation.id && {
-            backgroundColor: "#32313c",
+            backgroundColor: theme.colorSchemes.dark.palette.primary.plainColor,
             color: "#ffffff",
             "&:hover": {
-              backgroundColor: "#32313c",
+              backgroundColor:
+                theme.colorSchemes.dark.palette.primary.plainColor,
               color: "#ffffff",
             },
           }),
-        }}
+        })}
       >
         {unreadConversationsId.includes(conversation.id) ? (
           <Badge

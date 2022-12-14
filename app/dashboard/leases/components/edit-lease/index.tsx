@@ -193,7 +193,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
               {...field}
             >
               {Object.values(LeaseTypeEnum).map((type) => (
-                <Option key={type} value={type} aria-label={type}>
+                <Option
+                  key={type}
+                  value={type}
+                  aria-label={type}
+                  sx={{ color: "#ffffff" }}
+                >
                   {convertLeaseType(type)}
                 </Option>
               ))}

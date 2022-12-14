@@ -56,6 +56,7 @@ export const joyTheme: Theme = extendTheme({
 
           plainColor: PRIMARY_COLORS.main,
           plainBg: PRIMARY_COLORS.main,
+          plainHoverBg: PRIMARY_COLORS.main,
         },
         info: {
           outlinedColor: INFO_COLORS.main,
@@ -129,7 +130,15 @@ export const joyTheme: Theme = extendTheme({
     JoySelect: {
       styleOverrides: {
         button: { fontFamily: "Poppins" },
-        listbox: { backgroundColor: "#ffffff" },
+      },
+    },
+    JoyOption: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#42454D", // Same as default JoySelect
+          },
+        },
       },
     },
     JoyRadio: {

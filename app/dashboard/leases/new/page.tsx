@@ -96,7 +96,8 @@ export default function Page() {
         </Box>
         <Box
           sx={{
-            padding: 3,
+            paddingX: 2,
+            paddingY: 6,
             textAlign: "center",
             border: "1px solid #272930", // JoyUI
             borderRadius: "12px",

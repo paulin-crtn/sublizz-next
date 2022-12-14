@@ -76,7 +76,15 @@ export default function Page() {
     return (
       <>
         <CustomBreadcrumbsWithCTA />
-        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+        <Box
+          sx={{
+            paddingX: 2,
+            paddingY: 6,
+            textAlign: "center",
+            border: "1px solid #272930", // JoyUI
+            borderRadius: "12px",
+          }}
+        >
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez publié aucune annonce.
           </Typography>
@@ -119,7 +127,7 @@ const CustomBreadcrumbsWithCTA = () => {
       alignItems="center"
       marginBottom={4}
     >
-      <CustomBreadcrumbs currentPage="Tableau de bord" />
+      <CustomBreadcrumbs currentPage="Gérer mes annonces" />
       <Button
         variant="soft"
         startDecorator={<Add />}
