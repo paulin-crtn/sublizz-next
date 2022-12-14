@@ -141,8 +141,10 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           >
             {lease.city}
           </Typography>
-          <LeaseDates lease={lease} isMinimized={false} />
-          <LeaseChips lease={lease} />
+          <Box marginY={2}>
+            <LeaseChips lease={lease} />
+          </Box>
+          <LeaseDates lease={lease} size="lg" fullDate={true} />
         </Box>
 
         <Box
@@ -259,8 +261,8 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               flex: "0 0 350px",
               height: "fit-content",
               padding: 2,
-              borderRadius: "16px",
-              border: "1px solid #dddddd",
+              borderRadius: "12px",
+              border: "1px solid #272930", // JoyUI
               "@media (max-width: 1000px)": {
                 mt: 4,
                 width: "fit-content",
@@ -304,9 +306,11 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
 
             {/** Message */}
             <Button
+              variant="solid"
+              color="primary"
               fullWidth
               onClick={handleContact}
-              sx={{ mt: 2, backgroundColor: "#ffffff", color: "#000000" }}
+              sx={{ mt: 2 }}
             >
               Envoyer un message
             </Button>
@@ -314,8 +318,9 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             {/** Phone Number */}
             {lease.user.phoneNumber && (
               <Button
+                variant="solid"
+                color="neutral"
                 fullWidth
-                variant="soft"
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);
                 }}

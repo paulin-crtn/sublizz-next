@@ -14,10 +14,14 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 /* -------------------------------------------------------------------------- */
 const LeaseDates = ({
   lease,
-  isMinimized = true,
+  size = "sm",
+  fullDate = false,
+  withDecorator = false,
 }: {
   lease: ILease | ILeaseDetail;
-  isMinimized?: boolean;
+  size?: "sm" | "md" | "lg";
+  fullDate?: boolean;
+  withDecorator?: boolean;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -42,41 +46,62 @@ const LeaseDates = ({
         {!lease.endDate && (
           <Typography
             fontWeight={300}
-            level={isMinimized ? "body2" : "h5"}
+            level={size === "sm" ? "body2" : "h5"}
             startDecorator={<ScheduleIcon />}
-            sx={{ color: isMinimized ? "text.secondary" : "initial" }}
+            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
           >
             À partir du{" "}
             {isClient &&
               format(
                 new Date(lease.startDate),
-                isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
           </Typography>
         )}
-        {lease.endDate && (
+        {lease.endDate && fullDate && (
           <Typography
             fontWeight={300}
-            level={isMinimized ? "body2" : "h5"}
-            startDecorator={<ScheduleIcon />}
-            sx={{ color: isMinimized ? "text.secondary" : "initial" }}
+            level={size === "sm" ? "body2" : "h5"}
+            startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
+            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
+          >
+            Du{" "}
+            {isClient &&
+              format(
+                new Date(lease.startDate),
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
+              )}{" "}
+            au{" "}
+            {isClient &&
+              format(
+                new Date(lease.endDate),
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
+              )}
+          </Typography>
+        )}
+        {lease.endDate && !fullDate && (
+          <Typography
+            fontWeight={300}
+            level={size === "sm" ? "body2" : "h5"}
+            startDecorator={withDecorator ? <ScheduleIcon /> : undefined}
+            sx={{ color: size === "sm" ? "text.secondary" : "#ffffff" }}
           >
             {isClient &&
               format(
                 new Date(lease.startDate),
-                isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}{" "}
             -{" "}
             {isClient &&
               format(
                 new Date(lease.endDate),
-                isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
           </Typography>
         )}
       </Box>
-      {!!lease.isDateFlexible && !isMinimized && (
-        <Chip color="neutral" size={isMinimized ? "sm" : "md"}>
+      {!!lease.isDateFlexible && size !== "sm" && (
+        <Chip color="neutral" variant="soft" size="md" sx={{ marginLeft: 2 }}>
           Dates flexibles
         </Chip>
       )}

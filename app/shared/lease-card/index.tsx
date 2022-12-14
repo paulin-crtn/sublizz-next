@@ -113,7 +113,7 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             bgcolor: "background.level1",
           }}
         >
-          <LeaseDates lease={lease} />
+          <LeaseDates lease={lease} withDecorator={true} />
         </CardOverflow>
       </Card>
 
