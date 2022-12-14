@@ -11,7 +11,7 @@ import { useState } from "react";
 /* --------------------------------- CONTEXT -------------------------------- */
 import { useAuth } from "../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import InputCitySearch from "../../shared/input-city-search";
+import Header from "../header";
 import LeaseCard from "../../shared/lease-card";
 import ModalLayout from "../../shared/modal-layout";
 import Signin from "../../shared/signin";
@@ -21,26 +21,22 @@ import LeaseType from "../lease-type";
 import DetailsSummary from "../details-summary";
 import HowItWorks from "../how-it-works";
 /* ----------------------------------- MUI ---------------------------------- */
-import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Box from "@mui/joy/Box";
-import Divider from "@mui/joy/Divider";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
-import Chip from "@mui/joy/Chip";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease, ILeasesWithCount } from "../../../interfaces/lease";
 import { IDetailsSummary } from "../../../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import homeImg from "../../../public/img/home.jpg";
-import mapImg from "../../../public/img/map.jpg";
+import mapImg from "../../../public/img/map.png";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../../data/leaseTypes";
 import { bitter } from "../../../utils/nextFont";
@@ -73,127 +69,16 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box className="container" marginX="auto">
-      <header>
-        <Card
-          sx={(theme) => ({
-            boxShadow: theme.vars.shadow.lg,
-          })}
-        >
-          <CardCover>
-            <Image
-              src={homeImg}
-              alt="Picture of a parisian appartment"
-              placeholder="blur"
-            />
-          </CardCover>
-          <CardCover
-            sx={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3) 450px)",
-            }}
-          />
-          <CardContent
-            sx={{
-              marginY: 8,
-              marginX: "auto",
-              textAlign: "center",
-              "@media (max-width: 1100px)": { marginY: 4 },
-            }}
-          >
-            <Box>
-              <Typography
-                component="h1"
-                level="h1"
-                fontSize={38}
-                fontWeight={800}
-                lineHeight={1.2}
-                fontFamily={bitter.style.fontFamily}
-                sx={{
-                  color: "#ffffff",
-                  "@media (max-width: 1100px)": {
-                    fontSize: "2rem",
-                  },
-                }}
-              >
-                Locations et sous-locations temporaires entre particuliers
-              </Typography>
-              <Typography
-                component="h2"
-                level="h4"
-                marginTop={2}
-                marginX="auto"
-                fontWeight={400}
-                sx={{
-                  color: "#ffffff",
-                  "@media (max-width: 1100px)": {
-                    fontSize: "1.1rem",
-                  },
-                }}
-              >
-                Annonces immobilières sans frais d’agence
-                <Box
-                  display="flex"
-                  gap={1}
-                  width="fit-content"
-                  marginX="auto"
-                  marginTop={1}
-                >
-                  <Chip variant="soft" color="neutral">
-                    Bail étudiant
-                  </Chip>
-                  <Chip variant="soft" color="neutral">
-                    Bail mobilité
-                  </Chip>
-                  <Chip variant="soft" color="neutral">
-                    Colocation
-                  </Chip>
-                  <Chip
-                    variant="soft"
-                    color="neutral"
-                    sx={{ userSelect: "none" }}
-                  >
-                    Sous-location
-                  </Chip>
-                </Box>
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "600px",
-                marginX: "auto",
-                marginTop: 8,
-                "@media (max-width: 900px)": {
-                  width: "100%",
-                  paddingX: 3,
-                },
-              }}
-            >
-              <InputCitySearch isLarge={true} />
-              <Link href="/leases">
-                <FormHelperText
-                  sx={{
-                    justifyContent: "flex-end",
-                    mt: 2,
-                    cursor: "pointer",
-                    color: "#ffffff",
-                    fontWeight: 500,
-                    "@media (max-width: 1100px)": {},
-                  }}
-                >
-                  Voir toutes les annonces
-                </FormHelperText>
-              </Link>
-            </Box>
-          </CardContent>
-        </Card>
-      </header>
-      <main>
+    <Box marginX="auto">
+      {/** Header */}
+      <Header />
+
+      <main className="container">
+        {/** Recent leases */}
         <Typography
           level="h3"
-          marginTop="60px"
           marginBottom="30px"
-          fontSize="2.3rem"
+          fontSize="2.1rem"
           fontWeight={800}
           fontFamily={bitter.style.fontFamily}
           sx={{
@@ -202,85 +87,43 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             },
           }}
         >
-          Dernières annonces publiées
+          Annonces récentes
         </Typography>
-
         {!!data.totalCount && (
           <Box
             sx={{
-              display: "flex",
-              alignItems: "stretch",
-              gap: 6,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridColumnGap: "20px",
+              gridRowGap: "20px",
+              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
             }}
           >
-            <Box flex="1 1">
-              {data.leases.slice(0, 3).map((lease: ILease, index: number) => (
+            {data.leases.slice(0, 4).map((lease: ILease) => (
+              <Box key={lease.id} sx={{ cursor: "pointer" }}>
                 <a
-                  key={lease.id}
                   href={`/leases/${lease.id}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Box sx={{ cursor: "pointer" }}>
-                    {index !== 0 && (
-                      <Divider
-                        sx={{
-                          "@media (max-width: 760px)": {
-                            display: "none",
-                          },
-                        }}
-                      />
-                    )}
-                    <LeaseCard lease={lease} />
-                  </Box>
+                  <LeaseCard lease={lease} />
                 </a>
-              ))}
-            </Box>
-            <Box
-              flex="0 0 400px"
-              alignSelf="stretch"
-              sx={{ "@media (max-width: 1300px)": { display: "none" } }}
-            >
-              <Card sx={{ height: "100%", boxShadow: "none" }}>
-                <CardCover>
-                  <Image src={mapImg} alt="map illustration" />
-                </CardCover>
-                <CardCover
-                  sx={{
-                    background: "rgba(0,0,0,0.2)",
-                  }}
-                />
-                <CardContent
-                  sx={{ justifyContent: "center", alignItems: "center" }}
-                >
-                  <Button
-                    onClick={() => router.push("/leases")}
-                    sx={{
-                      backgroundColor: "#ffffff",
-                      color: "#000000",
-                      border: "none",
-                      "&:hover": {
-                        backgroundColor: "#eeeeee",
-                      },
-                    }}
-                  >
-                    Voir sur la carte
-                  </Button>
-                </CardContent>
-              </Card>
-            </Box>
+              </Box>
+            ))}
           </Box>
         )}
 
+        {/** CTA */}
         <Box
           sx={(theme) => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             gap: 2,
-            mt: "40px",
+            mt: "60px",
             padding: 4,
-            backgroundColor: "#262626",
+            background: "linear-gradient(to right, #4700cc, #652ba9)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
@@ -339,7 +182,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontSize="2.3rem"
+            fontSize="2.1rem"
             fontWeight={800}
             fontFamily={bitter.style.fontFamily}
             sx={{
@@ -348,7 +191,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               },
             }}
           >
-            Trouvez le logement qui convient à votre situation
+            À chaque situation son logement
           </Typography>
           <Typography
             width="80%"
@@ -394,6 +237,79 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           </Box>
         </Box>
 
+        {/** CTA */}
+        <Card
+          onClick={() => router.push("/leases")}
+          sx={{
+            mt: "60px",
+            height: "200px",
+            boxShadow: "none",
+            cursor: "pointer",
+          }}
+        >
+          <CardCover>
+            <Image src={mapImg} alt="map illustration" />
+          </CardCover>
+          <CardCover
+            sx={{
+              background: "rgba(0,0,0,0.2)",
+            }}
+          />
+          <CardContent sx={{ justifyContent: "center", alignItems: "center" }}>
+            <Button
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "none",
+                "&:hover": {
+                  backgroundColor: "#eeeeee",
+                },
+              }}
+            >
+              Voir les annonces sur la carte
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/** How it works */}
+        <Box>
+          <Typography
+            level="h3"
+            marginTop="60px"
+            marginBottom="30px"
+            fontSize="2.1rem"
+            fontWeight={800}
+            fontFamily={bitter.style.fontFamily}
+            sx={{
+              "@media (max-width: 800px)": {
+                fontSize: "1.8rem",
+              },
+            }}
+          >
+            Seulement 4 étapes
+          </Typography>
+          <Typography
+            width="80%"
+            marginBottom="40px"
+            fontSize="1.3rem"
+            lineHeight="1.8rem"
+            fontWeight={300}
+            sx={{
+              "@media (max-width: 800px)": {
+                width: "100%",
+              },
+            }}
+          >
+            La carte des logements vous propose un fonctionnement simple afin de
+            vous offrir une mise en relation rapide de particulier à
+            particulier.
+          </Typography>
+          <Box marginBottom="60px">
+            <HowItWorks />
+          </Box>
+        </Box>
+
+        {/** CTA */}
         {!user && (
           <Box
             sx={(theme) => ({
@@ -401,9 +317,9 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               justifyContent: "center",
               alignItems: "center",
               gap: 2,
-              mt: "40px",
+              mt: "60px",
               padding: 4,
-              backgroundColor: "#262626",
+              background: "linear-gradient(to right, #4700cc, #652ba9)",
               borderRadius: "16px",
               boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {
@@ -477,50 +393,13 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           </Box>
         )}
 
-        {/** How it works */}
+        {/** FAQ */}
         <Box>
           <Typography
             level="h3"
             marginTop="60px"
             marginBottom="30px"
-            fontSize="2.3rem"
-            fontWeight={800}
-            fontFamily={bitter.style.fontFamily}
-            sx={{
-              "@media (max-width: 800px)": {
-                fontSize: "1.8rem",
-              },
-            }}
-          >
-            Comment ça marche ?
-          </Typography>
-          <Typography
-            width="80%"
-            marginBottom="40px"
-            fontSize="1.3rem"
-            lineHeight="1.8rem"
-            fontWeight={300}
-            sx={{
-              "@media (max-width: 800px)": {
-                width: "100%",
-              },
-            }}
-          >
-            La carte des logements vous propose un fonctionnement simple afin de
-            vous offrir une mise en relation rapide de particulier à
-            particulier.
-          </Typography>
-          <Box marginBottom="60px">
-            <HowItWorks />
-          </Box>
-        </Box>
-
-        <Box>
-          <Typography
-            level="h3"
-            marginTop="60px"
-            marginBottom="30px"
-            fontSize="2.3rem"
+            fontSize="2.1rem"
             fontWeight={800}
             fontFamily={bitter.style.fontFamily}
             sx={{
@@ -544,15 +423,107 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           </Box>
         </Box>
 
+        {/** Review */}
+        <Typography
+          level="h3"
+          marginTop="60px"
+          marginBottom="30px"
+          fontSize="2.1rem"
+          fontWeight={800}
+          fontFamily={bitter.style.fontFamily}
+          sx={{
+            "@media (max-width: 800px)": {
+              fontSize: "1.8rem",
+            },
+          }}
+        >
+          Avis qui font plaisir
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gridColumnGap: "30px",
+            gridRowGap: "30px",
+            marginTop: "40px",
+            "@media (max-width: 1100px)": { gridTemplateColumns: "1fr" },
+          }}
+        >
+          {[
+            {
+              avatarSrc: "/img/review-isabelle.jpg",
+              fullName: "Isabelle L.",
+              date: "23 novembre 2022",
+              review:
+                "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
+            },
+            {
+              avatarSrc: "/img/review-victor.jpg",
+              fullName: "Victor H.",
+              date: "11 décembre 2022",
+              review: "Une bonne alternative à lacartedescolocs ou leboncoin.",
+            },
+            {
+              avatarSrc: "/img/review-mathieu.jpg",
+              fullName: "Mathieu R.",
+              date: "04 janvier 2023",
+              review:
+                "Un bon site pour les locations meublées de moins d'un an.",
+            },
+          ].map(({ avatarSrc, fullName, date, review }, index) => (
+            <Box
+              key={index}
+              sx={{
+                paddingX: 2,
+                paddingY: 3,
+                borderRadius: "12px",
+                backgroundColor: "#262626",
+              }}
+            >
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                gap={2}
+                mb={2}
+              >
+                <Avatar size="lg" src={avatarSrc} />
+                <Box>
+                  <Typography level="h6" component="p">
+                    {fullName}
+                  </Typography>
+                  <Typography level="body2">{date}</Typography>
+                </Box>
+              </Box>
+              <Typography
+                level="body2"
+                fontSize="1.05rem"
+                fontStyle="italic"
+                textAlign="center"
+              >
+                &laquo; {review} &raquo;
+              </Typography>
+              <Box mt={2} textAlign="center">
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: "orange" }} />
+                <StarIcon sx={{ color: index === 2 ? "initial" : "orange" }} />
+              </Box>
+            </Box>
+          ))}
+        </Box>
+
+        {/** CTA */}
         <Box
           sx={(theme) => ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             gap: 2,
-            mt: "40px",
+            mt: "60px",
             padding: 4,
-            backgroundColor: "#262626",
+            background: "linear-gradient(to right, #4700cc, #652ba9)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
@@ -625,79 +596,6 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               Découvrir les annonces
             </Button>
           </Box>
-        </Box>
-
-        {/** Review */}
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gridColumnGap: "30px",
-            gridRowGap: "30px",
-            marginTop: "40px",
-            padding: 5,
-            background: "linear-gradient(to right, #4700cc, #652ba9)",
-            borderRadius: "16px",
-            "@media (max-width: 1100px)": { gridTemplateColumns: "1fr" },
-          }}
-        >
-          {[
-            {
-              avatarSrc: "/img/review-isabelle.jpg",
-              fullName: "Isabelle L.",
-              review:
-                "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
-            },
-            {
-              avatarSrc: "/img/review-victor.jpg",
-              fullName: "Victor H.",
-              review: "Une bonne alternative à lacartedescolocs ou leboncoin.",
-            },
-            {
-              avatarSrc: "/img/review-mathieu.jpg",
-              fullName: "Mathieu R.",
-              review:
-                "Un bon site pour les locations meublées de moins d'un an.",
-            },
-          ].map(({ avatarSrc, fullName, review }, index) => (
-            <Box
-              key={index}
-              sx={{
-                paddingX: 2,
-                paddingY: 3,
-                backgroundColor: "#ffffff",
-                borderRadius: "12px",
-              }}
-            >
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                gap={2}
-                mb={2}
-              >
-                <Avatar size="lg" src={avatarSrc} />
-                <Typography level="h6" component="p">
-                  {fullName}
-                </Typography>
-              </Box>
-              <Typography
-                level="body2"
-                fontSize="1.05rem"
-                fontStyle="italic"
-                textAlign="center"
-              >
-                &laquo; {review} &raquo;
-              </Typography>
-              <Box mt={2} textAlign="center">
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: index === 2 ? "initial" : "orange" }} />
-              </Box>
-            </Box>
-          ))}
         </Box>
       </main>
 

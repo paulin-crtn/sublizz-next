@@ -34,6 +34,7 @@ import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 import Box from "@mui/joy/Box";
+import IconButton from "@mui/joy/IconButton";
 /* ---------------------------------- ICONS --------------------------------- */
 import ErrorIcon from "@mui/icons-material/Error";
 import AddIcon from "@mui/icons-material/Add";
@@ -243,8 +244,7 @@ const EditProfile = ({ user }: { user: IUserDetail }) => {
               )}
             </Sheet>
           </FormLabel>
-          <Button
-            variant="outlined"
+          <IconButton
             color="neutral"
             size="sm"
             disabled={isDeletingFile ? true : false}
@@ -253,8 +253,8 @@ const EditProfile = ({ user }: { user: IUserDetail }) => {
               position: "absolute",
               bottom: 0,
               left: "80px",
-              backgroundColor: "#ffffff",
               borderRadius: "9999px",
+              border: "none",
             }}
           >
             {isDeletingFile ? (
@@ -262,57 +262,55 @@ const EditProfile = ({ user }: { user: IUserDetail }) => {
             ) : (
               <DeleteIcon />
             )}
-          </Button>
+          </IconButton>
         </FormControl>
 
-        <Box display="flex" gap={2}>
-          <FormControl error={!!errors.firstName} sx={{ flex: "1 1" }}>
-            <FormLabel>Prénom</FormLabel>
-            <Input
-              type="text"
-              variant="soft"
-              defaultValue={user.firstName}
-              {...register("firstName", {
-                required: "Ce champs est requis",
-                minLength: {
-                  value: 3,
-                  message: "3 caractères minimum",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "30 caractères maximum",
-                },
-              })}
-            />
-            {errors.firstName && (
-              <FormHelperText>{errors.firstName.message}</FormHelperText>
-            )}
-          </FormControl>
+        <FormControl error={!!errors.firstName}>
+          <FormLabel>Prénom</FormLabel>
+          <Input
+            type="text"
+            variant="soft"
+            defaultValue={user.firstName}
+            {...register("firstName", {
+              required: "Ce champs est requis",
+              minLength: {
+                value: 3,
+                message: "3 caractères minimum",
+              },
+              maxLength: {
+                value: 30,
+                message: "30 caractères maximum",
+              },
+            })}
+          />
+          {errors.firstName && (
+            <FormHelperText>{errors.firstName.message}</FormHelperText>
+          )}
+        </FormControl>
 
-          <FormControl error={!!errors.lastName} sx={{ flex: "1 1" }}>
-            <FormLabel>
-              Nom <Optional />
-            </FormLabel>
-            <Input
-              type="text"
-              variant="soft"
-              defaultValue={user.lastName}
-              {...register("lastName", {
-                minLength: {
-                  value: 3,
-                  message: "3 caractères minimum",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "30 caractères maximum",
-                },
-              })}
-            />
-            {errors.lastName && (
-              <FormHelperText>{errors.lastName.message}</FormHelperText>
-            )}
-          </FormControl>
-        </Box>
+        <FormControl error={!!errors.lastName}>
+          <FormLabel>
+            Nom <Optional />
+          </FormLabel>
+          <Input
+            type="text"
+            variant="soft"
+            defaultValue={user.lastName}
+            {...register("lastName", {
+              minLength: {
+                value: 3,
+                message: "3 caractères minimum",
+              },
+              maxLength: {
+                value: 30,
+                message: "30 caractères maximum",
+              },
+            })}
+          />
+          {errors.lastName && (
+            <FormHelperText>{errors.lastName.message}</FormHelperText>
+          )}
+        </FormControl>
 
         {user.role === UserRoleEnum.OWNER && (
           <FormControl error={!!errors.phoneNumber}>

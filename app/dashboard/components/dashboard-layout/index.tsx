@@ -41,20 +41,23 @@ const DashboardLayout: FunctionComponent<Props> = ({
   /* ------------------------------- REACT MEMO ------------------------------- */
   const showAddLeaseButton = useMemo(() => {
     if (pathname) {
-      const pathArr = pathname.split("/");
-      return user && user.role === UserRoleEnum.OWNER && pathArr.length < 4;
+      return (
+        user &&
+        user.role === UserRoleEnum.OWNER &&
+        (pathname === "/dashboard" || pathname === "/dashboard/leases")
+      );
     }
     return false;
   }, [user, pathname]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ minHeight: "calc(100vh - 90px)", backgroundColor: "#eeeeee" }}>
+    <Box sx={{ minHeight: "calc(100vh - 90px)" }}>
       <Box
         sx={{
           display: "flex",
           alignItems: "flex-start",
-          gap: 6,
+          gap: 10,
           marginX: 8,
         }}
       >
@@ -68,34 +71,34 @@ const DashboardLayout: FunctionComponent<Props> = ({
             alignSelf: "flex-start",
           }}
         >
-          <Box
-            display="flex"
-            alignItems="center"
-            gap={2}
-            position="absolute"
-            width="100%"
-            sx={(theme) => ({
-              padding: 2,
-              backgroundColor: "#ffffff",
-              borderRadius: "12px",
-              boxShadow: theme.vars.shadow.lg,
-            })}
-          >
+          <Box display="flex" alignItems="center" gap={2}>
             {user?.profilePictureName && (
               <Avatar
                 src={PROFILE_PICTURE_PATH + "/" + user?.profilePictureName}
-                sx={{ width: 85, height: 85 }}
+                sx={{ width: 110, height: 110, marginX: "auto" }}
               />
             )}
             {!user?.profilePictureName && (
-              <Avatar sx={{ width: 85, height: 85, fontSize: "2rem" }}>
+              <Avatar
+                sx={{
+                  width: 110,
+                  height: 110,
+                  marginX: "auto",
+                  fontSize: "2rem",
+                }}
+              >
                 {user?.firstName.at(0)?.toUpperCase()}
               </Avatar>
             )}
 
             <Box marginBottom={1}>
-              <Typography level="h5">{user?.firstName}</Typography>
-              <Chip size="sm" color="neutral" variant="soft">
+              <Typography level="h5" marginY={1}>
+                {user?.firstName}
+              </Typography>
+              <Chip
+                size="sm"
+                sx={{ backgroundColor: "#ffffff", color: "#000000" }}
+              >
                 {user?.role === UserRoleEnum.SEEKER
                   ? "Je cherche un logement"
                   : "Je propose un logement"}
@@ -103,15 +106,7 @@ const DashboardLayout: FunctionComponent<Props> = ({
             </Box>
           </Box>
           {/** NAVIGATION */}
-          <Box
-            marginTop="135px"
-            sx={(theme) => ({
-              padding: 2,
-              backgroundColor: "#ffffff",
-              borderRadius: "12px",
-              boxShadow: theme.vars.shadow.lg,
-            })}
-          >
+          <Box marginTop="40px">
             <Menu />
           </Box>
         </Box>
@@ -120,24 +115,22 @@ const DashboardLayout: FunctionComponent<Props> = ({
           sx={{
             flex: "1 1",
             marginTop: 4,
-            borderRadius: "10px",
           }}
         >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            marginBottom={2}
+            marginBottom={4}
           >
-            <Box>{breadcrumbs}</Box>
+            <Box sx={{ "& nav": { padding: 0 } }}>{breadcrumbs}</Box>
             {showAddLeaseButton && (
               <Button
                 startDecorator={<Add />}
-                color="primary"
                 onClick={() => {
                   router.push("/dashboard/leases/new");
                 }}
-                sx={(theme) => ({ boxShadow: theme.vars.shadow.lg })}
+                sx={{ backgroundColor: "#ffffff", color: "#000000" }}
               >
                 Publier une annonce
               </Button>
@@ -146,10 +139,7 @@ const DashboardLayout: FunctionComponent<Props> = ({
           <Box
             sx={(theme) => ({
               marginBottom: 6,
-              padding: 4,
-              backgroundColor: "#ffffff",
-              borderRadius: "10px",
-              boxShadow: theme.vars.shadow.lg,
+              borderRadius: "8px",
             })}
           >
             {children}

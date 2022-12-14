@@ -98,7 +98,7 @@ const SignAlert = ({
       </Button>
       <Button
         fullWidth
-        variant="outlined"
+        variant="soft"
         onClick={() => {
           setOpenSignin(true);
           setOpenSignAlert(false);

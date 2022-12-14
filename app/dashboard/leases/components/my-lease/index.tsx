@@ -102,7 +102,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   return (
     <Box sx={{ display: "flex", padding: 1.5 }}>
       <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
-        <AspectRatio ratio="16/12.1" sx={{ width: 200 }}>
+        <AspectRatio ratio="16/10" sx={{ width: 250 }}>
           <Image
             src={
               lease.leaseImages && lease.leaseImages[0]
@@ -132,11 +132,12 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Chip
               size="sm"
-              color={lease.isPublished ? "primary" : "warning"}
               sx={{
                 marginRight: 1,
                 paddingY: 0.7,
                 fontWeight: 300,
+                backgroundColor: lease.isPublished ? "#4fa368" : "#dca81a",
+                color: lease.isPublished ? "#ffffff" : "#000000",
                 border: "none",
                 borderRadius: "5px",
               }}

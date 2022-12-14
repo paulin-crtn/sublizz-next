@@ -302,7 +302,11 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             </Box>
 
             {/** Message */}
-            <Button fullWidth onClick={handleContact} sx={{ mt: 2 }}>
+            <Button
+              fullWidth
+              onClick={handleContact}
+              sx={{ mt: 2, backgroundColor: "#ffffff", color: "#000000" }}
+            >
               Envoyer un message
             </Button>
 
@@ -311,7 +315,6 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               <Button
                 fullWidth
                 variant="soft"
-                color="neutral"
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);
                 }}

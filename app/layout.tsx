@@ -55,7 +55,10 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={[poppins.className, bitter.className].join(" ")}>
+      <body
+        id="dark-mode"
+        className={[poppins.className, bitter.className].join(" ")}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

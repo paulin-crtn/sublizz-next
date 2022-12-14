@@ -114,7 +114,7 @@ const Navbar: FunctionComponent = () => {
         padding: "25px 35px",
         color: "#000000",
         backgroundColor: "#ffffff",
-        background: "rgba(255, 255, 255, 0.7)",
+        background: "rgba(9, 9, 13, 0.9)", // #09090D (JoyUI)
         backdropFilter: "blur(5px)",
         zIndex: 1000,
       }}
@@ -134,14 +134,16 @@ const Navbar: FunctionComponent = () => {
                 fontWeight: 600,
                 letterSpacing: 0,
                 cursor: "pointer",
+                whiteSpace: "nowrap",
+                color: "#aaaaaa",
               }}
             >
               la
-              <Box component="span" sx={{ color: "#4700cc" }}>
+              <Box component="span" sx={{ color: "#ffffff" }}>
                 carte
               </Box>
               des
-              <Box component="span" sx={{ color: "#4700cc" }}>
+              <Box component="span" sx={{ color: "#ffffff" }}>
                 logements
               </Box>
             </Typography>
@@ -172,12 +174,11 @@ const Navbar: FunctionComponent = () => {
                 setOpenSignAlert(true);
               }
             }}
-            sx={(theme) => ({
-              boxShadow: theme.vars.shadow.lg,
+            sx={{
               marginLeft: 3,
               whiteSpace: "nowrap",
               "@media (max-width: 1150px)": { display: "none" },
-            })}
+            }}
           >
             Publier une annonce
           </Button>
@@ -213,6 +214,7 @@ const Navbar: FunctionComponent = () => {
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
+              color: "#ffffff",
             }}
           >
             Se connecter
@@ -226,6 +228,7 @@ const Navbar: FunctionComponent = () => {
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
+              color: "#ffffff",
             }}
           >
             Créer un compte
@@ -240,18 +243,17 @@ const Navbar: FunctionComponent = () => {
             "@media (min-width: 1151px)": { display: "none" },
           }}
         >
-          <Button
+          <IconButton
             id="guest-menu-button"
             aria-controls={openGuest ? "guest-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={openGuest ? "true" : undefined}
-            variant="outlined"
             color="neutral"
+            variant="outlined"
             onClick={handleGuestClick}
-            sx={{ backgroundColor: "#ffffff" }}
           >
             <MenuIcon />
-          </Button>
+          </IconButton>
           <Menu
             id="guest-menu"
             anchorEl={guestAnchorEl}
@@ -300,10 +302,8 @@ const Navbar: FunctionComponent = () => {
           <Link href="/dashboard/messages">
             <IconButton
               color="neutral"
-              variant="outlined"
               sx={{
                 marginRight: 2,
-                backgroundColor: "#ffffff",
                 borderRadius: "9999px",
               }}
             >

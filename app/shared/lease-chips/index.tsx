@@ -24,14 +24,15 @@ const LeaseChips = ({
         justifyContent: "flex-start",
         alignItems: "center",
         gap: 0.75,
+        backgroundColor: "inherit",
       }}
     >
       <Chip
         size={size}
         sx={{
-          color: "#ffffff",
-          backgroundColor: "#000000",
-          borderColor: "#000000",
+          color: "#000000",
+          backgroundColor: "#ffffff",
+          borderColor: "#ffffff",
         }}
       >
         {convertLeaseType(lease.type)}
@@ -40,9 +41,8 @@ const LeaseChips = ({
         variant="outlined"
         size={size}
         sx={{
-          color: "#000000",
-          backgroundColor: "#ffffff",
-          borderColor: "#000000",
+          color: "#ffffff",
+          borderColor: "#ffffff",
         }}
       >
         {lease.room} {lease.room > 1 ? "pièces" : "pièce"}
@@ -51,9 +51,8 @@ const LeaseChips = ({
         variant="outlined"
         size={size}
         sx={{
-          color: "#000000",
-          backgroundColor: "#ffffff",
-          borderColor: "#000000",
+          color: "#ffffff",
+          borderColor: "#ffffff",
         }}
       >
         {lease.surface}m2

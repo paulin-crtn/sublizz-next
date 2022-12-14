@@ -8,11 +8,13 @@ import Image from "next/image";
 import LeaseDates from "../lease-dates";
 import LeaseChips from "../lease-chips";
 /* ----------------------------------- MUI ---------------------------------- */
-import Box from "@mui/joy/Box";
+import Card from "@mui/joy/Card";
+import IconButton from "@mui/joy/IconButton";
 import CardOverflow from "@mui/joy/CardOverflow";
 import CardContent from "@mui/joy/CardContent";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Typography from "@mui/joy/Typography";
+import Favorite from "@mui/icons-material/Favorite";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
@@ -25,26 +27,9 @@ import { LEASE_IMAGE_PATH } from "../../../const/supabasePath";
 const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box
-      sx={{
-        display: "flex",
-        paddingY: 2,
-        "@media (max-width: 760px)": {
-          display: "block",
-        },
-      }}
-    >
-      <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
-        <AspectRatio
-          ratio="16/10"
-          sx={{
-            width: 240,
-            "@media (max-width: 760px)": {
-              width: "100%",
-              maxHeight: "300px",
-            },
-          }}
-        >
+    <Card variant="outlined">
+      <CardOverflow>
+        <AspectRatio ratio="1.8">
           <Image
             src={
               lease.leaseImages && lease.leaseImages[0]
@@ -57,27 +42,42 @@ const LeaseCard: FunctionComponent<{ lease: ILease }> = ({ lease }) => {
             sizes={"600px"}
           />
         </AspectRatio>
+        <IconButton
+          aria-label="Like minimal photography"
+          size="md"
+          variant="solid"
+          color="neutral"
+          sx={{
+            position: "absolute",
+            zIndex: 2,
+            borderRadius: "50%",
+            right: "1rem",
+            bottom: 0,
+            transform: "translateY(50%)",
+          }}
+        >
+          <Favorite />
+        </IconButton>
       </CardOverflow>
-
-      <CardContent
-        sx={{
-          pl: 3,
-          "@media (max-width: 760px)": {
-            pl: 0,
-            pt: 2,
-          },
-        }}
-      >
-        <Typography level="h6" fontWeight="600">
+      <CardContent sx={{ marginY: 3 }}>
+        <Typography level="h5" fontWeight="600" mb={2}>
           {lease.city}
         </Typography>
-        <LeaseDates lease={lease} />
         <LeaseChips lease={lease} size="sm" />
-        <Typography level="h6" fontWeight="300" marginTop={2}>
+        <Typography level="h5" fontWeight="300" mt={2}>
           {lease.pricePerMonth}€ CC
         </Typography>
       </CardContent>
-    </Box>
+      <CardOverflow
+        variant="soft"
+        sx={{
+          py: 1.5,
+          bgcolor: "background.level1",
+        }}
+      >
+        <LeaseDates lease={lease} />
+      </CardOverflow>
+    </Card>
   );
 };
 

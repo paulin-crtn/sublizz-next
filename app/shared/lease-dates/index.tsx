@@ -7,6 +7,7 @@ import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import { ILease, ILeaseDetail } from "../../../interfaces/lease";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */
@@ -28,11 +29,6 @@ const LeaseDates = ({
    */
   useEffect(() => setIsClient(true), []);
 
-  /* -------------------------------- CONSTANTS ------------------------------- */
-  const marginTop = isMinimized ? 0.5 : 1;
-  const marginBottom = isMinimized ? 2 : 3;
-  const marginRight = isMinimized ? 1 : 2;
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box
@@ -40,12 +36,16 @@ const LeaseDates = ({
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        mb: marginBottom,
       }}
     >
-      <Box marginTop={marginTop} marginRight={marginRight}>
+      <Box>
         {!lease.endDate && (
-          <Typography level={isMinimized ? "body1" : "h5"} fontWeight={300}>
+          <Typography
+            fontWeight={300}
+            level={isMinimized ? "body2" : "h5"}
+            startDecorator={<ScheduleIcon />}
+            sx={{ color: isMinimized ? "text.secondary" : "initial" }}
+          >
             À partir du{" "}
             {isClient &&
               format(
@@ -55,14 +55,18 @@ const LeaseDates = ({
           </Typography>
         )}
         {lease.endDate && (
-          <Typography level={isMinimized ? "body1" : "h5"} fontWeight={300}>
-            Du{" "}
+          <Typography
+            fontWeight={300}
+            level={isMinimized ? "body2" : "h5"}
+            startDecorator={<ScheduleIcon />}
+            sx={{ color: isMinimized ? "text.secondary" : "initial" }}
+          >
             {isClient &&
               format(
                 new Date(lease.startDate),
                 isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
               )}{" "}
-            au{" "}
+            -{" "}
             {isClient &&
               format(
                 new Date(lease.endDate),
@@ -71,13 +75,8 @@ const LeaseDates = ({
           </Typography>
         )}
       </Box>
-      {!!lease.isDateFlexible && (
-        <Chip
-          variant="soft"
-          color="neutral"
-          size={isMinimized ? "sm" : "md"}
-          sx={{ mt: marginTop }}
-        >
+      {!!lease.isDateFlexible && !isMinimized && (
+        <Chip color="neutral" size={isMinimized ? "sm" : "md"}>
           Dates flexibles
         </Chip>
       )}

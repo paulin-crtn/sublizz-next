@@ -10,7 +10,7 @@ import { poppins } from "./utils/nextFont";
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
 const PRIMARY_COLORS = {
-  main: "#4700CC",
+  main: "#5600F5", // "#4700CC"
   lighter: "#5600F5",
   darker: "#3E00B3",
   soft: "#eeeeff",
@@ -31,7 +31,7 @@ export const joyTheme: Theme = extendTheme({
     fallback: "sans-serif",
   },
   colorSchemes: {
-    light: {
+    dark: {
       palette: {
         primary: {
           solidBorder: PRIMARY_COLORS.main,

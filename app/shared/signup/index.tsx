@@ -121,7 +121,7 @@ const Signup = ({
                   <Radio
                     label="Je cherche un logement"
                     value={UserRoleEnum.SEEKER}
-                    variant="outlined"
+                    variant="soft"
                     color="primary"
                     disableIcon
                     sx={{

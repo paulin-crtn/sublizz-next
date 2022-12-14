@@ -14,7 +14,7 @@ import {
   storeLeaseFavorite,
 } from "../../../../../utils/react-query/lease-favorites";
 /* ----------------------------------- MUI ---------------------------------- */
-import Button from "@mui/joy/Button";
+import IconButton from "@mui/joy/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* ------------------------------- INTERFACES ------------------------------- */
@@ -68,15 +68,19 @@ const FavoriteButton: FunctionComponent<{
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Button
+    <IconButton
       size="lg"
-      variant="outlined"
-      color={leaseFavorite ? "primary" : "neutral"}
+      color="neutral"
       onClick={handleClick}
-      sx={{ width: "fit-content", marginLeft: "auto" }}
+      sx={{
+        width: "fit-content",
+        marginLeft: "auto",
+        padding: 1.5,
+        borderRadius: "9999px",
+      }}
     >
       {leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-    </Button>
+    </IconButton>
   );
 };
 
