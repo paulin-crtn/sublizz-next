@@ -122,12 +122,21 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
-          <Typography level="h5" fontWeight="600">
-            {lease.city}
-          </Typography>
+          <Box>
+            <Typography level="h5" fontWeight="600">
+              {lease.city}
+            </Typography>
+            <Box marginY={2}>
+              <LeaseChips lease={lease} size="sm" />
+            </Box>
+            <LeaseDates lease={lease} fullDate={true} showFlexible={true} />
+            <Typography level="h6" fontWeight="300" marginTop={2}>
+              {lease.pricePerMonth}€ CC
+            </Typography>
+          </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Chip
@@ -209,11 +218,6 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
             </Menu>
           </Box>
         </Box>
-        <LeaseDates lease={lease} />
-        <LeaseChips lease={lease} size="sm" />
-        <Typography level="h6" fontWeight="300" marginTop={2}>
-          {lease.pricePerMonth}€ CC
-        </Typography>
       </CardContent>
 
       {/** Confirm Lease Delete */}

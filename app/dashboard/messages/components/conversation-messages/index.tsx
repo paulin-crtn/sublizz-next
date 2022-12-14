@@ -153,7 +153,11 @@ const ConversationMessages = ({
           variant="plain"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          sx={{ flex: "1 1", borderRadius: 0 }}
+          sx={(theme) => ({
+            flex: "1 1",
+            backgroundColor: theme.colorSchemes.dark.palette.background.body,
+            borderRadius: 0,
+          })}
         ></Textarea>
         {!isLoading && (
           <IconButton

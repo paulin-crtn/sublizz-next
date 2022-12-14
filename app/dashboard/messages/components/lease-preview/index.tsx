@@ -25,7 +25,7 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
       <Box
         sx={{
           position: "relative",
-          height: 220,
+          height: 260,
           overflow: "hidden",
         }}
       >
@@ -43,21 +43,27 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
       </Box>
 
       <Box padding={3}>
-        <Typography level="h5" fontWeight="600">
+        <Typography level="h4" fontWeight="600">
           {lease.city}
         </Typography>
-        <LeaseDates lease={lease} />
-        <LeaseChips lease={lease} size="sm" />
-        <Typography level="h6" fontWeight="300" marginTop={2}>
+        <Box marginY={3}>
+          <LeaseChips lease={lease} size="md" />
+        </Box>
+        <LeaseDates
+          lease={lease}
+          size="md"
+          fullDate={true}
+          showFlexible={true}
+        />
+        <Typography level="h4" fontWeight="300" marginTop={2}>
           {lease.pricePerMonth}€ CC
         </Typography>
         <Button
-          size="sm"
           variant="outlined"
           color="neutral"
           fullWidth
           onClick={() => window.open("/leases/" + lease.id, "_blank")}
-          sx={{ marginTop: 2 }}
+          sx={{ marginTop: 3 }}
         >
           Voir l'annonce
         </Button>

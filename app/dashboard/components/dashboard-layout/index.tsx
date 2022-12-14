@@ -52,7 +52,7 @@ const DashboardLayout: FunctionComponent<Props> = ({
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Box sx={{ minHeight: "calc(100vh - 90px)" }}>
+    <Box sx={{ minHeight: "calc(100vh - 90px)", marginBottom: 8 }}>
       <Box
         sx={{
           display: "flex",

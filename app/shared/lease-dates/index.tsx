@@ -17,11 +17,13 @@ const LeaseDates = ({
   size = "sm",
   fullDate = false,
   withDecorator = false,
+  showFlexible = false,
 }: {
   lease: ILease | ILeaseDetail;
   size?: "sm" | "md" | "lg";
   fullDate?: boolean;
   withDecorator?: boolean;
+  showFlexible?: boolean;
 }) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -77,6 +79,17 @@ const LeaseDates = ({
                 new Date(lease.endDate),
                 fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
+            {!!lease.isDateFlexible && showFlexible && (
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
+                Dates flexibles
+              </Chip>
+            )}
           </Typography>
         )}
         {lease.endDate && !fullDate && (
@@ -97,14 +110,20 @@ const LeaseDates = ({
                 new Date(lease.endDate),
                 fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
+            {!!lease.isDateFlexible && showFlexible && (
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
+                Dates flexibles
+              </Chip>
+            )}
           </Typography>
         )}
       </Box>
-      {!!lease.isDateFlexible && size !== "sm" && (
-        <Chip color="neutral" variant="soft" size="md" sx={{ marginLeft: 2 }}>
-          Dates flexibles
-        </Chip>
-      )}
     </Box>
   );
 };

@@ -144,7 +144,12 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           <Box marginY={2}>
             <LeaseChips lease={lease} />
           </Box>
-          <LeaseDates lease={lease} size="lg" fullDate={true} />
+          <LeaseDates
+            lease={lease}
+            size="lg"
+            fullDate={true}
+            showFlexible={true}
+          />
         </Box>
 
         <Box
