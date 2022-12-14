@@ -10,6 +10,8 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../../shared/lease-card";
+/* --------------------------------- OBJECT --------------------------------- */
+import { map } from "../lease-map/custom-bounds";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../lease-map"), {
   ssr: false,
@@ -62,6 +64,12 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
+   * Restart pagination from 1 (in case user left page with another pagination)
+   * This is because NextJS keep state between navigation
+   */
+  useEffect(() => router.refresh(), []);
+
+  /**
    * Add event listener to compute screen size when viewport changes
    */
   useEffect(() => {
@@ -71,10 +79,15 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   }, []);
 
   /**
-   * Restart pagination from 1 (in case user left page with another pagination)
-   * This is because NextJS keep state between navigation
+   * Keep map in sync when resizing / display: "none"
+   * https://stackoverflow.com/questions/35220431/how-to-render-leaflet-map-when-in-hidden-display-none-parent
+   * https://leafletjs.com/reference.html#map-invalidatesize
    */
-  useEffect(() => router.refresh(), []);
+  useEffect(() => {
+    if (map && showMap) {
+      map.invalidateSize();
+    }
+  }, [showMap]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {

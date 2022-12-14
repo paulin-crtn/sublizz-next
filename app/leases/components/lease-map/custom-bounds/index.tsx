@@ -7,7 +7,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
-import { LatLngBounds } from "leaflet";
+import { LatLngBounds, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ----------------------------------- MUI ---------------------------------- */
 import CircularProgress from "@mui/joy/CircularProgress";
@@ -17,6 +17,14 @@ import {
   ICityCoordinates,
   ILeaseDetail,
 } from "../../../../../interfaces/lease";
+
+/* -------------------------------------------------------------------------- */
+/*                                     MAP                                    */
+/* -------------------------------------------------------------------------- */
+/**
+ * Need in lease page in order to call map.invalidateSize()
+ */
+export let map: Map;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -33,7 +41,7 @@ const CustomBounds = ({
   const searchParams = useSearchParams();
 
   /* --------------------------------- USE MAP -------------------------------- */
-  const map = useMap();
+  map = useMap();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isLoading, setIsLoading] = useState<boolean>(false);
