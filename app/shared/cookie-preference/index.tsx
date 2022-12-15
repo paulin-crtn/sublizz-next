@@ -9,6 +9,7 @@ import Typography from "@mui/joy/Typography";
 import Switch from "@mui/joy/Switch";
 import Divider from "@mui/joy/Divider";
 import Button from "@mui/joy/Button";
+import CookieIcon from "@mui/icons-material/Cookie";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -56,24 +57,39 @@ const CookiePreference = ({
   return (
     <Box padding={1}>
       <Typography
-        marginBottom={2}
-        fontSize="1.9rem"
-        fontWeight={600}
+        component="p"
         letterSpacing={0}
+        sx={{
+          marginBottom: 3,
+          fontSize: "1.9rem",
+          fontWeight: 600,
+          letterSpacing: 0,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+          color: "#aaaaaa",
+        }}
       >
-        lacartedeslogements
-      </Typography>
-      <Typography marginRight={2} fontWeight={500} fontSize="1.4rem">
-        Gestion des cookies
+        la
+        <Box component="span" sx={{ color: "#ffffff" }}>
+          carte
+        </Box>
+        des
+        <Box component="span" sx={{ color: "#ffffff" }}>
+          logements
+        </Box>
       </Typography>
       <Typography
-        fontSize="1.1rem"
-        fontWeight={300}
-        marginTop={1}
-        sx={{ color: "inherit" }}
+        marginBottom={2}
+        fontWeight={500}
+        fontSize="1.3rem"
+        startDecorator={<CookieIcon />}
+        sx={{ "--Typography-gap": "8px" }}
       >
+        Gestion des cookies
+      </Typography>
+      <Typography fontWeight={300} sx={{ color: "inherit" }}>
         Pour améliorer votre expérience utilisateur et mesurer l’audience de
-        notre site, la carte des logements utilise des cookies.
+        notre site, le site lacartedeslogements.com utilise des cookies.
       </Typography>
 
       {showSettings && (
@@ -117,15 +133,22 @@ const CookiePreference = ({
         </>
       )}
 
-      <Box display="flex" gap={1} marginTop={4}>
-        <Button color="neutral" variant="soft" onClick={handleRefuseAll}>
+      <Box marginTop={4}>
+        <Button
+          color="neutral"
+          variant="outlined"
+          fullWidth
+          onClick={handleRefuseAll}
+        >
           Refuser
         </Button>
         {!showSettings && (
           <Button
             color="neutral"
             variant="soft"
+            fullWidth
             onClick={() => setShowSettings(true)}
+            sx={{ marginY: 1 }}
           >
             Paramétrer
           </Button>
@@ -134,7 +157,9 @@ const CookiePreference = ({
           <Button
             color="neutral"
             variant="soft"
+            fullWidth
             onClick={handleAcceptSelection}
+            sx={{ marginY: 1 }}
           >
             Autoriser la sélection
           </Button>
@@ -142,13 +167,13 @@ const CookiePreference = ({
         <Button
           color="neutral"
           onClick={handleAcceptAll}
+          fullWidth
           sx={{
-            backgroundColor: "#262626",
-            color: "#ffffff",
-            border: "1px solid #ffffff",
+            backgroundColor: "#ffffff",
+            color: "#000000",
             fontWeight: 500,
-            "&:hover": { backgroundColor: "#000000" },
-            "&:active": { backgroundColor: "#474747" },
+            "&:hover": { backgroundColor: "#eeeeee" },
+            "&:active": { backgroundColor: "#eeeeee" },
           }}
         >
           Tout autoriser

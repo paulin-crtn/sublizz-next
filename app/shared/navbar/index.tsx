@@ -137,6 +137,7 @@ const Navbar: FunctionComponent = () => {
           <Link href="/">
             <Typography
               component="p"
+              letterSpacing={0}
               sx={{
                 fontSize: "1.6rem",
                 fontWeight: 600,
