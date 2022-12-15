@@ -10,6 +10,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 /* ---------------------------------- UTILS --------------------------------- */
 import { resetPassword } from "../../utils/fetch/fetchAuth";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LoadingIndicator from "../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -124,7 +126,12 @@ export default function Page() {
               )}
             </FormControl>
 
-            <Button loading={isLoading} fullWidth type="submit">
+            <Button
+              loading={isLoading}
+              loadingIndicator={<LoadingIndicator />}
+              fullWidth
+              type="submit"
+            >
               Définir ce nouveau mot de passe
             </Button>
           </form>

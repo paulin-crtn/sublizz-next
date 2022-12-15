@@ -20,6 +20,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Alert from "@mui/joy/Alert";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseReportForm } from "../../../../../interfaces/lease";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -83,7 +84,7 @@ const LeaseReport = ({
           variant="soft"
           minRows={5}
           maxRows={5}
-          placeholder="Indiquez la raison du signalement"
+          placeholder="Indiquez pourquoi cette annonce vous semble suspecte."
           {...register("reason", {
             required: "Ce champs est requis",
             maxLength: {
@@ -97,7 +98,12 @@ const LeaseReport = ({
         )}
       </FormControl>
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Signaler l'annonce
       </Button>
     </form>

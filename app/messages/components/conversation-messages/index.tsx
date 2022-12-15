@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LoadingIndicator from "../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
@@ -161,6 +163,7 @@ const ConversationMessages = ({
 
         <Button
           loading={isLoading}
+          loadingIndicator={<LoadingIndicator />}
           variant="soft"
           onClick={handleStoreMessage}
           sx={{

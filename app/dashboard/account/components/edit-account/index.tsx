@@ -15,6 +15,7 @@ import { useAuth } from "../../../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import ModalLayout from "../../../../shared/modal-layout";
 import DeleteAccount from "./delete-account";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -185,7 +186,11 @@ const EditAccount = () => {
       </FormControl>
 
       <Box display="flex" gap={2} sx={{ mt: 4 }}>
-        <Button loading={isLoading} type="submit">
+        <Button
+          loading={isLoading}
+          loadingIndicator={<LoadingIndicator />}
+          type="submit"
+        >
           Enregistrer
         </Button>
         <Button

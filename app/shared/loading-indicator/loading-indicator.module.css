@@ -1,0 +1,122 @@
+/*!
+ * three-dots - v0.3.2
+ * CSS loading animations made with single element
+ * https://nzbin.github.io/three-dots/
+ *
+ * Copyright (c) 2018 nzbin
+ * Released under MIT License
+ */
+/**
+  * ==============================================
+  * Dot Flashing
+  * ==============================================
+  */
+.dotFlashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+  animation: dot-flashing 0.6s infinite linear alternate;
+  animation-delay: 0.3s;
+}
+.dotFlashing::before,
+.dotFlashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.dotFlashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+  animation: dot-flashing 0.6s infinite alternate;
+  animation-delay: 0s;
+}
+.dotFlashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+  animation: dot-flashing 0.6s infinite alternate;
+  animation-delay: 0.6s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #ffffff;
+  }
+  50%,
+  100% {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+/**
+  * ==============================================
+  * Dot Collision
+  * ==============================================
+  */
+.dotCollision {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+}
+.dotCollision::before,
+.dotCollision::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.dotCollision::before {
+  left: -10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+  animation: dot-collision-before 1.5s infinite ease-in;
+}
+.dotCollision::after {
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #ffffff;
+  animation: dot-collision-after 1.5s infinite ease-in;
+  animation-delay: 0.75s;
+}
+
+@keyframes dot-collision-before {
+  0%,
+  50%,
+  75%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-15px);
+  }
+}
+@keyframes dot-collision-after {
+  0%,
+  50%,
+  75%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(15px);
+  }
+}

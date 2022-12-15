@@ -7,6 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getDataGouvAddress } from "../../../../../../utils/fetch/fetchAddress";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LoadingIndicator from "../../../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -192,7 +194,12 @@ const AddressForm = ({
         )}
       </FormControl>
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Valider
       </Button>
     </form>

@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { storeHelpUsMessage } from "../../../../utils/fetch/fetchHelpUs";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import SuccessAnimation from "../../../shared/success-animation";
+import LoadingIndicator from "../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
@@ -54,7 +55,9 @@ const HelpUs = ({
           <Typography level="h5" marginBottom={2}>
             Merci pour votre suggestion.
           </Typography>
-          <Typography>Notre équipe l'étudiera avec attention 🙂</Typography>
+          <Typography>
+            Nous allons en prendre connaissance avec attention.
+          </Typography>
         </Box>
         <Button variant="solid" fullWidth onClick={() => setOpenHelp(false)}>
           Fermer
@@ -95,7 +98,12 @@ const HelpUs = ({
         )}
       </FormControl>
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Envoyer votre suggestion
       </Button>
     </form>

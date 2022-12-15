@@ -18,6 +18,7 @@ import Typography from "@mui/joy/Typography";
 import { ILeaseDetail } from "../../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { TOAST_STYLE } from "../../../../../const/toastStyle";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -87,6 +88,7 @@ const DeleteLease: FunctionComponent<{
 
       <Button
         loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
         color="danger"
         fullWidth
         onClick={() => mutateDeleteLease()}

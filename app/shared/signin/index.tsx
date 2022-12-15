@@ -11,6 +11,8 @@ import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { signin } from "../../../utils/fetch/fetchAuth";
 import { getAuthUser } from "../../../utils/fetch/fetchUser";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LoadingIndicator from "../loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -140,7 +142,12 @@ const Signin = ({
         </Typography>
       </FormControl>
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Se connecter
       </Button>
 

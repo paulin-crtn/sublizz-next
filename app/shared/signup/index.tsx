@@ -9,6 +9,7 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { signup } from "../../../utils/fetch/fetchAuth";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import SuccessAnimation from "../../shared/success-animation";
+import LoadingIndicator from "../loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -277,7 +278,12 @@ const Signup = ({
             </Box>
           </FormControl>
 
-          <Button loading={isLoading} fullWidth type="submit">
+          <Button
+            loading={isLoading}
+            loadingIndicator={<LoadingIndicator />}
+            fullWidth
+            type="submit"
+          >
             Créer un compte
           </Button>
         </Box>
