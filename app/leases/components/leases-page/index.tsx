@@ -10,8 +10,6 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../../shared/lease-card";
-/* --------------------------------- OBJECT --------------------------------- */
-import { map } from "../lease-map/custom-bounds";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(() => import("../lease-map"), {
   ssr: false,
@@ -41,8 +39,11 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   const searchParams = useSearchParams();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [isDesktop, setIsDesktop] = useState<boolean>(true);
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    window?.innerWidth >= 1350
+  );
   const [showMap, setShowMap] = useState<boolean>(true);
+  const [invalidateSize, setInvalidateSize] = useState<boolean>(false);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -64,7 +65,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
-   * Restart pagination from 1 (in case user left page with another pagination)
+   * Refetch server-side data.
    * This is because NextJS keep state between navigation
    */
   useEffect(() => router.refresh(), []);
@@ -73,21 +74,9 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
    * Add event listener to compute screen size when viewport changes
    */
   useEffect(() => {
-    setInnerWidth();
     window.addEventListener("resize", setInnerWidth);
     return () => window.removeEventListener("resize", setInnerWidth);
   }, []);
-
-  /**
-   * Keep map in sync when resizing / display: "none"
-   * https://stackoverflow.com/questions/35220431/how-to-render-leaflet-map-when-in-hidden-display-none-parent
-   * https://leafletjs.com/reference.html#map-invalidatesize
-   */
-  useEffect(() => {
-    if (map && showMap) {
-      map.invalidateSize();
-    }
-  }, [showMap]);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
@@ -97,12 +86,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   };
 
   const setInnerWidth = () => {
-    if (window.innerWidth >= 1350) {
-      setIsDesktop(true);
-      setShowMap(true);
-    } else {
-      setIsDesktop(false);
-    }
+    window.innerWidth >= 1350 ? setIsDesktop(true) : setIsDesktop(false);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -230,6 +214,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
               leases={data.leases}
               isMultiple={true}
               cityCoordinates={data.cityCoordinates}
+              invalidateSize={invalidateSize}
             />
           </Box>
 
@@ -237,7 +222,10 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
             <Box sx={{ position: "absolute", top: 18, right: 48 }}>
               {showMap && (
                 <Button
-                  onClick={() => setShowMap(false)}
+                  onClick={() => {
+                    setShowMap(false);
+                    setInvalidateSize(false);
+                  }}
                   startDecorator={<SubjectIcon />}
                   sx={{
                     backgroundColor: "#000000",
@@ -255,7 +243,10 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
               )}
               {!showMap && (
                 <Button
-                  onClick={() => setShowMap(true)}
+                  onClick={() => {
+                    setShowMap(true);
+                    setInvalidateSize(true);
+                  }}
                   startDecorator={<MapIcon />}
                   sx={{
                     backgroundColor: "#000000",

@@ -92,6 +92,8 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         {!!data.totalCount && (
           <Box
             sx={{
+              position: "relative", // InputCitySearch dropdown ABOVE this component
+              zIndex: 0, // InputCitySearch dropdown ABOVE this component
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr 1fr",
               gridColumnGap: "20px",

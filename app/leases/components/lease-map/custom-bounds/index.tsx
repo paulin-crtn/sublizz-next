@@ -19,29 +19,23 @@ import {
 } from "../../../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
-/*                                     MAP                                    */
-/* -------------------------------------------------------------------------- */
-/**
- * Need in lease page in order to call map.invalidateSize()
- */
-export let map: Map;
-
-/* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 const CustomBounds = ({
   leases,
   cityCoordinates,
+  invalidateSize,
 }: {
   leases: ILeaseDetail[];
   cityCoordinates: ICityCoordinates | undefined;
+  invalidateSize?: boolean;
 }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
   const searchParams = useSearchParams();
 
   /* --------------------------------- USE MAP -------------------------------- */
-  map = useMap();
+  const map = useMap();
 
   /* ------------------------------- REACT STATE ------------------------------ */
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -149,6 +143,17 @@ const CustomBounds = ({
    * Set isLoading to false when new data is fetched
    */
   useEffect(() => setIsLoading(false), [leases]);
+
+  /**
+   * Keep map in sync when resizing and using display: "none"
+   * https://stackoverflow.com/questions/35220431/how-to-render-leaflet-map-when-in-hidden-display-none-parent
+   * https://leafletjs.com/reference.html#map-invalidatesize
+   */
+  useEffect(() => {
+    if (map && invalidateSize) {
+      map.invalidateSize();
+    }
+  }, [map, invalidateSize]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
