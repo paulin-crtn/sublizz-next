@@ -13,6 +13,7 @@ import { useAuth } from "../../../../../utils/context/auth.context";
 import LeaseChips from "../../../../shared/lease-chips";
 import LeaseDates from "../../../../shared/lease-dates";
 import SuccessAnimation from "../../../../shared/success-animation";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import CardCover from "@mui/joy/CardCover";
 import FormControl from "@mui/joy/FormControl";
@@ -149,7 +150,12 @@ const LeaseMessage = ({
         </Alert>
       )}
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Envoyer un message
       </Button>
     </form>

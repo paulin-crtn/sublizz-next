@@ -4,6 +4,7 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
+import LoadingIndicator from "./app/shared/loading-indicator";
 import { poppins } from "./utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
@@ -28,7 +29,7 @@ export const joyTheme: Theme = extendTheme({
   fontFamily: {
     body: poppins.style.fontFamily,
     display: poppins.style.fontFamily,
-    fallback: "sans-serif",
+    fallback: "Helvetica",
   },
   colorSchemes: {
     dark: {
@@ -130,7 +131,7 @@ export const joyTheme: Theme = extendTheme({
     },
     JoySelect: {
       styleOverrides: {
-        button: { fontFamily: "Poppins" },
+        button: { fontFamily: poppins.style.fontFamily },
       },
     },
     JoyOption: {

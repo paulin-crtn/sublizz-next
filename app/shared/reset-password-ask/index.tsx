@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { askResetPassword } from "../../../utils/fetch/fetchAuth";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import SuccessAnimation from "../success-animation";
+import LoadingIndicator from "../loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -100,7 +101,12 @@ const ResetPasswordAsk = ({
         )}
       </FormControl>
 
-      <Button loading={isLoading} fullWidth type="submit">
+      <Button
+        loading={isLoading}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        type="submit"
+      >
         Réinitialiser le mot de passe
       </Button>
     </form>
