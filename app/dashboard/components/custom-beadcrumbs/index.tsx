@@ -25,7 +25,7 @@ const CustomBreadcrumbs = ({
   prevPages?: IBreadcrumbPrevPage[];
 }) => {
   return (
-    <Breadcrumbs separator="›" sx={{ fontSize: "1.6rem" }}>
+    <Breadcrumbs separator="›" sx={{ fontSize: "1.6rem", padding: 0 }}>
       {prevPages &&
         prevPages.map((page: IBreadcrumbPrevPage) => (
           <Link key={page.key} href={page.href}>

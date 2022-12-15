@@ -3,5 +3,5 @@ export enum LeaseTypeEnum {
   STUDENT = "student",
   MOBILITY = "mobility",
   SHARE = "share",
-  SEASONAL = "seasonal",
+  // SEASONAL = "seasonal",
 }

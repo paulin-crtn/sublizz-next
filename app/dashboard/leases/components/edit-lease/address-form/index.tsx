@@ -14,7 +14,6 @@ import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 
@@ -83,17 +82,20 @@ const AddressForm = ({
   if (!!dataGouvAddresses?.length) {
     return (
       <>
-        <FormLabel sx={{ marginBottom: 2 }}>Sélectionnez une adresse</FormLabel>
+        <FormLabel sx={{ marginBottom: 2, textAlign: "center" }}>
+          Sélectionnez une adresse
+        </FormLabel>
         {dataGouvAddresses.map((address) => (
           <Alert
             key={address.properties.id}
             variant="solid"
-            color="warning"
+            color="primary"
             sx={(theme) => ({
               marginTop: 1,
               cursor: "pointer",
               ":hover": {
-                backgroundColor: theme.palette.warning.solidHoverBg,
+                backgroundColor:
+                  theme.colorSchemes.dark.palette.primary.solidHoverBg,
               },
             })}
             onClick={() => setDataGouvAddress(address)}
@@ -190,16 +192,9 @@ const AddressForm = ({
         )}
       </FormControl>
 
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Valider
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled>
-          <CircularProgress />
-        </Button>
-      )}
+      <Button loading={isLoading} fullWidth type="submit">
+        Valider
+      </Button>
     </form>
   );
 };

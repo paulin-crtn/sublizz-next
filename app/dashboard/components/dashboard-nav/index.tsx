@@ -7,10 +7,10 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../../utils/context/auth.context";
+import { useAuth } from "../../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import ModalLayout from "../../../../shared/modal-layout";
-import HelpUs from "../../help-us";
+import ModalLayout from "../../../shared/modal-layout";
+import HelpUs from "../help-us";
 /* ----------------------------------- MUI ---------------------------------- */
 import { Theme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
@@ -25,11 +25,11 @@ import StyleIcon from "@mui/icons-material/Style";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SupportIcon from "@mui/icons-material/Support";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoodIcon from "@mui/icons-material/Mood";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { TOAST_STYLE } from "../../../../../const/toastStyle";
-import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
+import { UserRoleEnum } from "../../../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */
@@ -42,10 +42,10 @@ const navListStyle = (theme: Theme) => ({
     padding: "10px 15px",
   },
   "&:hover": {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#32313c",
   },
   "&.active": {
-    backgroundColor: theme.palette.primary.plainBg,
+    backgroundColor: "#32313c",
     "& p": {
       color: "#ffffff",
     },
@@ -55,7 +55,7 @@ const navListStyle = (theme: Theme) => ({
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const Menu = () => {
+const DashboardNav = () => {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user, logout } = useAuth();
 
@@ -163,9 +163,9 @@ const Menu = () => {
         <Box component="li" sx={navListStyle} onClick={() => setOpenHelp(true)}>
           <Typography
             margin={0}
-            startDecorator={<SupportIcon sx={{ marginRight: 1 }} />}
+            startDecorator={<MoodIcon sx={{ marginRight: 1 }} />}
           >
-            Aidez-nous
+            Donnez votre avis
           </Typography>
         </Box>
       </ul>
@@ -173,7 +173,7 @@ const Menu = () => {
       <Modal open={openHelp} onClose={() => setOpenHelp(false)}>
         <ModalDialog size="lg" aria-labelledby="help-modal">
           <ModalClose />
-          <ModalLayout title="Aidez-nous">
+          <ModalLayout title="Donnez votre avis">
             <HelpUs setOpenHelp={setOpenHelp} />
           </ModalLayout>
         </ModalDialog>
@@ -182,4 +182,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default DashboardNav;

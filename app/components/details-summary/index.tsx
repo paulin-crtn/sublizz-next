@@ -25,7 +25,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
       sx={{
         position: "relative",
         padding: 3,
-        border: "1px solid #dddee0",
+        border: "1px solid #272930", // JoyUI
         borderRadius: "12px",
       }}
     >
@@ -57,7 +57,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
             alignItems: "center",
           }}
         >
-          <Typography level="h6" fontWeight={400} marginRight={2}>
+          <Typography level="h6" fontWeight={500} marginRight={2}>
             {summary}
           </Typography>
           {isOpen ? <RemoveIcon /> : <AddIcon />}

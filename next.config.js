@@ -2,7 +2,6 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    esmExternals: false,
   },
   reactStrictMode: true,
   swcMinify: true,

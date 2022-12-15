@@ -1,26 +1,41 @@
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
+import { useEffect, useState } from "react";
 import format from "date-fns/format";
 import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import { ILease, ILeaseDetail } from "../../../interfaces/lease";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 /* -------------------------------------------------------------------------- */
 /*                             FUNCTION COMPONENT                             */
 /* -------------------------------------------------------------------------- */
 const LeaseDates = ({
   lease,
-  isMinimized = true,
+  size = "sm",
+  level = "body2",
+  fullDate = false,
+  withDecorator = false,
+  showFlexible = false,
 }: {
   lease: ILease | ILeaseDetail;
-  isMinimized?: boolean;
+  size?: "sm" | "md" | "lg";
+  level?: "body2" | "body1" | "h6" | "h5";
+  fullDate?: boolean;
+  withDecorator?: boolean;
+  showFlexible?: boolean;
 }) => {
-  /* -------------------------------- CONSTANTS ------------------------------- */
-  const marginTop = isMinimized ? 0.5 : 1;
-  const marginBottom = isMinimized ? 2 : 3;
-  const marginRight = isMinimized ? 1 : 2;
+  /* ------------------------------- REACT STATE ------------------------------ */
+  const [isClient, setIsClient] = useState<boolean>(false);
+
+  /* ------------------------------ REACT EFFECT ------------------------------ */
+  /**
+   * Display dates on CLIENT SIDE ONLY in order to avoid hydration error.
+   * This is because server and client might have a different timezone.
+   */
+  useEffect(() => setIsClient(true), []);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
@@ -29,44 +44,80 @@ const LeaseDates = ({
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        mb: marginBottom,
       }}
     >
-      <Box marginTop={marginTop} marginRight={marginRight}>
+      <Box>
         {!lease.endDate && (
-          <Typography level={isMinimized ? "body1" : "h5"} fontWeight={300}>
+          <Typography
+            fontWeight={300}
+            level={level}
+            startDecorator={<EventAvailableIcon />}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
+          >
             À partir du{" "}
-            {format(
-              new Date(lease.startDate),
-              isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
+            {isClient &&
+              format(
+                new Date(lease.startDate),
+                fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
+              )}
+          </Typography>
+        )}
+
+        {lease.endDate && fullDate && (
+          <Typography
+            fontWeight={300}
+            level={level}
+            startDecorator={withDecorator ? <EventAvailableIcon /> : undefined}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
+          >
+            Du {isClient && format(new Date(lease.startDate), "dd MMMM uuuu")}{" "}
+            au {isClient && format(new Date(lease.endDate), "dd MMMM uuuu")}
+            {!!lease.isDateFlexible && showFlexible && (
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
+                Dates flexibles
+              </Chip>
             )}
           </Typography>
         )}
-        {lease.endDate && (
-          <Typography level={isMinimized ? "body1" : "h5"} fontWeight={300}>
-            Du{" "}
-            {format(
-              new Date(lease.startDate),
-              isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
-            )}{" "}
-            au{" "}
-            {format(
-              new Date(lease.endDate),
-              isMinimized ? "dd MMM uuuu" : "dd MMMM uuuu"
+
+        {lease.endDate && !fullDate && (
+          <Typography
+            fontWeight={300}
+            level={size === "sm" ? "body2" : "h5"}
+            startDecorator={withDecorator ? <EventAvailableIcon /> : undefined}
+            sx={{
+              color: size === "sm" ? "text.secondary" : "#ffffff",
+              "--Typography-gap": "8px",
+            }}
+          >
+            {isClient && format(new Date(lease.startDate), "dd MMM uuuu")} -{" "}
+            {isClient && format(new Date(lease.endDate), "dd MMM uuuu")}
+            {!!lease.isDateFlexible && showFlexible && (
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size}
+                sx={{ marginLeft: 1 }}
+              >
+                Dates flexibles
+              </Chip>
             )}
           </Typography>
         )}
       </Box>
-      {!!lease.isDateFlexible && (
-        <Chip
-          variant="soft"
-          color="neutral"
-          size={isMinimized ? "sm" : "md"}
-          sx={{ mt: marginTop }}
-        >
-          Dates flexibles
-        </Chip>
-      )}
     </Box>
   );
 };

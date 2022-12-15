@@ -7,25 +7,24 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import format from "date-fns/format";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../../utils/context/auth.context";
+import { useAuth } from "../../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
-import { storeConversationMessage } from "../../../../../utils/fetch/fetchConversation";
+import { storeConversationMessage } from "../../../../utils/fetch/fetchConversation";
 /* ----------------------------------- MUI ---------------------------------- */
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Avatar from "@mui/joy/Avatar";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
+import Divider from "@mui/joy/Divider";
 import SendIcon from "@mui/icons-material/Send";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IConversation } from "../../../../../interfaces/message/IConversation";
-import { IConversationMessage } from "../../../../../interfaces/message/IConversationMessage";
-import { IConversationMessageForm } from "../../../../../interfaces/message/IConversationMessageForm";
+import { IConversation } from "../../../../interfaces/message/IConversation";
+import { IConversationMessage } from "../../../../interfaces/message/IConversationMessage";
+import { IConversationMessageForm } from "../../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../../const/supabasePath";
-import { TOAST_STYLE } from "../../../../../const/toastStyle";
-import IconButton from "@mui/joy/IconButton";
+import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
+import { TOAST_STYLE } from "../../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -47,7 +46,7 @@ const ConversationMessages = ({
   /* ------------------------------ REACT EFFECT ------------------------------ */
   useEffect(() => {
     conversationBottomRef.current?.scrollIntoView({
-      block: "end",
+      // block: "end",
     });
   }, [conversation]);
 
@@ -123,15 +122,17 @@ const ConversationMessages = ({
               {getMessageAvatar(conversation, message)}
             </Box>
             <Box
-              sx={{
+              sx={(theme) => ({
                 width: "fit-content",
                 paddingX: 2,
                 paddingY: 1,
                 whiteSpace: "pre-wrap",
                 backgroundColor:
-                  message.fromUserId === user?.id ? "#eff0ff" : "#f5f5f5",
+                  message.fromUserId === user?.id
+                    ? theme.colorSchemes.dark.palette.primary.plainColor
+                    : "#474747",
                 borderRadius: "8px",
-              }}
+              })}
             >
               <Typography fontWeight={300}>{message.content}</Typography>
               <Typography level="body2" mt={1}>
@@ -142,14 +143,8 @@ const ConversationMessages = ({
         ))}
         <Box ref={conversationBottomRef}></Box>
       </Box>
-      <Box
-        marginTop="auto"
-        display="flex"
-        alignItems="flex-end"
-        sx={{
-          borderTop: "1px solid #dddddd",
-        }}
-      >
+      <Divider />
+      <Box marginTop="auto" display="flex" alignItems="flex-end">
         <Textarea
           minRows={3}
           maxRows={3}
@@ -157,36 +152,26 @@ const ConversationMessages = ({
           variant="plain"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          sx={{ flex: "1 1", borderRadius: 0 }}
+          sx={(theme) => ({
+            flex: "1 1",
+            backgroundColor: theme.colorSchemes.dark.palette.background.body,
+            borderRadius: 0,
+          })}
         ></Textarea>
-        {!isLoading && (
-          <IconButton
-            variant="solid"
-            onClick={handleStoreMessage}
-            sx={{
-              marginY: "auto",
-              marginX: 2,
-              padding: 1.5,
-              borderRadius: "9999px",
-            }}
-          >
-            <SendIcon />
-          </IconButton>
-        )}
-        {isLoading && (
-          <IconButton
-            variant="solid"
-            disabled
-            sx={{
-              marginY: "auto",
-              marginX: 2,
-              padding: 1.5,
-              borderRadius: "9999px",
-            }}
-          >
-            <CircularProgress />
-          </IconButton>
-        )}
+
+        <Button
+          loading={isLoading}
+          variant="soft"
+          onClick={handleStoreMessage}
+          sx={{
+            marginY: "auto",
+            marginX: 2,
+            padding: 1.5,
+            borderRadius: "9999px",
+          }}
+        >
+          <SendIcon />
+        </Button>
       </Box>
     </Box>
   );

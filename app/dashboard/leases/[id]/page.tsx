@@ -11,11 +11,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
 /* ---------------------------------- UTILS --------------------------------- */
-import { useAuth } from "../../../../utils/context/auth.context";
 import { getLease } from "../../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../../shared/access-denied";
-import DashboardLayout from "../../components/dashboard-layout";
 import EditLease from "../components/edit-lease";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -28,9 +25,6 @@ import Alert from "@mui/joy/Alert";
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 export default function Page() {
-  /* --------------------------------- CONTEXT -------------------------------- */
-  const { user } = useAuth();
-
   /* --------------------------------- ROUTER --------------------------------- */
   const pathname = usePathname();
 
@@ -63,35 +57,28 @@ export default function Page() {
     }
   );
 
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
-
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <DashboardLayout
-        breadcrumbs={
+      <>
+        <Box marginBottom={4}>
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
-        }
-      >
+        </Box>
         <Box sx={{ height: "100%", display: "flex" }}>
           <Box sx={{ margin: "auto", textAlign: "center" }}>
             <CircularProgress size="lg" color="neutral" />
           </Box>
         </Box>
-      </DashboardLayout>
+      </>
     );
   }
 
   if (isError && error instanceof Error) {
     return (
-      <DashboardLayout
-        breadcrumbs={
+      <>
+        <Box marginBottom={4}>
           <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
-        }
-      >
+        </Box>
         {error.message.split(",").map((msg, index) => (
           <Alert
             key={index}
@@ -103,17 +90,22 @@ export default function Page() {
             {msg}
           </Alert>
         ))}
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout
-      breadcrumbs={
+    <>
+      <Box marginBottom={4}>
         <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
-      }
-    >
-      <Box width="65%">
+      </Box>
+      <Box
+        width="65%"
+        sx={{
+          "@media (max-width: 1200px)": { width: "85%" },
+          "@media (max-width: 900px)": { width: "100%" },
+        }}
+      >
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
           adapterLocale={frLocale}
@@ -121,6 +113,6 @@ export default function Page() {
           <EditLease lease={data} />
         </LocalizationProvider>
       </Box>
-    </DashboardLayout>
+    </>
   );
 }

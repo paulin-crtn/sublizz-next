@@ -101,6 +101,16 @@ const Navbar: FunctionComponent = () => {
     setGuestAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    const path = pathname?.split("/")[1];
+    path === "dashboard" || path === "messages"
+      ? logout(() => router.push("/"))
+      : logout();
+    toast.success(`À bientôt ${user?.firstName}`, {
+      style: TOAST_STYLE,
+    });
+  };
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box
@@ -112,9 +122,7 @@ const Navbar: FunctionComponent = () => {
         position: "sticky",
         top: 0,
         padding: "25px 35px",
-        color: "#000000",
-        backgroundColor: "#ffffff",
-        background: "rgba(255, 255, 255, 0.7)",
+        background: "rgba(12, 12, 12, 0.9)",
         backdropFilter: "blur(5px)",
         zIndex: 1000,
       }}
@@ -134,14 +142,16 @@ const Navbar: FunctionComponent = () => {
                 fontWeight: 600,
                 letterSpacing: 0,
                 cursor: "pointer",
+                whiteSpace: "nowrap",
+                color: "#aaaaaa",
               }}
             >
               la
-              <Box component="span" sx={{ color: "#4700cc" }}>
+              <Box component="span" sx={{ color: "#ffffff" }}>
                 carte
               </Box>
               des
-              <Box component="span" sx={{ color: "#4700cc" }}>
+              <Box component="span" sx={{ color: "#ffffff" }}>
                 logements
               </Box>
             </Typography>
@@ -172,12 +182,11 @@ const Navbar: FunctionComponent = () => {
                 setOpenSignAlert(true);
               }
             }}
-            sx={(theme) => ({
-              boxShadow: theme.vars.shadow.lg,
+            sx={{
               marginLeft: 3,
               whiteSpace: "nowrap",
               "@media (max-width: 1150px)": { display: "none" },
-            })}
+            }}
           >
             Publier une annonce
           </Button>
@@ -187,7 +196,7 @@ const Navbar: FunctionComponent = () => {
       {/** SEARCH */}
       <Box
         sx={{
-          flex: "1 1 100%",
+          flex: "0 1 500px",
           marginX: "50px",
           "@media (max-width: 850px)": { marginX: "20px" },
         }}
@@ -213,6 +222,7 @@ const Navbar: FunctionComponent = () => {
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
+              color: "#ffffff",
             }}
           >
             Se connecter
@@ -226,6 +236,7 @@ const Navbar: FunctionComponent = () => {
               fontWeight: 400,
               cursor: "pointer",
               whiteSpace: "nowrap",
+              color: "#ffffff",
             }}
           >
             Créer un compte
@@ -240,18 +251,17 @@ const Navbar: FunctionComponent = () => {
             "@media (min-width: 1151px)": { display: "none" },
           }}
         >
-          <Button
+          <IconButton
             id="guest-menu-button"
             aria-controls={openGuest ? "guest-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={openGuest ? "true" : undefined}
-            variant="outlined"
             color="neutral"
+            variant="outlined"
             onClick={handleGuestClick}
-            sx={{ backgroundColor: "#ffffff" }}
           >
             <MenuIcon />
-          </Button>
+          </IconButton>
           <Menu
             id="guest-menu"
             anchorEl={guestAnchorEl}
@@ -296,17 +306,9 @@ const Navbar: FunctionComponent = () => {
       )}
 
       {user && (
-        <>
-          <Link href="/dashboard/messages">
-            <IconButton
-              color="neutral"
-              variant="outlined"
-              sx={{
-                marginRight: 2,
-                backgroundColor: "#ffffff",
-                borderRadius: "9999px",
-              }}
-            >
+        <Box display="flex" alignItems="center" gap={1.5}>
+          <Link href="/messages">
+            <IconButton color="neutral" sx={{ borderRadius: "9999px" }}>
               {!!unreadConversationsId.length && (
                 <Badge
                   color="danger"
@@ -403,12 +405,7 @@ const Navbar: FunctionComponent = () => {
             <MenuItem
               onClick={() => {
                 handleUserClose();
-                pathname?.split("/")[1] === "dashboard"
-                  ? logout(() => router.push("/"))
-                  : logout();
-                toast.success(`À bientôt ${user?.firstName}`, {
-                  style: TOAST_STYLE,
-                });
+                handleLogout();
               }}
             >
               <ListItemDecorator>
@@ -417,7 +414,7 @@ const Navbar: FunctionComponent = () => {
               Déconnexion
             </MenuItem>
           </Menu>
-        </>
+        </Box>
       )}
 
       {/** Signin */}

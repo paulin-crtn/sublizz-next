@@ -119,8 +119,9 @@ const InputCitySearch = ({ isLarge = false }) => {
     <Box sx={{ display: "flex", zIndex: 10 }}>
       <Box sx={{ position: "relative", width: "100%" }}>
         <TextField
+          variant="soft"
           size={isLarge ? "lg" : "md"}
-          placeholder="Rechercher par ville"
+          placeholder="Rechercher une ville"
           ref={searchInput}
           value={query}
           onKeyUp={() => {
@@ -135,6 +136,20 @@ const InputCitySearch = ({ isLarge = false }) => {
               sx={{ cursor: "pointer" }}
             />
           }
+          sx={{
+            "& .JoyInput-root": isLarge
+              ? {
+                  backgroundColor: "#ffffff",
+                  color: "#262626",
+                  "&:hover": {
+                    color: "#262626",
+                  },
+                  "&:hover:not(.Joy-focused)": {
+                    color: "#262626",
+                  },
+                }
+              : {},
+          }}
         />
         {showDropdown && (
           <List
@@ -146,7 +161,7 @@ const InputCitySearch = ({ isLarge = false }) => {
               position: "absolute",
               width: "100%",
               marginTop: 1,
-              backgroundColor: "#ffffff",
+              backgroundColor: "#000000",
               borderRadius: 8,
             }}
           >
@@ -158,7 +173,7 @@ const InputCitySearch = ({ isLarge = false }) => {
                   width: "100%",
                   textAlign: "left",
                   cursor: "pointer",
-                  "&:hover": { backgroundColor: "#f0f0f0" },
+                  "&:hover": { backgroundColor: "#262626" },
                 }}
               >
                 {city.nom}

@@ -10,7 +10,7 @@ import { poppins } from "./utils/nextFont";
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
 const PRIMARY_COLORS = {
-  main: "#4700CC",
+  main: "#5600F5", // "#4700CC"
   lighter: "#5600F5",
   darker: "#3E00B3",
   soft: "#eeeeff",
@@ -31,21 +31,22 @@ export const joyTheme: Theme = extendTheme({
     fallback: "sans-serif",
   },
   colorSchemes: {
-    light: {
+    dark: {
       palette: {
         primary: {
           solidBorder: PRIMARY_COLORS.main,
           solidActiveBorder: PRIMARY_COLORS.main,
           solidActiveColor: PRIMARY_COLORS.main,
-          solidActiveBg: PRIMARY_COLORS.lighter,
+          solidActiveBg: PRIMARY_COLORS.darker,
           solidBg: PRIMARY_COLORS.main,
-          solidHoverBg: PRIMARY_COLORS.lighter,
+          solidHoverBg: PRIMARY_COLORS.darker,
           solidDisabledBg: PRIMARY_COLORS.darker,
           solidDisabledBorder: PRIMARY_COLORS.darker,
           solidDisabledColor: PRIMARY_COLORS.darker,
 
-          softColor: PRIMARY_COLORS.main,
+          softColor: "#000000",
           softBg: PRIMARY_COLORS.soft,
+          softDisabledBg: "#ffffff",
           softHoverBg: "#f5f5ff",
           softActiveBg: "#f5f5ff",
 
@@ -56,6 +57,7 @@ export const joyTheme: Theme = extendTheme({
 
           plainColor: PRIMARY_COLORS.main,
           plainBg: PRIMARY_COLORS.main,
+          plainHoverBg: PRIMARY_COLORS.main,
         },
         info: {
           outlinedColor: INFO_COLORS.main,
@@ -129,7 +131,15 @@ export const joyTheme: Theme = extendTheme({
     JoySelect: {
       styleOverrides: {
         button: { fontFamily: "Poppins" },
-        listbox: { backgroundColor: "#ffffff" },
+      },
+    },
+    JoyOption: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#42454D", // Same as default JoySelect
+          },
+        },
       },
     },
     JoyRadio: {
@@ -184,7 +194,7 @@ const muiTheme = extendMuiTheme({
         root: {
           height: "40px",
           fontSize: "0.95rem",
-          backgroundColor: "#EEEFF0",
+          backgroundColor: "#272930",
         },
       },
     },

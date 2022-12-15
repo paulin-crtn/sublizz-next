@@ -54,10 +54,9 @@ const HowItWorks = () => {
             label={item}
             variant="plain"
             sx={{
-              px: 3,
-              py: 2,
+              padding: 2,
               alignItems: "center",
-              fontSize: "1.1rem",
+              fontSize: "1rem",
               fontWeight: 500,
               "@media (max-width: 800px)": { fontSize: "1rem" },
             }}
@@ -149,22 +148,14 @@ const HowItWorks = () => {
           >
             <Alert
               startDecorator={
-                <PauseIcon
-                  sx={{
-                    padding: 0.25,
-                    backgroundColor: "#ffffff",
-                    color: "linear-gradient(to right, #4700cc, #652ba9)",
-                    borderRadius: "9999px",
-                  }}
-                />
+                <PauseIcon sx={{ padding: 0.25, color: "#ffffff" }} />
               }
               sx={{
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                background: "linear-gradient(to right, #4700cc, #652ba9)",
+                backgroundColor: "#474747",
                 color: "#ffffff",
-                borderRadius: "9999px",
               }}
             >
               Vous pouvez suspendre la publication de votre annonce sans la
@@ -173,22 +164,14 @@ const HowItWorks = () => {
 
             <Alert
               startDecorator={
-                <PhoneIcon
-                  sx={{
-                    padding: 0.25,
-                    backgroundColor: "#ffffff",
-                    color: "linear-gradient(to right, #4700cc, #652ba9)",
-                    borderRadius: "9999px",
-                  }}
-                />
+                <PhoneIcon sx={{ padding: 0.25, color: "#ffffff" }} />
               }
               sx={{
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                background: "linear-gradient(to right, #4700cc, #652ba9)",
+                backgroundColor: "#474747",
                 color: "#ffffff",
-                borderRadius: "9999px",
               }}
             >
               Renseignez votre numéro de téléphone pour être contacté
@@ -273,9 +256,7 @@ const HowItWorks = () => {
                 <FavoriteIcon
                   sx={{
                     padding: 0.25,
-                    backgroundColor: "#ffffff",
-                    color: "linear-gradient(to right, #4700cc, #652ba9)",
-                    borderRadius: "9999px",
+                    color: "#ffffff",
                   }}
                 />
               }
@@ -283,9 +264,8 @@ const HowItWorks = () => {
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                background: "linear-gradient(to right, #4700cc, #652ba9)",
+                backgroundColor: "#474747",
                 color: "#ffffff",
-                borderRadius: "9999px",
               }}
             >
               Vous pouvez enregistrer une annonce en favoris et la retrouver
@@ -297,9 +277,7 @@ const HowItWorks = () => {
                 <HourglassFullIcon
                   sx={{
                     padding: 0.25,
-                    backgroundColor: "#ffffff",
-                    color: "linear-gradient(to right, #4700cc, #652ba9)",
-                    borderRadius: "9999px",
+                    color: "#ffffff",
                   }}
                 />
               }
@@ -307,9 +285,8 @@ const HowItWorks = () => {
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                background: "linear-gradient(to right, #4700cc, #652ba9)",
+                backgroundColor: "#474747",
                 color: "#ffffff",
-                borderRadius: "9999px",
               }}
             >
               Gagnez du temps en enregistrant une réponse type

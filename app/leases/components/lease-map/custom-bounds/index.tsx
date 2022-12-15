@@ -7,7 +7,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
-import { LatLngBounds } from "leaflet";
+import { LatLngBounds, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 /* ----------------------------------- MUI ---------------------------------- */
 import CircularProgress from "@mui/joy/CircularProgress";
@@ -24,9 +24,11 @@ import {
 const CustomBounds = ({
   leases,
   cityCoordinates,
+  invalidateSize,
 }: {
   leases: ILeaseDetail[];
   cityCoordinates: ICityCoordinates | undefined;
+  invalidateSize?: boolean;
 }) => {
   /* --------------------------------- ROUTER --------------------------------- */
   const router = useRouter();
@@ -142,17 +144,26 @@ const CustomBounds = ({
    */
   useEffect(() => setIsLoading(false), [leases]);
 
+  /**
+   * Keep map in sync when resizing and using display: "none"
+   * https://stackoverflow.com/questions/35220431/how-to-render-leaflet-map-when-in-hidden-display-none-parent
+   * https://leafletjs.com/reference.html#map-invalidatesize
+   */
+  useEffect(() => {
+    if (map && invalidateSize) {
+      map.invalidateSize();
+    }
+  }, [map, invalidateSize]);
+
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
       {isLoading && (
         <Button
-          variant="soft"
-          color="neutral"
           startDecorator={
             <CircularProgress
               size="sm"
-              thickness={4}
+              thickness={3}
               sx={{
                 marginRight: 1,
                 "--CircularProgress-progress-color": "#000000",
@@ -165,8 +176,9 @@ const CustomBounds = ({
             left: "50%",
             transform: "translate(-50%, 0)",
             zIndex: 1000,
-            backgroundColor: "#ffffff",
             fontWeight: "500",
+            backgroundColor: "#000000",
+            color: "#ffffff",
           }}
         >
           Chargement

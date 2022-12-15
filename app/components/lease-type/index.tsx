@@ -7,8 +7,7 @@ import Image from "next/image";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
-import Alert from "@mui/joy/Alert";
-import Box from "@mui/joy/Box";
+import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import AspectRatio from "@mui/joy/AspectRatio";
 
@@ -29,41 +28,39 @@ const LeaseType = ({
   info: string | undefined;
 }) => {
   return (
-    <Card
-      sx={(theme) => ({
-        height: "100%",
-        boxShadow: theme.vars.shadow.md,
-        "&:hover": { boxShadow: theme.vars.shadow.lg },
-      })}
-    >
+    <Card variant="outlined">
       <CardOverflow>
-        <AspectRatio ratio="2">
+        <AspectRatio ratio="1.8">
           <Image
             src={"/img/" + imgName}
             alt="illustration lease type"
-            width={400}
-            height={400}
+            fill={true}
+            style={{ objectFit: "cover" }}
+            sizes={"600px"}
           />
         </AspectRatio>
       </CardOverflow>
-      <Box sx={{ marginY: 3 }}>
-        <Typography component="h4" level="h5" fontWeight={600} marginBottom={2}>
+      <CardContent sx={{ marginY: 3 }}>
+        <Typography component="h4" level="h5" fontWeight={600}>
           {title}
         </Typography>
-        <Typography sx={{ mb: 3 }}>{description}</Typography>
-        <Alert>{info}</Alert>
-      </Box>
+        <Typography level="body2" marginBottom={2}>
+          {info}
+        </Typography>
+        <Typography>{description}</Typography>
+      </CardContent>
       <CardOverflow
+        variant="soft"
         sx={{
-          marginTop: "auto",
           py: 1.5,
           bgcolor: "background.level1",
         }}
       >
         <Typography
+          fontWeight={300}
           level="body2"
           startDecorator={<ScheduleIcon />}
-          sx={{ color: "text.secondary" }}
+          sx={{ color: "text.secondary", "--Typography-gap": "8px" }}
         >
           {duration}
         </Typography>

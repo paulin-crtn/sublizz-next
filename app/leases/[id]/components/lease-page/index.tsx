@@ -17,7 +17,7 @@ import ModalLayout from "../../../../shared/modal-layout";
 import LeaseMessage from "../lease-message";
 import LeaseReport from "../lease-report";
 import LeaseLightbox from "../lease-lightbox";
-import FavoriteButton from "../favorite-button";
+import FavoriteButton from "../../../../shared/favorite-button";
 import LeaseDates from "../../../../shared/lease-dates";
 import SignAlert from "../../../../shared/sign-alert";
 import Signin from "../../../../shared/signin";
@@ -141,8 +141,16 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           >
             {lease.city}
           </Typography>
-          <LeaseDates lease={lease} isMinimized={false} />
-          <LeaseChips lease={lease} />
+          <Box marginY={2}>
+            <LeaseChips lease={lease} />
+          </Box>
+          <LeaseDates
+            lease={lease}
+            size="lg"
+            level="h5"
+            fullDate={true}
+            showFlexible={true}
+          />
         </Box>
 
         <Box
@@ -162,6 +170,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
           </Typography>
           {/** Favorite */}
           <FavoriteButton
+            size="lg"
             leaseId={lease.id}
             setOpenSignAlert={setOpenSignAlert}
           />
@@ -258,8 +267,8 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               flex: "0 0 350px",
               height: "fit-content",
               padding: 2,
-              borderRadius: "16px",
-              border: "1px solid #dddddd",
+              borderRadius: "12px",
+              border: "1px solid #272930", // JoyUI
               "@media (max-width: 1000px)": {
                 mt: 4,
                 width: "fit-content",
@@ -302,16 +311,22 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             </Box>
 
             {/** Message */}
-            <Button fullWidth onClick={handleContact} sx={{ mt: 2 }}>
+            <Button
+              variant="solid"
+              color="primary"
+              fullWidth
+              onClick={handleContact}
+              sx={{ mt: 2 }}
+            >
               Envoyer un message
             </Button>
 
             {/** Phone Number */}
             {lease.user.phoneNumber && (
               <Button
-                fullWidth
-                variant="soft"
+                variant="solid"
                 color="neutral"
+                fullWidth
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);
                 }}

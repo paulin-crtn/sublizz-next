@@ -27,7 +27,6 @@ import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
@@ -193,7 +192,12 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
               {...field}
             >
               {Object.values(LeaseTypeEnum).map((type) => (
-                <Option key={type} value={type} aria-label={type}>
+                <Option
+                  key={type}
+                  value={type}
+                  aria-label={type}
+                  sx={{ color: "#ffffff" }}
+                >
                   {convertLeaseType(type)}
                 </Option>
               ))}
@@ -469,7 +473,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         />
       </FormControl>
 
-      <Box sx={{ flex: "0 0" }}>
+      <Box sx={{ flex: "0 0", marginBottom: 2 }}>
         <FormLabel>
           Photos <Optional />
         </FormLabel>
@@ -482,18 +486,29 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         >
           Format : JPG ou PNG. Poids max : 5Mo.
         </FormHelperText>
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "150px 150px 150px 150px",
+            gridTemplateRows: "150px",
+            gridColumnGap: "20px",
+            gridRowGap: "20px",
+            "@media (max-width: 1200px)": {
+              gridTemplateColumns: "150px 150px",
+              gridTemplateRows: "150px 150px",
+            },
+          }}
+        >
           {[...Array(4)].map((u, i) => (
-            <FormControl key={i}>
-              <LeaseInputFile
-                leaseImages={lease?.leaseImages ?? []}
-                setLeaseImagesToRemove={setLeaseImagesToRemove}
-                setHasInputFileError={setHasInputFileError}
-                inputFiles={inputFiles}
-                setInputFiles={setInputFiles}
-                index={i}
-              />
-            </FormControl>
+            <LeaseInputFile
+              key={i}
+              leaseImages={lease?.leaseImages ?? []}
+              setLeaseImagesToRemove={setLeaseImagesToRemove}
+              setHasInputFileError={setHasInputFileError}
+              inputFiles={inputFiles}
+              setInputFiles={setInputFiles}
+              index={i}
+            />
           ))}
         </Box>
       </Box>
@@ -537,16 +552,13 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         </Alert>
       )}
 
-      {!isLoading && !isUploadingFile && (
-        <Button type="submit">
-          {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
-        </Button>
-      )}
-      {(isUploadingFile || isLoading) && (
-        <Button disabled>
-          <CircularProgress />
-        </Button>
-      )}
+      <Button
+        loading={isUploadingFile || isLoading}
+        type="submit"
+        sx={{ mt: 2 }}
+      >
+        {lease ? "Modifier l'annonce" : "Enregistrer l'annonce"}
+      </Button>
 
       {/** Address */}
       <Modal open={openAddress} onClose={() => setOpenAddress(false)}>

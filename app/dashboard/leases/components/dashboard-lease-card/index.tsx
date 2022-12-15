@@ -46,7 +46,9 @@ import { TOAST_STYLE } from "../../../../../const/toastStyle";
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
 /* -------------------------------------------------------------------------- */
-const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
+const DashboardLeaseCard: FunctionComponent<{ lease: ILeaseDetail }> = ({
+  lease,
+}) => {
   /* ------------------------------- REACT STATE ------------------------------ */
   const [anchorEl, setAnchorEl] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState<boolean>(false);
@@ -102,7 +104,7 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   return (
     <Box sx={{ display: "flex", padding: 1.5 }}>
       <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
-        <AspectRatio ratio="16/12.1" sx={{ width: 200 }}>
+        <AspectRatio ratio="16/10" sx={{ width: 250 }}>
           <Image
             src={
               lease.leaseImages && lease.leaseImages[0]
@@ -122,21 +124,31 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
-          <Typography level="h5" fontWeight="600">
-            {lease.city}
-          </Typography>
+          <Box>
+            <Typography level="h5" fontWeight="600">
+              {lease.city}
+            </Typography>
+            <Box marginY={2}>
+              <LeaseChips lease={lease} size="sm" />
+            </Box>
+            <LeaseDates lease={lease} fullDate={true} showFlexible={true} />
+            <Typography level="h6" fontWeight="300" marginTop={2}>
+              {lease.pricePerMonth}€ CC
+            </Typography>
+          </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Chip
               size="sm"
-              color={lease.isPublished ? "primary" : "warning"}
               sx={{
                 marginRight: 1,
                 paddingY: 0.7,
                 fontWeight: 300,
+                backgroundColor: lease.isPublished ? "#4fa368" : "#dca81a",
+                color: lease.isPublished ? "#ffffff" : "#000000",
                 border: "none",
                 borderRadius: "5px",
               }}
@@ -208,11 +220,6 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
             </Menu>
           </Box>
         </Box>
-        <LeaseDates lease={lease} />
-        <LeaseChips lease={lease} size="sm" />
-        <Typography level="h6" fontWeight="300" marginTop={2}>
-          {lease.pricePerMonth}€ CC
-        </Typography>
       </CardContent>
 
       {/** Confirm Lease Delete */}
@@ -234,4 +241,4 @@ const MyLease: FunctionComponent<{ lease: ILeaseDetail }> = ({ lease }) => {
   );
 };
 
-export default MyLease;
+export default DashboardLeaseCard;

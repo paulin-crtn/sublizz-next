@@ -18,7 +18,6 @@ import CardCover from "@mui/joy/CardCover";
 import FormControl from "@mui/joy/FormControl";
 import Textarea from "@mui/joy/Textarea";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -150,16 +149,9 @@ const LeaseMessage = ({
         </Alert>
       )}
 
-      {!isLoading && (
-        <Button fullWidth type="submit">
-          Envoyer un message
-        </Button>
-      )}
-      {isLoading && (
-        <Button fullWidth disabled>
-          <CircularProgress />
-        </Button>
-      )}
+      <Button loading={isLoading} fullWidth type="submit">
+        Envoyer un message
+      </Button>
     </form>
   );
 };

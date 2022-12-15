@@ -7,8 +7,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState, useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { Poppins, Bitter } from "@next/font/google";
-import { NextFont } from "@next/font/dist/types";
 import { Toaster } from "react-hot-toast";
 import setDefaultOptions from "date-fns/setDefaultOptions";
 import fr from "date-fns/locale/fr";
@@ -66,8 +64,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const withFooter: boolean = useMemo(() => {
     if (pathname) {
       const pathnameArr = pathname.split("/");
-      const isMessagesPage =
-        pathnameArr[1] === "dashboard" && pathnameArr[2] === "messages";
+      const isMessagesPage = pathnameArr[1] === "messages";
       const isLeasesPage =
         pathnameArr[1] === "leases" && pathnameArr.length === 2;
       if (isMessagesPage || isLeasesPage) {
@@ -79,7 +76,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <CssVarsProvider theme={theme}>
+    <CssVarsProvider
+      theme={theme}
+      defaultMode="dark"
+      colorSchemeSelector="#dark-mode"
+    >
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>

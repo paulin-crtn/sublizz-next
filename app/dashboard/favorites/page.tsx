@@ -10,9 +10,7 @@ import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import { useLeaseFavorites } from "../../../utils/react-query/lease-favorites";
 /* ------------------------------- COMPONENTS ------------------------------- */
-import AccessDenied from "../../shared/access-denied";
-import DashboardLayout from "../components/dashboard-layout";
-import LeaseFavorite from "./components/lease-favorite";
+import LeaseCard from "../../shared/lease-card";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
 import LeaseSkeleton from "../components/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
@@ -20,7 +18,8 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import Divider from "@mui/joy/Divider";
+import Alert from "@mui/joy/Alert";
+import ErrorIcon from "@mui/icons-material/Error";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IFavorite } from "../../../interfaces/IFavorite";
 
@@ -30,30 +29,61 @@ import { IFavorite } from "../../../interfaces/IFavorite";
 export default function Page() {
   /* --------------------------------- CONTEXT -------------------------------- */
   const { user } = useAuth();
-  const { data: favorites, isLoading } = useLeaseFavorites(user);
-
-  /* ------------------------------- MIDDLEWARE ------------------------------- */
-  if (!user) {
-    return <AccessDenied />;
-  }
+  const {
+    data: favorites,
+    isLoading,
+    isError,
+    error,
+  } = useLeaseFavorites(user);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
     return (
-      <DashboardLayout
-        breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
-      >
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Favoris" />
+        </Box>
         <LeaseSkeleton />
-      </DashboardLayout>
+      </>
+    );
+  }
+
+  if (isError && error instanceof Error) {
+    return (
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Favoris" />
+        </Box>
+        {error.message.split(",").map((msg, index) => (
+          <Alert
+            key={index}
+            startDecorator={<ErrorIcon />}
+            variant="soft"
+            color="danger"
+            sx={{ mb: 2 }}
+          >
+            {msg}
+          </Alert>
+        ))}
+      </>
     );
   }
 
   if (!favorites.length) {
     return (
-      <DashboardLayout
-        breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}
-      >
-        <Box sx={{ marginX: "auto", marginY: 6, textAlign: "center" }}>
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Favoris" />
+        </Box>
+        <Box
+          sx={{
+            paddingX: 2,
+            paddingY: 6,
+            textAlign: "center",
+            border: "1px solid #272930", // JoyUI
+            borderRadius: "12px",
+          }}
+        >
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez aucune annonce dans vos favoris.
           </Typography>
@@ -63,19 +93,33 @@ export default function Page() {
             </Button>
           </Link>
         </Box>
-      </DashboardLayout>
+      </>
     );
   }
 
   return (
-    <DashboardLayout breadcrumbs={<CustomBreadcrumbs currentPage="Favoris" />}>
-      {favorites.map((leaseFavorite: IFavorite, index: number) => (
-        <Box key={leaseFavorite.id}>
-          {index === 0 && <Divider />}
-          <LeaseFavorite leaseFavorite={leaseFavorite} />
-          <Divider />
-        </Box>
-      ))}
-    </DashboardLayout>
+    <>
+      <Box marginBottom={4}>
+        <CustomBreadcrumbs currentPage="Favoris" />
+      </Box>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gridColumnGap: "20px",
+          gridRowGap: "20px",
+          "@media (max-width: 1420px)": {
+            gridTemplateColumns: "1fr 1fr",
+          },
+          "@media (max-width: 1150px)": {
+            gridTemplateColumns: "1fr",
+          },
+        }}
+      >
+        {favorites.map((leaseFavorite: IFavorite) => (
+          <LeaseCard key={leaseFavorite.id} lease={leaseFavorite.lease} />
+        ))}
+      </Box>
+    </>
   );
 }

@@ -28,7 +28,7 @@ import { ILease, ILeasesWithCount } from "../../../../interfaces/lease";
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
-const RESULTS_PER_PAGE = 5;
+const RESULTS_PER_PAGE = 6;
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -39,8 +39,11 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   const searchParams = useSearchParams();
 
   /* ------------------------------- REACT STATE ------------------------------ */
-  const [isDesktop, setIsDesktop] = useState<boolean>(true);
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    window?.innerWidth >= 1350
+  );
   const [showMap, setShowMap] = useState<boolean>(true);
+  const [invalidateSize, setInvalidateSize] = useState<boolean>(false);
 
   /* ------------------------------- REACT MEMO ------------------------------- */
   const pageCount = useMemo(
@@ -62,19 +65,18 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
 
   /* ------------------------------ REACT EFFECT ------------------------------ */
   /**
-   * Add event listener to compute screen size when viewport changes
-   */
-  useEffect(() => {
-    setInnerWidth();
-    window.addEventListener("resize", setInnerWidth);
-    return () => window.removeEventListener("resize", setInnerWidth);
-  }, []);
-
-  /**
-   * Restart pagination from 1 (in case user left page with another pagination)
+   * Refetch server-side data.
    * This is because NextJS keep state between navigation
    */
   useEffect(() => router.refresh(), []);
+
+  /**
+   * Add event listener to compute screen size when viewport changes
+   */
+  useEffect(() => {
+    window.addEventListener("resize", setInnerWidth);
+    return () => window.removeEventListener("resize", setInnerWidth);
+  }, []);
 
   /* -------------------------------- FUNCTIONS ------------------------------- */
   const onDataPageChange = (event: any, page: number) => {
@@ -84,12 +86,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   };
 
   const setInnerWidth = () => {
-    if (window.innerWidth >= 1350) {
-      setIsDesktop(true);
-      setShowMap(true);
-    } else {
-      setIsDesktop(false);
-    }
+    window.innerWidth >= 1350 ? setIsDesktop(true) : setIsDesktop(false);
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
@@ -134,30 +131,36 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
             )}
 
             {/** Lease cards */}
-            {data.leases.map((lease: ILease, index: number) => (
-              <a
-                key={lease.id}
-                href={`/leases/${lease.id}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Box sx={{ cursor: "pointer" }}>
-                  {index === 0 && (
-                    <Divider
-                      sx={{
-                        "@media (max-width: 760px)": { display: "none" },
-                      }}
-                    />
-                  )}
-                  <LeaseCard lease={lease} />
-                  <Divider
-                    sx={{
-                      "@media (max-width: 760px)": { display: "none" },
-                    }}
-                  />
-                </Box>
-              </a>
-            ))}
+            <Box
+              sx={
+                isDesktop
+                  ? {
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gridColumnGap: "20px",
+                      gridRowGap: "20px",
+                      "@media (max-width: 1300px)": {
+                        gridTemplateColumns: "1fr",
+                      },
+                    }
+                  : {
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                      gridColumnGap: "20px",
+                      gridRowGap: "20px",
+                      "@media (max-width: 1250px)": {
+                        gridTemplateColumns: "1fr 1fr",
+                      },
+                      "@media (max-width: 750px)": {
+                        gridTemplateColumns: "1fr",
+                      },
+                    }
+              }
+            >
+              {data.leases.map((lease: ILease) => (
+                <LeaseCard key={lease.id} lease={lease} />
+              ))}
+            </Box>
 
             {/** Pagination */}
             {!latitudes && data.totalCount > RESULTS_PER_PAGE && (
@@ -211,6 +214,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
               leases={data.leases}
               isMultiple={true}
               cityCoordinates={data.cityCoordinates}
+              invalidateSize={invalidateSize}
             />
           </Box>
 
@@ -218,11 +222,14 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
             <Box sx={{ position: "absolute", top: 18, right: 48 }}>
               {showMap && (
                 <Button
-                  onClick={() => setShowMap(false)}
+                  onClick={() => {
+                    setShowMap(false);
+                    setInvalidateSize(false);
+                  }}
                   startDecorator={<SubjectIcon />}
                   sx={{
-                    backgroundColor: "#262626",
-                    borderColor: "#262626",
+                    backgroundColor: "#000000",
+                    borderColor: "#000000",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {
@@ -236,11 +243,14 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
               )}
               {!showMap && (
                 <Button
-                  onClick={() => setShowMap(true)}
+                  onClick={() => {
+                    setShowMap(true);
+                    setInvalidateSize(true);
+                  }}
                   startDecorator={<MapIcon />}
                   sx={{
-                    backgroundColor: "#262626",
-                    borderColor: "#262626",
+                    backgroundColor: "#000000",
+                    borderColor: "#000000",
                     "&:hover": { backgroundColor: "#000000" },
                     "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
                     "&:active": {

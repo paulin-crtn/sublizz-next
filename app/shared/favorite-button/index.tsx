@@ -6,22 +6,22 @@ import { Dispatch, FunctionComponent, SetStateAction, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 /* --------------------------------- CONTEXT -------------------------------- */
-import { useAuth } from "../../../../../utils/context/auth.context";
+import { useAuth } from "../../../utils/context/auth.context";
 /* ---------------------------------- UTILS --------------------------------- */
 import {
   deleteLeaseFavorite,
   useLeaseFavorites,
   storeLeaseFavorite,
-} from "../../../../../utils/react-query/lease-favorites";
+} from "../../../utils/react-query/lease-favorites";
 /* ----------------------------------- MUI ---------------------------------- */
-import Button from "@mui/joy/Button";
+import IconButton from "@mui/joy/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IFavorite } from "../../../../../interfaces/IFavorite";
+import { IFavorite } from "../../../interfaces/IFavorite";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
-import { TOAST_STYLE } from "../../../../../const/toastStyle";
+import { UserRoleEnum } from "../../../enum/UserRoleEnum";
+import { TOAST_STYLE } from "../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -29,7 +29,8 @@ import { TOAST_STYLE } from "../../../../../const/toastStyle";
 const FavoriteButton: FunctionComponent<{
   leaseId: number;
   setOpenSignAlert: Dispatch<SetStateAction<boolean>>;
-}> = ({ leaseId, setOpenSignAlert }) => {
+  size: "sm" | "md" | "lg";
+}> = ({ leaseId, setOpenSignAlert, size }) => {
   /* ------------------------------ QUERY CLIENT ------------------------------ */
   const queryClient = useQueryClient();
 
@@ -68,15 +69,19 @@ const FavoriteButton: FunctionComponent<{
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <Button
-      size="lg"
-      variant="outlined"
-      color={leaseFavorite ? "primary" : "neutral"}
+    <IconButton
+      size={size}
+      color="neutral"
       onClick={handleClick}
-      sx={{ width: "fit-content", marginLeft: "auto" }}
+      sx={{
+        width: "fit-content",
+        marginLeft: "auto",
+        padding: 1.5,
+        borderRadius: "9999px",
+      }}
     >
       {leaseFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-    </Button>
+    </IconButton>
   );
 };
 

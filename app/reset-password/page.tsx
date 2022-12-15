@@ -14,7 +14,6 @@ import { resetPassword } from "../../utils/fetch/fetchAuth";
 import Box from "@mui/joy/Box";
 import ErrorIcon from "@mui/icons-material/Error";
 import Button from "@mui/joy/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -125,16 +124,9 @@ export default function Page() {
               )}
             </FormControl>
 
-            {!isLoading && (
-              <Button fullWidth type="submit">
-                Définir ce nouveau mot de passe
-              </Button>
-            )}
-            {isLoading && (
-              <Button fullWidth disabled>
-                <CircularProgress />
-              </Button>
-            )}
+            <Button loading={isLoading} fullWidth type="submit">
+              Définir ce nouveau mot de passe
+            </Button>
           </form>
         )}
       </Box>
