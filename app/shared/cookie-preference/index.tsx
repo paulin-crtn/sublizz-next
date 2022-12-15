@@ -133,37 +133,7 @@ const CookiePreference = ({
         </>
       )}
 
-      <Box marginTop={4}>
-        <Button
-          color="neutral"
-          variant="outlined"
-          fullWidth
-          onClick={handleRefuseAll}
-        >
-          Refuser
-        </Button>
-        {!showSettings && (
-          <Button
-            color="neutral"
-            variant="soft"
-            fullWidth
-            onClick={() => setShowSettings(true)}
-            sx={{ marginY: 1 }}
-          >
-            Paramétrer
-          </Button>
-        )}
-        {showSettings && (
-          <Button
-            color="neutral"
-            variant="soft"
-            fullWidth
-            onClick={handleAcceptSelection}
-            sx={{ marginY: 1 }}
-          >
-            Autoriser la sélection
-          </Button>
-        )}
+      <Box marginTop={4} display="flex" gap={1}>
         <Button
           color="neutral"
           onClick={handleAcceptAll}
@@ -177,6 +147,27 @@ const CookiePreference = ({
           }}
         >
           Tout autoriser
+        </Button>
+        {!showSettings && (
+          <Button
+            color="neutral"
+            variant="soft"
+            onClick={() => setShowSettings(true)}
+          >
+            Paramétrer
+          </Button>
+        )}
+        {showSettings && (
+          <Button
+            color="neutral"
+            variant="soft"
+            onClick={handleAcceptSelection}
+          >
+            Autoriser la sélection
+          </Button>
+        )}
+        <Button color="neutral" variant="outlined" onClick={handleRefuseAll}>
+          Refuser
         </Button>
       </Box>
     </Box>
