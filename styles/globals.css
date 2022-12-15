@@ -42,6 +42,10 @@ li {
 }
 
 /* LEAFLET */
+.leaflet-tile-container img {
+  box-shadow: 0 0 1px rgb(35, 35, 35); /* Fix white lines on Safari (very visible with dark map) */
+}
+
 .leaflet-popup-content-wrapper {
   padding: 0px !important;
 }
