@@ -20,15 +20,18 @@ import Chip from "@mui/joy/Chip";
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
 const listStyle = (theme: Theme) => ({
-  marginY: 1,
+  marginY: 0.75,
   minBlockSize: 0,
   paddingBlockStart: 0,
   paddingBlockEnd: 0,
   fontSize: "1.1rem",
   "& > span > svg": {
     marginRight: 2,
-    fontSize: "1.6rem",
-    color: "#ffffff",
+    padding: 0.75,
+    fontSize: "2.1rem",
+    color: "#262626",
+    backgroundColor: "#dddddd",
+    borderRadius: "9999px",
   },
 });
 
