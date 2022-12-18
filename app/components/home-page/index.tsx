@@ -467,12 +467,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           ].map(({ avatarSrc, fullName, date, review }, index) => (
             <Box
               key={index}
-              sx={{
+              sx={(theme) => ({
                 paddingX: 2,
                 paddingY: 3,
                 borderRadius: "12px",
-                backgroundColor: "#262626",
-              }}
+                backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
+              })}
             >
               <Box
                 display="flex"
