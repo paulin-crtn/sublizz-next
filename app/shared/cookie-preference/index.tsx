@@ -66,17 +66,10 @@ const CookiePreference = ({
           letterSpacing: 0,
           cursor: "pointer",
           whiteSpace: "nowrap",
-          color: "#aaaaaa",
+          color: "#ffffff",
         }}
       >
-        la
-        <Box component="span" sx={{ color: "#ffffff" }}>
-          carte
-        </Box>
-        des
-        <Box component="span" sx={{ color: "#ffffff" }}>
-          logements
-        </Box>
+        lacartedeslogements
       </Typography>
       <Typography
         marginBottom={2}
@@ -164,6 +157,7 @@ const CookiePreference = ({
             backgroundColor: "#ffffff",
             color: "#000000",
             fontWeight: 500,
+            whiteSpace: "nowrap",
             "&:hover": { backgroundColor: "#eeeeee" },
             "&:active": { backgroundColor: "#eeeeee" },
           }}
