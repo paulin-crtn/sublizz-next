@@ -14,7 +14,7 @@ import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
 /* -------------------------------- CONSTANT -------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../const/objectStoragePath";
 import { UserRoleEnum } from "../../enum/UserRoleEnum";
 
 /* -------------------------------------------------------------------------- */

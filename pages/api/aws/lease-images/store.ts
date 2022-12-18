@@ -2,7 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextApiRequest, NextApiResponse } from "next";
-import { createClient } from "@supabase/supabase-js";
+import AWS from "aws-sdk";
 import fs from "fs";
 import parseFormData from "../../../../utils/parseFormData";
 import formidable from "formidable";
@@ -22,8 +22,8 @@ export const config = {
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
-const SUPABASE_ANON_API_KEY = process.env.SUPABASE_ANON_API_KEY;
-const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const AWS_ID = process.env.AWS_ID;
+const AWS_SECRET = process.env.AWS_SECRET;
 
 /* -------------------------------------------------------------------------- */
 /*                                API ENDPOINT                                */
@@ -32,15 +32,15 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<string[]> {
-  // Check that Supabase keys are provided
-  if (!SUPABASE_ANON_API_KEY || !NEXT_PUBLIC_SUPABASE_URL) {
-    throw new Error("You must provide SUPABASE keys in .env file");
+  // Check that AWS keys are provided
+  if (!AWS_ID || !AWS_SECRET) {
+    throw new Error("AWS_ID or AWS_SECRET is missing");
   }
-  // Create a Supabase client for interacting with storage
-  const supabase = createClient(
-    NEXT_PUBLIC_SUPABASE_URL,
-    SUPABASE_ANON_API_KEY
-  );
+  // Create an AWS client for interacting with storage
+  const s3 = new AWS.S3({
+    accessKeyId: AWS_ID,
+    secretAccessKey: AWS_SECRET,
+  });
   // Parse request
   const { fields, files } = await parseFormData(req, true);
   const leaseImages = files.leaseImages as formidable.File[];
@@ -52,17 +52,24 @@ export default async function handle(
     const persistentFile = leaseImages[i];
     const file = fs.readFileSync(persistentFile.filepath);
     const fileName = fields.fileNames[i];
+    // Setting up S3 upload parameters
+    const params = {
+      Bucket: "lacartedeslogements-lease-images",
+      ContentType: persistentFile.mimetype ?? undefined,
+      Key: process.env.NEXT_PUBLIC_AWS_BUCKET_FOLDER + "/" + fileName, // Folder + Filename
+      Body: file,
+    };
     // Upload file to Supabase
-    const { data, error } = await supabase.storage
-      .from("lease-image")
-      .upload(fileName, file, {
-        upsert: true,
-        contentType: "image/jpeg",
+    await s3
+      .upload(params)
+      .promise()
+      .then((data) => {
+        fileNames.push(fileName);
+      })
+      .catch((err) => {
+        throw new Error(err.message);
       });
-    if (error) {
-      throw new Error(error.message);
-    }
-    fileNames.push(data.path);
   }
+  // Return fileNames
   return res.json(fileNames) as unknown as string[];
 }

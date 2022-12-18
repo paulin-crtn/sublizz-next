@@ -43,7 +43,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { IUserDetail } from "../../../../../interfaces/IUserDetail";
 import { IUpdateUser } from "../../../../../interfaces/IUserUpdate";
 /* ---------------------------------- CONST --------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../../../../const/objectStoragePath";
 import { TOAST_STYLE } from "../../../../../const/toastStyle";
 import { UserRoleEnum } from "../../../../../enum/UserRoleEnum";
 

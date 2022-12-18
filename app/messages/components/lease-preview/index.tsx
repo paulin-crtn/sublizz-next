@@ -13,7 +13,7 @@ import Button from "@mui/joy/Button";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease } from "../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { LEASE_IMAGE_PATH } from "../../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../../const/objectStoragePath";
 import noLeaseImg from "../../../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */

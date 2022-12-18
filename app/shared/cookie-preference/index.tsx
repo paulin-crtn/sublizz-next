@@ -134,19 +134,8 @@ const CookiePreference = ({
       )}
 
       <Box marginTop={4} display="flex" gap={1}>
-        <Button
-          color="neutral"
-          onClick={handleAcceptAll}
-          fullWidth
-          sx={{
-            backgroundColor: "#ffffff",
-            color: "#000000",
-            fontWeight: 500,
-            "&:hover": { backgroundColor: "#eeeeee" },
-            "&:active": { backgroundColor: "#eeeeee" },
-          }}
-        >
-          Tout autoriser
+        <Button color="neutral" variant="outlined" onClick={handleRefuseAll}>
+          Refuser
         </Button>
         {!showSettings && (
           <Button
@@ -162,12 +151,24 @@ const CookiePreference = ({
             color="neutral"
             variant="soft"
             onClick={handleAcceptSelection}
+            sx={{ whiteSpace: "nowrap" }}
           >
             Autoriser la sélection
           </Button>
         )}
-        <Button color="neutral" variant="outlined" onClick={handleRefuseAll}>
-          Refuser
+        <Button
+          color="neutral"
+          onClick={handleAcceptAll}
+          fullWidth
+          sx={{
+            backgroundColor: "#ffffff",
+            color: "#000000",
+            fontWeight: 500,
+            "&:hover": { backgroundColor: "#eeeeee" },
+            "&:active": { backgroundColor: "#eeeeee" },
+          }}
+        >
+          Tout autoriser
         </Button>
       </Box>
     </Box>

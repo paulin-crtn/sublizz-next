@@ -13,7 +13,7 @@ import Divider from "@mui/joy/Divider";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConversation } from "../../../../interfaces/message/IConversation";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../../../const/objectStoragePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

@@ -182,17 +182,15 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                 }}
               >
                 <Box margin="auto" textAlign="center">
-                  <Image
-                    src="/img/no-result.svg"
-                    alt="no result illustration"
-                    width="320"
-                    height="220"
-                  />
                   <Typography level="h5" fontWeight={400} textAlign="center">
                     {city && `Aucun résultat pour ${city}`}
                     {latitudes && `Aucun résultat dans cette zone`}
                   </Typography>
-                  <Button sx={{ mt: 3 }} onClick={() => router.push("/leases")}>
+                  <Button
+                    variant="soft"
+                    sx={{ mt: 3 }}
+                    onClick={() => router.push("/leases")}
+                  >
                     Effacer la recherche
                   </Button>
                 </Box>

@@ -25,7 +25,7 @@ import { IConversation } from "../../../../interfaces/message/IConversation";
 import { IConversationMessage } from "../../../../interfaces/message/IConversationMessage";
 import { IConversationMessageForm } from "../../../../interfaces/message/IConversationMessageForm";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { PROFILE_PICTURE_PATH } from "../../../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../../../const/objectStoragePath";
 import { TOAST_STYLE } from "../../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */

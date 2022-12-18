@@ -15,7 +15,7 @@ import Sheet from "@mui/joy/Sheet";
 import Card from "@mui/joy/Card";
 import CardCover from "@mui/joy/CardCover";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { LEASE_IMAGE_PATH } from "../../../../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../../../../const/objectStoragePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

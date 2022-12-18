@@ -78,7 +78,7 @@ export default function Page() {
             sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
             <Typography level="h6">Vercel</Typography>
-            <Typography level="body2">Front-end</Typography>
+            <Typography level="body2">Front-End</Typography>
             <Typography marginTop={2}>
               340 S Lemon Ave #4133
               <br />
@@ -99,7 +99,7 @@ export default function Page() {
             sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
             <Typography level="h6">Heroku</Typography>
-            <Typography level="body2">Back-end</Typography>
+            <Typography level="body2">Back-End</Typography>
             <Typography marginTop={2}>
               415 Mission Street, Suite 300
               <br />
@@ -119,21 +119,21 @@ export default function Page() {
             variant="outlined"
             sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
-            <Typography level="h6">Supabase</Typography>
-            <Typography level="body2">Base de données & stockage</Typography>
+            <Typography level="h6">Amazon Web Service</Typography>
+            <Typography level="body2">Base de données & Stockage</Typography>
             <Typography marginTop={2}>
-              970 Toa Payoh North #07-04
+              38 avenue John F. Kennedy
               <br />
-              Singapore, Central Singapore
+              L 1855
               <br />
-              318992, Singapore
+              99137 Luxembourg
             </Typography>
             <a
-              href="https://supabase.com/support"
+              href="https://aws.amazon.com/fr/contact-us/"
               target="_blank"
               rel="noreferrer"
             >
-              <Button sx={{ mt: 2 }}>Contacter Supabase</Button>
+              <Button sx={{ mt: 2 }}>Contacter AWS</Button>
             </a>
           </Card>
         </Box>

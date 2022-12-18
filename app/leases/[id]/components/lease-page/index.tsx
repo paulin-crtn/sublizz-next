@@ -48,7 +48,7 @@ import { TOAST_STYLE } from "../../../../../const/toastStyle";
 import {
   LEASE_IMAGE_PATH,
   PROFILE_PICTURE_PATH,
-} from "../../../../../const/supabasePath";
+} from "../../../../../const/objectStoragePath";
 import { ILeaseDetail } from "../../../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */

@@ -41,7 +41,7 @@ const Header = () => {
         />
         <CardContent
           sx={{
-            marginY: 10,
+            marginY: 12,
             marginX: "auto",
             textAlign: "center",
             "@media (max-width: 1100px)": { marginY: 4 },
@@ -80,6 +80,8 @@ const Header = () => {
               Annonces immobilières sans frais d’agence
               <Box
                 display="flex"
+                justifyContent="center"
+                flexWrap="wrap"
                 gap={1}
                 width="fit-content"
                 marginX="auto"
@@ -132,7 +134,7 @@ const Header = () => {
             sx={{
               width: "600px",
               marginX: "auto",
-              marginTop: 8,
+              marginTop: 6,
               "@media (max-width: 900px)": {
                 width: "100%",
                 paddingX: 3,
