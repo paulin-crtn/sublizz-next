@@ -23,16 +23,17 @@ const DashboardCard = ({
   return (
     <Link href={href}>
       <Box
-        sx={{
+        sx={(theme) => ({
           display: "flex",
           paddingX: 3,
           paddingY: 2.5,
           height: "100%",
-          border: "1px solid #272930", // JoyUI
+          border: "1px solid",
+          borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
           borderRadius: "12px",
           lineHeight: "1.4rem",
           cursor: "pointer",
-        }}
+        })}
       >
         <Box>
           <Typography lineHeight="inherit" level="h6" startDecorator={icon}>

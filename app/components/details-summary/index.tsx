@@ -22,12 +22,13 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
   return (
     <Box
       component="details"
-      sx={{
+      sx={(theme) => ({
         position: "relative",
         padding: 3,
-        border: "1px solid #272930", // JoyUI
+        border: "1px solid",
+        borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
         borderRadius: "12px",
-      }}
+      })}
     >
       <Box
         component="summary"

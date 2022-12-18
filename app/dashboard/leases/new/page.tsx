@@ -95,13 +95,14 @@ export default function Page() {
           <CustomBreadcrumbs currentPage="Publier" prevPages={prevPages} />
         </Box>
         <Box
-          sx={{
+          sx={(theme) => ({
             paddingX: 2,
             paddingY: 6,
             textAlign: "center",
-            border: "1px solid #272930", // JoyUI
+            border: "1px solid",
+            borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
             borderRadius: "12px",
-          }}
+          })}
         >
           <Typography level="h6" fontWeight={400} marginBottom={1}>
             Vous avez atteint la limite de 2 annonces publiées par compte.

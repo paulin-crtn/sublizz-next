@@ -25,6 +25,7 @@ const HowItWorks = () => {
   const [showRole, setShowRole] = useState<string>("Je propose un logement");
 
   /* -------------------------------- TEMPLATE -------------------------------- */
+  // undraw pictures color #F9A826
   return (
     <Box>
       <RadioGroup

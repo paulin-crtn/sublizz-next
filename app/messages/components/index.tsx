@@ -125,10 +125,11 @@ const Conversations = ({
       </Box>
       <Box
         flex="1 1"
-        sx={{
-          borderLeft: "1px solid #272930", // JoyUI
-          borderRight: "1px solid #272930", // JoyUI
-        }}
+        sx={(theme) => ({
+          borderLeft: "1px solid",
+          borderRight: "1px solid",
+          borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+        })}
       >
         {selectedConversationId && (
           <ConversationMessages

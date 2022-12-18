@@ -263,17 +263,18 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
 
           {/** Contact Author */}
           <Box
-            sx={{
+            sx={(theme) => ({
               flex: "0 0 350px",
               height: "fit-content",
               padding: 2,
               borderRadius: "12px",
-              border: "1px solid #272930", // JoyUI
+              border: "1px solid",
+              borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
               "@media (max-width: 1000px)": {
                 mt: 4,
                 width: "fit-content",
               },
-            }}
+            })}
           >
             <Box
               sx={{

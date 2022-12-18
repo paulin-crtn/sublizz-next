@@ -77,13 +77,14 @@ export default function Page() {
       <>
         <CustomBreadcrumbsWithCTA />
         <Box
-          sx={{
+          sx={(theme) => ({
             paddingX: 2,
             paddingY: 6,
             textAlign: "center",
-            border: "1px solid #272930", // JoyUI
+            border: "1px solid",
+            borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
             borderRadius: "12px",
-          }}
+          })}
         >
           <Typography level="h6" fontWeight={400} marginBottom={3}>
             Vous n'avez publié aucune annonce.
