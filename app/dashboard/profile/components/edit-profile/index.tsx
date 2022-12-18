@@ -19,6 +19,7 @@ import parseUserForm from "../../../../../utils/parseUserForm";
 import { useAuth } from "../../../../../utils/context/auth.context";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import Optional from "../../../../shared/optional";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
@@ -360,16 +361,14 @@ const EditProfile = () => {
           </FormControl>
         )}
 
-        {!isUploadingFile && !isLoading && (
-          <Button type="submit" sx={{ mt: 2 }}>
-            Enregistrer
-          </Button>
-        )}
-        {(isUploadingFile || isLoading) && (
-          <Button disabled sx={{ mt: 2 }}>
-            <CircularProgress />
-          </Button>
-        )}
+        <Button
+          type="submit"
+          loading={isUploadingFile || isLoading}
+          loadingIndicator={<LoadingIndicator />}
+          sx={{ mt: 2 }}
+        >
+          Enregistrer
+        </Button>
       </Box>
     </form>
   );
