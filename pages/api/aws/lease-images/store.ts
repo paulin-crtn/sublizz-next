@@ -52,7 +52,7 @@ export default async function handle(
     const persistentFile = leaseImages[i];
     const file = fs.readFileSync(persistentFile.filepath);
     const fileName = fields.fileNames[i];
-    // Setting up S3 upload parameters
+    // Setting up S3 parameters
     const params = {
       Bucket: "lacartedeslogements-lease-images",
       ContentType: persistentFile.mimetype ?? undefined,
@@ -63,7 +63,7 @@ export default async function handle(
     await s3
       .upload(params)
       .promise()
-      .then((data) => {
+      .then(() => {
         fileNames.push(fileName);
       })
       .catch((err) => {

@@ -16,7 +16,7 @@ const AWS_SECRET = process.env.AWS_SECRET;
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<any> {
+): Promise<void> {
   // Check that AWS keys are provided
   if (!AWS_ID || !AWS_SECRET) {
     throw new Error("AWS_ID or AWS_SECRET is missing");
@@ -26,7 +26,7 @@ export default async function handle(
     accessKeyId: AWS_ID,
     secretAccessKey: AWS_SECRET,
   });
-  // Setting up S3 upload parameters
+  // Setting up S3 parameters
   const params = {
     Bucket: "lacartedeslogements-lease-images",
     Delete: {

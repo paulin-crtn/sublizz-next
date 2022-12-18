@@ -40,7 +40,6 @@ import ErrorIcon from "@mui/icons-material/Error";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 /* ------------------------------- INTERFACES ------------------------------- */
-import { IUserDetail } from "../../../../../interfaces/IUserDetail";
 import { IUpdateUser } from "../../../../../interfaces/IUserUpdate";
 /* ---------------------------------- CONST --------------------------------- */
 import { PROFILE_PICTURE_PATH } from "../../../../../const/objectStoragePath";
@@ -247,6 +246,7 @@ const EditProfile = () => {
           </FormLabel>
           <IconButton
             color="neutral"
+            variant="solid"
             size="sm"
             disabled={isDeletingFile ? true : false}
             onClick={onDeleteProfilePicture}
