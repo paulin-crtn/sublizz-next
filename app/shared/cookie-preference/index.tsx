@@ -66,17 +66,10 @@ const CookiePreference = ({
           letterSpacing: 0,
           cursor: "pointer",
           whiteSpace: "nowrap",
-          color: "#aaaaaa",
+          color: "#ffffff",
         }}
       >
-        la
-        <Box component="span" sx={{ color: "#ffffff" }}>
-          carte
-        </Box>
-        des
-        <Box component="span" sx={{ color: "#ffffff" }}>
-          logements
-        </Box>
+        lacartedeslogements
       </Typography>
       <Typography
         marginBottom={2}
@@ -133,22 +126,15 @@ const CookiePreference = ({
         </>
       )}
 
-      <Box marginTop={4}>
-        <Button
-          color="neutral"
-          variant="outlined"
-          fullWidth
-          onClick={handleRefuseAll}
-        >
+      <Box marginTop={4} display="flex" gap={1}>
+        <Button color="neutral" variant="outlined" onClick={handleRefuseAll}>
           Refuser
         </Button>
         {!showSettings && (
           <Button
             color="neutral"
             variant="soft"
-            fullWidth
             onClick={() => setShowSettings(true)}
-            sx={{ marginY: 1 }}
           >
             Paramétrer
           </Button>
@@ -157,9 +143,8 @@ const CookiePreference = ({
           <Button
             color="neutral"
             variant="soft"
-            fullWidth
             onClick={handleAcceptSelection}
-            sx={{ marginY: 1 }}
+            sx={{ whiteSpace: "nowrap" }}
           >
             Autoriser la sélection
           </Button>
@@ -172,6 +157,7 @@ const CookiePreference = ({
             backgroundColor: "#ffffff",
             color: "#000000",
             fontWeight: 500,
+            whiteSpace: "nowrap",
             "&:hover": { backgroundColor: "#eeeeee" },
             "&:active": { backgroundColor: "#eeeeee" },
           }}

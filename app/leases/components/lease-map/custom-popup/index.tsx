@@ -19,7 +19,7 @@ import CardContent from "@mui/joy/CardContent";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILeaseDetail } from "../../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import { LEASE_IMAGE_PATH } from "../../../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../../../const/objectStoragePath";
 import noLeaseImg from "../../../../../public/img/no-lease-img.png";
 
 /* -------------------------------------------------------------------------- */

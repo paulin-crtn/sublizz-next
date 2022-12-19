@@ -25,6 +25,7 @@ const HowItWorks = () => {
   const [showRole, setShowRole] = useState<string>("Je propose un logement");
 
   /* -------------------------------- TEMPLATE -------------------------------- */
+  // undraw pictures color #F9A826
   return (
     <Box>
       <RadioGroup
@@ -147,32 +148,36 @@ const HowItWorks = () => {
             }}
           >
             <Alert
+              variant="plain"
               startDecorator={
                 <PauseIcon sx={{ padding: 0.25, color: "#ffffff" }} />
               }
-              sx={{
+              sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                backgroundColor: "#474747",
+                border: "1px solid",
+                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
                 color: "#ffffff",
-              }}
+              })}
             >
               Vous pouvez suspendre la publication de votre annonce sans la
               supprimer
             </Alert>
 
             <Alert
+              variant="plain"
               startDecorator={
                 <PhoneIcon sx={{ padding: 0.25, color: "#ffffff" }} />
               }
-              sx={{
+              sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                backgroundColor: "#474747",
+                border: "1px solid",
+                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
                 color: "#ffffff",
-              }}
+              })}
             >
               Renseignez votre numéro de téléphone pour être contacté
               directement
@@ -252,6 +257,7 @@ const HowItWorks = () => {
             }}
           >
             <Alert
+              variant="plain"
               startDecorator={
                 <FavoriteIcon
                   sx={{
@@ -260,19 +266,21 @@ const HowItWorks = () => {
                   }}
                 />
               }
-              sx={{
+              sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                backgroundColor: "#474747",
+                border: "1px solid",
+                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
                 color: "#ffffff",
-              }}
+              })}
             >
               Vous pouvez enregistrer une annonce en favoris et la retrouver
               plus tard
             </Alert>
 
             <Alert
+              variant="plain"
               startDecorator={
                 <HourglassFullIcon
                   sx={{
@@ -281,13 +289,14 @@ const HowItWorks = () => {
                   }}
                 />
               }
-              sx={{
+              sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                backgroundColor: "#474747",
+                border: "1px solid",
+                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
                 color: "#ffffff",
-              }}
+              })}
             >
               Gagnez du temps en enregistrant une réponse type
             </Alert>

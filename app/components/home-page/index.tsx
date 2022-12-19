@@ -117,7 +117,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             gap: 2,
             mt: "60px",
             padding: 4,
-            background: "linear-gradient(to right, #4700cc, #652ba9)",
+            background: "linear-gradient(to right, #4700cc, #9400ff)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
@@ -313,7 +313,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               gap: 2,
               mt: "60px",
               padding: 4,
-              background: "linear-gradient(to right, #4700cc, #652ba9)",
+              background: "linear-gradient(to right, #4700cc, #9400ff)",
               borderRadius: "16px",
               boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {
@@ -467,12 +467,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           ].map(({ avatarSrc, fullName, date, review }, index) => (
             <Box
               key={index}
-              sx={{
+              sx={(theme) => ({
                 paddingX: 2,
                 paddingY: 3,
                 borderRadius: "12px",
-                backgroundColor: "#262626",
-              }}
+                backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
+              })}
             >
               <Box
                 display="flex"
@@ -517,7 +517,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             gap: 2,
             mt: "60px",
             padding: 4,
-            background: "linear-gradient(to right, #4700cc, #652ba9)",
+            background: "linear-gradient(to right, #4700cc, #9400ff)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {

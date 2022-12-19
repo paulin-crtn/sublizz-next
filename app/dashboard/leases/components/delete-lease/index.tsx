@@ -67,12 +67,13 @@ const DeleteLease: FunctionComponent<{
       </Typography>
 
       <Box
-        sx={{
+        sx={(theme) => ({
           marginY: 3,
           padding: 2,
-          border: "1px solid #272930", // JoyUI
+          border: "1px solid",
+          borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
           borderRadius: "12px",
-        }}
+        })}
       >
         <Typography level="h5" fontWeight="600">
           {lease.city}

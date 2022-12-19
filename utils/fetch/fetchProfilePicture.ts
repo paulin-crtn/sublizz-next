@@ -4,7 +4,7 @@
 export const storeProfilePicture = async (
   formData: FormData
 ): Promise<string> => {
-  const response = await fetch("/api/supabase/profile-picture/store", {
+  const response = await fetch("/api/aws/profile-picture/store", {
     method: "POST",
     body: formData,
     // headers: 'Content-Type' should be omit when sending a FormData
@@ -15,7 +15,7 @@ export const storeProfilePicture = async (
 export const destroyProfilePicture = async (
   fileName: string
 ): Promise<void> => {
-  const response = await fetch("/api/supabase/profile-picture/destroy", {
+  const response = await fetch("/api/aws/profile-picture/destroy", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

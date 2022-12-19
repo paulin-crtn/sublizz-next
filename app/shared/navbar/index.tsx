@@ -44,12 +44,12 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import { UserRoleEnum } from "../../../enum/UserRoleEnum";
-import { PROFILE_PICTURE_PATH } from "../../../const/supabasePath";
+import { PROFILE_PICTURE_PATH } from "../../../const/objectStoragePath";
 import { TOAST_STYLE } from "../../../const/toastStyle";
 import { poppins } from "../../../utils/nextFont";
-import logoImg from "../../../public/img/logo.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -144,30 +144,21 @@ const Navbar: FunctionComponent = () => {
                 letterSpacing: 0,
                 cursor: "pointer",
                 whiteSpace: "nowrap",
-                color: "#aaaaaa",
               }}
             >
-              la
-              <Box component="span" sx={{ color: "#ffffff" }}>
-                carte
-              </Box>
-              des
-              <Box component="span" sx={{ color: "#ffffff" }}>
-                logements
-              </Box>
+              lacartedeslogements
             </Typography>
           </Link>
         </Box>
         <Link href="/">
-          <Box
-            sx={{
-              height: "40px",
-              cursor: "pointer",
-              "@media (min-width: 761px)": { display: "none" },
-            }}
+          <IconButton
+            aria-label="lacartedeslogements homepage button"
+            color="neutral"
+            variant="outlined"
+            sx={{ "@media (min-width: 761px)": { display: "none" } }}
           >
-            <Image src={logoImg} alt="logo lacartedeslogements" height={40} />
-          </Box>
+            <LocationOnIcon />
+          </IconButton>
         </Link>
         {!user && (
           <Button

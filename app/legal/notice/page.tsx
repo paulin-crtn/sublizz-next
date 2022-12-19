@@ -77,8 +77,31 @@ export default function Page() {
             variant="outlined"
             sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
           >
+            <Typography level="h6">Amazon Web Services</Typography>
+            <Typography level="body2">
+              Back-End, Base de données & Stockage
+            </Typography>
+            <Typography marginTop={2}>
+              38 avenue John F. Kennedy
+              <br />
+              L 1855
+              <br />
+              99137 Luxembourg
+            </Typography>
+            <a
+              href="https://aws.amazon.com/fr/contact-us/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button sx={{ mt: 2 }}>Contacter AWS</Button>
+            </a>
+          </Card>
+          <Card
+            variant="outlined"
+            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
+          >
             <Typography level="h6">Vercel</Typography>
-            <Typography level="body2">Front-end</Typography>
+            <Typography level="body2">Front-End</Typography>
             <Typography marginTop={2}>
               340 S Lemon Ave #4133
               <br />
@@ -92,48 +115,6 @@ export default function Page() {
               rel="noreferrer"
             >
               <Button sx={{ mt: 2 }}>Contacter Vercel</Button>
-            </a>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
-          >
-            <Typography level="h6">Heroku</Typography>
-            <Typography level="body2">Back-end</Typography>
-            <Typography marginTop={2}>
-              415 Mission Street, Suite 300
-              <br />
-              San Francisco, CA 94105
-              <br />
-              United States
-            </Typography>
-            <a
-              href="https://www.heroku.com/contact"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Button sx={{ mt: 2 }}>Contacter Heroku</Button>
-            </a>
-          </Card>
-          <Card
-            variant="outlined"
-            sx={{ flex: "1 1 150px", mb: 2, boxShadow: "none" }}
-          >
-            <Typography level="h6">Supabase</Typography>
-            <Typography level="body2">Base de données & stockage</Typography>
-            <Typography marginTop={2}>
-              970 Toa Payoh North #07-04
-              <br />
-              Singapore, Central Singapore
-              <br />
-              318992, Singapore
-            </Typography>
-            <a
-              href="https://supabase.com/support"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Button sx={{ mt: 2 }}>Contacter Supabase</Button>
             </a>
           </Card>
         </Box>

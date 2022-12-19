@@ -22,7 +22,7 @@ const ContactEditor = ({
     <>
       <Alert color="neutral" sx={{ width: "100%" }}>
         <Typography>contact</Typography>
-        <AlternateEmailIcon sx={{ color: "#000000" }} />
+        <AlternateEmailIcon sx={{ color: "#ffffff" }} />
         <Typography>haftwald</Typography>
         <Typography>.</Typography>
         <Typography>com</Typography>

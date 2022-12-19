@@ -40,7 +40,7 @@ import MonitorIcon from "@mui/icons-material/Monitor";
 import { ILeaseDetail } from "../../../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import noLeaseImg from "../../../../../public/img/no-lease-img.png";
-import { LEASE_IMAGE_PATH } from "../../../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../../../const/objectStoragePath";
 import { TOAST_STYLE } from "../../../../../const/toastStyle";
 
 /* -------------------------------------------------------------------------- */

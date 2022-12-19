@@ -2,13 +2,13 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { NextApiRequest, NextApiResponse } from "next";
-import { createClient } from "@supabase/supabase-js";
+import AWS from "aws-sdk";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
-const SUPABASE_ANON_API_KEY = process.env.SUPABASE_ANON_API_KEY;
-const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const AWS_ID = process.env.AWS_ID;
+const AWS_SECRET = process.env.AWS_SECRET;
 
 /* -------------------------------------------------------------------------- */
 /*                                API ENDPOINT                                */
@@ -16,22 +16,27 @@ const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<string> {
-  // Check that Supabase keys are provided
-  if (!SUPABASE_ANON_API_KEY || !NEXT_PUBLIC_SUPABASE_URL) {
-    throw new Error("You must provide SUPABASE keys in .env file");
+): Promise<void> {
+  // Check that AWS keys are provided
+  if (!AWS_ID || !AWS_SECRET) {
+    throw new Error("AWS_ID or AWS_SECRET is missing");
   }
-  // Create a Supabase client for interacting with storage
-  const supabase = createClient(
-    NEXT_PUBLIC_SUPABASE_URL,
-    SUPABASE_ANON_API_KEY
-  );
-  // Remove file from Supabase
-  const { data, error } = await supabase.storage
-    .from("lease-image")
-    .remove(req.body);
-  if (error) {
-    throw new Error(error.message);
-  }
-  return res.json(data) as unknown as string;
+  // Create an AWS client for interacting with storage
+  const s3 = new AWS.S3({
+    accessKeyId: AWS_ID,
+    secretAccessKey: AWS_SECRET,
+  });
+  // Setting up S3 parameters
+  const params = {
+    Bucket: "lacartedeslogements-user-profile-pictures",
+    Key: process.env.NEXT_PUBLIC_AWS_BUCKET_FOLDER + "/" + req.body, // Folder + Filename
+  };
+  // Remove file from AWS
+  await s3
+    .deleteObject(params)
+    .promise()
+    .then((data) => res.json(data))
+    .catch((err) => {
+      throw new Error(err.message);
+    });
 }

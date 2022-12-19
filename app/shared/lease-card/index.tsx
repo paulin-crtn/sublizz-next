@@ -27,7 +27,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import { ILease } from "../../../interfaces/lease";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import noLeaseImg from "../../../public/img/no-lease-img.png";
-import { LEASE_IMAGE_PATH } from "../../../const/supabasePath";
+import { LEASE_IMAGE_PATH } from "../../../const/objectStoragePath";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */

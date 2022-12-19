@@ -11,6 +11,8 @@ import { useAuth } from "../../../../../../utils/context/auth.context";
 import { getUserLeases } from "../../../../../../utils/fetch/fetchLease";
 import { deleteUser } from "../../../../../../utils/fetch/fetchUser";
 import { destroyLeaseImages } from "../../../../../../utils/fetch/fetchLeaseImages";
+/* ------------------------------- COMPONENTS ------------------------------- */
+import LoadingIndicator from "../../../../../shared/loading-indicator";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import List from "@mui/joy/List";
@@ -18,7 +20,6 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
 import ErrorIcon from "@mui/icons-material/Error";
 /* ------------------------------- INTERFACES ------------------------------- */
@@ -125,16 +126,15 @@ const DeleteAccount = ({
           Vos messages et vos favoris seront supprimés
         </ListItem>
       </List>
-      {!isDeletingFile && (
-        <Button color="danger" fullWidth onClick={handleDelete}>
-          Supprimer mon compte
-        </Button>
-      )}
-      {isDeletingFile && (
-        <Button color="danger" fullWidth disabled>
-          <CircularProgress color="danger" />
-        </Button>
-      )}
+      <Button
+        color="danger"
+        loading={isDeletingFile}
+        loadingIndicator={<LoadingIndicator />}
+        fullWidth
+        onClick={handleDelete}
+      >
+        Supprimer mon compte
+      </Button>
       <Button
         color="neutral"
         variant="soft"
