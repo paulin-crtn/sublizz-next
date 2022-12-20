@@ -67,9 +67,14 @@ const Signup = ({
           <Typography level="h5" marginBottom={2}>
             Confirmez votre adresse email
           </Typography>
-          <Typography>
-            Nous avons envoyé un email à <strong>{getValues("email")}</strong>{" "}
+          <Typography marginBottom={1}>
+            Nous avons envoyé un email à{" "}
+            <Box component="span" fontWeight={600}>
+              {getValues("email")}
+            </Box>{" "}
             afin de confirmer l'adresse et activer votre compte. <br />
+          </Typography>
+          <Typography color="danger">
             Pensez à vérifier dans vos indésirables.
           </Typography>
         </Box>
