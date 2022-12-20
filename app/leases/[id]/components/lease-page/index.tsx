@@ -243,7 +243,12 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             <Typography level="h4" marginBottom={3}>
               Description
             </Typography>
-            <Typography level="h6" fontWeight={300} marginBottom={3}>
+            <Typography
+              level="h6"
+              fontWeight={300}
+              marginBottom={3}
+              sx={{ whiteSpace: "pre-wrap" }}
+            >
               {lease.description}
             </Typography>
             <FormHelperText sx={{ marginBottom: 1 }}>

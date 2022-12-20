@@ -468,8 +468,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           variant="soft"
           defaultValue={lease ? lease.description : ""}
           {...register("description")}
-          minRows={5}
-          maxRows={5}
+          minRows={6}
+          maxRows={10}
         />
       </FormControl>
 
