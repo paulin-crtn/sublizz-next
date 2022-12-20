@@ -11,7 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import frLocale from "date-fns/locale/fr";
 /* ---------------------------------- UTILS --------------------------------- */
-import { getLease } from "../../../../utils/fetch/fetchLease";
+import { getUserLeases } from "../../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import EditLease from "../components/edit-lease";
 import CustomBreadcrumbs from "../../components/custom-beadcrumbs";
@@ -20,6 +20,8 @@ import ErrorIcon from "@mui/icons-material/Error";
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Alert from "@mui/joy/Alert";
+/* ------------------------------- INTERFACES ------------------------------- */
+import { ILeaseDetail } from "../../../../interfaces/lease";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -38,24 +40,29 @@ export default function Page() {
   ];
 
   /* ------------------------------- REACT MEMO ------------------------------- */
-  const id = useMemo(() => {
+  const id: number | null = useMemo(() => {
     if (pathname) {
       const pathnameArr = pathname.split("/");
-      return pathnameArr[pathnameArr.length - 1];
+      return +pathnameArr[pathnameArr.length - 1];
     }
     return null;
   }, [pathname]);
 
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
-    ["userLease", id],
-    () => getLease(Number(id) as number),
+    ["userLeases"],
+    () => getUserLeases(),
     {
       enabled: !!id,
-      cacheTime: 0,
-      retry: false,
+      initialData: [],
     }
   );
+
+  /* ------------------------------- REACT MEMO ------------------------------- */
+  const userLease: ILeaseDetail | undefined = useMemo(() => {
+    if (!id) return undefined;
+    return data.find((lease) => lease.id === id);
+  }, [data]);
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   if (isLoading) {
@@ -94,6 +101,24 @@ export default function Page() {
     );
   }
 
+  if (!userLease) {
+    return (
+      <>
+        <Box marginBottom={4}>
+          <CustomBreadcrumbs currentPage="Modifier" prevPages={prevPages} />
+        </Box>
+        <Alert
+          startDecorator={<ErrorIcon />}
+          variant="soft"
+          color="danger"
+          sx={{ mb: 2 }}
+        >
+          Cette annonce n'existe pas ou vous n'êtes pas autorisé à la modifier.
+        </Alert>
+      </>
+    );
+  }
+
   return (
     <>
       <Box marginBottom={4}>
@@ -110,7 +135,7 @@ export default function Page() {
           dateAdapter={AdapterDateFns}
           adapterLocale={frLocale}
         >
-          <EditLease lease={data} />
+          <EditLease lease={userLease} />
         </LocalizationProvider>
       </Box>
     </>
