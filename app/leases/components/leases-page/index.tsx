@@ -86,7 +86,12 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   };
 
   const setInnerWidth = () => {
-    window.innerWidth >= 1350 ? setIsDesktop(true) : setIsDesktop(false);
+    if (window.innerWidth >= 1350) {
+      setIsDesktop(true);
+    } else {
+      setIsDesktop(false);
+      setShowMap(true);
+    }
   };
 
   /* -------------------------------- TEMPLATE -------------------------------- */
