@@ -11,7 +11,7 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import StyleIcon from "@mui/icons-material/Style";
-import MessageIcon from "@mui/icons-material/Message";
+import ForumIcon from "@mui/icons-material/Forum";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PaymentIcon from "@mui/icons-material/Payment";
 import Chip from "@mui/joy/Chip";
@@ -28,10 +28,10 @@ const listStyle = (theme: Theme) => ({
   "& > span > svg": {
     marginRight: 2,
     padding: 0.75,
-    fontSize: "2.1rem",
-    color: "#262626",
-    backgroundColor: "#dddddd",
-    borderRadius: "9999px",
+    fontSize: "2.2rem",
+    color: theme.colorSchemes.dark.palette.primary.solidDisabledBg,
+    backgroundColor: theme.colorSchemes.dark.palette.primary.softBg,
+    borderRadius: "8px",
   },
 });
 
@@ -67,7 +67,7 @@ const SignAlert = ({
         </ListItem>
         <ListItem sx={listStyle}>
           <ListItemDecorator>
-            <MessageIcon />
+            <ForumIcon />
           </ListItemDecorator>
           Répondez à toutes les annonces
         </ListItem>

@@ -25,7 +25,9 @@ const Header = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <header>
-      <Card sx={{ "--Card-radius": 0 }}>
+      <Card
+        sx={{ "--Card-radius": "16px", marginX: "40px", marginTop: "10px" }}
+      >
         <CardCover>
           <Image
             src={homeImg}

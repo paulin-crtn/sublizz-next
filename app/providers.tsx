@@ -23,7 +23,7 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import Box from "@mui/joy/Box";
 import CssBaseline from "@mui/joy/CssBaseline";
 import { theme } from "../theme";
-import "../styles/globals.css";
+import { poppins } from "../utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
 /*                               DATE-FNS LOCALE                              */
@@ -76,49 +76,56 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
-    <CssVarsProvider
-      theme={theme}
-      defaultMode="dark"
-      colorSchemeSelector="#dark-mode"
-    >
-      <CssBaseline />
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          {/** TOASTER */}
-          <Toaster position="bottom-right" />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {/** NAVBAR */}
-            <Navbar />
-            {/** CONTENT */}
+    <>
+      <style jsx global>{`
+        html {
+          font-family: ${poppins.style.fontFamily};
+        }
+      `}</style>
+      <CssVarsProvider
+        theme={theme}
+        defaultMode="dark"
+        colorSchemeSelector="#dark-mode"
+      >
+        <CssBaseline />
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            {/** TOASTER */}
+            <Toaster position="bottom-right" />
             <Box
               sx={{
-                flexGrow: 1,
-                flexShrink: 0,
-                flexBasis: "calc(100vh - 90px)",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              {children}
+              {/** NAVBAR */}
+              <Navbar />
+              {/** CONTENT */}
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  flexShrink: 0,
+                  flexBasis: "calc(100vh - 90px)",
+                }}
+              >
+                {children}
+              </Box>
+              {/** FOOTER - except on /leases and /messages pages */}
+              {withFooter && <Footer />}
             </Box>
-            {/** FOOTER - except on /leases and /messages pages */}
-            {withFooter && <Footer />}
-          </Box>
-          {/** COOKIE */}
-          <Modal open={openCookie}>
-            <ModalDialog
-              size="lg"
-              aria-labelledby="cookie-modal"
-              sx={{ maxWidth: 550 }}
-            >
-              <CookiePreference setOpenCookie={setOpenCookie} />
-            </ModalDialog>
-          </Modal>
-        </AuthProvider>
-      </QueryClientProvider>
-    </CssVarsProvider>
+            {/** COOKIE */}
+            <Modal open={openCookie}>
+              <ModalDialog
+                size="lg"
+                aria-labelledby="cookie-modal"
+                sx={{ maxWidth: 550 }}
+              >
+                <CookiePreference setOpenCookie={setOpenCookie} />
+              </ModalDialog>
+            </Modal>
+          </AuthProvider>
+        </QueryClientProvider>
+      </CssVarsProvider>
+    </>
   );
 }

@@ -115,17 +115,18 @@ const Navbar: FunctionComponent = () => {
   return (
     <Box
       component="nav"
-      sx={{
+      sx={(theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         position: "sticky",
         top: 0,
         padding: "25px 35px",
-        background: "rgba(12, 12, 12, 0.9)",
+        // background: "rgba(12, 12, 12, 0.9)",
+        backgroundColor: theme.colorSchemes.dark.palette.background.body,
         backdropFilter: "blur(5px)",
         zIndex: 1000,
-      }}
+      })}
     >
       <Box
         sx={{
