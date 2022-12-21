@@ -88,9 +88,9 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
   const setInnerWidth = () => {
     if (window.innerWidth >= 1350) {
       setIsDesktop(true);
+      setShowMap(true);
     } else {
       setIsDesktop(false);
-      setShowMap(true);
     }
   };
 
