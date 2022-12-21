@@ -4,7 +4,6 @@
 
 html,
 body {
-  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
 }
@@ -32,8 +31,9 @@ li {
 
 /* CONTAINER */
 .container {
-  max-width: 1600px;
+  max-width: 1800px;
   padding: 45px 90px 90px 90px;
+  margin: 0 auto;
 }
 @media (max-width: 840px) {
   .container {
@@ -57,6 +57,10 @@ li {
 
 .leaflet-popup-content p {
   margin: 0 0 10px 0 !important;
+}
+
+.leaflet-popup-tip {
+  background-color: #000000 !important;
 }
 
 .leaflet-popup-close-button {

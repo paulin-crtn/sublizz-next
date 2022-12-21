@@ -51,7 +51,7 @@ const LeaseDates = ({
           <Typography
             fontWeight={300}
             level={level}
-            startDecorator={<EventAvailableIcon />}
+            startDecorator={withDecorator ? <EventAvailableIcon /> : undefined}
             sx={{
               color: size === "sm" ? "text.secondary" : "#ffffff",
               "--Typography-gap": "8px",
@@ -63,6 +63,17 @@ const LeaseDates = ({
                 new Date(lease.startDate),
                 fullDate ? "dd MMMM uuuu" : "dd MMM uuuu"
               )}
+            {!!lease.isDateFlexible && showFlexible && (
+              <Chip
+                component="span"
+                color="neutral"
+                variant="soft"
+                size={size === "lg" ? "md" : size}
+                sx={{ marginLeft: 1 }}
+              >
+                Dates flexibles
+              </Chip>
+            )}
           </Typography>
         )}
 
@@ -83,7 +94,7 @@ const LeaseDates = ({
                 component="span"
                 color="neutral"
                 variant="soft"
-                size={size}
+                size={size === "lg" ? "md" : size}
                 sx={{ marginLeft: 1 }}
               >
                 Dates flexibles
@@ -109,7 +120,7 @@ const LeaseDates = ({
                 component="span"
                 color="neutral"
                 variant="soft"
-                size={size}
+                size={size === "lg" ? "md" : size}
                 sx={{ marginLeft: 1 }}
               >
                 Dates flexibles

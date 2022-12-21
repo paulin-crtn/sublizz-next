@@ -244,10 +244,9 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               Description
             </Typography>
             <Typography
-              level="h6"
               fontWeight={300}
               marginBottom={3}
-              sx={{ whiteSpace: "pre-wrap" }}
+              sx={{ whiteSpace: "pre-wrap", fontSize: "1.05rem" }}
             >
               {lease.description}
             </Typography>
@@ -317,21 +316,14 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             </Box>
 
             {/** Message */}
-            <Button
-              variant="solid"
-              color="primary"
-              fullWidth
-              onClick={handleContact}
-              sx={{ mt: 2 }}
-            >
+            <Button fullWidth onClick={handleContact} sx={{ mt: 2 }}>
               Envoyer un message
             </Button>
 
             {/** Phone Number */}
             {lease.user.phoneNumber && (
               <Button
-                variant="solid"
-                color="neutral"
+                variant="soft"
                 fullWidth
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);

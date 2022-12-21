@@ -20,6 +20,7 @@ import Signup from "../../shared/signup";
 import LeaseType from "../lease-type";
 import DetailsSummary from "../details-summary";
 import HowItWorks from "../how-it-works";
+import Title from "../title";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
@@ -39,7 +40,6 @@ import { IDetailsSummary } from "../../../interfaces/IDetailsSummary";
 import mapImg from "../../../public/img/map.png";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../../data/leaseTypes";
-import { bitter } from "../../../utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -73,22 +73,9 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
       {/** Header */}
       <Header />
 
-      <main className="container">
+      <Box component="main" className="container">
         {/** Recent leases */}
-        <Typography
-          level="h3"
-          marginBottom="30px"
-          fontSize="2.1rem"
-          fontWeight={800}
-          fontFamily={bitter.style.fontFamily}
-          sx={{
-            "@media (max-width: 800px)": {
-              fontSize: "1.8rem",
-            },
-          }}
-        >
-          Annonces récentes
-        </Typography>
+        <Title text="Annonces récentes" marginTop="0" />
         {!!data.totalCount && (
           <Box
             sx={{
@@ -117,7 +104,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             gap: 2,
             mt: "60px",
             padding: 4,
-            background: "linear-gradient(to right, #4700cc, #9400ff)",
+            background: "linear-gradient(to right, #00c9ff, #92fe9d)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
@@ -130,7 +117,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             fontWeight="500"
             marginRight="30px"
             sx={{
-              color: "#ffffff",
+              color: "#000000",
               "@media (max-width: 1100px)": {
                 fontSize: "1.3rem",
               },
@@ -172,21 +159,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** Lease types */}
         <Box>
-          <Typography
-            level="h3"
-            marginTop="60px"
-            marginBottom="30px"
-            fontSize="2.1rem"
-            fontWeight={800}
-            fontFamily={bitter.style.fontFamily}
-            sx={{
-              "@media (max-width: 800px)": {
-                fontSize: "1.8rem",
-              },
-            }}
-          >
-            À chaque situation son logement
-          </Typography>
+          <Title text="À chaque situation son logement" />
           <Typography
             width="80%"
             marginBottom="40px"
@@ -267,21 +240,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** How it works */}
         <Box>
-          <Typography
-            level="h3"
-            marginTop="60px"
-            marginBottom="30px"
-            fontSize="2.1rem"
-            fontWeight={800}
-            fontFamily={bitter.style.fontFamily}
-            sx={{
-              "@media (max-width: 800px)": {
-                fontSize: "1.8rem",
-              },
-            }}
-          >
-            Seulement 4 étapes
-          </Typography>
+          <Title text="Seulement 4 étapes" />
           <Typography
             width="80%"
             marginBottom="40px"
@@ -313,7 +272,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               gap: 2,
               mt: "60px",
               padding: 4,
-              background: "linear-gradient(to right, #4700cc, #9400ff)",
+              background: "linear-gradient(to right, #00c9ff, #92fe9d)",
               borderRadius: "16px",
               boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {
@@ -326,7 +285,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               fontWeight="500"
               marginRight="30px"
               sx={{
-                color: "#ffffff",
+                color: "#000000",
                 "@media (max-width: 1100px)": {
                   fontSize: "1.3rem",
                   mb: 3,
@@ -389,21 +348,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** FAQ */}
         <Box>
-          <Typography
-            level="h3"
-            marginTop="60px"
-            marginBottom="30px"
-            fontSize="2.1rem"
-            fontWeight={800}
-            fontFamily={bitter.style.fontFamily}
-            sx={{
-              "@media (max-width: 800px)": {
-                fontSize: "1.8rem",
-              },
-            }}
-          >
-            Questions fréquentes
-          </Typography>
+          <Title text="Questions fréquentes" />
           <Box display="flex" flexDirection="column" gap={1.5}>
             {FREQUENTLY_ASKED_QUESTIONS.map(
               ({ summary, details }: IDetailsSummary, index: number) => (
@@ -418,21 +363,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         </Box>
 
         {/** Review */}
-        <Typography
-          level="h3"
-          marginTop="60px"
-          marginBottom="30px"
-          fontSize="2.1rem"
-          fontWeight={800}
-          fontFamily={bitter.style.fontFamily}
-          sx={{
-            "@media (max-width: 800px)": {
-              fontSize: "1.8rem",
-            },
-          }}
-        >
-          Avis qui font plaisir
-        </Typography>
+        <Title text="Avis qui font plaisir" />
         <Box
           sx={{
             display: "grid",
@@ -517,7 +448,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             gap: 2,
             mt: "60px",
             padding: 4,
-            background: "linear-gradient(to right, #4700cc, #9400ff)",
+            background: "linear-gradient(to right, #00c9ff, #92fe9d)",
             borderRadius: "16px",
             boxShadow: theme.vars.shadow.lg,
             "@media (max-width: 1100px)": {
@@ -530,7 +461,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             fontWeight="500"
             marginRight="30px"
             sx={{
-              color: "#ffffff",
+              color: "#000000",
               "@media (max-width: 1100px)": {
                 fontSize: "1.3rem",
                 mb: 3,
@@ -591,7 +522,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             </Button>
           </Box>
         </Box>
-      </main>
+      </Box>
 
       {/** Signin */}
       <Modal open={openSignin} onClose={() => setOpenSignin(false)}>

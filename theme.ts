@@ -11,10 +11,10 @@ import { poppins } from "./utils/nextFont";
 /*                                  CONSTANT                                  */
 /* -------------------------------------------------------------------------- */
 const PRIMARY_COLORS = {
-  main: "#5600F5", // "#4700CC"
-  lighter: "#5600F5",
-  darker: "#3E00B3",
-  soft: "#eeeeff",
+  main: "#3fb8ac", // "#4700CC"
+  lighter: "#44C7BC",
+  darker: "#33968E",
+  soft: "#FAFFFA",
 };
 
 const INFO_COLORS = {
@@ -46,14 +46,14 @@ export const joyTheme: Theme = extendTheme({
           solidDisabledColor: PRIMARY_COLORS.darker,
 
           softColor: "#000000",
-          softBg: PRIMARY_COLORS.soft,
+          softBg: "#ffffff",
           softDisabledBg: "#ffffff",
-          softHoverBg: "#f5f5ff",
-          softActiveBg: "#f5f5ff",
+          softHoverBg: PRIMARY_COLORS.soft,
+          softActiveBg: PRIMARY_COLORS.soft,
 
           outlinedBorder: PRIMARY_COLORS.main,
           outlinedColor: PRIMARY_COLORS.main,
-          outlinedHoverBg: PRIMARY_COLORS.soft,
+          outlinedHoverBg: "#ffffff",
           outlinedHoverBorder: PRIMARY_COLORS.main,
 
           plainColor: PRIMARY_COLORS.main,
