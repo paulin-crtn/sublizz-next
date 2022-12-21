@@ -286,7 +286,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
                 alignItems: "center",
               }}
             >
-              {user?.profilePictureName && (
+              {lease.user.profilePictureName && (
                 <Avatar
                   alt="Photo de profil de l'auteur de l'annonce"
                   src={
@@ -299,7 +299,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
                   }}
                 />
               )}
-              {!user?.profilePictureName && (
+              {!lease.user.profilePictureName && (
                 <Avatar
                   alt="Photo de profil de l'auteur de l'annonce"
                   sx={{
@@ -309,7 +309,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
                     fontSize: "1.4rem",
                   }}
                 >
-                  {user?.firstName.at(0)?.toUpperCase()}
+                  {lease.user.firstName.at(0)?.toUpperCase()}
                 </Avatar>
               )}
               <Typography level="h6">{lease.user.firstName}</Typography>
