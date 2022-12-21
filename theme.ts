@@ -4,7 +4,6 @@
 import { extendTheme, Theme } from "@mui/joy/styles";
 import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
-import LoadingIndicator from "./app/shared/loading-indicator";
 import { poppins } from "./utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
