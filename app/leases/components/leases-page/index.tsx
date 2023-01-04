@@ -7,7 +7,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import LeaseCard from "../../../shared/lease-card";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */

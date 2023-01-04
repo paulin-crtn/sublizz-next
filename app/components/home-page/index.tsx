@@ -21,6 +21,7 @@ import LeaseType from "../lease-type";
 import DetailsSummary from "../details-summary";
 import HowItWorks from "../how-it-works";
 import Title from "../title";
+import SubTitle from "../subtitle";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
@@ -40,6 +41,15 @@ import { IDetailsSummary } from "../../../interfaces/IDetailsSummary";
 import mapImg from "../../../public/img/map.png";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../../../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../../../data/leaseTypes";
+
+/* -------------------------------------------------------------------------- */
+/*                                  CONSTANTS                                 */
+/* -------------------------------------------------------------------------- */
+const SECTION_STYLES = {
+  maxWidth: "1800px",
+  margin: "0 auto",
+  padding: "70px",
+};
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -73,109 +83,106 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
       {/** Header */}
       <Header />
 
-      <Box component="main" className="container">
+      <Box component="main">
         {/** Recent leases */}
-        <Title text="Annonces récentes" marginTop="0" />
-        {!!data.totalCount && (
+        <Box sx={SECTION_STYLES}>
+          <Title text="Annonces récentes" />
+          {!!data.totalCount && (
+            <Box
+              sx={{
+                position: "relative", // InputCitySearch dropdown ABOVE this component
+                zIndex: 0, // InputCitySearch dropdown ABOVE this component
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                gridColumnGap: "20px",
+                gridRowGap: "20px",
+                "@media (max-width: 1300px)": {
+                  gridTemplateColumns: "1fr 1fr",
+                },
+                "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
+              }}
+            >
+              {data.leases.slice(0, 4).map((lease: ILease) => (
+                <LeaseCard key={lease.id} lease={lease} />
+              ))}
+            </Box>
+          )}
+          {/** CTA */}
           <Box
-            sx={{
-              position: "relative", // InputCitySearch dropdown ABOVE this component
-              zIndex: 0, // InputCitySearch dropdown ABOVE this component
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              gridColumnGap: "20px",
-              gridRowGap: "20px",
-              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
-              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
-            }}
-          >
-            {data.leases.slice(0, 4).map((lease: ILease) => (
-              <LeaseCard key={lease.id} lease={lease} />
-            ))}
-          </Box>
-        )}
-
-        {/** CTA */}
-        <Box
-          sx={(theme) => ({
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 2,
-            mt: "60px",
-            padding: 4,
-            background: "linear-gradient(to right, #00c9ff, #92fe9d)",
-            borderRadius: "16px",
-            boxShadow: theme.vars.shadow.lg,
-            "@media (max-width: 1100px)": {
-              display: "block",
-            },
-          })}
-        >
-          <Typography
-            fontSize="1.5rem"
-            fontWeight="500"
-            marginRight="30px"
-            sx={{
-              color: "#000000",
-              "@media (max-width: 1100px)": {
-                fontSize: "1.3rem",
-              },
-            }}
-          >
-            Découvrez toutes nos offres de locations et de sous-locations
-          </Typography>
-          <Box
-            sx={{
+            sx={(theme) => ({
               display: "flex",
+              justifyContent: "center",
               alignItems: "center",
               gap: 2,
-              "@media (max-width: 800px)": {
+              mt: "60px",
+              padding: 4,
+              background: "linear-gradient(to right, #00c9ff, #92fe9d)",
+              borderRadius: "16px",
+              boxShadow: theme.vars.shadow.lg,
+              "@media (max-width: 1100px)": {
                 display: "block",
               },
-            }}
+            })}
           >
-            <Button
-              size="lg"
-              fullWidth
-              onClick={() => router.push("/leases")}
+            <Typography
+              fontSize="1.5rem"
+              fontWeight="500"
+              marginRight="30px"
               sx={{
-                backgroundColor: "#ffffff",
                 color: "#000000",
-                border: "none",
-                whiteSpace: "nowrap",
-                "&:hover": {
-                  backgroundColor: "#eeeeee",
-                },
                 "@media (max-width: 1100px)": {
-                  mt: 3,
+                  fontSize: "1.3rem",
                 },
               }}
             >
-              Parcourir les annonces
-            </Button>
+              Découvrez toutes nos offres de locations et de sous-locations
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                "@media (max-width: 800px)": {
+                  display: "block",
+                },
+              }}
+            >
+              <Button
+                size="lg"
+                fullWidth
+                onClick={() => router.push("/leases")}
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  border: "none",
+                  whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "#eeeeee",
+                  },
+                  "@media (max-width: 1100px)": {
+                    mt: 3,
+                  },
+                }}
+              >
+                Parcourir les annonces
+              </Button>
+            </Box>
           </Box>
         </Box>
 
         {/** Lease types */}
-        <Box>
+        <Box
+          sx={{
+            ...SECTION_STYLES,
+            backgroundColor: "#19191d",
+          }}
+        >
           <Title text="À chaque situation son logement" />
-          <Typography
-            width="80%"
-            marginBottom="40px"
-            fontSize="1.3rem"
-            lineHeight="1.8rem"
-            fontWeight={300}
-            sx={{
-              "@media (max-width: 800px)": {
-                width: "100%",
-              },
-            }}
-          >
+          <SubTitle>
             La carte des logements est un service de mise en relation entre
             particuliers permettant de louer ou de sous-louer facilement un
             appartement ou une maison.
-          </Typography>
+          </SubTitle>
           <Box
             sx={{
               display: "grid",
@@ -208,8 +215,8 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         <Card
           onClick={() => router.push("/leases")}
           sx={{
-            mt: "60px",
-            height: "200px",
+            "--Card-radius": "0px",
+            height: "260px",
             boxShadow: "none",
             cursor: "pointer",
           }}
@@ -219,11 +226,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           </CardCover>
           <CardCover
             sx={{
-              background: "rgba(0,0,0,0.2)",
+              background: "rgba(29, 29, 38, 0.5)",
             }}
           />
           <CardContent sx={{ justifyContent: "center", alignItems: "center" }}>
             <Button
+              size="lg"
               sx={{
                 backgroundColor: "#ffffff",
                 color: "#000000",
@@ -239,31 +247,204 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
         </Card>
 
         {/** How it works */}
-        <Box>
+        <Box sx={SECTION_STYLES}>
           <Title text="Seulement 4 étapes" />
-          <Typography
-            width="80%"
-            marginBottom="40px"
-            fontSize="1.3rem"
-            lineHeight="1.8rem"
-            fontWeight={300}
-            sx={{
-              "@media (max-width: 800px)": {
-                width: "100%",
-              },
-            }}
-          >
+          <SubTitle>
             La carte des logements vous propose un fonctionnement simple afin de
             vous offrir une mise en relation rapide de particulier à
             particulier.
-          </Typography>
+          </SubTitle>
           <Box marginBottom="60px">
             <HowItWorks />
           </Box>
+          {/** CTA */}
+          {!user && (
+            <Box
+              sx={(theme) => ({
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
+                mt: "60px",
+                padding: 4,
+                background: "linear-gradient(to right, #00c9ff, #92fe9d)",
+                borderRadius: "16px",
+                boxShadow: theme.vars.shadow.lg,
+                "@media (max-width: 1100px)": {
+                  display: "block",
+                },
+              })}
+            >
+              <Typography
+                fontSize="1.5rem"
+                fontWeight="500"
+                marginRight="30px"
+                sx={{
+                  color: "#000000",
+                  "@media (max-width: 1100px)": {
+                    fontSize: "1.3rem",
+                    mb: 3,
+                  },
+                }}
+              >
+                Optez pour la simplicité
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 2,
+                  "@media (max-width:800px)": {
+                    display: "block",
+                  },
+                }}
+              >
+                <Button
+                  size="lg"
+                  fullWidth
+                  onClick={() => setOpenSignup(true)}
+                  sx={{
+                    whiteSpace: "nowrap",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    border: "none",
+                    "&:hover": {
+                      backgroundColor: "#eeeeee",
+                    },
+                    "@media (max-width: 1100px)": {
+                      mb: 1,
+                    },
+                  }}
+                >
+                  Créer un compte
+                </Button>
+                <Button
+                  size="lg"
+                  fullWidth
+                  onClick={() => setOpenSignin(true)}
+                  sx={{
+                    whiteSpace: "nowrap",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    border: "none",
+                    "&:hover": {
+                      backgroundColor: "#eeeeee",
+                    },
+                    "@media (max-width: 1100px)": {
+                      mb: 1,
+                    },
+                  }}
+                >
+                  Se connecter
+                </Button>
+              </Box>
+            </Box>
+          )}
         </Box>
 
-        {/** CTA */}
-        {!user && (
+        {/** FAQ */}
+        <Box
+          sx={{
+            ...SECTION_STYLES,
+            backgroundColor: "#19191d",
+          }}
+        >
+          <Title text="Questions fréquentes" />
+          <Box display="flex" flexDirection="column" gap={1.5}>
+            {FREQUENTLY_ASKED_QUESTIONS.map(
+              ({ summary, details }: IDetailsSummary, index: number) => (
+                <DetailsSummary
+                  key={index}
+                  summary={summary}
+                  details={details}
+                />
+              )
+            )}
+          </Box>
+        </Box>
+
+        {/** Review */}
+        <Box sx={SECTION_STYLES}>
+          <Title text="Avis qui font plaisir" />
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gridColumnGap: "30px",
+              gridRowGap: "30px",
+              marginTop: "40px",
+              "@media (max-width: 1100px)": { gridTemplateColumns: "1fr" },
+            }}
+          >
+            {[
+              {
+                avatarSrc: "/img/review-isabelle.jpg",
+                fullName: "Isabelle L.",
+                date: "23 novembre 2022",
+                review:
+                  "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
+              },
+              {
+                avatarSrc: "/img/review-victor.jpg",
+                fullName: "Victor H.",
+                date: "11 décembre 2022",
+                review:
+                  "Une bonne alternative à lacartedescolocs ou leboncoin.",
+              },
+              {
+                avatarSrc: "/img/review-mathieu.jpg",
+                fullName: "Mathieu R.",
+                date: "04 janvier 2023",
+                review:
+                  "Un bon site pour les locations meublées de moins d'un an.",
+              },
+            ].map(({ avatarSrc, fullName, date, review }, index) => (
+              <Box
+                key={index}
+                sx={(theme) => ({
+                  paddingX: 2,
+                  paddingY: 3,
+                  borderRadius: "12px",
+                  backgroundColor:
+                    theme.colorSchemes.dark.palette.neutral.softBg,
+                })}
+              >
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={2}
+                  mb={2}
+                >
+                  <Avatar size="lg" src={avatarSrc} />
+                  <Box>
+                    <Typography level="h6" component="p">
+                      {fullName}
+                    </Typography>
+                    <Typography level="body2">{date}</Typography>
+                  </Box>
+                </Box>
+                <Typography
+                  level="body2"
+                  fontSize="1.05rem"
+                  fontStyle="italic"
+                  textAlign="center"
+                >
+                  &laquo; {review} &raquo;
+                </Typography>
+                <Box mt={2} textAlign="center">
+                  <StarIcon sx={{ color: "orange" }} />
+                  <StarIcon sx={{ color: "orange" }} />
+                  <StarIcon sx={{ color: "orange" }} />
+                  <StarIcon sx={{ color: "orange" }} />
+                  <StarIcon
+                    sx={{ color: index === 2 ? "initial" : "orange" }}
+                  />
+                </Box>
+              </Box>
+            ))}
+          </Box>
+          {/** CTA */}
           <Box
             sx={(theme) => ({
               display: "flex",
@@ -292,199 +473,43 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                 },
               }}
             >
-              Optez pour la simplicité
+              C'est le moment d'aller plus loin
             </Typography>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 gap: 2,
-                "@media (max-width:800px)": {
+                "@media (max-width: 800px)": {
                   display: "block",
                 },
               }}
             >
+              {!user && (
+                <Button
+                  size="lg"
+                  fullWidth
+                  onClick={() => setOpenSignup(true)}
+                  sx={{
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    border: "none",
+                    whiteSpace: "nowrap",
+                    "&:hover": {
+                      backgroundColor: "#eeeeee",
+                    },
+                    "@media (max-width: 800px)": {
+                      mb: 1,
+                    },
+                  }}
+                >
+                  Créer un compte
+                </Button>
+              )}
               <Button
                 size="lg"
                 fullWidth
-                onClick={() => setOpenSignup(true)}
-                sx={{
-                  whiteSpace: "nowrap",
-                  backgroundColor: "#ffffff",
-                  color: "#000000",
-                  border: "none",
-                  "&:hover": {
-                    backgroundColor: "#eeeeee",
-                  },
-                  "@media (max-width: 1100px)": {
-                    mb: 1,
-                  },
-                }}
-              >
-                Créer un compte
-              </Button>
-              <Button
-                size="lg"
-                fullWidth
-                onClick={() => setOpenSignin(true)}
-                sx={{
-                  whiteSpace: "nowrap",
-                  backgroundColor: "#ffffff",
-                  color: "#000000",
-                  border: "none",
-                  "&:hover": {
-                    backgroundColor: "#eeeeee",
-                  },
-                  "@media (max-width: 1100px)": {
-                    mb: 1,
-                  },
-                }}
-              >
-                Se connecter
-              </Button>
-            </Box>
-          </Box>
-        )}
-
-        {/** FAQ */}
-        <Box>
-          <Title text="Questions fréquentes" />
-          <Box display="flex" flexDirection="column" gap={1.5}>
-            {FREQUENTLY_ASKED_QUESTIONS.map(
-              ({ summary, details }: IDetailsSummary, index: number) => (
-                <DetailsSummary
-                  key={index}
-                  summary={summary}
-                  details={details}
-                />
-              )
-            )}
-          </Box>
-        </Box>
-
-        {/** Review */}
-        <Title text="Avis qui font plaisir" />
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gridColumnGap: "30px",
-            gridRowGap: "30px",
-            marginTop: "40px",
-            "@media (max-width: 1100px)": { gridTemplateColumns: "1fr" },
-          }}
-        >
-          {[
-            {
-              avatarSrc: "/img/review-isabelle.jpg",
-              fullName: "Isabelle L.",
-              date: "23 novembre 2022",
-              review:
-                "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
-            },
-            {
-              avatarSrc: "/img/review-victor.jpg",
-              fullName: "Victor H.",
-              date: "11 décembre 2022",
-              review: "Une bonne alternative à lacartedescolocs ou leboncoin.",
-            },
-            {
-              avatarSrc: "/img/review-mathieu.jpg",
-              fullName: "Mathieu R.",
-              date: "04 janvier 2023",
-              review:
-                "Un bon site pour les locations meublées de moins d'un an.",
-            },
-          ].map(({ avatarSrc, fullName, date, review }, index) => (
-            <Box
-              key={index}
-              sx={(theme) => ({
-                paddingX: 2,
-                paddingY: 3,
-                borderRadius: "12px",
-                backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
-              })}
-            >
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                gap={2}
-                mb={2}
-              >
-                <Avatar size="lg" src={avatarSrc} />
-                <Box>
-                  <Typography level="h6" component="p">
-                    {fullName}
-                  </Typography>
-                  <Typography level="body2">{date}</Typography>
-                </Box>
-              </Box>
-              <Typography
-                level="body2"
-                fontSize="1.05rem"
-                fontStyle="italic"
-                textAlign="center"
-              >
-                &laquo; {review} &raquo;
-              </Typography>
-              <Box mt={2} textAlign="center">
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: "orange" }} />
-                <StarIcon sx={{ color: index === 2 ? "initial" : "orange" }} />
-              </Box>
-            </Box>
-          ))}
-        </Box>
-
-        {/** CTA */}
-        <Box
-          sx={(theme) => ({
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 2,
-            mt: "60px",
-            padding: 4,
-            background: "linear-gradient(to right, #00c9ff, #92fe9d)",
-            borderRadius: "16px",
-            boxShadow: theme.vars.shadow.lg,
-            "@media (max-width: 1100px)": {
-              display: "block",
-            },
-          })}
-        >
-          <Typography
-            fontSize="1.5rem"
-            fontWeight="500"
-            marginRight="30px"
-            sx={{
-              color: "#000000",
-              "@media (max-width: 1100px)": {
-                fontSize: "1.3rem",
-                mb: 3,
-              },
-            }}
-          >
-            C'est le moment d'aller plus loin
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-              "@media (max-width: 800px)": {
-                display: "block",
-              },
-            }}
-          >
-            {!user && (
-              <Button
-                size="lg"
-                fullWidth
-                onClick={() => setOpenSignup(true)}
+                onClick={() => router.push("/leases")}
                 sx={{
                   backgroundColor: "#ffffff",
                   color: "#000000",
@@ -498,28 +523,9 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                   },
                 }}
               >
-                Créer un compte
+                Découvrir les annonces
               </Button>
-            )}
-            <Button
-              size="lg"
-              fullWidth
-              onClick={() => router.push("/leases")}
-              sx={{
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                border: "none",
-                whiteSpace: "nowrap",
-                "&:hover": {
-                  backgroundColor: "#eeeeee",
-                },
-                "@media (max-width: 800px)": {
-                  mb: 1,
-                },
-              }}
-            >
-              Découvrir les annonces
-            </Button>
+            </Box>
           </Box>
         </Box>
       </Box>

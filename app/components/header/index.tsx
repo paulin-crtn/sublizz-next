@@ -16,7 +16,6 @@ import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 /* -------------------------------- CONSTANTS ------------------------------- */
 import homeImg from "../../../public/img/home.jpg";
-import { bitter } from "../../../utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -25,9 +24,7 @@ const Header = () => {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <header>
-      <Card
-        sx={{ "--Card-radius": "16px", marginX: "40px", marginTop: "10px" }}
-      >
+      <Card sx={{ "--Card-radius": "0px" }}>
         <CardCover>
           <Image
             src={homeImg}
@@ -53,10 +50,9 @@ const Header = () => {
             <Typography
               component="h1"
               level="h1"
-              fontSize={38}
+              fontSize="2.4rem"
               fontWeight={800}
               lineHeight={1.2}
-              fontFamily={bitter.style.fontFamily}
               sx={{
                 color: "#ffffff",
                 "@media (max-width: 1100px)": {

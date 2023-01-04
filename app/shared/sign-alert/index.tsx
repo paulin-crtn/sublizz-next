@@ -29,7 +29,7 @@ const listStyle = (theme: Theme) => ({
     marginRight: 2,
     padding: 0.75,
     fontSize: "2.2rem",
-    color: theme.colorSchemes.dark.palette.primary.solidDisabledBg,
+    color: "#000000",
     backgroundColor: theme.colorSchemes.dark.palette.primary.softBg,
     borderRadius: "8px",
   },

@@ -28,7 +28,12 @@ const LeaseType = ({
   info: string | undefined;
 }) => {
   return (
-    <Card variant="outlined">
+    <Card
+      variant="outlined"
+      sx={(theme) => ({
+        backgroundColor: theme.colorSchemes.dark.palette.background.body,
+      })}
+    >
       <CardOverflow>
         <AspectRatio ratio="1.8">
           <Image
