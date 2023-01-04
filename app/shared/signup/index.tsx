@@ -118,7 +118,7 @@ const Signup = ({
                   sx={{ gap: 1 }}
                 >
                   <Radio
-                    label="Je propose un logement"
+                    label="🏠 Je propose un logement"
                     value={UserRoleEnum.OWNER}
                     variant="soft"
                     color="primary"
@@ -130,7 +130,7 @@ const Signup = ({
                     }}
                   />
                   <Radio
-                    label="Je cherche un logement"
+                    label="🔍 Je cherche un logement"
                     value={UserRoleEnum.SEEKER}
                     variant="soft"
                     color="primary"

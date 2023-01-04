@@ -34,6 +34,11 @@ import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import FastForwardIcon from "@mui/icons-material/FastForward";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease, ILeasesWithCount } from "../../../interfaces/lease";
 import { IDetailsSummary } from "../../../interfaces/IDetailsSummary";
@@ -48,7 +53,7 @@ import { LEASE_TYPES } from "../../../data/leaseTypes";
 const SECTION_STYLES = {
   maxWidth: "1800px",
   margin: "0 auto",
-  padding: "70px",
+  padding: "60px",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -86,7 +91,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
       <Box component="main">
         {/** Recent leases */}
         <Box sx={SECTION_STYLES}>
-          <Title text="Annonces récentes" />
+          <Title text="Annonces récentes" decorator={<WhatshotIcon />} />
           {!!data.totalCount && (
             <Box
               sx={{
@@ -177,7 +182,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             backgroundColor: "#19191d",
           }}
         >
-          <Title text="À chaque situation son logement" />
+          <Title
+            text="À chaque situation son logement"
+            decorator={<TaskAltIcon />}
+          />
           <SubTitle>
             La carte des logements est un service de mise en relation entre
             particuliers permettant de louer ou de sous-louer facilement un
@@ -213,12 +221,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** CTA */}
         <Card
-          onClick={() => router.push("/leases")}
           sx={{
             "--Card-radius": "0px",
             height: "260px",
             boxShadow: "none",
-            cursor: "pointer",
           }}
         >
           <CardCover>
@@ -231,6 +237,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
           />
           <CardContent sx={{ justifyContent: "center", alignItems: "center" }}>
             <Button
+              onClick={() => router.push("/leases")}
               size="lg"
               sx={{
                 backgroundColor: "#ffffff",
@@ -248,7 +255,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** How it works */}
         <Box sx={SECTION_STYLES}>
-          <Title text="Seulement 4 étapes" />
+          <Title text="Seulement 4 étapes" decorator={<FastForwardIcon />} />
           <SubTitle>
             La carte des logements vous propose un fonctionnement simple afin de
             vous offrir une mise en relation rapide de particulier à
@@ -349,7 +356,10 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
             backgroundColor: "#19191d",
           }}
         >
-          <Title text="Questions fréquentes" />
+          <Title
+            text="Questions fréquentes"
+            decorator={<QuestionAnswerIcon />}
+          />
           <Box display="flex" flexDirection="column" gap={1.5}>
             {FREQUENTLY_ASKED_QUESTIONS.map(
               ({ summary, details }: IDetailsSummary, index: number) => (
@@ -365,7 +375,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
 
         {/** Review */}
         <Box sx={SECTION_STYLES}>
-          <Title text="Avis qui font plaisir" />
+          <Title text="Avis qui font plaisir" decorator={<AutoAwesomeIcon />} />
           <Box
             sx={{
               display: "grid",
@@ -380,21 +390,21 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
               {
                 avatarSrc: "/img/review-isabelle.jpg",
                 fullName: "Isabelle L.",
-                date: "23 novembre 2022",
+                date: "23 décembre 2022",
                 review:
                   "Merci de m'avoir aidé à trouver un locataire sérieux rapidement.",
               },
               {
                 avatarSrc: "/img/review-victor.jpg",
                 fullName: "Victor H.",
-                date: "11 décembre 2022",
+                date: "11 janvier 2023",
                 review:
                   "Une bonne alternative à lacartedescolocs ou leboncoin.",
               },
               {
                 avatarSrc: "/img/review-mathieu.jpg",
                 fullName: "Mathieu R.",
-                date: "04 janvier 2023",
+                date: "14 janvier 2023",
                 review:
                   "Un bon site pour les locations meublées de moins d'un an.",
               },
@@ -414,9 +424,12 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                   justifyContent="center"
                   alignItems="center"
                   gap={2}
-                  mb={2}
+                  mb={3}
                 >
-                  <Avatar size="lg" src={avatarSrc} />
+                  <Avatar
+                    src={avatarSrc}
+                    sx={{ width: "72px", height: "72px" }}
+                  />
                   <Box>
                     <Typography level="h6" component="p">
                       {fullName}
@@ -432,7 +445,7 @@ const HomePage = ({ data }: { data: ILeasesWithCount }) => {
                 >
                   &laquo; {review} &raquo;
                 </Typography>
-                <Box mt={2} textAlign="center">
+                <Box mt={3} textAlign="center">
                   <StarIcon sx={{ color: "orange" }} />
                   <StarIcon sx={{ color: "orange" }} />
                   <StarIcon sx={{ color: "orange" }} />

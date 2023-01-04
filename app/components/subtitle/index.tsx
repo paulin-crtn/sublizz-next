@@ -5,6 +5,7 @@ const SubTitle: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       width="80%"
+      marginTop="-25px"
       marginBottom="45px"
       fontSize="1.4rem"
       lineHeight="2.2rem"
