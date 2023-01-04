@@ -320,7 +320,9 @@ export default function Page() {
         mentions légales.
       </Typography>
       <Link href="/legal/notice">
-        <Button sx={{ mt: 2 }}>Mentions légales</Button>
+        <Button variant="soft" sx={{ mt: 2 }}>
+          Mentions légales
+        </Button>
       </Link>
       <Typography marginTop={2}>
         À défaut de résolution amiable, le Tribunal de Commerce de Bordeaux sera

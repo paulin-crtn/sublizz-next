@@ -195,6 +195,7 @@ const AddressForm = ({
       </FormControl>
 
       <Button
+        className="btn-primary-gradient"
         loading={isLoading}
         loadingIndicator={<LoadingIndicator />}
         fullWidth

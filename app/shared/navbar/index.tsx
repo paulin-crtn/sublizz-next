@@ -163,8 +163,8 @@ const Navbar: FunctionComponent = () => {
         </Link>
         {!user && (
           <Button
+            className="btn-primary-gradient"
             startDecorator={<Add />}
-            color="primary"
             onClick={() => {
               if (user) {
                 router.push("/dashboard/leases/new");

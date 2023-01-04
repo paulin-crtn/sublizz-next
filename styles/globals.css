@@ -41,6 +41,19 @@ li {
   }
 }
 
+/** BUTTON */
+.btn-primary-gradient {
+  color: #000000;
+  background: linear-gradient(to right, #65ff9b, #78edff);
+}
+.btn-primary-gradient:hover {
+  color: #000000;
+  background: linear-gradient(to right, #61f695, #70dff0);
+}
+.btn-primary-gradient:disabled {
+  background: linear-gradient(to right, #55da84, #5ebcca);
+}
+
 /* LEAFLET */
 .leaflet-tile-container img {
   box-shadow: 0 0 1px rgb(35, 35, 35); /* Fix white lines on Safari (very visible with dark map) */

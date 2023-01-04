@@ -72,7 +72,11 @@ const LeaseMessage = ({
             Votre message a été envoyé par email à {lease.user.firstName}.
           </Typography>
         </Box>
-        <Button variant="solid" fullWidth onClick={() => setOpenMessage(false)}>
+        <Button
+          className="btn-primary-gradient"
+          fullWidth
+          onClick={() => setOpenMessage(false)}
+        >
           Fermer
         </Button>
       </>
@@ -89,9 +93,9 @@ const LeaseMessage = ({
       >
         <Box
           sx={{
-            flex: "0 0 140px",
+            flex: "0 0 200px",
             position: "relative",
-            height: "140px",
+            width: "200px",
             borderRadius: "12px",
             overflow: "hidden",
           }}
@@ -115,10 +119,12 @@ const LeaseMessage = ({
           />
         </Box>
         <Box sx={{ flex: "1 1", paddingLeft: 2 }}>
-          <Typography level="h5" fontWeight={600}>
+          <Typography level="h6" fontWeight={600}>
             {lease.city}
           </Typography>
-          <LeaseDates lease={lease} />
+          <Box marginTop={0.5} marginBottom={1.5}>
+            <LeaseDates lease={lease} />
+          </Box>
           <LeaseChips lease={lease} size="sm" />
           <Typography level="h6" fontWeight="300" marginTop={2}>
             {lease.pricePerMonth}€ CC
@@ -151,6 +157,7 @@ const LeaseMessage = ({
       )}
 
       <Button
+        className="btn-primary-gradient"
         loading={isLoading}
         loadingIndicator={<LoadingIndicator />}
         fullWidth

@@ -56,7 +56,11 @@ export default function Page() {
           est une micro-entreprise domiciliée au 10 rue Succursale 33000
           Bordeaux et immatriculée sous le numéro SIRET 819 156 910 00021.
         </Typography>
-        <Button onClick={() => setOpenContactEditor(true)} sx={{ mt: 2 }}>
+        <Button
+          variant="soft"
+          onClick={() => setOpenContactEditor(true)}
+          sx={{ mt: 2 }}
+        >
           Contacter l’éditeur
         </Button>
 
@@ -93,7 +97,9 @@ export default function Page() {
               target="_blank"
               rel="noreferrer"
             >
-              <Button sx={{ mt: 2 }}>Contacter AWS</Button>
+              <Button variant="soft" sx={{ mt: 2 }}>
+                Contacter AWS
+              </Button>
             </a>
           </Card>
           <Card
@@ -114,7 +120,9 @@ export default function Page() {
               target="_blank"
               rel="noreferrer"
             >
-              <Button sx={{ mt: 2 }}>Contacter Vercel</Button>
+              <Button variant="soft" sx={{ mt: 2 }}>
+                Contacter Vercel
+              </Button>
             </a>
           </Card>
         </Box>
@@ -129,21 +137,27 @@ export default function Page() {
             target="_blank"
             rel="noreferrer"
           >
-            <Button sx={{ mr: 1 }}>Pexels</Button>
+            <Button variant="soft" sx={{ mr: 1 }}>
+              Pexels
+            </Button>
           </a>
           <a
             href="https://undraw.co/illustrations"
             target="_blank"
             rel="noreferrer"
           >
-            <Button sx={{ mr: 1 }}>unDraw</Button>
+            <Button variant="soft" sx={{ mr: 1 }}>
+              unDraw
+            </Button>
           </a>
           <a
             href="https://fr.freepik.com/auteur/vectorjuice"
             target="_blank"
             rel="noreferrer"
           >
-            <Button sx={{ mr: 1 }}>vectorjuice</Button>
+            <Button variant="soft" sx={{ mr: 1 }}>
+              vectorjuice
+            </Button>
           </a>
         </Box>
       </Box>

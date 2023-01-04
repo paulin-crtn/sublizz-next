@@ -83,7 +83,9 @@ export default function Page() {
         mentions légales.
       </Typography>
       <Link href="/legal/notice">
-        <Button sx={{ mt: 2 }}>Mentions légales</Button>
+        <Button variant="soft" sx={{ mt: 2 }}>
+          Mentions légales
+        </Button>
       </Link>
 
       <Typography id="host" component="h3" level="h5" marginTop={4}>
@@ -103,7 +105,9 @@ export default function Page() {
       </Typography>
 
       <Link href="/legal/notice">
-        <Button sx={{ mt: 2 }}>Mentions légales</Button>
+        <Button variant="soft" sx={{ mt: 2 }}>
+          Mentions légales
+        </Button>
       </Link>
 
       <Typography id="host" component="h2" level="h4" marginTop={4}>
@@ -169,28 +173,34 @@ export default function Page() {
           target="_blank"
           rel="noreferrer"
         >
-          <Button sx={{ mr: 1 }}>Chrome</Button>
+          <Button variant="soft" sx={{ mr: 1 }}>
+            Chrome
+          </Button>
         </a>
         <a
           href="https://support.mozilla.org/fr/kb/activer-desactiver-cookies"
           target="_blank"
           rel="noreferrer"
         >
-          <Button sx={{ mr: 1 }}>Firefox</Button>
+          <Button variant="soft" sx={{ mr: 1 }}>
+            Firefox
+          </Button>
         </a>
         <a
           href="https://support.apple.com/kb/PH17191?viewlocale=fr_FR"
           target="_blank"
           rel="noreferrer"
         >
-          <Button sx={{ mr: 1 }}>Safari</Button>
+          <Button variant="soft" sx={{ mr: 1 }}>
+            Safari
+          </Button>
         </a>
         <a
           href="https://support.microsoft.com/fr-fr/windows/supprimer-et-g%C3%A9rer-les-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
           target="_blank"
           rel="noreferrer"
         >
-          <Button>Edge</Button>
+          <Button variant="soft">Edge</Button>
         </a>
       </Box>
 

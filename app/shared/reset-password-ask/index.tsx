@@ -61,7 +61,7 @@ const ResetPasswordAsk = ({
           </Typography>
         </Box>
         <Button
-          variant="solid"
+          className="btn-primary-gradient"
           fullWidth
           onClick={() => setOpenPasswordReset(false)}
         >
@@ -102,6 +102,7 @@ const ResetPasswordAsk = ({
       </FormControl>
 
       <Button
+        className="btn-primary-gradient"
         loading={isLoading}
         loadingIndicator={<LoadingIndicator />}
         fullWidth

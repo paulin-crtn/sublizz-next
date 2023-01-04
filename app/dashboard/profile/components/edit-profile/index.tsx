@@ -362,6 +362,7 @@ const EditProfile = () => {
         )}
 
         <Button
+          className="btn-primary-gradient"
           type="submit"
           loading={isUploadingFile || isLoading}
           loadingIndicator={<LoadingIndicator />}

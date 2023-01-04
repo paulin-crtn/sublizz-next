@@ -187,6 +187,7 @@ const EditAccount = () => {
 
       <Box display="flex" gap={2} sx={{ mt: 4 }}>
         <Button
+          className="btn-primary-gradient"
           loading={isLoading}
           loadingIndicator={<LoadingIndicator />}
           type="submit"
