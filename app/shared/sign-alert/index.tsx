@@ -88,6 +88,7 @@ const SignAlert = ({
         </ListItem>
       </List>
       <Button
+        className="btn-primary-gradient"
         fullWidth
         onClick={() => {
           setOpenSignup(true);

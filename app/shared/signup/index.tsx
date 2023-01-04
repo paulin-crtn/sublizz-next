@@ -78,7 +78,11 @@ const Signup = ({
             Pensez à vérifier dans vos indésirables.
           </Typography>
         </Box>
-        <Button variant="solid" fullWidth onClick={() => setOpenSignup(false)}>
+        <Button
+          className="btn-primary-gradient"
+          fullWidth
+          onClick={() => setOpenSignup(false)}
+        >
           D'accord
         </Button>
       </>
@@ -111,14 +115,16 @@ const Signup = ({
                     onChange(event);
                     setStepIndex(1);
                   }}
+                  sx={{ gap: 1 }}
                 >
                   <Radio
                     label="Je propose un logement"
                     value={UserRoleEnum.OWNER}
-                    variant="solid"
+                    variant="soft"
                     color="primary"
                     disableIcon
                     sx={{
+                      margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
                     }}
@@ -130,7 +136,7 @@ const Signup = ({
                     color="primary"
                     disableIcon
                     sx={{
-                      marginTop: 1,
+                      margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
                     }}
@@ -284,6 +290,7 @@ const Signup = ({
           </FormControl>
 
           <Button
+            className="btn-primary-gradient"
             loading={isLoading}
             loadingIndicator={<LoadingIndicator />}
             fullWidth

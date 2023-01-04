@@ -43,6 +43,7 @@ export const joyTheme: Theme = extendTheme({
           solidDisabledBg: PRIMARY_COLORS.darker,
           solidDisabledBorder: PRIMARY_COLORS.darker,
           solidDisabledColor: PRIMARY_COLORS.darker,
+          solidColor: "#000000",
 
           softColor: "#000000",
           softBg: "#ffffff",

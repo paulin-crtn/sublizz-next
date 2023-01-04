@@ -316,7 +316,12 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             </Box>
 
             {/** Message */}
-            <Button fullWidth onClick={handleContact} sx={{ mt: 2 }}>
+            <Button
+              className="btn-primary-gradient"
+              fullWidth
+              onClick={handleContact}
+              sx={{ mt: 2 }}
+            >
               Envoyer un message
             </Button>
 

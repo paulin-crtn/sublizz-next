@@ -43,6 +43,7 @@ const ContactEditor = ({
         </Typography>
       </Box>
       <Button
+        variant="soft"
         fullWidth
         onClick={() => setOpenContactEditor(false)}
         sx={{ mt: 3 }}

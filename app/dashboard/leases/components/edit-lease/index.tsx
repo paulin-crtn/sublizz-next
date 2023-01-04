@@ -553,6 +553,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       )}
 
       <Button
+        className="btn-primary-gradient"
         loading={isUploadingFile || isLoading}
         type="submit"
         sx={{ mt: 2 }}
