@@ -13,7 +13,7 @@ const PRIMARY_COLORS = {
   main: "#3fb8ac", // "#4700CC"
   lighter: "#44C7BC",
   darker: "#33968E",
-  soft: "#FAFFFA",
+  soft: "#EBEBEB",
 };
 
 const INFO_COLORS = {

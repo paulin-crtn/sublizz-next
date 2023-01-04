@@ -13,14 +13,14 @@ import { Theme } from "@mui/joy";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 /* ----------------------------- MATERIAL ICONS ----------------------------- */
+// import PersonIcon from "@mui/icons-material/Person";
+// import CreateIcon from "@mui/icons-material/Create";
+// import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+// import ForumIcon from "@mui/icons-material/Forum";
+// import SearchIcon from "@mui/icons-material/Search";
+// import SendIcon from "@mui/icons-material/Send";
+// import TourIcon from "@mui/icons-material/Tour";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
-import CreateIcon from "@mui/icons-material/Create";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ForumIcon from "@mui/icons-material/Forum";
-import SearchIcon from "@mui/icons-material/Search";
-import SendIcon from "@mui/icons-material/Send";
-import TourIcon from "@mui/icons-material/Tour";
 import HourglassFullIcon from "@mui/icons-material/HourglassFull";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -29,15 +29,18 @@ import PauseIcon from "@mui/icons-material/Pause";
 /*                                  CONSTANTS                                 */
 /* -------------------------------------------------------------------------- */
 const getStyles = (theme: Theme) => ({
-  width: "90px",
-  height: "90px",
+  width: "110px",
+  height: "110px",
   display: "flex",
-  backgroundColor: "#ffffff", // theme.colorSchemes.dark.palette.primary.softBg,
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "4rem",
+  backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
   borderRadius: "16px",
-  "& > svg": {
-    margin: "auto",
-    color: "#000000",
-  },
+  // "& > svg": {
+  //   margin: "auto",
+  //   color: "#000000",
+  // },
 });
 
 /* -------------------------------------------------------------------------- */
@@ -114,9 +117,7 @@ const HowItWorks = () => {
             }}
           >
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <PersonIcon sx={{ fontSize: "4rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>🧑‍🚀</Box>
               <Typography mt={3} fontWeight={500}>
                 Créez un compte
               </Typography>
@@ -126,9 +127,7 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <CreateIcon sx={{ fontSize: "4rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>✏️</Box>
               <Typography mt={3} fontWeight={500}>
                 Décrivez le logement
               </Typography>
@@ -138,9 +137,7 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <AddPhotoAlternateIcon sx={{ fontSize: "4rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>📸</Box>
               <Typography mt={3} fontWeight={500}>
                 Ajoutez des photos
               </Typography>
@@ -150,14 +147,12 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <ForumIcon sx={{ fontSize: "3.5rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>💬</Box>
               <Typography mt={3} fontWeight={500}>
                 Echangez avec des locataires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
-                Via notre messagerie intégrée
+                Via la messagerie intégrée
               </Typography>
             </ListItem>
           </List>
@@ -218,21 +213,17 @@ const HowItWorks = () => {
             }}
           >
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <SearchIcon sx={{ fontSize: "4rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>🗺️</Box>
               <Typography mt={3} fontWeight={500}>
                 Parcourez les annonces
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
-                En liste ou sur la carte
+                Sur la carte ou en liste
               </Typography>
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <SendIcon sx={{ fontSize: "3.5rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>👋</Box>
               <Typography mt={3} fontWeight={500}>
                 Envoyez un message
               </Typography>
@@ -242,21 +233,17 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <ForumIcon sx={{ fontSize: "3.5rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>💬</Box>
               <Typography mt={3} fontWeight={500}>
                 Echangez avec les propriétaires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
-                Via notre messagerie intégrée
+                Via la messagerie intégrée
               </Typography>
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>
-                <TourIcon sx={{ fontSize: "3.5rem" }} />
-              </Box>
+              <Box sx={(theme) => getStyles(theme)}>🏁</Box>
               <Typography mt={3} fontWeight={500}>
                 Visitez le logement
               </Typography>
