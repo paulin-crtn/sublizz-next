@@ -4,7 +4,7 @@
 /* ------------------------------- COMPONENTS ------------------------------- */
 import { Providers } from "./providers";
 /* ---------------------------------- UTILS --------------------------------- */
-import { bitter, poppins } from "../utils/nextFont";
+import { poppins } from "../utils/nextFont";
 /* ------------------------------ MUI & STYLES ------------------------------ */
 import "../styles/globals.css";
 
@@ -55,10 +55,7 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body
-        id="dark-mode"
-        className={[poppins.className, bitter.className].join(" ")}
-      >
+      <body id="dark-mode" className={poppins.className}>
         <Providers>{children}</Providers>
       </body>
     </html>
