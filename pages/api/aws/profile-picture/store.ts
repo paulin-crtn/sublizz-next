@@ -23,6 +23,7 @@ export const config = {
 /* -------------------------------------------------------------------------- */
 const AWS_ID = process.env.AWS_ID;
 const AWS_SECRET = process.env.AWS_SECRET;
+const AWS_BUCKET_NAME = process.env.NEXT_PUBLIC_AWS_BUCKET_NAME;
 
 /* -------------------------------------------------------------------------- */
 /*                                API ENDPOINT                                */
@@ -31,9 +32,12 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<string> {
-  // Check that AWS keys are provided
+  // Check that AWS environment variables are provided
   if (!AWS_ID || !AWS_SECRET) {
     throw new Error("AWS_ID or AWS_SECRET is missing");
+  }
+  if (!AWS_BUCKET_NAME) {
+    throw new Error("NEXT_PUBLIC_AWS_BUCKET_NAME is missing");
   }
   // Create an AWS client for interacting with storage
   const s3 = new AWS.S3({
@@ -48,9 +52,9 @@ export default async function handle(
   const fileName = fields.fileName[0];
   // Setting up S3 parameters
   const params = {
-    Bucket: "lacartedeslogements-user-profile-pictures",
+    Bucket: AWS_BUCKET_NAME,
     ContentType: persistentFile.mimetype ?? undefined,
-    Key: process.env.NEXT_PUBLIC_AWS_BUCKET_FOLDER + "/" + fileName, // Folder + Filename
+    Key: "user-profile-pictures/" + fileName, // Folder + Filename
     Body: file,
   };
   // Upload file to Supabase
