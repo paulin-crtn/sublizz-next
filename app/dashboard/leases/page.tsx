@@ -13,7 +13,7 @@ import { getUserLeases } from "../../../utils/fetch/fetchLease";
 /* ------------------------------- COMPONENTS ------------------------------- */
 import DashboardLeaseCard from "./components/dashboard-lease-card";
 import CustomBreadcrumbs from "../components/custom-beadcrumbs";
-import LeaseSkeleton from "../components/lease-skeleton";
+import LeaseSkeleton from "../../shared/lease-skeleton";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";

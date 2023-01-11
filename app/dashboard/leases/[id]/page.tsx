@@ -51,7 +51,7 @@ export default function Page() {
   /* -------------------------------- USE QUERY ------------------------------- */
   const { isLoading, isError, data, error } = useQuery(
     ["userLeases"],
-    () => getUserLeases(),
+    getUserLeases,
     {
       enabled: !!id,
       initialData: [],
