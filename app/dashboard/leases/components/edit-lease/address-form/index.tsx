@@ -164,8 +164,8 @@ const AddressForm = ({
           {...register("street", {
             required: "Ce champs est requis",
             maxLength: {
-              value: 30,
-              message: "30 caractères maximum",
+              value: 40,
+              message: "40 caractères maximum",
             },
           })}
         />

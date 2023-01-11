@@ -25,6 +25,8 @@ import DetailsSummary from "./components/details-summary";
 import HowItWorks from "./components/how-it-works";
 import Title from "./components/title";
 import SubTitle from "./components/subtitle";
+import LeaseSkeleton from "./shared/lease-skeleton";
+import CityCard from "./components/city-card";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Card from "@mui/joy/Card";
@@ -36,12 +38,14 @@ import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 import ModalClose from "@mui/joy/ModalClose";
 import Avatar from "@mui/joy/Avatar";
+/* ---------------------------------- ICONS --------------------------------- */
 import StarIcon from "@mui/icons-material/Star";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import FastForwardIcon from "@mui/icons-material/FastForward";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease, ILeasesWithCount } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
@@ -49,7 +53,7 @@ import { IDetailsSummary } from "../interfaces/IDetailsSummary";
 import mapImg from "../public/img/map.png";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
-import LeaseSkeleton from "./shared/lease-skeleton";
+import { CITIES } from "../data/cities";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -196,13 +200,40 @@ const HomePage = () => {
           </Box>
         </Box>
 
-        {/** Lease types */}
+        {/** Cities */}
         <Box
           sx={{
             ...SECTION_STYLES,
             backgroundColor: "#19191d",
           }}
         >
+          <Title text="Top villes" decorator={<LocationCityIcon />} />
+          <SubTitle>
+            Découvrez les annonces de location et de sous-location de
+            particulier à particulier dans les principales villes.
+          </SubTitle>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridColumnGap: "20px",
+              gridRowGap: "20px",
+              "@media (max-width: 1300px)": { gridTemplateColumns: "1fr 1fr" },
+              "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
+            }}
+          >
+            {CITIES.map(({ name, img }) => (
+              <Link href={`/leases?city=${name}`} key={name}>
+                <Box flex="1 1" sx={{ cursor: "pointer" }}>
+                  <CityCard name={name} img={img} />
+                </Box>
+              </Link>
+            ))}
+          </Box>
+        </Box>
+
+        {/** Lease types */}
+        <Box sx={SECTION_STYLES}>
           <Title
             text="À chaque situation son logement"
             decorator={<TaskAltIcon />}
