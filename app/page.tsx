@@ -104,7 +104,7 @@ const HomePage = () => {
           <Title text="Annonces récentes" decorator={<WhatshotIcon />} />
           {isError && (
             <Box>
-              <Typography>
+              <Typography sx={{ fontSize: "1.4rem" }}>
                 Une erreur est survenue pendant le chargement des annonces
                 récentes.
               </Typography>
