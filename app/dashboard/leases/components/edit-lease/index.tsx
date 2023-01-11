@@ -13,6 +13,7 @@ import LeaseInputFile from "./lease-input-file";
 import ModalLayout from "../../../../shared/modal-layout";
 import AddressForm from "./address-form";
 import Optional from "../../../../shared/optional";
+import LoadingIndicator from "../../../../shared/loading-indicator";
 /* ---------------------------------- UTILS --------------------------------- */
 import { storeLease, updateLease } from "../../../../../utils/fetch/fetchLease";
 import { convertLeaseType } from "../../../../../utils/convertLeaseType";
@@ -555,6 +556,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       <Button
         className="btn-primary-gradient"
         loading={isUploadingFile || isLoading}
+        loadingIndicator={<LoadingIndicator />}
         type="submit"
         sx={{ mt: 2 }}
       >
