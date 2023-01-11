@@ -230,13 +230,13 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                   }}
                   startDecorator={<SubjectIcon />}
                   sx={{
-                    backgroundColor: "#000000",
-                    borderColor: "#000000",
-                    "&:hover": { backgroundColor: "#000000" },
-                    "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
+                    backgroundColor: "#ffffff",
+                    borderColor: "#ffffff",
+                    "&:hover": { backgroundColor: "#ffffff" },
+                    "&:focus": { backgroundColor: "#ffffff", color: "#000000" },
                     "&:active": {
-                      backgroundColor: "#000000",
-                      color: "#ffffff",
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
                     },
                   }}
                 >
@@ -251,13 +251,13 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                   }}
                   startDecorator={<MapIcon />}
                   sx={{
-                    backgroundColor: "#000000",
-                    borderColor: "#000000",
-                    "&:hover": { backgroundColor: "#000000" },
-                    "&:focus": { backgroundColor: "#000000", color: "#ffffff" },
+                    backgroundColor: "#ffffff",
+                    borderColor: "#ffffff",
+                    "&:hover": { backgroundColor: "#ffffff" },
+                    "&:focus": { backgroundColor: "#ffffff", color: "#000000" },
                     "&:active": {
-                      backgroundColor: "#000000",
-                      color: "#ffffff",
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
                     },
                   }}
                 >
