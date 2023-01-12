@@ -11,4 +11,5 @@ import { NextFont } from "@next/font/dist/types";
 export const poppins: NextFont = Poppins({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
