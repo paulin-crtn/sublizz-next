@@ -6,6 +6,7 @@ html,
 body {
   scroll-behavior: smooth;
   color-scheme: dark;
+  font-family: "Poppins";
 }
 
 html,
