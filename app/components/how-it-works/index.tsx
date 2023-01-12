@@ -2,6 +2,7 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 import { useState } from "react";
+import Image from "next/image";
 /* ----------------------------------- MUI ---------------------------------- */
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
@@ -24,6 +25,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import HourglassFullIcon from "@mui/icons-material/HourglassFull";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PauseIcon from "@mui/icons-material/Pause";
+/* -------------------------------- CONSTANTS ------------------------------- */
+import signupImg from "../../../public/img/howitworks/signup.svg";
+import describeImg from "../../../public/img/howitworks/describe.svg";
+import pictureImg from "../../../public/img/howitworks/picture.svg";
+import chatImg from "../../../public/img/howitworks/chat.svg";
+import searchImg from "../../../public/img/howitworks/search.svg";
+import messageImg from "../../../public/img/howitworks/message.svg";
+import flagImg from "../../../public/img/howitworks/flag.svg";
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -37,10 +46,10 @@ const getStyles = (theme: Theme) => ({
   fontSize: "4rem",
   backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
   borderRadius: "16px",
-  // "& > svg": {
-  //   margin: "auto",
-  //   color: "#000000",
-  // },
+  "& > svg": {
+    margin: "auto",
+    color: "#000000",
+  },
 });
 
 /* -------------------------------------------------------------------------- */
@@ -63,7 +72,7 @@ const HowItWorks = () => {
         sx={{
           width: "fit-content",
           minHeight: 48,
-          marginBottom: "40px",
+          marginBottom: 3,
           padding: 1,
           borderRadius: "md",
           bgcolor: "neutral.softBg",
@@ -105,7 +114,7 @@ const HowItWorks = () => {
       </RadioGroup>
       {/** OWNER */}
       {showRole === "Je propose un logement" && (
-        <Box sx={{ marginY: 4 }}>
+        <Box sx={{ marginBottom: 4 }}>
           <List
             sx={{
               display: "grid",
@@ -117,8 +126,14 @@ const HowItWorks = () => {
             }}
           >
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>🧑‍🚀</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={signupImg}
+                alt="signup illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Créez un compte
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -127,8 +142,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>✏️</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={describeImg}
+                alt="pencil illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Décrivez le logement
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -137,8 +158,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>📸</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={pictureImg}
+                alt="add picture illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Ajoutez des photos
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -147,8 +174,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>💬</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={chatImg}
+                alt="chat illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Echangez avec des locataires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -201,7 +234,7 @@ const HowItWorks = () => {
 
       {/** SEEKER */}
       {showRole === "Je cherche un logement" && (
-        <Box sx={{ marginY: 4 }}>
+        <Box sx={{ marginBottom: 4 }}>
           <List
             sx={{
               display: "grid",
@@ -213,8 +246,14 @@ const HowItWorks = () => {
             }}
           >
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>🗺️</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={searchImg}
+                alt="search illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Parcourez les annonces
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -223,8 +262,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>👋</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={messageImg}
+                alt="message illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Envoyez un message
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -233,8 +278,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>💬</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={chatImg}
+                alt="chat illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Echangez avec les propriétaires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -243,8 +294,14 @@ const HowItWorks = () => {
             </ListItem>
 
             <ListItem sx={{ display: "block" }}>
-              <Box sx={(theme) => getStyles(theme)}>🏁</Box>
-              <Typography mt={3} fontWeight={500}>
+              <Image
+                src={flagImg}
+                alt="flag illustration"
+                width={150}
+                height={150}
+                priority
+              />
+              <Typography mt={1} fontWeight={500}>
                 Visitez le logement
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
