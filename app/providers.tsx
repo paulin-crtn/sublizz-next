@@ -77,11 +77,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <>
-      <style jsx global>{`
-        html {
-          font-family: ${poppins.style.fontFamily};
-        }
-      `}</style>
       <CssVarsProvider
         theme={theme}
         defaultMode="dark"
@@ -96,7 +91,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                fontFamily: poppins.style.fontFamily,
               }}
             >
               {/** NAVBAR */}
