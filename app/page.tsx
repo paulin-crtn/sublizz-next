@@ -128,7 +128,8 @@ const HomePage = () => {
               "@media (max-width: 800px)": { gridTemplateColumns: "1fr" },
             }}
           >
-            {isLoading && [...Array(4)].map(() => <LeaseSkeleton />)}
+            {isLoading &&
+              [...Array(4)].map((u, i) => <LeaseSkeleton key={i} />)}
             {data &&
               !!data.totalCount &&
               data?.leases

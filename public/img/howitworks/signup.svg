@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="648px" height="444px" viewBox="0 0 648 444" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>215</title>
+    <defs>
+        <linearGradient x1="66.9817402%" y1="97.1756851%" x2="24.9742037%" y2="-18.9440729%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#EEEEEE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-41.7657183%" y1="98.4398918%" x2="185.94102%" y2="-23.7280995%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#EEEEEE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="139.618124%" y1="109.654016%" x2="-82.5203009%" y2="-40.5688413%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#EEEEEE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="52.1323123%" y1="156.065676%" x2="49.048705%" y2="-108.782736%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#EEEEEE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="215" transform="translate(0.581000, 0.068000)">
+            <path d="M486.112,127.419 C476.648,144.31 455.919,146.631 422.711,143.421 C397.736,141.003 374.96,139.131 349.983,125.513 C332.501,115.989 318.663,103.102 308.562,90.586 C297.617,77.027 282.34,61.552 289.829,46.178 C300.121,25.06 359.639,7.273 417.432,36.36 C480.918,68.321 495.371,110.91 486.112,127.419 L486.112,127.419 Z" id="Path" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+            <path d="M616.053,222.333 C592.152,234.189 560.431,218.945 560.431,218.945 C560.431,218.945 567.481,184.486 591.394,172.646 C615.294,160.791 647.002,176.018 647.002,176.018 C647.002,176.018 639.953,210.478 616.053,222.333 Z" id="Path" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+            <path d="M92.48,131.605 C106.317,139.898 126.168,132.231 126.168,132.231 C126.168,132.231 123.573,111.122 109.727,102.839 C95.89,94.546 76.047,102.202 76.047,102.202 C76.047,102.202 78.643,123.312 92.48,131.605 Z" id="Path" fill="url(#linearGradient-3)" fill-rule="nonzero"></path>
+            <circle id="Oval" fill="#3988C4" fill-rule="nonzero" transform="translate(546.817000, 282.582000) rotate(180.000000) translate(-546.817000, -282.582000) " cx="546.817" cy="282.582" r="13.05"></circle>
+            <circle id="Oval" fill="#3988C4" fill-rule="nonzero" transform="translate(79.162000, 197.675000) rotate(180.000000) translate(-79.162000, -197.675000) " cx="79.162" cy="197.675" r="10.743"></circle>
+            <circle id="Oval" fill="#3988C4" fill-rule="nonzero" transform="translate(111.191000, 332.304000) scale(-1, 1) translate(-111.191000, -332.304000) " cx="111.191" cy="332.304" r="12.234"></circle>
+            <circle id="Oval" fill="#3988C4" fill-rule="nonzero" transform="translate(516.592000, 180.842000) scale(-1, 1) translate(-516.592000, -180.842000) " cx="516.592" cy="180.842" r="5.709"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(133.760000, 67.273000) scale(-1, 1) translate(-133.760000, -67.273000) " cx="133.76" cy="67.273" r="7.341"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(10.603000, 338.595000) scale(-1, 1) translate(-10.603000, -338.595000) " cx="10.603" cy="338.595" r="10.603"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(425.999000, 406.389000) scale(-1, 1) translate(-425.999000, -406.389000) " cx="425.999" cy="406.389" r="8.07"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(531.391000, 97.904000) scale(-1, 1) translate(-531.391000, -97.904000) " cx="531.391" cy="97.904" r="8.972"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(34.897580, 170.988370) scale(-1, 1) rotate(105.000000) translate(-34.897580, -170.988370) " cx="34.8975801" cy="170.98837" r="8.057"></circle>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(194.539000, 75.241000) scale(-1, 1) translate(-194.539000, -75.241000) " cx="194.539" cy="75.241" r="10.718"></circle>
+            <ellipse id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(601.613000, 333.643000) scale(-1, 1) translate(-601.613000, -333.643000) " cx="601.613" cy="333.643" rx="8.245" ry="6.596"></ellipse>
+            <circle id="Oval" fill="#E1E4E5" fill-rule="nonzero" transform="translate(183.378029, 402.584881) scale(-1, 1) rotate(105.000000) translate(-183.378029, -402.584881) " cx="183.378029" cy="402.584881" r="16.767"></circle>
+            <path d="M522.571,323.758 L522.787,323.758 C524.064,341.854 537.522,342.132 537.522,342.132 C537.522,342.132 522.682,342.422 522.682,363.332 C522.682,342.422 507.842,342.132 507.842,342.132 C507.842,342.132 521.294,341.854 522.571,323.758 Z M59.321,373.396 L59.434,373.396 C60.102,383.22 67.138,383.372 67.138,383.372 C67.138,383.372 59.379,383.529 59.379,394.881 C59.379,383.529 51.621,383.372 51.621,383.372 C51.621,383.372 58.654,383.22 59.321,373.396 L59.321,373.396 Z" id="Shape" fill="#E1E4E5" fill-rule="nonzero"></path>
+            <circle id="Oval" fill="url(#linearGradient-4)" fill-rule="nonzero" cx="329.124" cy="208.295" r="208.295"></circle>
+            <rect id="Rectangle" fill="#3988C4" fill-rule="nonzero" x="184.909" y="64.245" width="287.039" height="287.039" rx="143.519"></rect>
+            <path d="M393.658,267.97 L393.658,277.567 C393.658,282.864 389.415,287.164 384.187,287.164 L270.542,287.164 C265.314,287.164 261.072,282.864 261.072,277.567 L261.072,267.817 C261.072,238.777 293.82,219.91 327.365,219.91 C360.909,219.91 393.658,238.787 393.658,267.817 M351.134,135.603 C364.266,148.735 364.266,170.026 351.134,183.158 C338.002,196.29 316.71,196.29 303.578,183.158 C290.446,170.026 290.446,148.735 303.578,135.603 C316.71,122.47 338.002,122.47 351.134,135.603 Z" id="Shape" fill="#FFFFFF"></path>
+            <circle id="Oval" fill="#2E4251" fill-rule="nonzero" cx="328.621" cy="379.202" r="64.538"></circle>
+            <rect id="Rectangle" fill="#FFFFFF" fill-rule="nonzero" x="323.345" y="352.006" width="10.553" height="54.39" rx="5.2765"></rect>
+            <rect id="Rectangle" fill="#FFFFFF" fill-rule="nonzero" transform="translate(328.621000, 379.201500) rotate(90.000000) translate(-328.621000, -379.201500) " x="323.3445" y="352.0065" width="10.553" height="54.39" rx="5.2765"></rect>
+        </g>
+    </g>
+</svg>
