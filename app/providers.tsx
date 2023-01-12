@@ -96,6 +96,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                fontFamily: poppins.style.fontFamily,
               }}
             >
               {/** NAVBAR */}
