@@ -120,32 +120,38 @@ const Signup = ({
                   <Radio
                     label="🏠 Je propose un logement"
                     value={UserRoleEnum.OWNER}
-                    variant="solid"
-                    color="neutral"
                     disableIcon
                     sx={(theme) => ({
                       margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
+                      "&>span>span": {
+                        border: 0,
+                        backgroundColor:
+                          theme.colorSchemes.dark.palette.neutral[700],
+                      },
                       "&>span>span:hover": {
                         backgroundColor:
-                          theme.colorSchemes.dark.palette.neutral[600],
+                          theme.colorSchemes.dark.palette.neutral[800],
                       },
                     })}
                   />
                   <Radio
                     label="🔍 Je cherche un logement"
                     value={UserRoleEnum.SEEKER}
-                    variant="solid"
-                    color="neutral"
                     disableIcon
                     sx={(theme) => ({
                       margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
+                      "&>span>span": {
+                        border: 0,
+                        backgroundColor:
+                          theme.colorSchemes.dark.palette.neutral[700],
+                      },
                       "&>span>span:hover": {
                         backgroundColor:
-                          theme.colorSchemes.dark.palette.neutral[600],
+                          theme.colorSchemes.dark.palette.neutral[800],
                       },
                     })}
                   />
