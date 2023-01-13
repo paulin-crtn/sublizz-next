@@ -23,10 +23,9 @@ import Input from "@mui/joy/Input";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import LoopIcon from "@mui/icons-material/Loop";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IResetPaswwordForm } from "../../interfaces/IResetPasswordForm";
-/* -------------------------------- CONSTANTS ------------------------------- */
-import resetPasswordImg from "../../public/img/reset-password.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -63,7 +62,6 @@ export default function Page() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      gap={22}
       minHeight="calc(100vh - 90px)"
       padding={4}
       sx={{
@@ -74,15 +72,30 @@ export default function Page() {
         },
       }}
     >
-      <Box flex="0 0" sx={{ "@media (max-width: 950px)": { display: "none" } }}>
-        <Image
-          src={resetPasswordImg}
-          alt="reset password illustration"
-          loading="lazy"
-          width={320}
-        />
-      </Box>
-      <Box flex="0 1 500px">
+      <Box
+        marginBottom={4}
+        sx={(theme) => ({
+          position: "relative",
+          maxWidth: 700,
+          paddingX: 10,
+          paddingY: 4,
+          backgroundColor: theme.colorSchemes.dark.palette.background.surface,
+          borderRadius: "16px",
+        })}
+      >
+        <Box
+          sx={(theme) => ({
+            position: "absolute",
+            display: "flex",
+            top: "-15px",
+            left: "-15px",
+            padding: 1,
+            backgroundColor: theme.colorSchemes.dark.palette.neutral[700],
+            borderRadius: "8px",
+          })}
+        >
+          <LoopIcon sx={{ margin: "auto", fontSize: "2.5rem" }} />
+        </Box>
         <Typography level="h4" marginBottom={4}>
           Choisissez un nouveau mot de passe
         </Typography>

@@ -19,10 +19,9 @@ import Alert from "@mui/joy/Alert";
 import Typography from "@mui/joy/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { IConfirmEmail } from "../../interfaces/IConfirmEmail";
-/* -------------------------------- CONSTANTS ------------------------------- */
-import confirmEmailImg from "../../public/img/confirm-email.png";
 
 /* -------------------------------------------------------------------------- */
 /*                               REACT COMPONENT                              */
@@ -59,7 +58,6 @@ export default function Page() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      gap={22}
       minHeight="calc(100vh - 90px)"
       padding={4}
       sx={{
@@ -70,20 +68,39 @@ export default function Page() {
         },
       }}
     >
-      <Box flex="0 0" sx={{ "@media (max-width: 950px)": { display: "none" } }}>
-        <Image
-          src={confirmEmailImg}
-          alt="email confirmation illustration"
-          loading="lazy"
-          width={300}
-          height={300}
-        />
-      </Box>
-      <Box flex="0 1 500px">
+      <Box
+        marginBottom={4}
+        sx={(theme) => ({
+          position: "relative",
+          maxWidth: 700,
+          paddingX: 10,
+          paddingY: 4,
+          backgroundColor: theme.colorSchemes.dark.palette.background.surface,
+          borderRadius: "16px",
+        })}
+      >
+        <Box
+          sx={(theme) => ({
+            position: "absolute",
+            display: "flex",
+            top: "-15px",
+            left: "-15px",
+            padding: 1,
+            backgroundColor: theme.colorSchemes.dark.palette.neutral[700],
+            borderRadius: "8px",
+          })}
+        >
+          <SafetyCheckIcon sx={{ margin: "auto", fontSize: "2.5rem" }} />
+        </Box>
+        <Typography component="h1" level="h3" marginBottom={0.5}>
+          Validation de l'adresse email
+        </Typography>
+        <Typography component="h2" level="h5" fontWeight={300} marginBottom={4}>
+          Un instant, on vérifie que c'est bien vous
+        </Typography>
         {isLoading && (
           <Box textAlign="center">
-            <CircularProgress size="lg" thickness={6} />
-            <Typography marginTop={4}>Vérification en cours</Typography>
+            <CircularProgress color="info" />
           </Box>
         )}
         {isSuccess && (
