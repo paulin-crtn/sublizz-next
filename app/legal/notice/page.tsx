@@ -60,8 +60,9 @@ export default function Page() {
           <a href="https://haftwald.com" target="_blank" rel="noreferrer">
             Haftwald
           </a>{" "}
-          est une micro-entreprise domiciliée au 10 rue Succursale 33000
-          Bordeaux et immatriculée sous le numéro SIRET 819 156 910 00021.
+          est une micro-entreprise domiciliée au 3 rue Rieux, 92100
+          Boulogne-Billancourt et immatriculée sous le numéro SIRET 819 156 910
+          00021.
         </Typography>
         <Button
           color="neutral"

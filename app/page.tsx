@@ -41,8 +41,8 @@ import Avatar from "@mui/joy/Avatar";
 /* ---------------------------------- ICONS --------------------------------- */
 import StarIcon from "@mui/icons-material/Star";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import FastForwardIcon from "@mui/icons-material/FastForward";
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -238,7 +238,7 @@ const HomePage = () => {
         <Box sx={SECTION_STYLES}>
           <Title
             text="À chaque situation son logement"
-            decorator={<TaskAltIcon />}
+            decorator={<HolidayVillageIcon />}
           />
           <SubTitle>
             La carte des logements est un service de mise en relation entre
@@ -309,7 +309,7 @@ const HomePage = () => {
 
         {/** How it works */}
         <Box sx={SECTION_STYLES}>
-          <Title text="Seulement 4 étapes" decorator={<FastForwardIcon />} />
+          <Title text="Seulement 4 étapes" decorator={<DoubleArrowIcon />} />
           <SubTitle>
             La carte des logements vous propose un fonctionnement simple afin de
             vous offrir une mise en relation rapide de particulier à

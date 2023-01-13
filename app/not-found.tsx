@@ -44,24 +44,17 @@ export default function NotFound() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      gap={22}
+      gap={16}
       minHeight="calc(100vh - 90px)"
       padding={4}
-      sx={{
-        "@media (max-width: 950px)": {
-          display: "block",
-          minHeight: "auto",
-          marginY: "50px",
-        },
-      }}
     >
       <Box flex="0 0" sx={{ "@media (max-width: 950px)": { display: "none" } }}>
         <Image
           src={notFoundImg}
           alt="page not found illustration"
           loading="lazy"
-          width={300}
-          height={300}
+          width={260}
+          height={260}
         />
       </Box>
       <Box flex="0 1 500px">
@@ -69,7 +62,7 @@ export default function NotFound() {
           {title}
         </Typography>
         <Link href="/leases">
-          <Button variant="soft" size="lg" startDecorator={<SearchIcon />}>
+          <Button color="info" size="lg" startDecorator={<SearchIcon />}>
             Parcourir les annonces
           </Button>
         </Link>
