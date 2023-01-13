@@ -212,7 +212,7 @@ const EditProfile = () => {
               }}
             >
               {!inputFile && !user.profilePictureName && (
-                <AspectRatio ratio={1}>
+                <AspectRatio ratio={1} variant="solid">
                   <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                     <AddIcon />
                   </Typography>

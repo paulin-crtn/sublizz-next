@@ -59,11 +59,7 @@ const HelpUs = ({
             Nous allons en prendre connaissance avec attention.
           </Typography>
         </Box>
-        <Button
-          className="btn-primary-gradient"
-          fullWidth
-          onClick={() => setOpenHelp(false)}
-        >
+        <Button color="info" fullWidth onClick={() => setOpenHelp(false)}>
           Fermer
         </Button>
       </>
@@ -103,13 +99,13 @@ const HelpUs = ({
       </FormControl>
 
       <Button
-        className="btn-primary-gradient"
+        color="info"
         loading={isLoading}
         loadingIndicator={<LoadingIndicator />}
         fullWidth
         type="submit"
       >
-        Envoyer votre suggestion
+        Envoyer votre avis
       </Button>
     </form>
   );

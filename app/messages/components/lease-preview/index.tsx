@@ -64,7 +64,11 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
           variant="outlined"
           fullWidth
           onClick={() => window.open("/leases/" + lease.id, "_blank")}
-          sx={{ marginTop: 2 }}
+          sx={{
+            marginTop: 2,
+            "&:hover": { color: "#000000" },
+            "&:active": { color: "#000000" },
+          }}
         >
           Voir l'annonce
         </Button>

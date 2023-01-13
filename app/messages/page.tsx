@@ -104,18 +104,14 @@ export default function Page() {
             </Typography>
             {user.role === UserRoleEnum.SEEKER && (
               <Link href="/leases">
-                <Button
-                  size="lg"
-                  variant="soft"
-                  startDecorator={<SearchIcon />}
-                >
+                <Button size="lg" color="info" startDecorator={<SearchIcon />}>
                   Parcourir les annonces
                 </Button>
               </Link>
             )}
             {user.role === UserRoleEnum.OWNER && (
               <Link href="/dashboard/leases/new">
-                <Button size="lg" variant="soft" startDecorator={<Add />}>
+                <Button size="lg" color="info" startDecorator={<Add />}>
                   Publier une annonce
                 </Button>
               </Link>

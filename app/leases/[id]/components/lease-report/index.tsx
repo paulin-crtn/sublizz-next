@@ -99,6 +99,7 @@ const LeaseReport = ({
       </FormControl>
 
       <Button
+        color="info"
         loading={isLoading}
         loadingIndicator={<LoadingIndicator />}
         fullWidth

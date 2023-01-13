@@ -81,7 +81,7 @@ export default function Page() {
             paddingX: 2,
             paddingY: 6,
             textAlign: "center",
-            border: "1px solid",
+            border: "3px solid",
             borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
             borderRadius: "12px",
           })}

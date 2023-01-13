@@ -80,7 +80,7 @@ export default function Page() {
             paddingX: 2,
             paddingY: 6,
             textAlign: "center",
-            border: "1px solid",
+            border: "3px solid",
             borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
             borderRadius: "12px",
           })}
@@ -89,7 +89,7 @@ export default function Page() {
             Vous n'avez aucune annonce dans vos favoris.
           </Typography>
           <Link href="/leases">
-            <Button variant="soft" startDecorator={<SearchIcon />}>
+            <Button color="info" startDecorator={<SearchIcon />}>
               Parcourir les annonces
             </Button>
           </Link>

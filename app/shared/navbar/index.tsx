@@ -324,6 +324,10 @@ const Navbar: FunctionComponent = () => {
             variant="plain"
             color="neutral"
             onClick={handleUserClick}
+            sx={{
+              "&:hover": { backgroundColor: "transparent" },
+              "&:active": { backgroundColor: "transparent" },
+            }}
           >
             {!!user.profilePictureName && (
               <Avatar
