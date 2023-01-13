@@ -120,8 +120,8 @@ const Signup = ({
                   <Radio
                     label="🏠 Je propose un logement"
                     value={UserRoleEnum.OWNER}
-                    variant="soft"
-                    color="primary"
+                    variant="solid"
+                    color="info"
                     disableIcon
                     sx={{
                       margin: 0,
@@ -132,8 +132,8 @@ const Signup = ({
                   <Radio
                     label="🔍 Je cherche un logement"
                     value={UserRoleEnum.SEEKER}
-                    variant="soft"
-                    color="primary"
+                    variant="solid"
+                    color="info"
                     disableIcon
                     sx={{
                       margin: 0,
@@ -232,9 +232,9 @@ const Signup = ({
               defaultValue={false}
               render={({ field: { onChange, ...field } }) => (
                 <Switch
-                  variant="soft"
+                  variant={watch("consent") === true ? "soft" : "outlined"}
                   size="lg"
-                  color={watch("consent") === true ? "primary" : "neutral"}
+                  color="neutral"
                   onChange={(event) => {
                     onChange(event);
                   }}

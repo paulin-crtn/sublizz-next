@@ -82,7 +82,7 @@ const Custom404Page: NextPage = () => {
             {title}
           </Typography>
           <Link href="/leases">
-            <Button variant="soft" size="lg" startDecorator={<SearchIcon />}>
+            <Button size="lg" startDecorator={<SearchIcon />}>
               Parcourir les annonces
             </Button>
           </Link>

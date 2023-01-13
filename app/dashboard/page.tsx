@@ -53,7 +53,7 @@ export default function Page() {
       >
         <CustomBreadcrumbs currentPage="Tableau de bord" />
         <Button
-          variant="soft"
+          color="info"
           startDecorator={<Add />}
           onClick={() => {
             router.push("/dashboard/leases/new");

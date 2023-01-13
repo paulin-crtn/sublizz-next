@@ -28,11 +28,15 @@ const DashboardCard = ({
           paddingX: 3,
           paddingY: 2.5,
           height: "100%",
-          border: "1px solid",
+          border: "3px solid",
           borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
           borderRadius: "12px",
           lineHeight: "1.4rem",
           cursor: "pointer",
+          transition: "background-color 0.5s",
+          "&:hover": {
+            backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
+          },
         })}
       >
         <Box>

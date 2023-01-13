@@ -43,15 +43,13 @@ li {
 
 /** BUTTON */
 .btn-primary-gradient {
-  color: #000000;
-  background: linear-gradient(to right, #65ff9b, #78edff);
+  background: linear-gradient(to right, #fe6100, #ff3e08);
 }
 .btn-primary-gradient:hover {
-  color: #000000;
-  background: linear-gradient(to right, #61f695, #70dff0);
+  background: linear-gradient(to right, #e45801, #eb3604);
 }
 .btn-primary-gradient:disabled {
-  background: linear-gradient(to right, #55da84, #5ebcca);
+  background: linear-gradient(to right, #ff7a27, #f7582c);
 }
 
 /* LEAFLET */

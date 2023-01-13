@@ -80,7 +80,7 @@ const LeaseInputFile = ({
           }}
         >
           {!inputFiles[index] && !leaseImages[index] && (
-            <AspectRatio ratio={1}>
+            <AspectRatio ratio={1} color="neutral" variant="solid">
               <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                 <AddIcon />
               </Typography>

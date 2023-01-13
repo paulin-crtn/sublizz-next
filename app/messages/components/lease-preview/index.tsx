@@ -60,8 +60,8 @@ const LeasePreview = ({ lease }: { lease: ILease }) => {
           {lease.pricePerMonth}€ CC
         </Typography>
         <Button
+          color="info"
           variant="outlined"
-          color="neutral"
           fullWidth
           onClick={() => window.open("/leases/" + lease.id, "_blank")}
           sx={{ marginTop: 2 }}

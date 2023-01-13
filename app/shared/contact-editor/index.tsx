@@ -20,12 +20,14 @@ const ContactEditor = ({
 }) => {
   return (
     <>
-      <Alert color="neutral" sx={{ width: "100%" }}>
-        <Typography>contact</Typography>
-        <AlternateEmailIcon sx={{ color: "#ffffff" }} />
-        <Typography>haftwald</Typography>
-        <Typography>.</Typography>
-        <Typography>com</Typography>
+      <Alert
+        sx={{ width: "100%", backgroundColor: "#ffffff", color: "#000000" }}
+      >
+        <Typography sx={{ color: "inherit" }}>contact</Typography>
+        <AlternateEmailIcon sx={{ color: "#000000" }} />
+        <Typography sx={{ color: "inherit" }}>haftwald</Typography>
+        <Typography sx={{ color: "inherit" }}>.</Typography>
+        <Typography sx={{ color: "inherit" }}>com</Typography>
       </Alert>
       <Box
         mt={3}
@@ -43,7 +45,6 @@ const ContactEditor = ({
         </Typography>
       </Box>
       <Button
-        variant="soft"
         fullWidth
         onClick={() => setOpenContactEditor(false)}
         sx={{ mt: 3 }}

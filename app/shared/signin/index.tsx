@@ -98,7 +98,6 @@ const Signin = ({
         <FormLabel>Email</FormLabel>
         <Input
           type="email"
-          variant="soft"
           {...register("email", {
             required: "Ce champs est requis",
             pattern: {
@@ -116,7 +115,6 @@ const Signin = ({
         <FormLabel>Mot de passe</FormLabel>
         <Input
           type="password"
-          variant="soft"
           {...register("password", {
             required: "Ce champs est requis",
             minLength: {

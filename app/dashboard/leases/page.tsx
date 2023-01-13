@@ -90,7 +90,7 @@ export default function Page() {
             Vous n'avez publié aucune annonce.
           </Typography>
           <Link href="/dashboard/leases/new">
-            <Button variant="soft" startDecorator={<Add />}>
+            <Button color="info" startDecorator={<Add />}>
               Publier une annonce
             </Button>
           </Link>
@@ -130,7 +130,7 @@ const CustomBreadcrumbsWithCTA = () => {
     >
       <CustomBreadcrumbs currentPage="Gérer mes annonces" />
       <Button
-        variant="soft"
+        color="info"
         startDecorator={<Add />}
         onClick={() => {
           router.push("/dashboard/leases/new");

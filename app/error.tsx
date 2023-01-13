@@ -55,7 +55,7 @@ export default function Error({
           Une erreur est survenue sur le serveur
         </Typography>
         <Link href="/leases">
-          <Button variant="soft" size="lg" startDecorator={<SearchIcon />}>
+          <Button size="lg" startDecorator={<SearchIcon />}>
             Parcourir les annonces
           </Button>
         </Link>

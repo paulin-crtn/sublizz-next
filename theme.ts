@@ -7,21 +7,6 @@ import { deepmerge } from "@mui/utils";
 import { poppins } from "./utils/nextFont";
 
 /* -------------------------------------------------------------------------- */
-/*                                  CONSTANT                                  */
-/* -------------------------------------------------------------------------- */
-const PRIMARY_COLORS = {
-  main: "#3fb8ac", // "#4700CC"
-  lighter: "#44C7BC",
-  darker: "#33968E",
-  soft: "#EBEBEB",
-};
-
-const INFO_COLORS = {
-  main: "#2435ff",
-  soft: "#e9f8ff",
-};
-
-/* -------------------------------------------------------------------------- */
 /*                                    THEME                                   */
 /* -------------------------------------------------------------------------- */
 export const joyTheme: Theme = extendTheme({
@@ -33,42 +18,53 @@ export const joyTheme: Theme = extendTheme({
   colorSchemes: {
     dark: {
       palette: {
-        primary: {
-          solidBorder: PRIMARY_COLORS.main,
-          solidActiveBorder: PRIMARY_COLORS.main,
-          solidActiveColor: PRIMARY_COLORS.main,
-          solidActiveBg: PRIMARY_COLORS.darker,
-          solidBg: PRIMARY_COLORS.main,
-          solidHoverBg: PRIMARY_COLORS.darker,
-          solidDisabledBg: PRIMARY_COLORS.darker,
-          solidDisabledBorder: PRIMARY_COLORS.darker,
-          solidDisabledColor: PRIMARY_COLORS.darker,
-          solidColor: "#000000",
+        text: {
+          secondary: "#ffffff",
+        },
+        background: {
+          surface: "#110a24",
+        },
+        neutral: {
+          50: "#ffffff",
+          100: "#ffffff",
+          200: "#f0eaff",
+          300: "#E4D9FF",
+          400: "#1a8cff",
+          500: "#966bfe",
+          600: "#5916fe",
+          700: "#4401e9",
+          800: "#2b0194",
+          900: "#060015",
 
-          softColor: "#000000",
-          softBg: "#ffffff",
-          softDisabledBg: "#ffffff",
-          softHoverBg: PRIMARY_COLORS.soft,
-          softActiveBg: PRIMARY_COLORS.soft,
+          solidBg: "#231c36", // Radio + Input + TextArea
+          solidHoverBg: "#231c36", // Select
 
-          outlinedBorder: PRIMARY_COLORS.main,
-          outlinedColor: PRIMARY_COLORS.main,
-          outlinedHoverBg: "#ffffff",
-          outlinedHoverBorder: PRIMARY_COLORS.main,
-
-          plainColor: PRIMARY_COLORS.main,
-          plainBg: PRIMARY_COLORS.main,
-          plainHoverBg: PRIMARY_COLORS.main,
+          overrideTextPrimary: "#ffffff",
         },
         info: {
-          outlinedColor: INFO_COLORS.main,
-          outlinedBorder: INFO_COLORS.main,
-          outlinedHoverBorder: INFO_COLORS.main,
-          outlinedHoverBg: INFO_COLORS.soft,
-          plainColor: INFO_COLORS.main,
-          softColor: INFO_COLORS.main,
-          softBg: INFO_COLORS.soft,
-          softHoverBg: INFO_COLORS.soft,
+          50: "#ffffff",
+          100: "#ffffff",
+          200: "#ffffff",
+          300: "#ffffff",
+          400: "#ffffff",
+          500: "#ffffff",
+          600: "#ffffff",
+          700: "#ffffff",
+          800: "#ffffff",
+          900: "#ffffff",
+
+          solidColor: "#000000",
+          solidHoverBg: "#eeeeee",
+
+          softColor: "#000000",
+          softHoverBg: "#eeeeee",
+
+          outlinedHoverColor: "#000000",
+        },
+        primary: {
+          solidBg: "#4401e9", // Radio (hover & checked)
+          solidHoverBg: "#4401e9", // Radio (hover & checked)
+          plainHoverBg: "#4401e9", // Select (option)
         },
       },
     },
@@ -89,12 +85,28 @@ export const joyTheme: Theme = extendTheme({
       },
     },
     JoyInput: {
+      defaultProps: {
+        variant: "soft",
+      },
       styleOverrides: {
-        root: {
+        root: (theme) => ({
+          backgroundColor:
+            theme.theme.colorSchemes.dark.palette.neutral.solidBg,
           "& > input": {
             width: "100%", // Fix input not shrinking in flex
           },
-        },
+        }),
+      },
+    },
+    JoyTextarea: {
+      defaultProps: {
+        variant: "soft",
+      },
+      styleOverrides: {
+        root: (theme) => ({
+          backgroundColor:
+            theme.theme.colorSchemes.dark.palette.neutral.solidBg,
+        }),
       },
     },
     JoyChip: {
@@ -136,11 +148,11 @@ export const joyTheme: Theme = extendTheme({
     },
     JoyOption: {
       styleOverrides: {
-        root: {
+        root: (theme) => ({
           "&:hover": {
-            backgroundColor: "#42454D", // Same as default JoySelect
+            backgroundColor: theme.theme.colorSchemes.dark.palette.neutral[800],
           },
-        },
+        }),
       },
     },
     JoyRadio: {
@@ -151,9 +163,9 @@ export const joyTheme: Theme = extendTheme({
           paddingBottom: "10px",
           paddingLeft: "15px",
         },
-        action: {
+        action: (theme) => ({
           borderRadius: "5px",
-        },
+        }),
       },
     },
     JoySvgIcon: {
@@ -179,10 +191,22 @@ export const joyTheme: Theme = extendTheme({
       defaultProps: {
         variant: "solid",
       },
+      styleOverrides: {
+        root: {
+          backgroundColor: "#eeeeee",
+          color: "#000000",
+          borderRadius: "8px",
+        },
+      },
     },
     JoyCircularProgress: {
       defaultProps: {
         thickness: 3,
+      },
+    },
+    JoyCard: {
+      styleOverrides: {
+        root: { borderWidth: "3px" },
       },
     },
   },
@@ -195,7 +219,7 @@ const muiTheme = extendMuiTheme({
         root: {
           height: "40px",
           fontSize: "0.95rem",
-          backgroundColor: "#272930",
+          backgroundColor: "#231c36",
         },
       },
     },

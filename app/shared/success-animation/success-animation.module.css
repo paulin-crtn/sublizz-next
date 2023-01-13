@@ -31,7 +31,7 @@
   content: "";
   height: 100px;
   position: absolute;
-  background: #09090d;
+  background: #110a24;
   transform: rotate(-45deg);
 }
 .successCheckmark .checkIcon .iconLine {
@@ -75,7 +75,7 @@
   height: 85px;
   position: absolute;
   transform: rotate(-45deg);
-  background-color: #09090d;
+  background-color: #110a24;
 }
 @keyframes rotate-circle {
   0% {

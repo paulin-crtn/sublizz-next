@@ -85,16 +85,10 @@ const ConversationPreview = ({
           cursor: "pointer",
           borderRadius: "12px",
           "&:hover": {
-            backgroundColor: theme.colorSchemes.dark.palette.primary.plainColor,
+            backgroundColor: theme.colorSchemes.dark.palette.neutral[800],
           },
           ...(selectedConversationId === conversation.id && {
-            backgroundColor: theme.colorSchemes.dark.palette.primary.plainColor,
-            color: "#ffffff",
-            "&:hover": {
-              backgroundColor:
-                theme.colorSchemes.dark.palette.primary.plainColor,
-              color: "#ffffff",
-            },
+            backgroundColor: theme.colorSchemes.dark.palette.neutral[800],
           }),
         })}
       >

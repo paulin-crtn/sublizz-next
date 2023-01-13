@@ -26,6 +26,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
         position: "relative",
         padding: 3,
         border: "1px solid",
+        backgroundColor: theme.colorSchemes.dark.palette.neutral.softBg,
         borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
         borderRadius: "12px",
       })}
@@ -71,7 +72,7 @@ const DetailsSummary = ({ summary, details }: IDetailsSummary) => {
             marginTop={1}
             fontWeight={300}
             fontSize="1.1rem"
-            lineHeight="1.6rem"
+            lineHeight="1.8rem"
           >
             {detail}
           </Typography>

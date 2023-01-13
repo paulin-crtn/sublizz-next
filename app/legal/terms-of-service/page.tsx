@@ -16,10 +16,17 @@ export default function Page() {
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box
-      className="container"
       component="main"
-      width="85%"
-      sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+      width="75%"
+      sx={{
+        marginY: 8,
+        marginLeft: 12,
+        "&>p": {
+          fontSize: "1.1rem",
+          fontWeight: 300,
+        },
+        "@media (max-width: 900px)": { width: "100%" },
+      }}
     >
       <Typography component="h1" level="h2">
         Conditions Générales d'Utilisation
@@ -320,7 +327,7 @@ export default function Page() {
         mentions légales.
       </Typography>
       <Link href="/legal/notice">
-        <Button variant="soft" sx={{ mt: 2 }}>
+        <Button color="neutral" sx={{ mt: 2 }}>
           Mentions légales
         </Button>
       </Link>

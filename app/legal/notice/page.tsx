@@ -26,10 +26,17 @@ export default function Page() {
   return (
     <>
       <Box
-        className="container"
         component="main"
-        width="85%"
-        sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+        width="75%"
+        sx={{
+          marginY: 8,
+          marginLeft: 12,
+          "&>p": {
+            fontSize: "1.1rem",
+            fontWeight: 300,
+          },
+          "@media (max-width: 900px)": { width: "100%" },
+        }}
       >
         <Typography component="h1" level="h2">
           Mentions légales
@@ -57,7 +64,7 @@ export default function Page() {
           Bordeaux et immatriculée sous le numéro SIRET 819 156 910 00021.
         </Typography>
         <Button
-          variant="soft"
+          color="neutral"
           onClick={() => setOpenContactEditor(true)}
           sx={{ mt: 2 }}
         >
@@ -97,7 +104,7 @@ export default function Page() {
               target="_blank"
               rel="noreferrer"
             >
-              <Button variant="soft" sx={{ mt: 2 }}>
+              <Button color="neutral" sx={{ mt: 2 }}>
                 Contacter AWS
               </Button>
             </a>
@@ -120,7 +127,7 @@ export default function Page() {
               target="_blank"
               rel="noreferrer"
             >
-              <Button variant="soft" sx={{ mt: 2 }}>
+              <Button color="neutral" sx={{ mt: 2 }}>
                 Contacter Vercel
               </Button>
             </a>
@@ -137,7 +144,7 @@ export default function Page() {
             target="_blank"
             rel="noreferrer"
           >
-            <Button variant="soft" sx={{ mr: 1 }}>
+            <Button color="neutral" sx={{ mr: 1 }}>
               Pexels
             </Button>
           </a>
@@ -146,7 +153,7 @@ export default function Page() {
             target="_blank"
             rel="noreferrer"
           >
-            <Button variant="soft" sx={{ mr: 1 }}>
+            <Button color="neutral" sx={{ mr: 1 }}>
               unDraw
             </Button>
           </a>
@@ -155,8 +162,22 @@ export default function Page() {
             target="_blank"
             rel="noreferrer"
           >
-            <Button variant="soft" sx={{ mr: 1 }}>
+            <Button color="neutral" sx={{ mr: 1 }}>
               vectorjuice
+            </Button>
+          </a>
+          <a
+            href="https://icones8.fr/icon/set/populaires/stickers"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button color="neutral" sx={{ mr: 1 }}>
+              icones8
+            </Button>
+          </a>
+          <a href="https://99designs.fr/" target="_blank" rel="noreferrer">
+            <Button color="neutral" sx={{ mr: 1 }}>
+              99designs
             </Button>
           </a>
         </Box>

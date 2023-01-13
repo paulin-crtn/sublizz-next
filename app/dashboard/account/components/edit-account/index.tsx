@@ -120,13 +120,13 @@ const EditAccount = () => {
                 <Radio
                   label="Je cherche un logement"
                   value={UserRoleEnum.SEEKER}
-                  variant="soft"
+                  variant="solid"
                   disableIcon
                 />
                 <Radio
                   label="Je propose un logement"
                   value={UserRoleEnum.OWNER}
-                  variant="soft"
+                  variant="solid"
                   disableIcon
                 />
               </Box>
@@ -187,7 +187,7 @@ const EditAccount = () => {
 
       <Box display="flex" gap={2} sx={{ mt: 4 }}>
         <Button
-          className="btn-primary-gradient"
+          color="info"
           loading={isLoading}
           loadingIndicator={<LoadingIndicator />}
           type="submit"
@@ -196,7 +196,7 @@ const EditAccount = () => {
         </Button>
         <Button
           color="danger"
-          variant="solid"
+          variant="plain"
           onClick={() => setOpenDeleteAccount(true)}
           sx={{ maxWidth: "max-content" }}
         >
