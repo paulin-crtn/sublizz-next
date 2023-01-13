@@ -32,12 +32,7 @@ const Header = () => {
             placeholder="blur"
           />
         </CardCover>
-        <CardCover
-          sx={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3) 450px)",
-          }}
-        />
+        <CardCover sx={{ background: "rgba(0, 0, 0, 0.3)" }} />
         <CardContent
           sx={{
             marginY: 12,
@@ -60,12 +55,12 @@ const Header = () => {
                 },
               }}
             >
-              Locations et sous-locations entre particuliers
+              Annonces de locations entre particuliers
             </Typography>
             <Typography
               component="h2"
               level="h4"
-              marginTop={2}
+              marginTop={1}
               marginX="auto"
               fontWeight={400}
               sx={{
@@ -75,58 +70,55 @@ const Header = () => {
                 },
               }}
             >
-              Annonces immobilières sans frais d’agence
-              <Box
-                display="flex"
-                justifyContent="center"
-                flexWrap="wrap"
-                gap={1}
-                width="fit-content"
-                marginX="auto"
-                marginTop={2}
-              >
-                <Chip
-                  size="md"
-                  sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
-                    userSelect: "none",
-                  }}
-                >
-                  Bail étudiant
-                </Chip>
-                <Chip
-                  size="md"
-                  sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
-                    userSelect: "none",
-                  }}
-                >
-                  Bail mobilité
-                </Chip>
-                <Chip
-                  size="md"
-                  sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
-                    userSelect: "none",
-                  }}
-                >
-                  Colocation
-                </Chip>
-                <Chip
-                  size="md"
-                  sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
-                    userSelect: "none",
-                  }}
-                >
-                  Sous-location
-                </Chip>
-              </Box>
+              Faites des économies en louant un bien immobilier sans frais
+              d'agence
             </Typography>
+            <Box
+              display="flex"
+              justifyContent="center"
+              flexWrap="wrap"
+              gap={1}
+              width="fit-content"
+              marginX="auto"
+              marginTop={2}
+            >
+              <Chip
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  userSelect: "none",
+                }}
+              >
+                Bail mobilité
+              </Chip>
+              <Chip
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  userSelect: "none",
+                }}
+              >
+                Bail étudiant
+              </Chip>
+              <Chip
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  userSelect: "none",
+                }}
+              >
+                Colocation
+              </Chip>
+              <Chip
+                sx={{
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  userSelect: "none",
+                }}
+              >
+                Sous-location
+              </Chip>
+            </Box>
           </Box>
           <Box
             sx={{

@@ -176,9 +176,9 @@ export default function Page() {
               icones8
             </Button>
           </a>
-          <a href="https://99designs.fr/" target="_blank" rel="noreferrer">
+          <a href="https://www.freepik.com/" target="_blank" rel="noreferrer">
             <Button color="neutral" sx={{ mr: 1 }}>
-              99designs
+              freepik
             </Button>
           </a>
         </Box>

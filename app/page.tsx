@@ -50,7 +50,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { ILease, ILeasesWithCount } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import mapImg from "../public/img/map.svg";
+import mapImg from "../public/img/map.jpg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
 import { CITIES } from "../data/cities";
@@ -277,7 +277,7 @@ const HomePage = () => {
         <Card
           sx={{
             "--Card-radius": "0px",
-            height: "260px",
+            height: "300px",
             boxShadow: "none",
           }}
         >
@@ -286,7 +286,7 @@ const HomePage = () => {
           </CardCover>
           <CardCover
             sx={{
-              background: "rgba(19, 0, 63, 0.85)",
+              background: "rgba(0, 0, 0, 0.3)",
             }}
           />
           <CardContent sx={{ justifyContent: "center", alignItems: "center" }}>
