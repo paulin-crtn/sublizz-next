@@ -60,7 +60,6 @@ const HowItWorks = () => {
   const [showRole, setShowRole] = useState<string>("Je propose un logement");
 
   /* -------------------------------- TEMPLATE -------------------------------- */
-  // undraw pictures color #F9A826
   return (
     <Box>
       <RadioGroup
@@ -104,10 +103,12 @@ const HowItWorks = () => {
                       theme.colorSchemes.dark.palette.neutral[700],
                   },
                   ...(checked && {
-                    bgcolor: "background.surface",
+                    backgroundColor:
+                      theme.colorSchemes.dark.palette.neutral[700],
                     boxShadow: "md",
                     "&:hover": {
-                      bgcolor: "background.surface",
+                      backgroundColor:
+                        theme.colorSchemes.dark.palette.neutral[700],
                     },
                   }),
                 }),
