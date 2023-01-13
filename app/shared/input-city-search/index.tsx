@@ -140,12 +140,11 @@ const InputCitySearch = ({ isLarge = false }) => {
             "& .JoyInput-root": isLarge
               ? {
                   backgroundColor: "#ffffff",
-                  color: "#262626",
-                  "&:hover": {
-                    color: "#262626",
-                  },
+                  color: "#000000",
+                  border: "none",
                   "&:hover:not(.Joy-focused)": {
-                    color: "#262626",
+                    color: "#000000",
+                    border: "none",
                   },
                 }
               : {},
@@ -169,12 +168,15 @@ const InputCitySearch = ({ isLarge = false }) => {
               <ListItem
                 key={city.nom}
                 onClick={() => handleSearch(city.nom)}
-                sx={{
+                sx={(theme) => ({
                   width: "100%",
                   textAlign: "left",
                   cursor: "pointer",
-                  "&:hover": { backgroundColor: "#262626" },
-                }}
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorSchemes.dark.palette.neutral[800],
+                  },
+                })}
               >
                 {city.nom}
               </ListItem>

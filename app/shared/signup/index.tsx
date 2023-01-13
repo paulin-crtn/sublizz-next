@@ -120,26 +120,34 @@ const Signup = ({
                   <Radio
                     label="🏠 Je propose un logement"
                     value={UserRoleEnum.OWNER}
-                    variant="soft"
-                    color="primary"
+                    variant="solid"
+                    color="neutral"
                     disableIcon
-                    sx={{
+                    sx={(theme) => ({
                       margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
-                    }}
+                      "&>span>span:hover": {
+                        backgroundColor:
+                          theme.colorSchemes.dark.palette.neutral[600],
+                      },
+                    })}
                   />
                   <Radio
                     label="🔍 Je cherche un logement"
                     value={UserRoleEnum.SEEKER}
-                    variant="soft"
-                    color="primary"
+                    variant="solid"
+                    color="neutral"
                     disableIcon
-                    sx={{
+                    sx={(theme) => ({
                       margin: 0,
                       textAlign: "center",
                       "& .JoyRadio-input": { position: "initial" },
-                    }}
+                      "&>span>span:hover": {
+                        backgroundColor:
+                          theme.colorSchemes.dark.palette.neutral[600],
+                      },
+                    })}
                   />
                 </RadioGroup>
               )}
@@ -232,9 +240,9 @@ const Signup = ({
               defaultValue={false}
               render={({ field: { onChange, ...field } }) => (
                 <Switch
-                  variant="soft"
+                  variant={watch("consent") === true ? "soft" : "outlined"}
                   size="lg"
-                  color={watch("consent") === true ? "primary" : "neutral"}
+                  color="neutral"
                   onChange={(event) => {
                     onChange(event);
                   }}

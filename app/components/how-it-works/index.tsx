@@ -69,7 +69,7 @@ const HowItWorks = () => {
         size="sm"
         value={showRole}
         onChange={(event) => setShowRole(event.target.value)}
-        sx={{
+        sx={(theme) => ({
           width: "fit-content",
           minHeight: 48,
           marginBottom: 3,
@@ -78,7 +78,7 @@ const HowItWorks = () => {
           bgcolor: "neutral.softBg",
           "--RadioGroup-gap": "4px",
           "--Radio-action-radius": "8px",
-        }}
+        })}
       >
         {["Je propose un logement", "Je cherche un logement"].map((item) => (
           <Radio
@@ -98,7 +98,11 @@ const HowItWorks = () => {
             }}
             componentsProps={{
               action: ({ checked }) => ({
-                sx: {
+                sx: (theme) => ({
+                  "&:hover": {
+                    backgroundColor:
+                      theme.colorSchemes.dark.palette.neutral[700],
+                  },
                   ...(checked && {
                     bgcolor: "background.surface",
                     boxShadow: "md",
@@ -106,7 +110,7 @@ const HowItWorks = () => {
                       bgcolor: "background.surface",
                     },
                   }),
-                },
+                }),
               }),
             }}
           />
@@ -114,7 +118,7 @@ const HowItWorks = () => {
       </RadioGroup>
       {/** OWNER */}
       {showRole === "Je propose un logement" && (
-        <Box sx={{ marginBottom: 4 }}>
+        <Box sx={{ marginY: 4 }}>
           <List
             sx={{
               display: "grid",
@@ -129,11 +133,11 @@ const HowItWorks = () => {
               <Image
                 src={signupImg}
                 alt="signup illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Créez un compte
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -145,11 +149,11 @@ const HowItWorks = () => {
               <Image
                 src={describeImg}
                 alt="pencil illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Décrivez le logement
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -161,11 +165,11 @@ const HowItWorks = () => {
               <Image
                 src={pictureImg}
                 alt="add picture illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Ajoutez des photos
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -177,11 +181,11 @@ const HowItWorks = () => {
               <Image
                 src={chatImg}
                 alt="chat illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Echangez avec des locataires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -198,15 +202,15 @@ const HowItWorks = () => {
             }}
           >
             <Alert
-              variant="plain"
-              color="neutral"
-              startDecorator={<PauseIcon sx={{ padding: 0.25 }} />}
+              color="info"
+              startDecorator={
+                <PauseIcon sx={{ padding: 0.25, color: "#000000" }} />
+              }
               sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                border: "1px solid",
-                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+                color: "#000000",
               })}
             >
               Vous pouvez suspendre la publication de votre annonce sans la
@@ -214,15 +218,15 @@ const HowItWorks = () => {
             </Alert>
 
             <Alert
-              variant="plain"
-              color="neutral"
-              startDecorator={<PhoneIcon sx={{ padding: 0.25 }} />}
+              color="info"
+              startDecorator={
+                <PhoneIcon sx={{ padding: 0.25, color: "#000000" }} />
+              }
               sx={(theme) => ({
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                border: "1px solid",
-                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+                color: "#000000",
               })}
             >
               Renseignez votre numéro de téléphone pour être contacté
@@ -234,7 +238,7 @@ const HowItWorks = () => {
 
       {/** SEEKER */}
       {showRole === "Je cherche un logement" && (
-        <Box sx={{ marginBottom: 4 }}>
+        <Box sx={{ marginY: 4 }}>
           <List
             sx={{
               display: "grid",
@@ -249,11 +253,11 @@ const HowItWorks = () => {
               <Image
                 src={searchImg}
                 alt="search illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Parcourez les annonces
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -265,11 +269,11 @@ const HowItWorks = () => {
               <Image
                 src={messageImg}
                 alt="message illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Envoyez un message
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -281,11 +285,11 @@ const HowItWorks = () => {
               <Image
                 src={chatImg}
                 alt="chat illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Echangez avec les propriétaires
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -297,11 +301,11 @@ const HowItWorks = () => {
               <Image
                 src={flagImg}
                 alt="flag illustration"
-                width={150}
-                height={150}
+                width={100}
+                height={100}
                 priority
               />
-              <Typography mt={1} fontWeight={500}>
+              <Typography mt={2} fontWeight={500}>
                 Visitez le logement
               </Typography>
               <Typography mt={0.5} fontWeight={300}>
@@ -318,12 +322,12 @@ const HowItWorks = () => {
             }}
           >
             <Alert
-              variant="plain"
-              color="neutral"
+              color="info"
               startDecorator={
                 <FavoriteIcon
                   sx={{
                     padding: 0.25,
+                    color: "#000000",
                   }}
                 />
               }
@@ -331,8 +335,7 @@ const HowItWorks = () => {
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                border: "1px solid",
-                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+                color: "#000000",
               })}
             >
               Vous pouvez enregistrer une annonce en favoris et la retrouver
@@ -340,12 +343,12 @@ const HowItWorks = () => {
             </Alert>
 
             <Alert
-              variant="plain"
-              color="neutral"
+              color="info"
               startDecorator={
                 <HourglassFullIcon
                   sx={{
                     padding: 0.25,
+                    color: "#000000",
                   }}
                 />
               }
@@ -353,8 +356,7 @@ const HowItWorks = () => {
                 flex: "1 1",
                 marginTop: 1,
                 paddingX: 2,
-                border: "1px solid",
-                borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+                color: "#000000",
               })}
             >
               Gagnez du temps en enregistrant une réponse type

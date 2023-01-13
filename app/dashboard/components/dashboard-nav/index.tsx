@@ -42,10 +42,10 @@ const navListStyle = (theme: Theme) => ({
     padding: "10px 15px",
   },
   "&:hover": {
-    backgroundColor: "#32313c",
+    background: "linear-gradient(to right, #ff3e08, #fe6100)",
   },
   "&.active": {
-    backgroundColor: "#32313c",
+    background: "linear-gradient(to right, #ff3e08, #fe6100)",
     "& p": {
       color: "#ffffff",
     },

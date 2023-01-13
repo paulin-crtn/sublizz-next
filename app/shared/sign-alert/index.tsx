@@ -30,7 +30,7 @@ const listStyle = (theme: Theme) => ({
     padding: 0.75,
     fontSize: "2.2rem",
     color: "#000000",
-    backgroundColor: theme.colorSchemes.dark.palette.primary.softBg,
+    backgroundColor: "#ffffff",
     borderRadius: "8px",
   },
 });
@@ -100,7 +100,7 @@ const SignAlert = ({
       </Button>
       <Button
         fullWidth
-        variant="soft"
+        color="info"
         onClick={() => {
           setOpenSignin(true);
           setOpenSignAlert(false);

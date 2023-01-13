@@ -131,8 +131,8 @@ const ConversationMessages = ({
                 whiteSpace: "pre-wrap",
                 backgroundColor:
                   message.fromUserId === user?.id
-                    ? theme.colorSchemes.dark.palette.primary.plainColor
-                    : "#474747",
+                    ? theme.colorSchemes.dark.palette.neutral[800]
+                    : "#262626",
                 borderRadius: "8px",
               })}
             >
@@ -162,15 +162,15 @@ const ConversationMessages = ({
         ></Textarea>
 
         <Button
+          color="info"
           loading={isLoading}
           loadingIndicator={<LoadingIndicator />}
-          variant="soft"
           onClick={handleStoreMessage}
           sx={{
             marginY: "auto",
             marginX: 2,
             padding: 1.5,
-            borderRadius: "9999px",
+            borderRadius: "12px",
           }}
         >
           <SendIcon />

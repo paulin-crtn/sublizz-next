@@ -90,19 +90,14 @@ const AddressForm = ({
         {dataGouvAddresses.map((address) => (
           <Alert
             key={address.properties.id}
-            variant="solid"
-            color="primary"
+            color="info"
             sx={(theme) => ({
               marginTop: 1,
               cursor: "pointer",
-              ":hover": {
-                backgroundColor:
-                  theme.colorSchemes.dark.palette.primary.solidHoverBg,
-              },
             })}
             onClick={() => setDataGouvAddress(address)}
           >
-            <Typography>
+            <Typography sx={{ color: "inherit" }}>
               {address.properties.name}, {address.properties.postcode}{" "}
               {address.properties.city}
             </Typography>

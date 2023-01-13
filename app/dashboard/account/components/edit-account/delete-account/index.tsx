@@ -136,8 +136,7 @@ const DeleteAccount = ({
         Supprimer mon compte
       </Button>
       <Button
-        color="neutral"
-        variant="soft"
+        color="info"
         fullWidth
         onClick={() => setOpenDeleteAccount(false)}
         sx={{ mt: 1 }}

@@ -41,16 +41,16 @@ import Avatar from "@mui/joy/Avatar";
 /* ---------------------------------- ICONS --------------------------------- */
 import StarIcon from "@mui/icons-material/Star";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import FastForwardIcon from "@mui/icons-material/FastForward";
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import LocationCityIcon from "@mui/icons-material/LocationCity";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 /* ------------------------------- INTERFACES ------------------------------- */
 import { ILease, ILeasesWithCount } from "../interfaces/lease";
 import { IDetailsSummary } from "../interfaces/IDetailsSummary";
 /* -------------------------------- CONSTANTS ------------------------------- */
-import mapImg from "../public/img/map.png";
+import mapImg from "../public/img/map.svg";
 import { FREQUENTLY_ASKED_QUESTIONS } from "../data/frequentlyAskedQuestions";
 import { LEASE_TYPES } from "../data/leaseTypes";
 import { CITIES } from "../data/cities";
@@ -61,7 +61,7 @@ import { CITIES } from "../data/cities";
 const SECTION_STYLES = {
   maxWidth: "1800px",
   margin: "0 auto",
-  padding: "60px",
+  padding: "50px 70px",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -147,7 +147,7 @@ const HomePage = () => {
               gap: 2,
               mt: "60px",
               padding: 4,
-              background: "linear-gradient(to right, #00c9ff, #92fe9d)",
+              background: "linear-gradient(to right, #F2994A, #F2C94C)",
               borderRadius: "16px",
               boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {
@@ -203,15 +203,16 @@ const HomePage = () => {
 
         {/** Cities */}
         <Box
-          sx={{
+          sx={(theme) => ({
             ...SECTION_STYLES,
-            backgroundColor: "#19191d",
-          }}
+            backgroundColor: theme.colorSchemes.dark.palette.background.surface,
+          })}
         >
-          <Title text="Top villes" decorator={<LocationCityIcon />} />
+          <Title text="Top villes" decorator={<TrendingUpIcon />} />
           <SubTitle>
-            Découvrez les annonces de location et de sous-location de
-            particulier à particulier dans les principales villes.
+            Découvrez les annonces de location et de sous-location temporaires
+            de particulier à particulier dans les principales villes de
+            métropole et d'outre-mer.
           </SubTitle>
           <Box
             sx={{
@@ -237,12 +238,12 @@ const HomePage = () => {
         <Box sx={SECTION_STYLES}>
           <Title
             text="À chaque situation son logement"
-            decorator={<TaskAltIcon />}
+            decorator={<HolidayVillageIcon />}
           />
           <SubTitle>
             La carte des logements est un service de mise en relation entre
-            particuliers permettant de louer ou de sous-louer facilement un
-            appartement ou une maison.
+            particuliers permettant de louer ou de sous-louer pour quelques mois
+            un appartement ou une maison.
           </SubTitle>
           <Box
             sx={{
@@ -285,7 +286,7 @@ const HomePage = () => {
           </CardCover>
           <CardCover
             sx={{
-              background: "rgba(29, 29, 38, 0.5)",
+              background: "rgba(19, 0, 63, 0.85)",
             }}
           />
           <CardContent sx={{ justifyContent: "center", alignItems: "center" }}>
@@ -308,7 +309,7 @@ const HomePage = () => {
 
         {/** How it works */}
         <Box sx={SECTION_STYLES}>
-          <Title text="Seulement 4 étapes" decorator={<FastForwardIcon />} />
+          <Title text="Seulement 4 étapes" decorator={<DoubleArrowIcon />} />
           <SubTitle>
             La carte des logements vous propose un fonctionnement simple afin de
             vous offrir une mise en relation rapide de particulier à
@@ -327,7 +328,7 @@ const HomePage = () => {
                 gap: 2,
                 mt: "60px",
                 padding: 4,
-                background: "linear-gradient(to right, #00c9ff, #92fe9d)",
+                background: "linear-gradient(to right, #F2994A, #F2C94C)",
                 borderRadius: "16px",
                 boxShadow: theme.vars.shadow.lg,
                 "@media (max-width: 1100px)": {
@@ -404,10 +405,10 @@ const HomePage = () => {
 
         {/** FAQ */}
         <Box
-          sx={{
+          sx={(theme) => ({
             ...SECTION_STYLES,
-            backgroundColor: "#19191d",
-          }}
+            backgroundColor: theme.colorSchemes.dark.palette.background.surface,
+          })}
         >
           <Title
             text="Questions fréquentes"
@@ -469,7 +470,9 @@ const HomePage = () => {
                   paddingY: 3,
                   borderRadius: "12px",
                   backgroundColor:
-                    theme.colorSchemes.dark.palette.neutral.softBg,
+                    theme.colorSchemes.dark.palette.background.surface,
+                  border: "3px solid",
+                  borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
                 })}
               >
                 <Box
@@ -519,7 +522,7 @@ const HomePage = () => {
               gap: 2,
               mt: "60px",
               padding: 4,
-              background: "linear-gradient(to right, #00c9ff, #92fe9d)",
+              background: "linear-gradient(to right, #F2994A, #F2C94C)",
               borderRadius: "16px",
               boxShadow: theme.vars.shadow.lg,
               "@media (max-width: 1100px)": {

@@ -19,10 +19,17 @@ export default function Page() {
 
   return (
     <Box
-      className="container"
       component="main"
-      width="85%"
-      sx={{ "@media (max-width: 900px)": { width: "100%" } }}
+      width="75%"
+      sx={{
+        marginY: 8,
+        marginLeft: 12,
+        "&>p": {
+          fontSize: "1.1rem",
+          fontWeight: 300,
+        },
+        "@media (max-width: 900px)": { width: "100%" },
+      }}
     >
       <Typography component="h1" level="h2">
         Politique de confidentialité & Cookies
@@ -83,7 +90,7 @@ export default function Page() {
         mentions légales.
       </Typography>
       <Link href="/legal/notice">
-        <Button variant="soft" sx={{ mt: 2 }}>
+        <Button color="neutral" sx={{ mt: 2 }}>
           Mentions légales
         </Button>
       </Link>
@@ -105,7 +112,7 @@ export default function Page() {
       </Typography>
 
       <Link href="/legal/notice">
-        <Button variant="soft" sx={{ mt: 2 }}>
+        <Button color="neutral" sx={{ mt: 2 }}>
           Mentions légales
         </Button>
       </Link>
@@ -173,7 +180,7 @@ export default function Page() {
           target="_blank"
           rel="noreferrer"
         >
-          <Button variant="soft" sx={{ mr: 1 }}>
+          <Button color="neutral" sx={{ mr: 1 }}>
             Chrome
           </Button>
         </a>
@@ -182,7 +189,7 @@ export default function Page() {
           target="_blank"
           rel="noreferrer"
         >
-          <Button variant="soft" sx={{ mr: 1 }}>
+          <Button color="neutral" sx={{ mr: 1 }}>
             Firefox
           </Button>
         </a>
@@ -191,7 +198,7 @@ export default function Page() {
           target="_blank"
           rel="noreferrer"
         >
-          <Button variant="soft" sx={{ mr: 1 }}>
+          <Button color="neutral" sx={{ mr: 1 }}>
             Safari
           </Button>
         </a>
@@ -200,7 +207,7 @@ export default function Page() {
           target="_blank"
           rel="noreferrer"
         >
-          <Button variant="soft">Edge</Button>
+          <Button color="neutral">Edge</Button>
         </a>
       </Box>
 

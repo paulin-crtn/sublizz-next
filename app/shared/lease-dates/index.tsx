@@ -66,10 +66,11 @@ const LeaseDates = ({
             {!!lease.isDateFlexible && showFlexible && (
               <Chip
                 component="span"
-                color="neutral"
-                variant="soft"
                 size={size === "lg" ? "md" : size}
-                sx={{ marginLeft: 1 }}
+                sx={(theme) => ({
+                  marginLeft: 1,
+                  backgroundColor: "#474747",
+                })}
               >
                 Dates flexibles
               </Chip>
@@ -92,10 +93,11 @@ const LeaseDates = ({
             {!!lease.isDateFlexible && showFlexible && (
               <Chip
                 component="span"
-                color="neutral"
-                variant="soft"
                 size={size === "lg" ? "md" : size}
-                sx={{ marginLeft: 1 }}
+                sx={(theme) => ({
+                  marginLeft: 1,
+                  backgroundColor: "#474747",
+                })}
               >
                 Dates flexibles
               </Chip>
@@ -118,10 +120,11 @@ const LeaseDates = ({
             {!!lease.isDateFlexible && showFlexible && (
               <Chip
                 component="span"
-                color="neutral"
-                variant="soft"
                 size={size === "lg" ? "md" : size}
-                sx={{ marginLeft: 1 }}
+                sx={(theme) => ({
+                  marginLeft: 1,
+                  backgroundColor: "#474747",
+                })}
               >
                 Dates flexibles
               </Chip>

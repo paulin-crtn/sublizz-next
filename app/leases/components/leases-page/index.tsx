@@ -191,7 +191,7 @@ const LeasesPage = ({ data }: { data: ILeasesWithCount }) => {
                     {latitudes && `Aucun résultat dans cette zone`}
                   </Typography>
                   <Button
-                    variant="soft"
+                    color="info"
                     sx={{ mt: 3 }}
                     onClick={() => router.push("/leases")}
                   >

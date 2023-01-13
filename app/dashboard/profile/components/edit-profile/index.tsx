@@ -176,7 +176,6 @@ const EditProfile = () => {
           <Alert
             key={index}
             startDecorator={<ErrorIcon />}
-            variant="soft"
             color="danger"
             sx={{ mb: 2 }}
           >
@@ -207,13 +206,13 @@ const EditProfile = () => {
             <Sheet
               sx={{
                 width: 120,
-                borderRadius: "9999px",
+                borderRadius: "8px",
                 overflow: "auto",
                 cursor: "pointer",
               }}
             >
               {!inputFile && !user.profilePictureName && (
-                <AspectRatio ratio={1}>
+                <AspectRatio ratio={1} variant="solid">
                   <Typography fontSize="3rem" sx={{ color: "#cccccc" }}>
                     <AddIcon />
                   </Typography>
@@ -246,17 +245,23 @@ const EditProfile = () => {
             </Sheet>
           </FormLabel>
           <IconButton
-            color="neutral"
-            variant="solid"
             size="sm"
             disabled={isDeletingFile ? true : false}
             onClick={onDeleteProfilePicture}
             sx={{
               position: "absolute",
-              bottom: 0,
-              left: "80px",
-              borderRadius: "9999px",
+              bottom: "-10px",
+              left: "100px",
+              borderRadius: "4px",
               border: "none",
+              backgroundColor: "#ffffff",
+              color: "#000000",
+              "&:hover": {
+                backgroundColor: "#eeeeee",
+              },
+              "&:active": {
+                backgroundColor: "#eeeeee",
+              },
             }}
           >
             {isDeletingFile ? (
@@ -271,7 +276,6 @@ const EditProfile = () => {
           <FormLabel>Prénom</FormLabel>
           <Input
             type="text"
-            variant="soft"
             defaultValue={user.firstName}
             {...register("firstName", {
               required: "Ce champs est requis",
@@ -296,7 +300,6 @@ const EditProfile = () => {
           </FormLabel>
           <Input
             type="text"
-            variant="soft"
             defaultValue={user.lastName}
             {...register("lastName", {
               minLength: {
@@ -326,7 +329,6 @@ const EditProfile = () => {
             </FormHelperText>
             <Input
               type="text"
-              variant="soft"
               defaultValue={user.phoneNumber}
               {...register("phoneNumber", {
                 pattern: {
@@ -352,7 +354,6 @@ const EditProfile = () => {
               prédéfini.
             </FormHelperText>
             <Textarea
-              variant="soft"
               defaultValue={user.standardMessage}
               {...register("standardMessage")}
               minRows={5}
@@ -362,7 +363,7 @@ const EditProfile = () => {
         )}
 
         <Button
-          className="btn-primary-gradient"
+          color="info"
           type="submit"
           loading={isUploadingFile || isLoading}
           loadingIndicator={<LoadingIndicator />}

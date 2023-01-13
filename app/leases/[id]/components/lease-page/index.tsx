@@ -272,8 +272,8 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               height: "fit-content",
               padding: 2,
               borderRadius: "12px",
-              border: "1px solid",
-              borderColor: theme.colorSchemes.dark.palette.neutral.softBg,
+              border: "3px solid",
+              borderColor: theme.colorSchemes.dark.palette.neutral[800],
               "@media (max-width: 1000px)": {
                 mt: 4,
                 width: "fit-content",
@@ -328,7 +328,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
             {/** Phone Number */}
             {lease.user.phoneNumber && (
               <Button
-                variant="soft"
+                color="info"
                 fullWidth
                 onClick={() => {
                   if (!user) setOpenSignAlert(true);

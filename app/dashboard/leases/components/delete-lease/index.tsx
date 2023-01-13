@@ -97,8 +97,7 @@ const DeleteLease: FunctionComponent<{
         Supprimer l'annonce
       </Button>
       <Button
-        variant="soft"
-        color="neutral"
+        color="info"
         fullWidth
         onClick={() => setOpenConfirmDelete(false)}
         sx={{ mt: 1 }}

@@ -182,7 +182,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
           defaultValue={lease ? lease.type : null} // Avoid error "A component is changing the uncontrolled value state to be controlled."
           render={({ field: { onChange, ...field } }) => (
             <Select
-              variant="soft"
+              color="neutral"
+              variant="solid"
               onChange={async (event) => {
                 setValue(
                   "type",
@@ -191,6 +192,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                 await trigger("type"); // Revalidate input
               }}
               {...field}
+              sx={{ "&>span": { color: "#ffffff" } }}
             >
               {Object.values(LeaseTypeEnum).map((type) => (
                 <Option
@@ -254,7 +256,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                   <Box display="flex">
                     <TextField {...params} sx={{ flex: "1 1" }} />
                     <Button
-                      variant="soft"
+                      variant="solid"
                       color="neutral"
                       onClick={() => setValue("endDate", null)}
                       sx={{ marginLeft: 0.5 }}
@@ -289,8 +291,8 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
               }}
             >
               <Box display="flex" gap="10px">
-                <Radio label="Oui" value="1" variant="soft" disableIcon />
-                <Radio label="Non" value="0" variant="soft" disableIcon />
+                <Radio label="Oui" value="1" variant="solid" disableIcon />
+                <Radio label="Non" value="0" variant="solid" disableIcon />
               </Box>
             </RadioGroup>
           )}
@@ -309,7 +311,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
         <FormLabel>Adresse</FormLabel>
         {getValues("street") || lease?.street ? (
           <Alert
-            variant="soft"
+            variant="solid"
             color="neutral"
             sx={{ marginBottom: 1, paddingY: 0.5 }}
           >
@@ -532,10 +534,15 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
                 <Radio
                   label="Maintenant"
                   value="1"
-                  variant="soft"
+                  variant="solid"
                   disableIcon
                 />
-                <Radio label="Plus tard" value="0" variant="soft" disableIcon />
+                <Radio
+                  label="Plus tard"
+                  value="0"
+                  variant="solid"
+                  disableIcon
+                />
               </Box>
             </RadioGroup>
           )}
@@ -554,7 +561,7 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
       )}
 
       <Button
-        className="btn-primary-gradient"
+        color="info"
         loading={isUploadingFile || isLoading}
         loadingIndicator={<LoadingIndicator />}
         type="submit"

@@ -60,7 +60,7 @@ const Header = () => {
                 },
               }}
             >
-              Locations et sous-locations temporaires entre particuliers
+              Locations et sous-locations entre particuliers
             </Typography>
             <Typography
               component="h2"
@@ -86,40 +86,40 @@ const Header = () => {
                 marginTop={2}
               >
                 <Chip
-                  size="lg"
+                  size="md"
                   sx={{
-                    backgroundColor: "#000000",
-                    color: "#ffffff",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
                     userSelect: "none",
                   }}
                 >
                   Bail étudiant
                 </Chip>
                 <Chip
-                  size="lg"
+                  size="md"
                   sx={{
-                    backgroundColor: "#000000",
-                    color: "#ffffff",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
                     userSelect: "none",
                   }}
                 >
                   Bail mobilité
                 </Chip>
                 <Chip
-                  size="lg"
+                  size="md"
                   sx={{
-                    backgroundColor: "#000000",
-                    color: "#ffffff",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
                     userSelect: "none",
                   }}
                 >
                   Colocation
                 </Chip>
                 <Chip
-                  size="lg"
+                  size="md"
                   sx={{
-                    backgroundColor: "#000000",
-                    color: "#ffffff",
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
                     userSelect: "none",
                   }}
                 >

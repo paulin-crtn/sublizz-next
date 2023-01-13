@@ -14,7 +14,7 @@ const Title = ({
       alignItems="center"
       gap={3}
       sx={{
-        marginBottom: "60px",
+        marginBottom: "50px",
         width: "fit-content",
         fontSize: "2.1rem",
         "& > svg": {
