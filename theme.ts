@@ -121,6 +121,7 @@ export const joyTheme: Theme = extendTheme({
           maxWidth: "500px",
           maxHeight: "95vh",
           overflowY: "auto",
+          borderWidth: "3px",
         },
       },
     },
