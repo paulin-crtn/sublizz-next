@@ -97,7 +97,7 @@ export default function Page() {
         <Box sx={{ minHeight: "calc(100vh - 91px)", display: "flex" }}>
           <Box margin="auto" padding={2} textAlign="center">
             <Typography level="h2" fontWeight={500} marginBottom={3}>
-              Bienvenue sur votre messagerie {user.firstName}
+              Bienvenue dans votre messagerie {user.firstName}
             </Typography>
             <Typography level="h4" fontWeight={400} marginBottom={3}>
               Vous n'avez aucun message.

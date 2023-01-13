@@ -30,7 +30,7 @@ export default function Error({
       display="flex"
       justifyContent="center"
       alignItems="center"
-      gap={22}
+      gap={16}
       minHeight="calc(100vh - 90px)"
       padding={4}
       sx={{
@@ -46,8 +46,8 @@ export default function Error({
           src={serverErrorImg}
           alt="server error illustration"
           loading="lazy"
-          width={300}
-          height={300}
+          width={260}
+          height={260}
         />
       </Box>
       <Box flex="0 1 500px">
@@ -55,7 +55,7 @@ export default function Error({
           Une erreur est survenue sur le serveur
         </Typography>
         <Link href="/leases">
-          <Button size="lg" startDecorator={<SearchIcon />}>
+          <Button color="info" size="lg" startDecorator={<SearchIcon />}>
             Parcourir les annonces
           </Button>
         </Link>
