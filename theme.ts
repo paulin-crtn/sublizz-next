@@ -35,11 +35,10 @@ export const joyTheme: Theme = extendTheme({
           700: "#4401e9",
           800: "#2b0194",
           900: "#060015",
+          darkChannel: "#060015", // Background outside modal
 
           solidBg: "#231c36", // Radio + Input + TextArea
           solidHoverBg: "#231c36", // Select
-
-          overrideTextPrimary: "#ffffff",
         },
         info: {
           50: "#ffffff",
@@ -145,6 +144,9 @@ export const joyTheme: Theme = extendTheme({
     JoySelect: {
       styleOverrides: {
         button: { fontFamily: poppins.style.fontFamily },
+        listbox: (theme) => ({
+          backgroundColor: theme.theme.colorSchemes.dark.palette.neutral[900],
+        }),
       },
     },
     JoyOption: {
@@ -172,6 +174,14 @@ export const joyTheme: Theme = extendTheme({
     JoySvgIcon: {
       styleOverrides: {
         root: { margin: 0 }, // JoyAvatar default icons
+      },
+    },
+    JoyMenu: {
+      styleOverrides: {
+        root: (theme) => ({
+          backgroundColor:
+            theme.theme.colorSchemes.dark.palette.background.surface,
+        }),
       },
     },
     JoyMenuItem: {

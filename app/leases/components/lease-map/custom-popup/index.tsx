@@ -30,7 +30,7 @@ const CustomPopup = ({ lease }: { lease: ILeaseDetail }) => {
   return (
     <Popup className="popup">
       <Card
-        row
+        orientation="horizontal"
         onClick={() => {
           window.open(`/leases/${lease.id}`, "_blank");
         }}

@@ -4,13 +4,12 @@
 import { useState } from "react";
 import Image from "next/image";
 /* ----------------------------------- MUI ---------------------------------- */
+import { Theme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Alert from "@mui/joy/Alert";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-/* ----------------------------------- MUI ---------------------------------- */
-import { Theme } from "@mui/joy";
 import RadioGroup from "@mui/joy/RadioGroup";
 import Radio from "@mui/joy/Radio";
 /* ----------------------------- MATERIAL ICONS ----------------------------- */
@@ -63,7 +62,7 @@ const HowItWorks = () => {
   return (
     <Box>
       <RadioGroup
-        row
+        orientation="horizontal"
         name="mapOrList"
         size="sm"
         value={showRole}
@@ -95,7 +94,7 @@ const HowItWorks = () => {
               fontWeight: 500,
               "@media (max-width: 800px)": { fontSize: "1rem" },
             }}
-            componentsProps={{
+            slotProps={{
               action: ({ checked }) => ({
                 sx: (theme) => ({
                   "&:hover": {

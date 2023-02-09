@@ -134,6 +134,9 @@ const Signup = ({
                         backgroundColor:
                           theme.colorSchemes.dark.palette.neutral[800],
                       },
+                      "&>span>span>input": {
+                        position: "static", // Fix weird css bug (overflow of radio in modal)
+                      },
                     })}
                   />
                   <Radio
@@ -152,6 +155,9 @@ const Signup = ({
                       "&>span>span:hover": {
                         backgroundColor:
                           theme.colorSchemes.dark.palette.neutral[800],
+                      },
+                      "&>span>span>input": {
+                        position: "static", // Fix weird css bug (overflow of radio in modal)
                       },
                     })}
                   />

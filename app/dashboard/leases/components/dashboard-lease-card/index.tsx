@@ -103,7 +103,7 @@ const DashboardLeaseCard: FunctionComponent<{ lease: ILeaseDetail }> = ({
   /* -------------------------------- TEMPLATE -------------------------------- */
   return (
     <Box sx={{ display: "flex", padding: 1.5 }}>
-      <CardOverflow sx={{ borderRadius: 10, overflow: "hidden" }}>
+      <CardOverflow sx={{ borderRadius: 2, overflow: "hidden" }}>
         <AspectRatio ratio="16/10" sx={{ width: 250 }}>
           <Image
             src={

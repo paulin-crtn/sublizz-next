@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 /* ---------------------------------- UTILS --------------------------------- */
 import { getDataGouvCity } from "../../../utils/fetch/fetchCity";
 /* ----------------------------------- MUI ---------------------------------- */
-import TextField from "@mui/joy/TextField";
+import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
@@ -118,7 +118,7 @@ const InputCitySearch = ({ isLarge = false }) => {
   return (
     <Box sx={{ display: "flex", zIndex: 10 }}>
       <Box sx={{ position: "relative", width: "100%" }}>
-        <TextField
+        <Input
           variant="soft"
           size={isLarge ? "lg" : "md"}
           placeholder="Rechercher une ville"
@@ -136,8 +136,8 @@ const InputCitySearch = ({ isLarge = false }) => {
               sx={{ cursor: "pointer" }}
             />
           }
-          sx={{
-            "& .JoyInput-root": isLarge
+          sx={
+            isLarge
               ? {
                   backgroundColor: "#ffffff",
                   color: "#000000",
@@ -147,8 +147,8 @@ const InputCitySearch = ({ isLarge = false }) => {
                     border: "none",
                   },
                 }
-              : {},
-          }}
+              : {}
+          }
         />
         {showDropdown && (
           <List
@@ -159,9 +159,9 @@ const InputCitySearch = ({ isLarge = false }) => {
             sx={{
               position: "absolute",
               width: "100%",
-              marginTop: 1,
+              marginTop: 0.5,
               backgroundColor: "#000000",
-              borderRadius: 8,
+              borderRadius: 2,
             }}
           >
             {cities.map((city: IResponse) => (
