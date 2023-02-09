@@ -338,7 +338,6 @@ const EditLease = ({ lease }: { lease: ILeaseDetail | undefined }) => {
               rules={{ required: "Ce champs est requis" }}
               render={() => (
                 <Button
-                  variant="soft"
                   color={errors.street ? "danger" : "neutral"}
                   onClick={() => setOpenAddress(true)}
                 >

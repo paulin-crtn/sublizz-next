@@ -22,6 +22,7 @@ import LeaseDates from "../../../../shared/lease-dates";
 import SignAlert from "../../../../shared/sign-alert";
 import Signin from "../../../../shared/signin";
 import Signup from "../../../../shared/signup";
+import ResetPasswordAsk from "../../../../shared/reset-password-ask";
 /* ---------------------------- DYNAMIC COMPONENT --------------------------- */
 const LeaseMapWithNoSSR = dynamic(
   () => import("../../../components/lease-map"),
@@ -66,6 +67,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
   const [openSignin, setOpenSignin] = useState<boolean>(false);
   const [openSignup, setOpenSignup] = useState<boolean>(false);
   const [openSignAlert, setOpenSignAlert] = useState<boolean>(false);
+  const [openPasswordReset, setOpenPasswordReset] = useState<boolean>(false);
   const [signCallback, setSignCallback] = useState<() => any>();
 
   /* ------------------------------- REACT MEMO ------------------------------- */
@@ -89,6 +91,7 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
 
   const switchToPasswordReset = () => {
     setOpenSignin(false);
+    setOpenPasswordReset(true);
   };
 
   const handleContact = () => {
@@ -406,6 +409,19 @@ const LeasePage = ({ lease }: { lease: ILeaseDetail }) => {
               signCallback={signCallback}
               setSignCallback={setSignCallback}
             />
+          </ModalLayout>
+        </ModalDialog>
+      </Modal>
+
+      {/** Password Reset */}
+      <Modal
+        open={openPasswordReset}
+        onClose={() => setOpenPasswordReset(false)}
+      >
+        <ModalDialog size="lg" aria-labelledby="close-modal-password-reset">
+          <ModalClose />
+          <ModalLayout title="Réinitialiser le mot de passe">
+            <ResetPasswordAsk setOpenPasswordReset={setOpenPasswordReset} />
           </ModalLayout>
         </ModalDialog>
       </Modal>
